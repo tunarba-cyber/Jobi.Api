@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Api/">
+    <Project Path="src/Api/LinkedIn.Api/LinkedIn.Api.csproj" Id="0c805063-a14e-4230-9b38-bbcc257e3660" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Jobs/">
+    <Project Path="src/Modules/Jobs/LinkedIn.Modules.Jobs.Contracts/LinkedIn.Modules.Jobs.Contracts.csproj" />
+    <Project Path="src/Modules/Jobs/LinkedIn.Modules.Jobs/LinkedIn.Modules.Jobs.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/LinkedIn.Shared.Abstractions/LinkedIn.Shared.Abstractions.csproj" />
+    <Project Path="src/Shared/LinkedIn.Shared.Infrastructure/LinkedIn.Shared.Infrastructure.csproj" Id="bf121a10-3ece-4df9-baf5-b8af76edce7a" />
+  </Folder>
+</Solution>

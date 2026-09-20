@@ -1,0 +1,322 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LinkedIn.Modules.Jobs</name>
+    </assembly>
+    <members>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.Category">
+            <summary>
+            A job category - "UI/UX Design", "Development", "Marketing".
+            Drives both the hero search dropdown and the "Most Demanding Categories"
+            cards on index.html.
+            </summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.Category.Slug">
+            <summary>
+            URL-safe identifier used in public links (/jobs?category=ui-ux-design).
+            Lets the frontend build clean URLs without exposing database ids.
+            </summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.Category.IconUrl">
+            <summary>Path to the card icon, e.g. "images/icon/icon_01.svg" in the template.</summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.Category.DisplayOrder">
+            <summary>Controls card order on the homepage without relying on insertion order.</summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.Category.IsActive">
+            <summary>Lets an admin hide a category from the site without deleting it.</summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.Category.IsFeatured">
+            <summary>Surfaces the category in the homepage's 6-card grid.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.Job">
+            <summary>
+            A single job posting - the entity everything else on the frontend
+            (index.html's featured carousel, job-list-v*.html, job-details-v*.html,
+            the employer's submit-job dashboard) ultimately points back to.
+            </summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.Job.Slug">
+            <summary>URL-safe identifier, e.g. job-details-v1.html?slug=senior-backend-engineer.</summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.Job.VacancyCount">
+            <summary>How many openings this posting covers.</summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.Job.IsFeatured">
+            <summary>Surfaces the job in index.html's featured-jobs carousel.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Enums.JobStatus">
+            <summary>
+            Draft: being written, never shown on any public page.
+            Active: live - shown on index.html, job-list-v*.html and job-details-v*.html.
+            Closed: past its deadline or filled - kept for records, hidden from public lists.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Enums.JobType">
+            <summary>Drives the "Job Type" filter on every job-list-v*.html page.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Errors.CategoryErrors">
+            <summary>
+            Every way a category operation can fail, declared in one place with stable
+            codes the frontend can switch on (instead of parsing English error strings).
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Errors.JobErrors">
+            <summary>
+            Every way a job operation can fail, declared in one place with stable codes
+            the frontend can switch on (instead of parsing English error strings).
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Categories.CreateCategory.CreateCategoryCommand">
+            <summary>Slug is optional - it is derived from Name when omitted.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Categories.CreateCategory.CreateCategoryCommand.#ctor(System.String,System.String,System.String,System.String,System.Int32,System.Boolean)">
+            <summary>Slug is optional - it is derived from Name when omitted.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Categories.Dtos.CategoryDto">
+            <summary>
+            Exactly what a "Most Demanding Categories" card on index.html needs.
+            Entities are never returned directly from endpoints - that would leak audit
+            columns and create accidental coupling to the database schema.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Categories.Dtos.CategoryDto.#ctor(System.Int64,System.String,System.String,System.String,System.String,System.Int32,System.Boolean,System.Boolean,System.Int32)">
+            <summary>
+            Exactly what a "Most Demanding Categories" card on index.html needs.
+            Entities are never returned directly from endpoints - that would leak audit
+            columns and create accidental coupling to the database schema.
+            </summary>
+        </member>
+        <member name="F:LinkedIn.Modules.Jobs.Features.Categories.CategoryMappings.ToDto">
+            <summary>
+            Projection used inside EF queries so SQL selects only the needed columns -
+            no full-entity materialisation, no AutoMapper dependency.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Categories.GetCategories.GetCategoriesQuery">
+            <summary>
+            Serves two callers at once:
+              index.html cards  -> ?onlyFeatured=true&amp;pageSize=6
+              admin list        -> ?search=...&amp;page=2&amp;includeInactive=true
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Categories.GetCategoryBySlug.GetCategoryBySlugQuery">
+            <summary>
+            Lookup by slug, not id, so public URLs stay readable and stable:
+            /job-grid-v1.html?category=ui-ux-design
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Categories.GetCategoryBySlug.GetCategoryBySlugQuery.#ctor(System.String)">
+            <summary>
+            Lookup by slug, not id, so public URLs stay readable and stable:
+            /job-grid-v1.html?category=ui-ux-design
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Categories.SlugGenerator">
+            <summary>
+            Turns "UI/UX Design" into "ui-ux-design". Handles the Azerbaijani and Turkish
+            characters (ə, ç, ğ, ı, ö, ş, ü) that a job board in Baku will absolutely hit.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Categories.SlugGenerator.NonSlugCharacters">
+            <remarks>
+            Pattern:<br/>
+            <code>[^a-z0-9]+</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match a character in the set [^0-9a-z] atomically at least once.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Categories.SlugGenerator.MultipleHyphens">
+            <remarks>
+            Pattern:<br/>
+            <code>-{2,}</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match '-' atomically at least twice.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Home.Dtos.HomeSummaryDto">
+            <summary>
+            Everything index.html needs in one round trip: the stats counters, the
+            "Most Demanding Categories" cards, and the featured-jobs carousel.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Home.Dtos.HomeSummaryDto.#ctor(System.Int32,System.Int32,System.Int32,System.Collections.Generic.IReadOnlyList{LinkedIn.Modules.Jobs.Features.Categories.Dtos.CategoryDto},System.Collections.Generic.IReadOnlyList{LinkedIn.Modules.Jobs.Features.Jobs.Dtos.JobDto})">
+            <summary>
+            Everything index.html needs in one round trip: the stats counters, the
+            "Most Demanding Categories" cards, and the featured-jobs carousel.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Home.GetHomeSummary.GetHomeSummaryQuery">
+            <summary>
+            Backs the whole homepage in one call instead of the frontend firing three or
+            four separate requests (categories, jobs, counters) on page load.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Home.GetHomeSummary.GetHomeSummaryQuery.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Backs the whole homepage in one call instead of the frontend firing three or
+            four separate requests (categories, jobs, counters) on page load.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Jobs.CreateJob.CreateJobCommand">
+            <summary>Slug is optional - it is derived from Title when omitted.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.CreateJob.CreateJobCommand.#ctor(System.String,System.String,System.String,System.Int64,System.String,System.String,LinkedIn.Modules.Jobs.Domain.Enums.JobType,LinkedIn.Modules.Jobs.Domain.Enums.ExperienceLevel,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Int32,System.Nullable{System.DateTimeOffset},System.Boolean)">
+            <summary>Slug is optional - it is derived from Title when omitted.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Jobs.Dtos.JobDto">
+            <summary>
+            What a job card / job-details page needs. CategoryName is denormalised here
+            so the frontend never has to make a second call just to display it.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.Dtos.JobDto.#ctor(System.Int64,System.String,System.String,System.String,System.Int64,System.String,System.String,System.String,LinkedIn.Modules.Jobs.Domain.Enums.JobType,LinkedIn.Modules.Jobs.Domain.Enums.ExperienceLevel,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Int32,System.Nullable{System.DateTimeOffset},LinkedIn.Modules.Jobs.Domain.Enums.JobStatus,System.Boolean,System.DateTimeOffset)">
+            <summary>
+            What a job card / job-details page needs. CategoryName is denormalised here
+            so the frontend never has to make a second call just to display it.
+            </summary>
+        </member>
+        <member name="F:LinkedIn.Modules.Jobs.Features.Jobs.JobMappings.ToDto">
+            <summary>
+            Projection used inside EF queries. Referencing job.Category.Name here
+            makes EF Core generate the JOIN automatically - no .Include() needed.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.JobMappings.ToJobDto(LinkedIn.Modules.Jobs.Domain.Entities.Job,System.String)">
+            <summary>
+            Used right after Create/Update, where we already hold the tracked entity
+            in memory. categoryName is passed in explicitly (from the category we
+            already loaded to validate CategoryId) to avoid a second round trip.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Jobs.GetJobBySlug.GetJobBySlugQuery">
+            <summary>
+            Lookup by slug, not id, so public URLs stay readable and stable:
+            job-details-v1.html?slug=senior-backend-engineer
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.GetJobBySlug.GetJobBySlugQuery.#ctor(System.String)">
+            <summary>
+            Lookup by slug, not id, so public URLs stay readable and stable:
+            job-details-v1.html?slug=senior-backend-engineer
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Jobs.GetJobs.GetJobsQuery">
+            <summary>
+            Serves every public job surface with one query:
+              index.html featured carousel -> ?onlyFeatured=true&amp;pageSize=6
+              job-list-v*.html             -> ?categorySlug=...&amp;jobType=Remote&amp;search=...
+            Defaults to Active-only so drafts and closed jobs never leak onto public pages;
+            pass includeAllStatuses=true for an admin/employer view.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.JobsDbContextFactory">
+            <summary>
+            Lets you run "dotnet ef migrations add" from inside the module project without
+            booting the whole API host. The connection string here is design-time only and
+            is never used at runtime.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.JobsSchema">
+            <summary>Schema owned by the Jobs module. One database, isolated schemas per module.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.JobsModule">
+            <summary>
+            Self-registering module. The API host finds this by scanning assemblies, so
+            Program.cs never has to know the Jobs module exists.
+            </summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.NonSlugCharacters_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the NonSlugCharacters method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.NonSlugCharacters_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.NonSlugCharacters_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.NonSlugCharacters_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.NonSlugCharacters_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.NonSlugCharacters_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.NonSlugCharacters_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.NonSlugCharacters_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.NonSlugCharacters_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MultipleHyphens_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the MultipleHyphens method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.MultipleHyphens_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MultipleHyphens_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MultipleHyphens_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MultipleHyphens_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.MultipleHyphens_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MultipleHyphens_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MultipleHyphens_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.MultipleHyphens_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_FF0300000000FEFFFF07">
+            <summary>Supports searching for characters in or not in "0123456789abcdefghijklmnopqrstuvwxyz".</summary>
+        </member>
+    </members>
+</doc>

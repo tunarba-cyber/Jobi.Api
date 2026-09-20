@@ -1,0 +1,16 @@
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\bin\Debug\net8.0\LinkedIn.Shared.Abstractions.deps.json
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\bin\Debug\net8.0\LinkedIn.Shared.Abstractions.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\bin\Debug\net8.0\LinkedIn.Shared.Abstractions.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\bin\Debug\net8.0\LinkedIn.Shared.Abstractions.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\LinkedIn.Shared.Abstractions.csproj.AssemblyReference.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\LinkedIn.Shared.Abstractions.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\LinkedIn.Shared.Abstractions.AssemblyInfoInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\LinkedIn.Shared.Abstractions.AssemblyInfo.cs
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\LinkedIn.Shared.Abstractions.csproj.CoreCompileInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\LinkedIn.Shared.Abstractions.sourcelink.json
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\LinkedIn.Shared.Abstractions.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\refint\LinkedIn.Shared.Abstractions.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\LinkedIn.Shared.Abstractions.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\LinkedIn.Shared.Abstractions.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\ref\LinkedIn.Shared.Abstractions.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Shared\LinkedIn.Shared.Abstractions\obj\Debug\net8.0\LinkedIn.E536B998.Up2Date

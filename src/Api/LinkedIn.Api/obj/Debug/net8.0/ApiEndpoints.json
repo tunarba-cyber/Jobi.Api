@@ -1,0 +1,495 @@
+[
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Categories.CategoryEndpoints",
+    "Method": "GetCategories",
+    "RelativePath": "api/categories/",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "onlyFeatured",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "includeInactive",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "sortBy",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "descending",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Shared.Abstractions.Paging.PagedResult\u00601[[LinkedIn.Modules.Jobs.Features.Categories.Dtos.CategoryDto, LinkedIn.Modules.Jobs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Categories"
+    ],
+    "EndpointName": "GetCategories",
+    "Summary": "Lists categories. Use onlyFeatured=true\u0026pageSize=6 for the homepage cards."
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Categories.CategoryEndpoints",
+    "Method": "CreateCategory",
+    "RelativePath": "api/categories/",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "LinkedIn.Modules.Jobs.Features.Categories.CreateCategory.CreateCategoryCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Categories.Dtos.CategoryDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Http.HttpValidationProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 409
+      }
+    ],
+    "Tags": [
+      "Categories"
+    ],
+    "EndpointName": "CreateCategory"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Categories.CategoryEndpoints",
+    "Method": "UpdateCategory",
+    "RelativePath": "api/categories/{id:long}",
+    "HttpMethod": "PUT",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "command",
+        "Type": "LinkedIn.Modules.Jobs.Features.Categories.UpdateCategory.UpdateCategoryCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Categories.Dtos.CategoryDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Http.HttpValidationProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Categories"
+    ],
+    "EndpointName": "UpdateCategory"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Categories.CategoryEndpoints",
+    "Method": "DeleteCategory",
+    "RelativePath": "api/categories/{id:long}",
+    "HttpMethod": "DELETE",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Categories"
+    ],
+    "EndpointName": "DeleteCategory"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Categories.CategoryEndpoints",
+    "Method": "GetCategoryBySlug",
+    "RelativePath": "api/categories/{slug}",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slug",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Categories.Dtos.CategoryDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Categories"
+    ],
+    "EndpointName": "GetCategoryBySlug"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Home.HomeEndpoints",
+    "Method": "GetHomeSummary",
+    "RelativePath": "api/home/summary",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "featuredCategoriesCount",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "featuredJobsCount",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Home.Dtos.HomeSummaryDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Home"
+    ],
+    "EndpointName": "GetHomeSummary",
+    "Summary": "Everything index.html needs in one call: counters, featured categories, featured jobs."
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Jobs.JobEndpoints",
+    "Method": "GetJobs",
+    "RelativePath": "api/jobs/",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "categorySlug",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "jobType",
+        "Type": "System.Nullable\u00601[[LinkedIn.Modules.Jobs.Domain.Enums.JobType, LinkedIn.Modules.Jobs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "experienceLevel",
+        "Type": "System.Nullable\u00601[[LinkedIn.Modules.Jobs.Domain.Enums.ExperienceLevel, LinkedIn.Modules.Jobs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "location",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "onlyFeatured",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "includeAllStatuses",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "sortBy",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "descending",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Shared.Abstractions.Paging.PagedResult\u00601[[LinkedIn.Modules.Jobs.Features.Jobs.Dtos.JobDto, LinkedIn.Modules.Jobs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Jobs"
+    ],
+    "EndpointName": "GetJobs",
+    "Summary": "Lists jobs. Use onlyFeatured=true\u0026pageSize=6 for the homepage carousel."
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Jobs.JobEndpoints",
+    "Method": "CreateJob",
+    "RelativePath": "api/jobs/",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "LinkedIn.Modules.Jobs.Features.Jobs.CreateJob.CreateJobCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Jobs.Dtos.JobDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Http.HttpValidationProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 409
+      }
+    ],
+    "Tags": [
+      "Jobs"
+    ],
+    "EndpointName": "CreateJob"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Jobs.JobEndpoints",
+    "Method": "UpdateJob",
+    "RelativePath": "api/jobs/{id:long}",
+    "HttpMethod": "PUT",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      },
+      {
+        "Name": "command",
+        "Type": "LinkedIn.Modules.Jobs.Features.Jobs.UpdateJob.UpdateJobCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Jobs.Dtos.JobDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Http.HttpValidationProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Jobs"
+    ],
+    "EndpointName": "UpdateJob"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Jobs.JobEndpoints",
+    "Method": "DeleteJob",
+    "RelativePath": "api/jobs/{id:long}",
+    "HttpMethod": "DELETE",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Jobs"
+    ],
+    "EndpointName": "DeleteJob"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Jobs.JobEndpoints",
+    "Method": "GetJobBySlug",
+    "RelativePath": "api/jobs/{slug}",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slug",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Jobs.Dtos.JobDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Jobs"
+    ],
+    "EndpointName": "GetJobBySlug"
+  }
+]
