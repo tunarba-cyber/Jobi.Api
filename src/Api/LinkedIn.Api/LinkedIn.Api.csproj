@@ -12,6 +12,7 @@
 		<PackageReference Include="FluentValidation" Version="11.11.0" />
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.11" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
 		<PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
@@ -25,9 +26,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Modules\Jobs\LinkedIn.Modules.Jobs\LinkedIn.Modules.Jobs.csproj" />
-	  <ProjectReference Include="..\..\Shared\LinkedIn.Shared.Abstractions\LinkedIn.Shared.Abstractions.csproj" />
-	  <ProjectReference Include="..\..\Shared\LinkedIn.Shared.Infrastructure\LinkedIn.Shared.Infrastructure.csproj" />
+		<ProjectReference Include="..\..\Modules\Users\LinkedIn.Users.Modules\LinkedIn.Users.Modules.csproj" />
+		<ProjectReference Include="..\..\Shared\LinkedIn.Shared.Abstractions\LinkedIn.Shared.Abstractions.csproj" />
+		<ProjectReference Include="..\..\Shared\LinkedIn.Shared.Infrastructure\LinkedIn.Shared.Infrastructure.csproj" />
+		<ProjectReference Include="..\..\Modules\Jobs\LinkedIn.Modules.Jobs\LinkedIn.Modules.Jobs.csproj" />
+		<ProjectReference Include="..\..\Modules\Users\LinkedIn.Modules.Users\LinkedIn.Modules.Users.csproj" />
+
+		<!-- Adding a module = adding a reference here. Nothing else. -->
+
 	</ItemGroup>
 
 </Project>

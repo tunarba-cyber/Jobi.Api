@@ -1,8 +1,12 @@
 using LinkedIn.Api.Extensions;
 using LinkedIn.Api.Middleware;
+using LinkedIn.Modules.Users.Infrastructure.Tokens;
 using LinkedIn.Shared.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +32,47 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.AddLinkedInCors(builder.Configuration);
 
+// ---------------------------------------------------------------------------
+// Authentication / Authorization
+// ---------------------------------------------------------------------------
+// JwtOptions is normally bound inside UsersModule.RegisterServices, but the
+// signing key is needed here too, before that runs - read it directly from
+// configuration for this one setup step.
+var jwtSection = builder.Configuration.GetSection(JwtOptions.SectionName);
+var jwtSigningKey = jwtSection["SigningKey"];
+if (string.IsNullOrWhiteSpace(jwtSigningKey))
+{
+    throw new InvalidOperationException(
+        "Jwt:SigningKey is not configured. Set it via user-secrets or an environment " +
+        "variable - never commit a real signing key to appsettings.json. " +
+        "Example: dotnet user-secrets set \"Jwt:SigningKey\" \"a-long-random-string\"");
+}
+
+builder.Services
+    .AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwtSection["Issuer"],
+            ValidateAudience = true,
+            ValidAudience = jwtSection["Audience"],
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSigningKey)),
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.FromSeconds(30) // small tolerance, not the 5-minute default
+        };
+    });
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("RequireEmployer", policy => policy.RequireRole("Employer"))
+    .AddPolicy("RequireCandidate", policy => policy.RequireRole("Candidate"));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -36,6 +81,27 @@ builder.Services.AddSwaggerGen(options =>
         Title = "LinkedIn API",
         Version = "v1",
         Description = "Backend for the LinkedIn job board."
+    });
+
+    // Lets Swagger UI send "Authorization: Bearer <token>" on Try It Out calls.
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Enter: Bearer {your JWT}"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+            },
+            Array.Empty<string>()
+        }
     });
 });
 
@@ -67,6 +133,9 @@ else
 
 app.UseSerilogRequestLogging();
 app.UseCors(CorsExtensions.FrontendPolicy);
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapHealthChecks("/health");
 app.MapModuleEndpoints(modules);

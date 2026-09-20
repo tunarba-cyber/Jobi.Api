@@ -8,6 +8,9 @@
     <Project Path="src/Modules/Jobs/LinkedIn.Modules.Jobs.Contracts/LinkedIn.Modules.Jobs.Contracts.csproj" />
     <Project Path="src/Modules/Jobs/LinkedIn.Modules.Jobs/LinkedIn.Modules.Jobs.csproj" />
   </Folder>
+  <Folder Name="/src/Modules/Users/">
+    <Project Path="src/Modules/Users/LinkedIn.Users.Modules/LinkedIn.Users.Modules.csproj" Id="32e9afd8-7d14-4e61-8a26-9d00912ae0f6" />
+  </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/LinkedIn.Shared.Abstractions/LinkedIn.Shared.Abstractions.csproj" />
     <Project Path="src/Shared/LinkedIn.Shared.Infrastructure/LinkedIn.Shared.Infrastructure.csproj" Id="bf121a10-3ece-4df9-baf5-b8af76edce7a" />

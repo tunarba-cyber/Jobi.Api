@@ -1,4 +1,5 @@
 using LinkedIn.Modules.Jobs.Infrastructure.Persistence;
+using LinkedIn.Modules.Users.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace LinkedIn.Api.Extensions;
@@ -16,5 +17,8 @@ public static class MigrationExtensions
 
         var jobsDb = scope.ServiceProvider.GetRequiredService<JobsDbContext>();
         await jobsDb.Database.MigrateAsync();
+
+        var usersDb = scope.ServiceProvider.GetRequiredService<UsersDbContext>();
+        await usersDb.Database.MigrateAsync();
     }
 }

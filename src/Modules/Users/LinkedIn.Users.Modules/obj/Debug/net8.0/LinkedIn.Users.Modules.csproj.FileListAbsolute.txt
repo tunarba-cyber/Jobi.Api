@@ -1,0 +1,6 @@
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Users.Modules\obj\Debug\net8.0\LinkedIn.Users.Modules.csproj.AssemblyReference.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Users.Modules\obj\Debug\net8.0\LinkedIn.Users.Modules.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Users.Modules\obj\Debug\net8.0\LinkedIn.Users.Modules.AssemblyInfoInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Users.Modules\obj\Debug\net8.0\LinkedIn.Users.Modules.AssemblyInfo.cs
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Users.Modules\obj\Debug\net8.0\LinkedIn.Users.Modules.csproj.CoreCompileInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Users.Modules\obj\Debug\net8.0\LinkedIn.Users.Modules.sourcelink.json

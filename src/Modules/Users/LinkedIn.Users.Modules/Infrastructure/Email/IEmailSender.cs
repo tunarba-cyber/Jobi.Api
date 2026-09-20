@@ -1,0 +1,11 @@
+namespace LinkedIn.Modules.Users.Infrastructure.Email;
+
+/// <summary>
+/// Everything in Features/ depends on this interface, never on how mail is
+/// actually delivered. Swapping DevEmailSender for a real provider later
+/// (SendGrid, SES, SMTP) is a one-file, one-line-in-UsersModule change.
+/// </summary>
+public interface IEmailSender
+{
+    Task SendAsync(string toEmail, string subject, string htmlBody, CancellationToken cancellationToken);
+}
