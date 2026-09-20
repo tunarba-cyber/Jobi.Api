@@ -1977,6 +1977,30 @@
           "bin/placeholder/LinkedIn.Modules.Jobs.Contracts.dll": {}
         }
       },
+      "LinkedIn.Modules.Users/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "FluentValidation": "11.11.0",
+          "LinkedIn.Shared.Abstractions": "1.0.0",
+          "LinkedIn.Shared.Infrastructure": "1.0.0",
+          "MediatR": "12.4.1",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.11",
+          "Microsoft.EntityFrameworkCore": "8.0.11",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.11",
+          "Microsoft.IdentityModel.Tokens": "8.0.1",
+          "System.IdentityModel.Tokens.Jwt": "8.0.1"
+        },
+        "compile": {
+          "bin/placeholder/LinkedIn.Modules.Users.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/LinkedIn.Modules.Users.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "LinkedIn.Shared.Abstractions/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -2008,30 +2032,6 @@
         },
         "runtime": {
           "bin/placeholder/LinkedIn.Shared.Infrastructure.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
-      "LinkedIn.Users.Modules/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "FluentValidation": "11.11.0",
-          "LinkedIn.Shared.Abstractions": "1.0.0",
-          "LinkedIn.Shared.Infrastructure": "1.0.0",
-          "MediatR": "12.4.1",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.11",
-          "Microsoft.EntityFrameworkCore": "8.0.11",
-          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.11",
-          "Microsoft.IdentityModel.Tokens": "8.0.1",
-          "System.IdentityModel.Tokens.Jwt": "8.0.1"
-        },
-        "compile": {
-          "bin/placeholder/LinkedIn.Users.Modules.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/LinkedIn.Users.Modules.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -5190,6 +5190,11 @@
       "path": "../../Modules/Jobs/LinkedIn.Modules.Jobs.Contracts/LinkedIn.Modules.Jobs.Contracts.csproj",
       "msbuildProject": "../../Modules/Jobs/LinkedIn.Modules.Jobs.Contracts/LinkedIn.Modules.Jobs.Contracts.csproj"
     },
+    "LinkedIn.Modules.Users/1.0.0": {
+      "type": "project",
+      "path": "../../Modules/Users/LinkedIn.Users.Modules/LinkedIn.Modules.Users.csproj",
+      "msbuildProject": "../../Modules/Users/LinkedIn.Users.Modules/LinkedIn.Modules.Users.csproj"
+    },
     "LinkedIn.Shared.Abstractions/1.0.0": {
       "type": "project",
       "path": "../../Shared/LinkedIn.Shared.Abstractions/LinkedIn.Shared.Abstractions.csproj",
@@ -5199,22 +5204,16 @@
       "type": "project",
       "path": "../../Shared/LinkedIn.Shared.Infrastructure/LinkedIn.Shared.Infrastructure.csproj",
       "msbuildProject": "../../Shared/LinkedIn.Shared.Infrastructure/LinkedIn.Shared.Infrastructure.csproj"
-    },
-    "LinkedIn.Users.Modules/1.0.0": {
-      "type": "project",
-      "path": "../../Modules/Users/LinkedIn.Users.Modules/LinkedIn.Users.Modules.csproj",
-      "msbuildProject": "../../Modules/Users/LinkedIn.Users.Modules/LinkedIn.Users.Modules.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Users\\LinkedIn.Modules.Users.csproj",
       "FluentValidation >= 11.11.0",
       "FluentValidation.DependencyInjectionExtensions >= 11.11.0",
       "LinkedIn.Modules.Jobs >= 1.0.0",
+      "LinkedIn.Modules.Users >= 1.0.0",
       "LinkedIn.Shared.Abstractions >= 1.0.0",
       "LinkedIn.Shared.Infrastructure >= 1.0.0",
-      "LinkedIn.Users.Modules >= 1.0.0",
       "MediatR >= 12.4.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.11",
       "Microsoft.AspNetCore.OpenApi >= 8.0.11",
@@ -5260,11 +5259,8 @@
             "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj": {
               "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj"
             },
-            "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Users\\LinkedIn.Modules.Users.csproj": {
-              "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Users\\LinkedIn.Modules.Users.csproj"
-            },
-            "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Users.Modules.csproj": {
-              "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Users.Modules.csproj"
+            "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.Users.csproj": {
+              "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.Users.csproj"
             },
             "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Abstractions\\LinkedIn.Shared.Abstractions.csproj": {
               "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Abstractions\\LinkedIn.Shared.Abstractions.csproj"
@@ -5355,16 +5351,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1104",
-      "level": "Error",
-      "message": "Unable to find project 'C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Users\\LinkedIn.Modules.Users.csproj'. Check that the project reference is valid and that the project file exists.",
-      "libraryId": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Users\\LinkedIn.Modules.Users.csproj",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }

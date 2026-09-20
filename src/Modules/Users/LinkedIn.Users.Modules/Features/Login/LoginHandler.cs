@@ -7,6 +7,7 @@ using LinkedIn.Shared.Abstractions.Primitives;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using RefreshTokenEntity = LinkedIn.Modules.Users.Domain.Entities.RefreshToken;
 
 namespace LinkedIn.Modules.Users.Features.Login;
 
@@ -61,7 +62,7 @@ internal sealed class LoginHandler : IRequestHandler<LoginCommand, Result<AuthRe
         var accessToken = _tokenService.GenerateAccessToken(user);
         var rawRefreshToken = _tokenService.GenerateRefreshTokenValue();
 
-        _db.RefreshTokens.Add(new RefreshToken
+        _db.RefreshTokens.Add(new RefreshTokenEntity
         {
             AppUserId = user.Id,
             TokenHash = _tokenService.Hash(rawRefreshToken),

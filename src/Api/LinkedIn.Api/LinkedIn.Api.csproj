@@ -5,7 +5,8 @@
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-	</PropertyGroup>
+	  <UserSecretsId>09a2883f-f484-41f5-bbfe-a23a53637daa</UserSecretsId>
+  </PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="MediatR" Version="12.4.1" />
@@ -26,14 +27,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Modules\Users\LinkedIn.Users.Modules\LinkedIn.Users.Modules.csproj" />
-		<ProjectReference Include="..\..\Shared\LinkedIn.Shared.Abstractions\LinkedIn.Shared.Abstractions.csproj" />
-		<ProjectReference Include="..\..\Shared\LinkedIn.Shared.Infrastructure\LinkedIn.Shared.Infrastructure.csproj" />
-		<ProjectReference Include="..\..\Modules\Jobs\LinkedIn.Modules.Jobs\LinkedIn.Modules.Jobs.csproj" />
-		<ProjectReference Include="..\..\Modules\Users\LinkedIn.Modules.Users\LinkedIn.Modules.Users.csproj" />
-
-		<!-- Adding a module = adding a reference here. Nothing else. -->
-
+	  <ProjectReference Include="..\..\Modules\Jobs\LinkedIn.Modules.Jobs\LinkedIn.Modules.Jobs.csproj" />
+	  <ProjectReference Include="..\..\Modules\Users\LinkedIn.Users.Modules\LinkedIn.Modules.Users.csproj" />
+	  <ProjectReference Include="..\..\Shared\LinkedIn.Shared.Abstractions\LinkedIn.Shared.Abstractions.csproj" />
+	  <ProjectReference Include="..\..\Shared\LinkedIn.Shared.Infrastructure\LinkedIn.Shared.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

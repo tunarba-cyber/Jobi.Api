@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using RefreshTokenEntity = LinkedIn.Modules.Users.Domain.Entities.RefreshToken;
 
 namespace LinkedIn.Modules.Users.Features.RefreshToken;
 
@@ -75,7 +76,7 @@ internal sealed class RefreshTokenHandler : IRequestHandler<RefreshTokenCommand,
         storedToken.RevokedAtUtc = now;
         storedToken.ReplacedByTokenHash = newHash;
 
-        _db.RefreshTokens.Add(new RefreshToken
+        _db.RefreshTokens.Add(new RefreshTokenEntity
         {
             AppUserId = user.Id,
             TokenHash = newHash,

@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LinkedIn.Users.Modules</name>
+    </assembly>
+    <members>
+        <member name="T:LinkedIn.Modules.Users.Domain.Entities.AppUser">
+            <summary>
+            Password hashing, lockout, email-confirmation tokens and password-reset
+            tokens all come from IdentityUser/UserManager - none of that is
+            hand-rolled here. FirstName/LastName/Role are the only additions this
+            app actually needs on top of it.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Domain.Entities.RefreshToken">
+            <summary>
+            Only a HASH of the token is stored (same principle as password hashing) -
+            if the database ever leaks, stored rows cannot be replayed as live tokens.
+            Rotation-on-use: RefreshTokenHandler revokes the row it consumes and issues
+            a brand new one rather than letting the same refresh token be reused
+            indefinitely, so a leaked-then-reused token is detectable (the legitimate
+            user's next refresh attempt fails because their token was already revoked
+            by someone else's use of it).
+            </summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Users.Domain.Entities.RefreshToken.ReplacedByTokenHash">
+            <summary>Set when this token was consumed by a refresh call and replaced.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Domain.Enums.UserRole">
+            <summary>
+            A plain enum column rather than full ASP.NET Identity Roles (IdentityRole,
+            UserRole join table). Two fixed roles don't need a whole role-management
+            system - revisit only if roles ever need to be dynamic/admin-editable.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Features.ForgotPassword.ForgotPasswordCommand">
+            <summary>Always returns Success, regardless of whether the email exists - see UserErrors notes on enumeration.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Users.Features.ForgotPassword.ForgotPasswordCommand.#ctor(System.String)">
+            <summary>Always returns Success, regardless of whether the email exists - see UserErrors notes on enumeration.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Features.Logout.LogoutCommand">
+            <summary>Revokes one specific refresh token - only that session is logged out, not every device.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Users.Features.Logout.LogoutCommand.#ctor(System.String)">
+            <summary>Revokes one specific refresh token - only that session is logged out, not every device.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Features.Register.RegisterCommand">
+            <summary>
+            Returns no tokens - registration does NOT log the user in. They must
+            confirm their email first (see ConfirmEmail), then log in separately.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Users.Features.Register.RegisterCommand.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Returns no tokens - registration does NOT log the user in. They must
+            confirm their email first (see ConfirmEmail), then log in separately.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Infrastructure.Email.DevEmailSender">
+            <summary>
+            Local-development stand-in for a real mail provider. Writes each email as an
+            .html file under ./dev-emails/ so confirmation links and reset tokens can be
+            opened directly in a browser while testing, with no SMTP account needed.
+            Swap this for a real IEmailSender (SendGrid/SES/SMTP) before deploying -
+            nothing outside this file needs to change to do that.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Infrastructure.Email.IEmailSender">
+            <summary>
+            Everything in Features/ depends on this interface, never on how mail is
+            actually delivered. Swapping DevEmailSender for a real provider later
+            (SendGrid, SES, SMTP) is a one-file, one-line-in-UsersModule change.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Infrastructure.Persistence.UsersDbContext">
+            <summary>
+            IdentityUserContext (not the full IdentityDbContext) - this app uses a plain
+            UserRole enum instead of ASP.NET Identity's Role/UserRole/RoleClaim tables,
+            so there is no reason to create tables for a role system that is never used.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Infrastructure.Persistence.UsersDbContextFactory">
+            <summary>
+            Lets "Add-Migration -Context UsersDbContext" run without booting the API
+            host, same as JobsDbContextFactory. Design-time connection only - never
+            used at runtime.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Users.Infrastructure.Tokens.ITokenService.GenerateAccessToken(LinkedIn.Modules.Users.Domain.Entities.AppUser)">
+            <summary>Short-lived signed JWT. Carries user id, email, and role as claims.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Users.Infrastructure.Tokens.ITokenService.GenerateRefreshTokenValue">
+            <summary>Cryptographically random raw value - this is what the client stores.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Users.Infrastructure.Tokens.ITokenService.Hash(System.String)">
+            <summary>SHA-256 hash of a raw value - this is what gets stored in the database.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Infrastructure.Tokens.JwtOptions">
+            <summary>
+            Bound from the "Jwt" configuration section. SigningKey must come from
+            user-secrets/environment/a real secrets manager in every environment -
+            never committed to appsettings.json. This is the fix for the exact issue
+            flagged in the old Pronia review, where the signing key was a literal
+            string in source code.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.UsersModule">
+            <summary>
+            Self-registering module - same contract as JobsModule. This is what makes
+            a "half-registered module" (referenced but never wired up, which is exactly
+            what happened to Users in the old Pronia codebase) structurally impossible:
+            referencing this assembly from the host is the only step required.
+            </summary>
+        </member>
+    </members>
+</doc>
