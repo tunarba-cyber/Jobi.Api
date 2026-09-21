@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>LinkedIn.Modules.USers</name>
+        <name>LinkedIn.Modules.Users</name>
     </assembly>
     <members>
         <member name="T:LinkedIn.Modules.Users.Domain.Entities.AppUser">

@@ -5192,8 +5192,8 @@
     },
     "LinkedIn.Modules.Users/1.0.0": {
       "type": "project",
-      "path": "../../Modules/Users/LinkedIn.Users.Modules/LinkedIn.Modules.Users.csproj",
-      "msbuildProject": "../../Modules/Users/LinkedIn.Users.Modules/LinkedIn.Modules.Users.csproj"
+      "path": "../../Modules/Users/LinkedIn.Users.Modules/LinkedIn.Modules.USers.csproj",
+      "msbuildProject": "../../Modules/Users/LinkedIn.Users.Modules/LinkedIn.Modules.USers.csproj"
     },
     "LinkedIn.Shared.Abstractions/1.0.0": {
       "type": "project",

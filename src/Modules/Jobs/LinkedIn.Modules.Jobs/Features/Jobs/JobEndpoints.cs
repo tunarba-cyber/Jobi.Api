@@ -8,6 +8,7 @@ using LinkedIn.Modules.Jobs.Features.Jobs.UpdateJob;
 using LinkedIn.Shared.Abstractions.Paging;
 using LinkedIn.Shared.Infrastructure.Http;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -38,19 +39,31 @@ internal static class JobEndpoints
             .Produces<JobDto>(StatusCodes.Status201Created)
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status404NotFound)
-            .ProducesProblem(StatusCodes.Status409Conflict);
-            // .RequireAuthorization("Employer") - enabled once the Users module lands
+            .ProducesProblem(StatusCodes.Status409Conflict)
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status403Forbidden)
+            .RequireAuthorization("RequireEmployer");
 
         group.MapPut("/{id:long}", UpdateJob)
             .WithName("UpdateJob")
             .Produces<JobDto>()
             .ProducesValidationProblem()
-            .ProducesProblem(StatusCodes.Status404NotFound);
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status403Forbidden)
+            .RequireAuthorization("RequireEmployer");
+            // NOTE: this only proves "some employer" is calling - it does NOT yet
+            // check that THIS employer owns THIS job. That needs the Company
+            // entity (to know which jobs belong to which employer) and is the
+            // next piece of authorization work, not covered by this policy alone.
 
         group.MapDelete("/{id:long}", DeleteJob)
             .WithName("DeleteJob")
             .Produces(StatusCodes.Status204NoContent)
-            .ProducesProblem(StatusCodes.Status404NotFound);
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status403Forbidden)
+            .RequireAuthorization("RequireEmployer");
     }
 
     private static async Task<IResult> GetJobs(
