@@ -1,0 +1,13 @@
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.deps.json
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.AssemblyInfoInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.AssemblyInfo.cs
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.csproj.CoreCompileInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.sourcelink.json
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\refint\LinkedIn.Modules.Blogs.Contracts.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\ref\LinkedIn.Modules.Blogs.Contracts.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\LinkedIn.F1461ADC.Up2Date

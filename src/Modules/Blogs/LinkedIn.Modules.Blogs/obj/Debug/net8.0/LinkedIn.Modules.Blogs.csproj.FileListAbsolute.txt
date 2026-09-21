@@ -1,0 +1,16 @@
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Blogs.deps.json
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Blogs.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Blogs.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.csproj.AssemblyReference.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.AssemblyInfoInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.AssemblyInfo.cs
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.csproj.CoreCompileInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.sourcelink.json
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.9BA165D6.Up2Date
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\refint\LinkedIn.Modules.Blogs.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\ref\LinkedIn.Modules.Blogs.dll

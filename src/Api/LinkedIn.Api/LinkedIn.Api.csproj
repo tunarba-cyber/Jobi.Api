@@ -27,6 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\Modules\Blogs\LinkedIn.Modules.Blogs\LinkedIn.Modules.Blogs.csproj" />
 	  <ProjectReference Include="..\..\Modules\Jobs\LinkedIn.Modules.Jobs\LinkedIn.Modules.Jobs.csproj" />
 	  <ProjectReference Include="..\..\Modules\Users\LinkedIn.Users.Modules\LinkedIn.Modules.Users.csproj" />
 	  <ProjectReference Include="..\..\Shared\LinkedIn.Shared.Abstractions\LinkedIn.Shared.Abstractions.csproj" />
