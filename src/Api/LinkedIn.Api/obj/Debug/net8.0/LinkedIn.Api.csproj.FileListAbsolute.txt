@@ -180,3 +180,9 @@ C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\Microsof
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.USers.dll
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.USers.pdb
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.USers.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Blogs.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Blogs.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Blogs.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.xml

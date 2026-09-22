@@ -13,12 +13,12 @@ public static class BlogsModule
     public static IServiceCollection AddBlogsModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<BlogsDbContext>(options =>
-            options.UseNpgsql(
+            options.UseSqlServer(
                 configuration.GetConnectionString("Default"),
-                npgsql => npgsql.MigrationsHistoryTable("__EFMigrationsHistory", BlogsDbContext.Schema)));
+                sql => sql.MigrationsHistoryTable("__EFMigrationsHistory", BlogsDbContext.Schema)));
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(BlogsModule).Assembly));
-        services.AddValidatorsFromAssembly(typeof(BlogsModule).Assembly, includeInternalTypes: true);
+        
 
         return services;
     }

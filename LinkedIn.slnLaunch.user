@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "src\\Api\\LinkedIn.Api\\LinkedIn.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

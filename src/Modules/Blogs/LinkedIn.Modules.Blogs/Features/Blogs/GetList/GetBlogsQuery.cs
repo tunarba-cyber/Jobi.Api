@@ -37,7 +37,9 @@ internal sealed class GetBlogsQueryHandler : IRequestHandler<GetBlogsQuery, Page
         if (!string.IsNullOrWhiteSpace(request.Search))
         {
             var term = $"%{request.Search.Trim()}%";
-            query = query.Where(b => EF.Functions.ILike(b.Title, term) || EF.Functions.ILike(b.Summary, term));
+            // SQL Server's default collation is case-insensitive (CI), so plain LIKE is enough here.
+            // If your DB collation is case-sensitive (CS), wrap both sides in .ToUpper() instead.
+            query = query.Where(b => EF.Functions.Like(b.Title, term) || EF.Functions.Like(b.Summary, term));
         }
 
         if (request.OnlyFeatured is true)

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LinkedIn.Modules.Blogs.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:LinkedIn.Modules.Blogs.Contracts.BlogCardDto">
+            <summary>Exactly what one blog card on the frontend needs.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Blogs.Contracts.BlogCardDto.#ctor(System.Guid,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Nullable{System.DateTimeOffset})">
+            <summary>Exactly what one blog card on the frontend needs.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Blogs.Contracts.IBlogsModuleApi">
+            <summary>Public surface other modules may call. Keep it tiny.</summary>
+        </member>
+    </members>
+</doc>

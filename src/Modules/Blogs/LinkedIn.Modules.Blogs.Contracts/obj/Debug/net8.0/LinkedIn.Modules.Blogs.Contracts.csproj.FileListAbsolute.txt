@@ -11,3 +11,5 @@ C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contr
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.pdb
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\ref\LinkedIn.Modules.Blogs.Contracts.dll
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\LinkedIn.F1461ADC.Up2Date
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs.Contracts\obj\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.xml

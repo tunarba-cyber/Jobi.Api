@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LinkedIn.Shared.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:LinkedIn.Shared.Abstractions.Entities.BaseEntity">
+            <summary>
+            Shared base for all entities across all modules. Pronia duplicated this per
+            module; here it lives once so auditing and soft-delete behave identically
+            everywhere and are applied automatically by EF interceptors.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Abstractions.Entities.IEntity">
+            <summary>Marker for anything persisted with a surrogate key.</summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Abstractions.Entities.IAuditable">
+            <summary>Entities that track who created/modified them and when.</summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Abstractions.Entities.ISoftDeletable">
+            <summary>Entities that are never physically deleted.</summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Abstractions.Modules.IModule">
+            <summary>
+            Every feature module implements this. The API host discovers implementations by
+            scanning referenced assemblies, so adding a module means adding a project
+            reference - not editing Program.cs by hand (which is how Pronia did it, and how
+            the Users module ended up half-registered).
+            </summary>
+        </member>
+        <member name="P:LinkedIn.Shared.Abstractions.Modules.IModule.Name">
+            <summary>Human-readable module name, used for logging and health checks.</summary>
+        </member>
+        <member name="P:LinkedIn.Shared.Abstractions.Modules.IModule.Schema">
+            <summary>Database schema this module owns. Keeps modules isolated inside one database.</summary>
+        </member>
+        <member name="M:LinkedIn.Shared.Abstractions.Modules.IModule.RegisterServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>Register the module's own services (DbContext, module services).</summary>
+        </member>
+        <member name="M:LinkedIn.Shared.Abstractions.Modules.IModule.MapEndpoints(Microsoft.AspNetCore.Routing.IEndpointRouteBuilder)">
+            <summary>Map the module's HTTP endpoints.</summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Abstractions.Paging.PagedResult`1">
+            <summary>
+            Standard pagination envelope for every list endpoint, so the frontend can rely
+            on one shape. Pronia's GetAllProducts took page/pageSize but returned a bare
+            list, leaving the client unable to render pagination controls.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Abstractions.Paging.PagedQuery">
+            <summary>Base for any query that pages. Values are clamped so a client cannot request 1,000,000 rows.</summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Abstractions.Primitives.ErrorType">
+            <summary>Classifies an error so the API layer can pick the right HTTP status code.</summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Abstractions.Primitives.Error">
+            <summary>
+            A machine-readable error. Pronia threw raw <c>new Exception("User not found")</c>,
+            which forces the API to guess at status codes and leaks messages to clients.
+            A typed Error lets handlers describe failure precisely and cheaply.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Shared.Abstractions.Primitives.Error.#ctor(System.String,System.String,LinkedIn.Shared.Abstractions.Primitives.ErrorType)">
+            <summary>
+            A machine-readable error. Pronia threw raw <c>new Exception("User not found")</c>,
+            which forces the API to guess at status codes and leaks messages to clients.
+            A typed Error lets handlers describe failure precisely and cheaply.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Abstractions.Primitives.Result">
+            <summary>
+            Explicit success/failure envelope. Expected outcomes ("category not found",
+            "slug already taken") travel as values, not exceptions - exceptions stay
+            reserved for genuinely unexpected faults.
+            </summary>
+        </member>
+        <member name="P:LinkedIn.Shared.Abstractions.Primitives.Result`1.Value">
+            <summary>Throws if accessed on a failed result - forces callers to check IsSuccess first.</summary>
+        </member>
+    </members>
+</doc>

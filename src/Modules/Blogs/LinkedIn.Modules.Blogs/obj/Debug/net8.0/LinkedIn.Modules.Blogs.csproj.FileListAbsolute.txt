@@ -14,3 +14,14 @@ C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\D
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\refint\LinkedIn.Modules.Blogs.dll
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.pdb
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\ref\LinkedIn.Modules.Blogs.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Blogs.runtimeconfig.json
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Blogs.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Shared.Abstractions.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Shared.Infrastructure.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Shared.Abstractions.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Shared.Abstractions.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Shared.Infrastructure.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Shared.Infrastructure.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.genruntimeconfig.cache

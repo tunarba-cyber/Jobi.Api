@@ -15,6 +15,9 @@
   <Folder Name="/src/Modules/Users/">
     <Project Path="src/Modules/Users/LinkedIn.Users.Modules/LinkedIn.Modules.USers.csproj" Id="32e9afd8-7d14-4e61-8a26-9d00912ae0f6" />
   </Folder>
+  <Folder Name="/src/MVC/">
+    <Project Path="src/MVC/LinkedIn.MVC/LinkedIn.MVC.csproj" Id="d3ef344c-4c47-4b2d-9aed-0df97de4ff76" />
+  </Folder>
   <Folder Name="/src/Shared/">
     <Project Path="src/Shared/LinkedIn.Shared.Abstractions/LinkedIn.Shared.Abstractions.csproj" />
     <Project Path="src/Shared/LinkedIn.Shared.Infrastructure/LinkedIn.Shared.Infrastructure.csproj" Id="bf121a10-3ece-4df9-baf5-b8af76edce7a" />
