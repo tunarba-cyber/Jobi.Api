@@ -5,13 +5,14 @@ using MediatR;
 
 namespace LinkedIn.Modules.Jobs.Features.Jobs.UpdateJob;
 
+/// <summary>RequestingUserId is set by the endpoint from the caller's JWT, same as CreateJobCommand.</summary>
 public sealed record UpdateJobCommand(
     long Id,
+    string RequestingUserId,
     string Title,
     string? Slug,
     string Description,
     long CategoryId,
-    string CompanyName,
     string Location,
     JobType JobType,
     ExperienceLevel ExperienceLevel,

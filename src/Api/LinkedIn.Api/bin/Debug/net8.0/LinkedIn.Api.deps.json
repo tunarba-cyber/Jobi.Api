@@ -1129,8 +1129,9 @@
           "System.IdentityModel.Tokens.Jwt": "8.0.1"
         },
         "runtime": {
-          "LinkedIn.Modules.Users.dll": {
-            "fileVersion": "0.0.0.0"
+          "LinkedIn.Modules.USers.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },

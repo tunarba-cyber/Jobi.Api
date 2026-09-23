@@ -1,5 +1,6 @@
 using LinkedIn.Modules.Users.Domain.Entities;
 using LinkedIn.Modules.Users.Features;
+using LinkedIn.Modules.Users.Infrastructure.BackgroundJobs;
 using LinkedIn.Modules.Users.Infrastructure.Email;
 using LinkedIn.Modules.Users.Infrastructure.Persistence;
 using LinkedIn.Modules.Users.Infrastructure.Tokens;
@@ -64,9 +65,20 @@ public sealed class UsersModule : IModule
             .AddDefaultTokenProviders(); // email-confirmation and password-reset tokens come from here
 
         services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
+        services.Configure<SmtpOptions>(configuration.GetSection(SmtpOptions.SectionName));
 
         services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<IEmailSender, DevEmailSender>(); // swap for a real provider before deploying
+
+        // No code change needed to go live with real email - set Smtp:Host in
+        // config (appsettings/user-secrets/environment) and this automatically
+        // switches from writing files to dev-emails/ to sending real mail.
+        var smtpHost = configuration[$"{SmtpOptions.SectionName}:Host"];
+        if (!string.IsNullOrWhiteSpace(smtpHost))
+            services.AddScoped<IEmailSender, SmtpEmailSender>();
+        else
+            services.AddScoped<IEmailSender, DevEmailSender>();
+
+        services.AddHostedService<RefreshTokenCleanupService>();
 
         // NOTE: MediatR and FluentValidation are registered ONCE by the host,
         // same as every other module - see ModuleExtensions.AddModules.

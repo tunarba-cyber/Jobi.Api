@@ -66,8 +66,5 @@ internal sealed class CreateBlogCommandHandler : IRequestHandler<CreateBlogComma
     }
 }
 
-/// <summary>
-/// Replace this with whatever abstraction LinkedIn.Shared already exposes for the
-/// authenticated user — this is only here so the module compiles standalone.
-/// </summary>
+
 

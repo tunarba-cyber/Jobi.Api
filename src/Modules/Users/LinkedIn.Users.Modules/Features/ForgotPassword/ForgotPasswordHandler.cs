@@ -33,10 +33,10 @@ internal sealed class ForgotPasswordHandler : IRequestHandler<ForgotPasswordComm
         var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(rawToken));
 
         var body = $$"""
-            <p>Reset your password by calling <code>POST /api/auth/reset-password</code> with:</p>
-            <pre>{ "email": "{{user.Email}}", "token": "{{encodedToken}}", "newPassword": "..." }</pre>
-            <p>If you didn't request this, you can ignore this email.</p>
-            """;
+    <p>Reset your password by calling <code>POST /api/auth/reset-password</code> with:</p>
+    <pre>{ "email": "{{user.Email}}", "token": "{{encodedToken}}", "newPassword": "..." }</pre>
+    <p>If you didn't request this, you can ignore this email.</p>
+    """;
 
         await _emailSender.SendAsync(user.Email!, "Reset your password", body, cancellationToken);
 

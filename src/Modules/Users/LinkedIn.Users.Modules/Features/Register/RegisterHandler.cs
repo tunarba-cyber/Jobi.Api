@@ -55,10 +55,10 @@ internal sealed class RegisterHandler : IRequestHandler<RegisterCommand, Result>
         // values needed to call POST /api/auth/confirm-email directly. Once a
         // frontend page exists, replace this with a real link to it instead.
         var body = $$"""
-            <p>Welcome, {{user.FirstName}}.</p>
-            <p>Confirm your email by calling <code>POST /api/auth/confirm-email</code> with:</p>
-            <pre>{ "userId": "{{user.Id}}", "token": "{{encodedToken}}" }</pre>
-            """;
+    <p>Welcome, {{user.FirstName}}.</p>
+    <p>Confirm your email by calling <code>POST /api/auth/confirm-email</code> with:</p>
+    <pre>{ "userId": "{{user.Id}}", "token": "{{encodedToken}}" }</pre>
+    """;
 
         await _emailSender.SendAsync(user.Email!, "Confirm your email", body, cancellationToken);
 

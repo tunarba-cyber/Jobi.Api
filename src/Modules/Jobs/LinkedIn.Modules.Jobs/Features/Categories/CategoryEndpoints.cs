@@ -7,6 +7,7 @@ using LinkedIn.Modules.Jobs.Features.Categories.UpdateCategory;
 using LinkedIn.Shared.Abstractions.Paging;
 using LinkedIn.Shared.Infrastructure.Http;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -36,19 +37,27 @@ internal static class CategoryEndpoints
             .WithName("CreateCategory")
             .Produces<CategoryDto>(StatusCodes.Status201Created)
             .ProducesValidationProblem()
-            .ProducesProblem(StatusCodes.Status409Conflict);
-            // .RequireAuthorization("Admin") - enabled once the Users module lands
+            .ProducesProblem(StatusCodes.Status409Conflict)
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status403Forbidden)
+            .RequireAuthorization("RequireAdmin");
 
         group.MapPut("/{id:long}", UpdateCategory)
             .WithName("UpdateCategory")
             .Produces<CategoryDto>()
             .ProducesValidationProblem()
-            .ProducesProblem(StatusCodes.Status404NotFound);
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status403Forbidden)
+            .RequireAuthorization("RequireAdmin");
 
         group.MapDelete("/{id:long}", DeleteCategory)
             .WithName("DeleteCategory")
             .Produces(StatusCodes.Status204NoContent)
-            .ProducesProblem(StatusCodes.Status404NotFound);
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .ProducesProblem(StatusCodes.Status403Forbidden)
+            .RequireAuthorization("RequireAdmin");
     }
 
     private static async Task<IResult> GetCategories(

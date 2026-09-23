@@ -22,6 +22,15 @@ internal sealed class UpdateJobHandler : IRequestHandler<UpdateJobCommand, Resul
         if (job is null)
             return Result.Failure<JobDto>(JobErrors.NotFound(request.Id));
 
+        // THE ownership check: RequireAuthorization("RequireEmployer") on the
+        // endpoint only proves "some employer" is calling - this is what
+        // actually stops Employer A editing Employer B's job posting.
+        var company = await _db.Companies
+            .FirstOrDefaultAsync(c => c.Id == job.CompanyId, cancellationToken);
+
+        if (company is null || company.OwnerUserId != request.RequestingUserId)
+            return Result.Failure<JobDto>(CompanyErrors.NotOwner);
+
         var category = await _db.Categories
             .FirstOrDefaultAsync(c => c.Id == request.CategoryId, cancellationToken);
 
@@ -41,7 +50,8 @@ internal sealed class UpdateJobHandler : IRequestHandler<UpdateJobCommand, Resul
         job.Slug = slug;
         job.Description = request.Description.Trim();
         job.CategoryId = request.CategoryId;
-        job.CompanyName = request.CompanyName.Trim();
+        // CompanyId is intentionally NOT updated here - a job's owning company
+        // is fixed at creation, not something an update request can reassign.
         job.Location = request.Location.Trim();
         job.JobType = request.JobType;
         job.ExperienceLevel = request.ExperienceLevel;
@@ -54,6 +64,6 @@ internal sealed class UpdateJobHandler : IRequestHandler<UpdateJobCommand, Resul
 
         await _db.SaveChangesAsync(cancellationToken);
 
-        return Result.Success(job.ToJobDto(category.Name));
+        return Result.Success(job.ToJobDto(category.Name, company));
     }
 }

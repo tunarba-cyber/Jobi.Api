@@ -10,6 +10,7 @@ public sealed class JobsDbContext : DbContext
 
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Job> Jobs => Set<Job>();
+    public DbSet<Company> Companies => Set<Company>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

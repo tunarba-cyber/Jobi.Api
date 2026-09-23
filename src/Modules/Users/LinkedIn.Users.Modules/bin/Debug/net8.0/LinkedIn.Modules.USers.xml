@@ -39,6 +39,12 @@
         <member name="M:LinkedIn.Modules.Users.Features.ForgotPassword.ForgotPasswordCommand.#ctor(System.String)">
             <summary>Always returns Success, regardless of whether the email exists - see UserErrors notes on enumeration.</summary>
         </member>
+        <member name="T:LinkedIn.Modules.Users.Features.LogoutAll.LogoutAllCommand">
+            <summary>Revokes every active refresh token belonging to this user - every device, every session.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Users.Features.LogoutAll.LogoutAllCommand.#ctor(System.String)">
+            <summary>Revokes every active refresh token belonging to this user - every device, every session.</summary>
+        </member>
         <member name="T:LinkedIn.Modules.Users.Features.Logout.LogoutCommand">
             <summary>Revokes one specific refresh token - only that session is logged out, not every device.</summary>
         </member>
@@ -57,6 +63,16 @@
             confirm their email first (see ConfirmEmail), then log in separately.
             </summary>
         </member>
+        <member name="T:LinkedIn.Modules.Users.Infrastructure.BackgroundJobs.RefreshTokenCleanupService">
+            <summary>
+            Refresh token rows accumulate forever otherwise - every login and every
+            refresh adds one, revoked or expired rows are never deleted anywhere else.
+            This runs once a day and hard-deletes anything that has been expired or
+            revoked for more than 30 days - long past being useful even for the
+            reuse-detection logging in RefreshTokenHandler, which only matters for
+            recently-revoked tokens.
+            </summary>
+        </member>
         <member name="T:LinkedIn.Modules.Users.Infrastructure.Email.DevEmailSender">
             <summary>
             Local-development stand-in for a real mail provider. Writes each email as an
@@ -71,6 +87,21 @@
             Everything in Features/ depends on this interface, never on how mail is
             actually delivered. Swapping DevEmailSender for a real provider later
             (SendGrid, SES, SMTP) is a one-file, one-line-in-UsersModule change.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Infrastructure.Email.SmtpEmailSender">
+            <summary>
+            Real email delivery via SMTP, using the framework's built-in SmtpClient -
+            no extra package needed. Works with any standard SMTP provider (SendGrid,
+            Mailgun, AWS SES, Gmail's SMTP relay, your own mail server) since they all
+            speak plain SMTP; only Host/Port/credentials change between them.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Users.Infrastructure.Email.SmtpOptions">
+            <summary>
+            Bound from the "Smtp" configuration section. If Host is left empty,
+            UsersModule falls back to DevEmailSender automatically - no code change
+            needed to go from "no email setup" to "real email setup", just config.
             </summary>
         </member>
         <member name="T:LinkedIn.Modules.Users.Infrastructure.Persistence.Migrations.InitialCreate">

@@ -24,10 +24,6 @@ internal sealed class JobConfiguration : IEntityTypeConfiguration<Job>
             .IsRequired()
             .HasMaxLength(4000);
 
-        builder.Property(j => j.CompanyName)
-            .IsRequired()
-            .HasMaxLength(150);
-
         builder.Property(j => j.Location)
             .IsRequired()
             .HasMaxLength(150);
@@ -50,14 +46,20 @@ internal sealed class JobConfiguration : IEntityTypeConfiguration<Job>
             .HasForeignKey(j => j.CategoryId)
             .OnDelete(DeleteBehavior.Restrict); // a category with jobs can't be hard-deleted out from under them
 
+        builder.HasOne(j => j.Company)
+            .WithMany(c => c.Jobs)
+            .HasForeignKey(j => j.CompanyId)
+            .OnDelete(DeleteBehavior.Restrict); // same reasoning - a company with jobs can't be hard-deleted out from under them
+
         // Enforces slug uniqueness at the database level, same pattern as Category.
         builder.HasIndex(j => j.Slug)
             .IsUnique()
             .HasFilter("[IsDeleted] = 0");
 
-        // Covers the two heaviest public queries: public listing (status + featured)
-        // and category-filtered listing.
+        // Covers the heaviest public queries: public listing (status + featured),
+        // category-filtered listing, and "this employer's own job postings".
         builder.HasIndex(j => new { j.Status, j.IsFeatured, j.CreatedAtUtc });
         builder.HasIndex(j => new { j.CategoryId, j.Status });
+        builder.HasIndex(j => new { j.CompanyId, j.Status });
     }
 }

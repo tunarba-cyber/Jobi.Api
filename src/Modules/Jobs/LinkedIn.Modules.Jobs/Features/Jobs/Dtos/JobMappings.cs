@@ -7,8 +7,9 @@ namespace LinkedIn.Modules.Jobs.Features.Jobs;
 internal static class JobMappings
 {
     /// <summary>
-    /// Projection used inside EF queries. Referencing job.Category.Name here
-    /// makes EF Core generate the JOIN automatically - no .Include() needed.
+    /// Projection used inside EF queries. Referencing job.Category.Name and
+    /// job.Company.Name here makes EF Core generate the JOINs automatically -
+    /// no .Include() needed.
     /// </summary>
     public static readonly Expression<Func<Job, JobDto>> ToDto =
         job => new JobDto(
@@ -18,7 +19,9 @@ internal static class JobMappings
             job.Description,
             job.CategoryId,
             job.Category!.Name,
-            job.CompanyName,
+            job.CompanyId,
+            job.Company!.Name,
+            job.Company!.Slug,
             job.Location,
             job.JobType,
             job.ExperienceLevel,
@@ -32,17 +35,20 @@ internal static class JobMappings
 
     /// <summary>
     /// Used right after Create/Update, where we already hold the tracked entity
-    /// in memory. categoryName is passed in explicitly (from the category we
-    /// already loaded to validate CategoryId) to avoid a second round trip.
+    /// in memory. categoryName/company are passed in explicitly (from the
+    /// category/company already loaded to validate the command) to avoid an
+    /// extra round trip.
     /// </summary>
-    public static JobDto ToJobDto(this Job job, string categoryName) =>
+    public static JobDto ToJobDto(this Job job, string categoryName, Company company) =>
         new(job.Id,
             job.Title,
             job.Slug,
             job.Description,
             job.CategoryId,
             categoryName,
-            job.CompanyName,
+            company.Id,
+            company.Name,
+            company.Slug,
             job.Location,
             job.JobType,
             job.ExperienceLevel,

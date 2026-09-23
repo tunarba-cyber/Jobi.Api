@@ -31,14 +31,11 @@ internal sealed class GetHomeSummaryHandler : IRequestHandler<GetHomeSummaryQuer
             .AsNoTracking()
             .CountAsync(c => c.IsActive, cancellationToken);
 
-        // No Company entity yet (see the note on Job.CompanyName) - distinct
-        // company names among active postings is a reasonable stand-in for the
-        // "Companies" counter until that module exists.
-        var totalCompanies = await _db.Jobs
+        // Now that Company is a real entity, this is a direct count instead of
+        // the old "distinct company name among active jobs" stand-in - counts
+        // every registered company, whether or not they have posted a job yet.
+        var totalCompanies = await _db.Companies
             .AsNoTracking()
-            .Where(j => j.Status == JobStatus.Active)
-            .Select(j => j.CompanyName)
-            .Distinct()
             .CountAsync(cancellationToken);
 
         var featuredCategories = await _db.Categories

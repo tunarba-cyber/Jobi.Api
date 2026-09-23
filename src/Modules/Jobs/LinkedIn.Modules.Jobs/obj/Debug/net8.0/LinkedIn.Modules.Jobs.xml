@@ -29,6 +29,16 @@
         <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.Category.IsFeatured">
             <summary>Surfaces the category in the homepage's 6-card grid.</summary>
         </member>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.Company">
+            <summary>
+            An employer's company profile. OwnerUserId is a plain string reference to
+            AppUser.Id in the Users module - deliberately NOT a database foreign key,
+            since Company lives in a different schema/DbContext than AppUser and this
+            module should not need to know Users' internal table structure to validate
+            it. Ownership is checked in application code (see CreateJobHandler /
+            UpdateJobHandler), not enforced by the database.
+            </summary>
+        </member>
         <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.Job">
             <summary>
             A single job posting - the entity everything else on the frontend
@@ -138,6 +148,38 @@
             </code>
             </remarks>
         </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Companies.CreateCompany.CreateCompanyCommand">
+            <summary>OwnerUserId is set by the endpoint from the caller's JWT, never the request body.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Companies.CreateCompany.CreateCompanyCommand.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>OwnerUserId is set by the endpoint from the caller's JWT, never the request body.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Companies.GetCompanyBySlug.GetCompanyBySlugQuery">
+            <summary>Public lookup - backs company-details.html.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Companies.GetCompanyBySlug.GetCompanyBySlugQuery.#ctor(System.String)">
+            <summary>Public lookup - backs company-details.html.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Companies.GetMyCompany.GetMyCompanyQuery">
+            <summary>RequestingUserId is set by the endpoint from the caller's JWT.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Companies.GetMyCompany.GetMyCompanyQuery.#ctor(System.String)">
+            <summary>RequestingUserId is set by the endpoint from the caller's JWT.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Companies.UpdateMyCompany.UpdateMyCompanyCommand">
+            <summary>
+            No CompanyId or OwnerUserId here on purpose - the handler looks up the
+            caller's own company by RequestingUserId, same as GetMyCompanyQuery. There
+            is no way for a request body to target someone else's company.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Companies.UpdateMyCompany.UpdateMyCompanyCommand.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            No CompanyId or OwnerUserId here on purpose - the handler looks up the
+            caller's own company by RequestingUserId, same as GetMyCompanyQuery. There
+            is no way for a request body to target someone else's company.
+            </summary>
+        </member>
         <member name="T:LinkedIn.Modules.Jobs.Features.Home.Dtos.HomeSummaryDto">
             <summary>
             Everything index.html needs in one round trip: the stats counters, the
@@ -163,10 +205,24 @@
             </summary>
         </member>
         <member name="T:LinkedIn.Modules.Jobs.Features.Jobs.CreateJob.CreateJobCommand">
-            <summary>Slug is optional - it is derived from Title when omitted.</summary>
+            <summary>
+            Slug is optional - it is derived from Title when omitted. RequestingUserId
+            is set by the endpoint from the caller's JWT, never from the request body -
+            a client cannot post a job "as" a company it does not own.
+            </summary>
         </member>
-        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.CreateJob.CreateJobCommand.#ctor(System.String,System.String,System.String,System.Int64,System.String,System.String,LinkedIn.Modules.Jobs.Domain.Enums.JobType,LinkedIn.Modules.Jobs.Domain.Enums.ExperienceLevel,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Int32,System.Nullable{System.DateTimeOffset},System.Boolean)">
-            <summary>Slug is optional - it is derived from Title when omitted.</summary>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.CreateJob.CreateJobCommand.#ctor(System.String,System.String,System.String,System.String,System.Int64,System.String,LinkedIn.Modules.Jobs.Domain.Enums.JobType,LinkedIn.Modules.Jobs.Domain.Enums.ExperienceLevel,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Int32,System.Nullable{System.DateTimeOffset},System.Boolean)">
+            <summary>
+            Slug is optional - it is derived from Title when omitted. RequestingUserId
+            is set by the endpoint from the caller's JWT, never from the request body -
+            a client cannot post a job "as" a company it does not own.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Jobs.DeleteJob.DeleteJobCommand">
+            <summary>RequestingUserId is set by the endpoint from the caller's JWT, same as CreateJobCommand.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.DeleteJob.DeleteJobCommand.#ctor(System.Int64,System.String)">
+            <summary>RequestingUserId is set by the endpoint from the caller's JWT, same as CreateJobCommand.</summary>
         </member>
         <member name="T:LinkedIn.Modules.Jobs.Features.Jobs.Dtos.JobDto">
             <summary>
@@ -174,7 +230,7 @@
             so the frontend never has to make a second call just to display it.
             </summary>
         </member>
-        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.Dtos.JobDto.#ctor(System.Int64,System.String,System.String,System.String,System.Int64,System.String,System.String,System.String,LinkedIn.Modules.Jobs.Domain.Enums.JobType,LinkedIn.Modules.Jobs.Domain.Enums.ExperienceLevel,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Int32,System.Nullable{System.DateTimeOffset},LinkedIn.Modules.Jobs.Domain.Enums.JobStatus,System.Boolean,System.DateTimeOffset)">
+        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.Dtos.JobDto.#ctor(System.Int64,System.String,System.String,System.String,System.Int64,System.String,System.Int64,System.String,System.String,System.String,LinkedIn.Modules.Jobs.Domain.Enums.JobType,LinkedIn.Modules.Jobs.Domain.Enums.ExperienceLevel,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Int32,System.Nullable{System.DateTimeOffset},LinkedIn.Modules.Jobs.Domain.Enums.JobStatus,System.Boolean,System.DateTimeOffset)">
             <summary>
             What a job card / job-details page needs. CategoryName is denormalised here
             so the frontend never has to make a second call just to display it.
@@ -182,15 +238,17 @@
         </member>
         <member name="F:LinkedIn.Modules.Jobs.Features.Jobs.JobMappings.ToDto">
             <summary>
-            Projection used inside EF queries. Referencing job.Category.Name here
-            makes EF Core generate the JOIN automatically - no .Include() needed.
+            Projection used inside EF queries. Referencing job.Category.Name and
+            job.Company.Name here makes EF Core generate the JOINs automatically -
+            no .Include() needed.
             </summary>
         </member>
-        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.JobMappings.ToJobDto(LinkedIn.Modules.Jobs.Domain.Entities.Job,System.String)">
+        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.JobMappings.ToJobDto(LinkedIn.Modules.Jobs.Domain.Entities.Job,System.String,LinkedIn.Modules.Jobs.Domain.Entities.Company)">
             <summary>
             Used right after Create/Update, where we already hold the tracked entity
-            in memory. categoryName is passed in explicitly (from the category we
-            already loaded to validate CategoryId) to avoid a second round trip.
+            in memory. categoryName/company are passed in explicitly (from the
+            category/company already loaded to validate the command) to avoid an
+            extra round trip.
             </summary>
         </member>
         <member name="T:LinkedIn.Modules.Jobs.Features.Jobs.GetJobBySlug.GetJobBySlugQuery">
@@ -214,6 +272,12 @@
             pass includeAllStatuses=true for an admin/employer view.
             </summary>
         </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Jobs.UpdateJob.UpdateJobCommand">
+            <summary>RequestingUserId is set by the endpoint from the caller's JWT, same as CreateJobCommand.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.UpdateJob.UpdateJobCommand.#ctor(System.Int64,System.String,System.String,System.String,System.String,System.Int64,System.String,LinkedIn.Modules.Jobs.Domain.Enums.JobType,LinkedIn.Modules.Jobs.Domain.Enums.ExperienceLevel,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Int32,System.Nullable{System.DateTimeOffset},LinkedIn.Modules.Jobs.Domain.Enums.JobStatus,System.Boolean)">
+            <summary>RequestingUserId is set by the endpoint from the caller's JWT, same as CreateJobCommand.</summary>
+        </member>
         <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.JobsDbContextFactory">
             <summary>
             Lets you run "dotnet ef migrations add" from inside the module project without
@@ -234,6 +298,18 @@
             <inheritdoc />
         </member>
         <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddCompany">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddCompany.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddCompany.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddCompany.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
         <member name="T:LinkedIn.Modules.Jobs.JobsModule">

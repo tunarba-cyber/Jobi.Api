@@ -20,9 +20,8 @@ public sealed class Job : BaseEntity
     public long CategoryId { get; set; }
     public Category? Category { get; set; }
 
-    // Kept as a plain string for now so this slice doesn't have to wait on the
-    // Employers/Company entity. Revisit as a CompanyId FK once that module lands.
-    public string CompanyName { get; set; } = string.Empty;
+    public long CompanyId { get; set; }
+    public Company? Company { get; set; }
 
     public string Location { get; set; } = string.Empty;
 

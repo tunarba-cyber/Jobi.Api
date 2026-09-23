@@ -18,6 +18,17 @@ internal sealed class CreateJobHandler : IRequestHandler<CreateJobCommand, Resul
 
     public async Task<Result<JobDto>> Handle(CreateJobCommand request, CancellationToken cancellationToken)
     {
+        // A job is always posted "as" the caller's own company - there is no
+        // CompanyId in the request body, so there is nothing for a client to
+        // spoof here. If the employer has not created a company profile yet,
+        // that is the actual next step for them, not something this handler
+        // can paper over.
+        var company = await _db.Companies
+            .FirstOrDefaultAsync(c => c.OwnerUserId == request.RequestingUserId, cancellationToken);
+
+        if (company is null)
+            return Result.Failure<JobDto>(CompanyErrors.NoCompanyYet);
+
         var category = await _db.Categories
             .FirstOrDefaultAsync(c => c.Id == request.CategoryId, cancellationToken);
 
@@ -39,7 +50,7 @@ internal sealed class CreateJobHandler : IRequestHandler<CreateJobCommand, Resul
             Slug = slug,
             Description = request.Description.Trim(),
             CategoryId = request.CategoryId,
-            CompanyName = request.CompanyName.Trim(),
+            CompanyId = company.Id,
             Location = request.Location.Trim(),
             JobType = request.JobType,
             ExperienceLevel = request.ExperienceLevel,
@@ -54,6 +65,6 @@ internal sealed class CreateJobHandler : IRequestHandler<CreateJobCommand, Resul
         _db.Jobs.Add(job);
         await _db.SaveChangesAsync(cancellationToken);
 
-        return Result.Success(job.ToJobDto(category.Name));
+        return Result.Success(job.ToJobDto(category.Name, company));
     }
 }

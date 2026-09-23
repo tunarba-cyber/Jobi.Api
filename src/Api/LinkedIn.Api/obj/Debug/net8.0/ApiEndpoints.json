@@ -122,6 +122,34 @@
   },
   {
     "ContainingType": "LinkedIn.Modules.Users.Features.AuthEndpoints",
+    "Method": "LogoutAll",
+    "RelativePath": "api/auth/logout-all",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 401
+      }
+    ],
+    "Tags": [
+      "Auth"
+    ],
+    "EndpointName": "LogoutAll",
+    "Summary": "Revokes every active refresh token for the current user - all devices/sessions."
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Users.Features.AuthEndpoints",
     "Method": "Refresh",
     "RelativePath": "api/auth/refresh",
     "HttpMethod": "POST",
@@ -528,6 +556,20 @@
           "application/problem\u002Bjson"
         ],
         "StatusCode": 409
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 401
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 403
       }
     ],
     "Tags": [
@@ -575,6 +617,20 @@
           "application/problem\u002Bjson"
         ],
         "StatusCode": 404
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 401
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 403
       }
     ],
     "Tags": [
@@ -608,6 +664,20 @@
           "application/problem\u002Bjson"
         ],
         "StatusCode": 404
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 401
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 403
       }
     ],
     "Tags": [
@@ -649,6 +719,176 @@
       "Categories"
     ],
     "EndpointName": "GetCategoryBySlug"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Companies.CompanyEndpoints",
+    "Method": "Create",
+    "RelativePath": "api/companies/",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "LinkedIn.Modules.Jobs.Features.Companies.CreateCompany.CreateCompanyCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Companies.Dtos.CompanyDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 201
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Http.HttpValidationProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 401
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 409
+      }
+    ],
+    "Tags": [
+      "Companies"
+    ],
+    "EndpointName": "CreateCompany"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Companies.CompanyEndpoints",
+    "Method": "GetBySlug",
+    "RelativePath": "api/companies/{slug}",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slug",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Companies.Dtos.CompanyDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Companies"
+    ],
+    "EndpointName": "GetCompanyBySlug"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Companies.CompanyEndpoints",
+    "Method": "GetMine",
+    "RelativePath": "api/companies/me",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Companies.Dtos.CompanyDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 401
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Companies"
+    ],
+    "EndpointName": "GetMyCompany",
+    "Summary": "The calling employer\u0027s own company profile, if they have created one."
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Companies.CompanyEndpoints",
+    "Method": "UpdateMine",
+    "RelativePath": "api/companies/me",
+    "HttpMethod": "PUT",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "LinkedIn.Modules.Jobs.Features.Companies.UpdateMyCompany.UpdateMyCompanyCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Companies.Dtos.CompanyDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Http.HttpValidationProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 401
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Companies"
+    ],
+    "EndpointName": "UpdateMyCompany"
   },
   {
     "ContainingType": "LinkedIn.Modules.Jobs.Features.Home.HomeEndpoints",

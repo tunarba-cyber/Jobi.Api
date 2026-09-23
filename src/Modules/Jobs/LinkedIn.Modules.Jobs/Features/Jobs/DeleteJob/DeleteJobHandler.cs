@@ -20,6 +20,12 @@ internal sealed class DeleteJobHandler : IRequestHandler<DeleteJobCommand, Resul
         if (job is null)
             return Result.Failure(JobErrors.NotFound(request.Id));
 
+        var company = await _db.Companies
+            .FirstOrDefaultAsync(c => c.Id == job.CompanyId, cancellationToken);
+
+        if (company is null || company.OwnerUserId != request.RequestingUserId)
+            return Result.Failure(CompanyErrors.NotOwner);
+
         // SoftDeleteInterceptor turns this into an UPDATE - the row survives.
         _db.Jobs.Remove(job);
         await _db.SaveChangesAsync(cancellationToken);

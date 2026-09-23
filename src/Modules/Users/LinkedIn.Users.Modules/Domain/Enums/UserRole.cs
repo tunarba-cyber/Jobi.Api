@@ -8,5 +8,6 @@ namespace LinkedIn.Modules.Users.Domain.Enums;
 public enum UserRole
 {
     Candidate,
-    Employer
+    Employer,
+    Admin
 }

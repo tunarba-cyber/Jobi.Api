@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using System.Security.Claims;
 
 namespace LinkedIn.Modules.Jobs.Features.Jobs;
 
@@ -52,10 +53,6 @@ internal static class JobEndpoints
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .RequireAuthorization("RequireEmployer");
-            // NOTE: this only proves "some employer" is calling - it does NOT yet
-            // check that THIS employer owns THIS job. That needs the Company
-            // entity (to know which jobs belong to which employer) and is the
-            // next piece of authorization work, not covered by this policy alone.
 
         group.MapDelete("/{id:long}", DeleteJob)
             .WithName("DeleteJob")
@@ -111,30 +108,37 @@ internal static class JobEndpoints
 
     private static async Task<IResult> CreateJob(
         CreateJobCommand command,
+        ClaimsPrincipal user,
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var result = await sender.Send(command, cancellationToken);
+        var userId = user.FindFirstValue(ClaimTypes.NameIdentifier)!; // guaranteed present - endpoint requires auth
+        var result = await sender.Send(command with { RequestingUserId = userId }, cancellationToken);
         return result.ToCreatedResult(dto => $"/api/jobs/{dto.Slug}");
     }
 
     private static async Task<IResult> UpdateJob(
         long id,
         UpdateJobCommand command,
+        ClaimsPrincipal user,
         ISender sender,
         CancellationToken cancellationToken)
     {
-        // Route id always wins over body id.
-        var result = await sender.Send(command with { Id = id }, cancellationToken);
+        var userId = user.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        // Route id always wins over body id; RequestingUserId always comes from
+        // the token, never the body - both are server-controlled, not client input.
+        var result = await sender.Send(command with { Id = id, RequestingUserId = userId }, cancellationToken);
         return result.ToHttpResult();
     }
 
     private static async Task<IResult> DeleteJob(
         long id,
+        ClaimsPrincipal user,
         ISender sender,
         CancellationToken cancellationToken)
     {
-        var result = await sender.Send(new DeleteJobCommand(id), cancellationToken);
+        var userId = user.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        var result = await sender.Send(new DeleteJobCommand(id, userId), cancellationToken);
         return result.ToHttpResult();
     }
 }

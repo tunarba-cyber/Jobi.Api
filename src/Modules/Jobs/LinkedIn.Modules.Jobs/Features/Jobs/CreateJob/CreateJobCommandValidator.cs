@@ -22,10 +22,6 @@ internal sealed class CreateJobCommandValidator : AbstractValidator<CreateJobCom
 
         RuleFor(c => c.CategoryId).GreaterThan(0);
 
-        RuleFor(c => c.CompanyName)
-            .NotEmpty().WithMessage("Company name is required.")
-            .MaximumLength(150);
-
         RuleFor(c => c.Location)
             .NotEmpty().WithMessage("Location is required.")
             .MaximumLength(150);

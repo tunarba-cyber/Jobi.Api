@@ -22,9 +22,14 @@ internal sealed class RegisterCommandValidator : AbstractValidator<RegisterComma
         RuleFor(c => c.FirstName).NotEmpty().MaximumLength(100);
         RuleFor(c => c.LastName).NotEmpty().MaximumLength(100);
 
+        // Admin is a real UserRole value, but deliberately NOT choosable here -
+        // public registration must never be able to grant itself Admin. Admin
+        // accounts get created out-of-band (seed data / a promoted user), never
+        // through this endpoint.
         RuleFor(c => c.Role)
             .NotEmpty()
-            .Must(role => Enum.TryParse<UserRole>(role, ignoreCase: true, out _))
+            .Must(role => Enum.TryParse<UserRole>(role, ignoreCase: true, out var parsed)
+                          && parsed != UserRole.Admin)
             .WithMessage("Role must be either 'Candidate' or 'Employer'.");
     }
 }

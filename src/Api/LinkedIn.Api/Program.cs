@@ -3,6 +3,7 @@ using LinkedIn.Api.Middleware;
 using LinkedIn.Modules.Users.Infrastructure.Tokens;
 using LinkedIn.Shared.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -71,7 +72,22 @@ builder.Services
 
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("RequireEmployer", policy => policy.RequireRole("Employer"))
-    .AddPolicy("RequireCandidate", policy => policy.RequireRole("Candidate"));
+    .AddPolicy("RequireCandidate", policy => policy.RequireRole("Candidate"))
+    .AddPolicy("RequireAdmin", policy => policy.RequireRole("Admin"));
+
+// Applied selectively (login/register/forgot-password only, via
+// .RequireRateLimiting("auth") in AuthEndpoints) rather than globally - these
+// three are the ones actually worth protecting from brute-force/spam.
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.AddFixedWindowLimiter("auth", limiter =>
+    {
+        limiter.PermitLimit = 5;
+        limiter.Window = TimeSpan.FromMinutes(1);
+        limiter.QueueLimit = 0; // reject immediately over the limit, don't queue
+    });
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -133,6 +149,7 @@ else
 
 app.UseSerilogRequestLogging();
 app.UseCors(CorsExtensions.FrontendPolicy);
+app.UseRateLimiter();
 
 app.UseAuthentication();
 app.UseAuthorization();

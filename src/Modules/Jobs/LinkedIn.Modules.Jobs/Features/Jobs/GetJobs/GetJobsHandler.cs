@@ -33,7 +33,7 @@ internal sealed class GetJobsHandler : IRequestHandler<GetJobsQuery, Result<Page
             .WhereIf(request.ExperienceLevel.HasValue, j => j.ExperienceLevel == request.ExperienceLevel)
             .WhereIf(!string.IsNullOrWhiteSpace(location), j => j.Location.Contains(location!))
             .WhereIf(!string.IsNullOrWhiteSpace(search),
-                j => j.Title.Contains(search!) || j.CompanyName.Contains(search!));
+                j => j.Title.Contains(search!) || j.Company!.Name.Contains(search!));
 
         query = ApplySort(query, request.SortBy, request.Descending);
 
