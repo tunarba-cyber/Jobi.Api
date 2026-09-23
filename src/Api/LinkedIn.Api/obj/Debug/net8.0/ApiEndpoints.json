@@ -236,6 +236,205 @@
     "EndpointName": "ResetPassword"
   },
   {
+    "ContainingType": "LinkedIn.Modules.Blogs.Features.Blogs.BlogCategoryEndpoints\u002B\u003C\u003Ec",
+    "Method": "\u003CMapBlogCategoryEndpoints\u003Eb__0_0",
+    "RelativePath": "api/blog-categories/",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Blog categories"
+    ]
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Blogs.Features.Blogs.BlogCategoryEndpoints\u002B\u003C\u003Ec",
+    "Method": "\u003CMapBlogCategoryEndpoints\u003Eb__0_1",
+    "RelativePath": "api/blog-categories/",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "LinkedIn.Modules.Blogs.Features.Blogs.BlogCategoryEndpoints\u002BCreateCategoryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Blog categories"
+    ]
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Blogs.Features.Blogs.BlogEndpoints\u002B\u003C\u003Ec",
+    "Method": "\u003CMapBlogEndpoints\u003Eb__0_0",
+    "RelativePath": "api/blogs/",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "categorySlug",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "onlyFeatured",
+        "Type": "System.Nullable\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Blogs"
+    ],
+    "EndpointName": "GetBlogs"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Blogs.Features.Blogs.BlogEndpoints\u002B\u003C\u003Ec",
+    "Method": "\u003CMapBlogEndpoints\u003Eb__0_2",
+    "RelativePath": "api/blogs/",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "LinkedIn.Modules.Blogs.Features.Blogs.Create.CreateBlogCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Blogs"
+    ],
+    "EndpointName": "CreateBlog"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Blogs.Features.Blogs.BlogEndpoints\u002B\u003C\u003Ec",
+    "Method": "\u003CMapBlogEndpoints\u003Eb__0_3",
+    "RelativePath": "api/blogs/{id:guid}",
+    "HttpMethod": "PUT",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "command",
+        "Type": "LinkedIn.Modules.Blogs.Features.Blogs.Update.UpdateBlogCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Blogs"
+    ],
+    "EndpointName": "UpdateBlog"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Blogs.Features.Blogs.BlogEndpoints\u002B\u003C\u003Ec",
+    "Method": "\u003CMapBlogEndpoints\u003Eb__0_4",
+    "RelativePath": "api/blogs/{id:guid}",
+    "HttpMethod": "DELETE",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Blogs"
+    ],
+    "EndpointName": "DeleteBlog"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Blogs.Features.Blogs.BlogEndpoints\u002B\u003C\u003Ec",
+    "Method": "\u003CMapBlogEndpoints\u003Eb__0_1",
+    "RelativePath": "api/blogs/{slug}",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slug",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Blogs"
+    ],
+    "EndpointName": "GetBlogBySlug"
+  },
+  {
     "ContainingType": "LinkedIn.Modules.Jobs.Features.Categories.CategoryEndpoints",
     "Method": "GetCategories",
     "RelativePath": "api/categories/",

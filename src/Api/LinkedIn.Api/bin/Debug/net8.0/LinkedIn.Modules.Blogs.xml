@@ -4,17 +4,31 @@
         <name>LinkedIn.Modules.Blogs</name>
     </assembly>
     <members>
+        <member name="T:LinkedIn.Modules.Blogs.BlogsModule">
+            <summary>
+            Implements IModule so the host's DiscoverModules()/AddModules() picks this up
+            automatically - same as JobsModule/UsersModule. This replaces the old static
+            AddBlogsModule/MapBlogsModule extension methods, which compiled fine but were
+            never actually called from anywhere, so the module was dead code at runtime.
+            </summary>
+        </member>
         <member name="P:LinkedIn.Modules.Blogs.Domain.Entities.Blog.AuthorId">
             <summary>Author is a user owned by the Users module — referenced by id only, no FK across modules.</summary>
         </member>
         <member name="T:LinkedIn.Modules.Blogs.Domain.Entities.BlogCategory">
             <summary>Drives the badge on the blog card ("SOLUTION", "MARKETING", ...).</summary>
         </member>
-        <member name="T:LinkedIn.Modules.Blogs.Features.Blogs.Create.ICurrentUser">
-            <summary>
-            Replace this with whatever abstraction LinkedIn.Shared already exposes for the
-            authenticated user — this is only here so the module compiles standalone.
-            </summary>
+        <member name="T:LinkedIn.Modules.Blogs.Infrastructure.Persistence.Migrations.InitialBlogs">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Blogs.Infrastructure.Persistence.Migrations.InitialBlogs.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Blogs.Infrastructure.Persistence.Migrations.InitialBlogs.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Blogs.Infrastructure.Persistence.Migrations.InitialBlogs.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
         </member>
         <member name="M:LinkedIn.Modules.Blogs.Infrastructure.SlugGenerator.EnsureUnique(System.String,System.Func{System.String,System.Boolean})">
             <summary>Appends -2, -3, ... until the slug is free.</summary>

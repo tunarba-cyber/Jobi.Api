@@ -15,7 +15,7 @@ public class Blog
     public BlogCategory Category { get; private set; } = default!;
 
     /// <summary>Author is a user owned by the Users module — referenced by id only, no FK across modules.</summary>
-    public Guid AuthorId { get; private set; }
+    public string AuthorId { get; private set; } = default!;
 
     public bool IsFeatured { get; private set; }
     public bool IsPublished { get; private set; }
@@ -32,7 +32,7 @@ public class Blog
         string summary,
         string content,
         Guid categoryId,
-        Guid authorId,
+        string authorId,
         string? imageUrl,
         bool isFeatured,
         bool publishNow)

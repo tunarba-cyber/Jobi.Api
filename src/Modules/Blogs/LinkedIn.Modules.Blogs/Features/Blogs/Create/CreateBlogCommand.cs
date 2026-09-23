@@ -4,7 +4,7 @@ using LinkedIn.Modules.Blogs.Infrastructure;
 using LinkedIn.Modules.Blogs.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-
+using LinkedIn.Shared.Infrastructure.Persistence;
 namespace LinkedIn.Modules.Blogs.Features.Blogs.Create;
 
 public sealed record CreateBlogCommand(
@@ -54,7 +54,7 @@ internal sealed class CreateBlogCommandHandler : IRequestHandler<CreateBlogComma
             request.Summary,
             request.Content,
             request.CategoryId,
-            _currentUser.Id,
+            _currentUser.UserId!,
             request.ImageUrl,
             request.IsFeatured,
             request.PublishNow);
@@ -70,7 +70,4 @@ internal sealed class CreateBlogCommandHandler : IRequestHandler<CreateBlogComma
 /// Replace this with whatever abstraction LinkedIn.Shared already exposes for the
 /// authenticated user — this is only here so the module compiles standalone.
 /// </summary>
-public interface ICurrentUser
-{
-    Guid Id { get; }
-}
+

@@ -21,7 +21,7 @@ public sealed record BlogDetailsDto(
     string? ImageUrl,
     string CategoryName,
     string CategorySlug,
-    Guid AuthorId,
+    string AuthorId,
     bool IsFeatured,
     int ViewCount,
     DateTimeOffset? PublishedAt);
