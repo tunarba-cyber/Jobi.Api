@@ -1,3 +1,4 @@
+using LinkedIn.Modules.Jobs.Features.Applications;
 using LinkedIn.Modules.Jobs.Features.Categories;
 using LinkedIn.Modules.Jobs.Features.Companies;
 using LinkedIn.Modules.Jobs.Features.Home;
@@ -54,5 +55,6 @@ public sealed class JobsModule : IModule
         endpoints.MapJobEndpoints();
         endpoints.MapHomeEndpoints();
         endpoints.MapCompanyEndpoints();
+        endpoints.MapApplicationEndpoints();
     }
 }

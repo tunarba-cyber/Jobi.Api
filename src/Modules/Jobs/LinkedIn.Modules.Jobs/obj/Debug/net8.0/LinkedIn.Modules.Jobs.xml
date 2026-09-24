@@ -4,6 +4,15 @@
         <name>LinkedIn.Modules.Jobs</name>
     </assembly>
     <members>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.Application">
+            <summary>
+            A candidate's application to one job. JobId is a REAL EF foreign key (same
+            DbContext as Job/Company), but CandidateUserId is a plain string - AppUser
+            lives in the Users module's own DbContext, so there's no live join possible
+            there regardless. CandidateName/Email are snapshotted at apply-time for the
+            same reason GetJobsHandler denormalizes Company.Name onto Job.
+            </summary>
+        </member>
         <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.Category">
             <summary>
             A job category - "UI/UX Design", "Development", "Marketing".
@@ -76,6 +85,12 @@
             Every way a job operation can fail, declared in one place with stable codes
             the frontend can switch on (instead of parsing English error strings).
             </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Applications.ApplyToJob.ApplyToJobCommand">
+            <summary>CandidateUserId/Name/Email are set by the endpoint from the JWT, never the request body.</summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Applications.ApplyToJob.ApplyToJobCommand.#ctor(System.Int64,System.String,System.String,System.String,System.String,System.String)">
+            <summary>CandidateUserId/Name/Email are set by the endpoint from the JWT, never the request body.</summary>
         </member>
         <member name="T:LinkedIn.Modules.Jobs.Features.Categories.CreateCategory.CreateCategoryCommand">
             <summary>Slug is optional - it is derived from Name when omitted.</summary>
@@ -310,6 +325,18 @@
             <inheritdoc />
         </member>
         <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddCompany.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddApplications">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddApplications.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddApplications.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddApplications.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
         <member name="T:LinkedIn.Modules.Jobs.JobsModule">
