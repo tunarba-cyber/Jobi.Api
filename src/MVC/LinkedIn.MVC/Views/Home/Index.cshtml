@@ -1,617 +1,153 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@* ===========================================================================
+   Views/Home/Index.cshtml
+   ===========================================================================
+
+   1) Add this at the very top of the file, replacing the existing @{ ... } block:
+*@
+
+@model LinkedIn.MVC.Models.ViewModels.HomeIndexViewModel
+@{
+    ViewData["Title"] = "Home";
+    var summary = Model.Summary;
 }
 
-<!--
-		=============================================
-			Hero Banner
-		==============================================
-		-->
-<div class="hero-banner-one position-relative">
-	<div class="container">
-		<div class="position-relative pt-200 md-pt-150 pb-150 xl-pb-120 md-pb-80">
-			<div class="row">
-				<div class="col-lg-6">
-					<h1>Find & Hire <span>Top 3% of expert on jobi.</span></h1>
-					<p class="text-lg text-white mt-40 md-mt-30 mb-50 md-mb-30">We delivered blazing fast & striking work solution</p>
-				</div>
-			</div>
-			<div class="position-relative">
-				<div class="row">
-					<div class="col-xl-9 col-lg-8">
-						<div class="job-search-one position-relative me-xl-5">
-							<form action="job-grid-v1.html">
-								<div class="row">
-									<div class="col-md-5">
-										<div class="input-box">
-											<div class="label">What are you looking for?</div>
-											<select class="nice-select lg">
-												<option value="1">UI Designer</option>
-												<option value="2">Content creator</option>
-												<option value="3">Web Developer</option>
-												<option value="4">SEO Guru</option>
-												<option value="5">Digital marketer</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="input-box border-left">
-											<div class="label">Category</div>
-											<select class="nice-select lg">
-												<option value="1">Web Design</option>
-												<option value="2">Design & Creative</option>
-												<option value="3">It & Development</option>
-												<option value="4">Web & Mobile Dev</option>
-												<option value="5">Writing</option>
-												<option value="6">Sales & Marketing</option>
-												<option value="7">Music & Audio</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-md-3">
-										<button class="fw-500 text-uppercase h-100 tran3s search-btn">Search</button>
-									</div>
-								</div>
-							</form>
-							<ul class="tags d-flex flex-wrap style-none mt-20">
-								<li class="fw-500 text-white me-2">Populer:</li>
-								<li><a href="#">Design</a></li>
-								<li><a href="#">Art</a></li>
-								<li><a href="#">Business</a></li>
-								<li><a href="#">Video Editing</a></li>
-							</ul>
-						</div>
-						<!-- /.job-search-one -->
-					</div>
-				</div>
-			</div>
+@*
+   ---------------------------------------------------------------------------
+   2) "Most Demanding Categories" - replace the six hardcoded
+      <div class="card-style-one ..."> blocks (lines ~98-145) with this loop.
+   ---------------------------------------------------------------------------
+*@
 
-			<div class="img-box">
-				<img src="images/lazy.svg" data-src="images/shape/shape_01.svg" alt="" class="lazy-img shapes">
-				<img src="images/lazy.svg" data-src="images/assets/img_01.jpg" alt="" class="lazy-img w-100">
-			</div>
-			<!-- /.img-box -->
-		</div>
-	</div>
-	<img src="images/lazy.svg" data-src="images/shape/shape_02.svg" alt="" class="lazy-img shapes shape_01">
-	<img src="images/lazy.svg" data-src="images/shape/shape_03.svg" alt="" class="lazy-img shapes shape_02">
-</div> <!-- /.hero-banner-one -->
-<!--
-		=============================================
-			Category Section One
-		==============================================
-		-->
-<section class="category-section-one bg-color position-relative pt-180 xl-pt-150 lg-pt-80 pb-140 xl-pb-120 lg-pb-60">
-	<div class="container">
-		<div class="row justify-content-between align-items-center">
-			<div class="col-lg-6">
-				<div class="title-one">
-					<h2>Most <span class="position-relative">Demanding <img src="images/lazy.svg" data-src="images/shape/shape_04.svg" alt="" class="lazy-img shapes shape"></span> Categories.</h2>
-				</div>
-			</div>
-			<div class="col-xxl-5 col-lg-6">
-				<p class="text-md mb-25 lg-mb-10 md-mt-20">Together with useful notifications, collaboration, insights, and improvement tip lorem etc.</p>
-				<a href="job-grid-v1.html" class="btn-two d-none d-lg-inline-block">Explore all fields</a>
-			</div>
-		</div>
-		<div class="card-wrapper row justify-content-center mt-75 lg-mt-40 md-mt-10">
-			<div class="card-style-one text-center mt-20 wow fadeInUp">
-				<a href="job-grid-v1.html" class="bg wrapper active">
-					<div class="icon d-flex align-items-center justify-content-center"><img src="images/lazy.svg" data-src="images/icon/icon_01.svg" alt="" class="lazy-img"></div>
-					<div class="title fw-500">UI/UX Design</div>
-					<div class="total-job">12k+ Jobs</div>
-				</a>
-			</div>
-			<!-- /.card-style-one -->
-			<div class="card-style-one text-center mt-20 wow fadeInUp" data-wow-delay="0.1s">
-				<a href="job-grid-v2.html" class="bg wrapper">
-					<div class="icon d-flex align-items-center justify-content-center"><img src="images/lazy.svg" data-src="images/icon/icon_02.svg" alt="" class="lazy-img"></div>
-					<div class="title fw-500">Development</div>
-					<div class="total-job">8k+ Jobs</div>
-				</a>
-			</div>
-			<!-- /.card-style-one -->
-			<div class="card-style-one text-center mt-20 wow fadeInUp" data-wow-delay="0.15s">
-				<a href="job-grid-v3.html" class="bg wrapper">
-					<div class="icon d-flex align-items-center justify-content-center"><img src="images/lazy.svg" data-src="images/icon/icon_03.svg" alt="" class="lazy-img"></div>
-					<div class="title fw-500">Marketing</div>
-					<div class="total-job">10k+ Jobs</div>
-				</a>
-			</div>
-			<!-- /.card-style-one -->
-			<div class="card-style-one text-center mt-20 wow fadeInUp" data-wow-delay="0.16s">
-				<a href="job-grid-v1.html" class="bg wrapper">
-					<div class="icon d-flex align-items-center justify-content-center"><img src="images/lazy.svg" data-src="images/icon/icon_04.svg" alt="" class="lazy-img"></div>
-					<div class="title fw-500">Telemarketing</div>
-					<div class="total-job">6k+ Jobs</div>
-				</a>
-			</div>
-			<!-- /.card-style-one -->
-			<div class="card-style-one text-center mt-20 wow fadeInUp" data-wow-delay="0.17s">
-				<a href="job-grid-v2.html" class="bg wrapper">
-					<div class="icon d-flex align-items-center justify-content-center"><img src="images/lazy.svg" data-src="images/icon/icon_05.svg" alt="" class="lazy-img"></div>
-					<div class="title fw-500">Editing</div>
-					<div class="total-job">7k+ Jobs</div>
-				</a>
-			</div>
-			<!-- /.card-style-one -->
-			<div class="card-style-one text-center mt-20 wow fadeInUp" data-wow-delay="0.18s">
-				<a href="job-grid-v3.html" class="bg wrapper">
-					<div class="icon d-flex align-items-center justify-content-center"><img src="images/lazy.svg" data-src="images/icon/icon_06.svg" alt="" class="lazy-img"></div>
-					<div class="title fw-500">Accounting</div>
-					<div class="total-job">17k+ Jobs</div>
-				</a>
-			</div>
-			<!-- /.card-style-one -->
-		</div>
-		<!-- /.card-wrapper -->
-		<div class="text-center mt-40 d-lg-none">
-			<a href="job-grid-v1.html" class="btn-two">Explore all fields</a>
-		</div>
-	</div>
-	<img src="images/lazy.svg" data-src="images/shape/shape_05.svg" alt="" class="lazy-img shapes shape_01">
-</section>
-<!-- ./category-section-one -->
-<!--
-		=============================================
-			Text Feature One
-		==============================================
-		-->
-<section class="text-feature-one position-relative pt-180 xl-pt-150 lg-pt-100 md-pt-80 pb-180 xl-pb-150">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-5 order-lg-last">
-				<div class="ps-xxl-4 wow fadeInRight">
-					<div class="title-one">
-						<h2>Get over 50.000+ talented experts in jobi.</h2>
-					</div>
-					<p class="mt-40 md-mt-20 mb-40 md-mb-20">A full hybrid workforce management tools are yours to use, as well as access to our top 1% of talent. </p>
-					<ul class="list-style-one style-none">
-						<li>Seamless searching</li>
-						<li>Get top 3% experts for your project</li>
-						<li>Protected payments system</li>
-					</ul>
-					<a href="signup.html" class="btn-one lg mt-50 md-mt-30">Post a Job</a>
-				</div>
-			</div>
-			<div class="col-lg-7 col-md-11 m-auto order-lg-first">
-				<div class="img-data position-relative pe-xl-5 me-xl-5 md-mt-50">
-					<div class="row">
-						<div class="col-md-6 col-sm-8 col-10">
-							<img src="images/lazy.svg" data-src="images/assets/img_02.jpg" alt="" class="lazy-img img01">
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-4 col-5">
-							<img src="images/lazy.svg" data-src="images/assets/img_03.jpg" alt="" class="lazy-img img02 mt-35">
-						</div>
-						<div class="col-md-6 col-7">
-							<img src="images/lazy.svg" data-src="images/assets/img_04.jpg" alt="" class="lazy-img img01 mt-35">
-						</div>
-					</div>
-					<img src="images/lazy.svg" data-src="images/assets/screen_01.png" alt="" class="lazy-img shapes screen01 wow fadeInRight">
-					<img src="images/lazy.svg" data-src="images/assets/screen_02.png" alt="" class="lazy-img shapes screen02 wow fadeInUp">
-					<img src="images/lazy.svg" data-src="images/assets/screen_03.png" alt="" class="lazy-img shapes screen03 wow fadeInUp">
-					<img src="images/lazy.svg" data-src="images/shape/shape_06.svg" alt="" class="lazy-img shapes shape_01">
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- /.text-feature-one -->
-<!--
-		=====================================================
-			How It Works
-		=====================================================
-		-->
-<section class="how-it-works position-relative bg-color pt-110 lg-pt-80 pb-110 lg-pb-70">
-	<div class="container">
-		<div class="title-one text-center mb-65 lg-mb-40">
-			<h2 class="text-white">How it’s <span class="position-relative">work? <img src="images/lazy.svg" data-src="images/shape/shape_07.svg" alt="" class="lazy-img shapes shape"></span></h2>
-		</div>
+<div class="card-wrapper row justify-content-center mt-75 lg-mt-40 md-mt-10">
+    @if (summary.FeaturedCategories.Count == 0)
+    {
+        <div class="col-12 text-center">
+            <p class="text-md">No categories published yet.</p>
+        </div>
+    }
+    else
+    {
+        @foreach (var (category, index) in summary.FeaturedCategories.Select((c, i) => (c, i)))
+        {
+            <div class="card-style-one text-center mt-20 wow fadeInUp" data-wow-delay="@($"0.{index}s")">
+                <a asp-controller="Job" asp-action="JobGrid" asp-route-categorySlug="@category.Slug"
+                   class="bg wrapper @(index == 0 ? "active" : "")">
+                    <div class="icon d-flex align-items-center justify-content-center">
+                        <img src="~/images/lazy.svg"
+                             data-src="@(string.IsNullOrWhiteSpace(category.IconUrl) ? "/images/icon/icon_01.svg" : category.IconUrl)"
+                             alt="@category.Name" class="lazy-img">
+                    </div>
+                    <div class="title fw-500">@category.Name</div>
+                    <div class="total-job">@category.JobCount Jobs</div>
+                </a>
+            </div>
+        }
+    }
+</div>
 
-		<div class="row justify-content-center">
-			<div class="col-xxl-3 col-lg-4 col-md-6">
-				<div class="card-style-two text-center mt-25 wow fadeInUp">
-					<div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img src="images/lazy.svg" data-src="images/icon/icon_08.svg" alt="" class="lazy-img"></div>
-					<div class="title fw-500 text-white">Create Account</div>
-					<p>It’s very easy to open an account and start your journey.</p>
-				</div>
-				<!-- /.card-style-two -->
-			</div>
-			<div class="col-xxl-3 col-lg-4 col-md-6 m-auto">
-				<div class="card-style-two text-center position-relative arrow mt-25 wow fadeInUp" data-wow-delay="0.1s">
-					<div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img src="images/lazy.svg" data-src="images/icon/icon_09.svg" alt="" class="lazy-img"></div>
-					<div class="title fw-500 text-white">Complete your profile</div>
-					<p>Complete your profile with all the info to get attention of client.</p>
-				</div>
-				<!-- /.card-style-two -->
-			</div>
-			<div class="col-xxl-3 col-lg-4 col-md-6">
-				<div class="card-style-two text-center mt-25 wow fadeInUp" data-wow-delay="0.19s">
-					<div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img src="images/lazy.svg" data-src="images/icon/icon_10.svg" alt="" class="lazy-img"></div>
-					<div class="title fw-500 text-white">Apply job or hire</div>
-					<p>Apply & get your preferable jobs with all the requirements and get it.</p>
-				</div>
-				<!-- /.card-style-two -->
-			</div>
-		</div>
-	</div>
-	<img src="images/lazy.svg" data-src="images/shape/shape_08.svg" alt="" class="lazy-img shapes shape_01">
-	<img src="images/lazy.svg" data-src="images/shape/shape_09.svg" alt="" class="lazy-img shapes shape_02">
-</section>
-<!-- /.how-it-works -->
-<!--
-		=====================================================
-			Expert Section
-		=====================================================
-		-->
-<section class="expert-section-one position-relative mt-180 xl-mt-150 lg-mt-100">
-	<div class="container position-relative">
-		<div class="row">
-			<div class="col-md-7">
-				<div class="title-one text-center text-md-start mb-65 md-mb-50">
-					<h2>Find the best <span class="position-relative">talented <img src="images/lazy.svg" data-src="images/shape/shape_04.svg" alt="" class="lazy-img shapes shape"></span> expert in jobi.</h2>
-				</div>
-			</div>
-		</div>
+@*
+   ---------------------------------------------------------------------------
+   3) Hero search dropdowns - replace the hardcoded <option> lists so the
+      search actually posts to the job list.
+   ---------------------------------------------------------------------------
+*@
 
-		<div class="expert-slider-one">
-			<div class="item">
-				<div class="card-style-three text-center">
-					<div class="img-meta mb-40 lg-mb-20">
-						<img src="images/assets/img_05.jpg" alt="" class="m-auto">
-					</div>
-					<a href="#" class="name text-md fw-500 text-dark">Julie Ake</a>
-					<div class="post">Product Designer</div>
-				</div>
-				<!-- /.card-style-three -->
-			</div>
-			<!-- /.item -->
-			<div class="item">
-				<div class="card-style-three text-center">
-					<div class="img-meta mb-40 lg-mb-20">
-						<img src="images/assets/img_06.jpg" alt="" class="m-auto">
-					</div>
-					<a href="#" class="name text-md fw-500 text-dark">Juan Marko</a>
-					<div class="post">Java Developer</div>
-				</div>
-				<!-- /.card-style-three -->
-			</div>
-			<!-- /.item -->
-			<div class="item">
-				<div class="card-style-three text-center">
-					<div class="img-meta mb-40 lg-mb-20">
-						<img src="images/assets/img_07.jpg" alt="" class="m-auto">
-					</div>
-					<a href="#" class="name text-md fw-500 text-dark">Elizabeth Foster</a>
-					<div class="post">UI/UX Designer</div>
-				</div>
-				<!-- /.card-style-three -->
-			</div>
-			<!-- /.item -->
-			<div class="item">
-				<div class="card-style-three text-center">
-					<div class="img-meta mb-40 lg-mb-20">
-						<img src="images/assets/img_08.jpg" alt="" class="m-auto">
-					</div>
-					<a href="#" class="name text-md fw-500 text-dark">Rashed Ka</a>
-					<div class="post">Marketing Expert</div>
-				</div>
-				<!-- /.card-style-three -->
-			</div>
-			<!-- /.item -->
-			<div class="item">
-				<div class="card-style-three text-center">
-					<div class="img-meta mb-40 lg-mb-20">
-						<img src="images/assets/img_07.jpg" alt="" class="m-auto">
-					</div>
-					<a href="#" class="name text-md fw-500 text-dark">Elizabeth Foster</a>
-					<div class="post">UI/UX Designer</div>
-				</div>
-				<!-- /.card-style-three -->
-			</div>
-			<!-- /.item -->
-		</div>
-		<ul class="slider-arrows slick-arrow-one d-flex justify-content-center style-none sm-mt-30">
-			<li class="prev_a slick-arrow"><i class="bi bi-arrow-left"></i></li>
-			<li class="next_a slick-arrow"><i class="bi bi-arrow-right"></i></li>
-		</ul>
-	</div>
-</section>
-<!-- /.expert-section-one -->
-<!--
-		=====================================================
-			FeedBack Section One
-		=====================================================
-		-->
-<section class="feedback-section-one pt-180 xl-pt-150 lg-pt-100">
-	<div class="container position-relative">
-		<div class="row">
-			<div class="col-lg-5 col-md-6">
-				<div class="title-one text-center text-md-start mb-65 md-mb-50">
-					<h2>Trusted by leading startups.</h2>
-				</div>
-			</div>
-		</div>
+<form asp-controller="Job" asp-action="JobList" method="get">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="input-box">
+                <div class="label">What are you looking for?</div>
+                <input type="text" name="search" class="form-control" placeholder="Job title or keyword">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-box border-left">
+                <div class="label">Category</div>
+                <select name="categorySlug" class="nice-select lg">
+                    <option value="">All categories</option>
+                    @foreach (var category in Model.AllCategories)
+                    {
+                        <option value="@category.Slug">@category.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="fw-500 text-uppercase h-100 tran3s search-btn">Search</button>
+        </div>
+    </div>
+</form>
 
-		<div class="row feedback-slider-one">
-			<div class="item">
-				<div class="feedback-block-one">
-					<div class="logo">
-						<img src="images/logo/media_01.png" alt="">
-					</div>
-					<blockquote class="fw-500 mt-50 md-mt-30 mb-50 md-mb-30">“Seattle opera simplifies Performance planning with jobi eSignature.”</blockquote>
-					<div class="name text-dark"><span class="fw-500">Rashed kabir,</span> Lead Designer</div>
-					<div class="review pt-40 md-pt-20 mt-40 md-mt-30 d-flex justify-content-between align-items-center">
-						<div class="text-md fw-500 text-dark">4.5 Excellent</div>
-						<ul class="style-none d-flex">
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star"></i></a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /.feedback-block-one -->
-			</div>
-			<div class="item">
-				<div class="feedback-block-one">
-					<div class="logo">
-						<img src="images/logo/media_02.png" alt="">
-					</div>
-					<blockquote class="fw-500 mt-50 md-mt-30 mb-50 md-mb-30">“How DocuSign CLM helps Celonis scale its global business.”</blockquote>
-					<div class="name text-dark"><span class="fw-500">Mark Joge,</span> Marketing Chief</div>
-					<div class="review pt-40 md-pt-20 mt-40 md-mt-30 d-flex justify-content-between align-items-center">
-						<div class="text-md fw-500 text-dark">4.8 Awesome</div>
-						<ul class="style-none d-flex">
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /.feedback-block-one -->
-			</div>
-			<div class="item">
-				<div class="feedback-block-one">
-					<div class="logo">
-						<img src="images/logo/media_01.png" alt="">
-					</div>
-					<blockquote class="fw-500 mt-50 md-mt-30 mb-50 md-mb-30">“Seattle opera simplifies Performance planning with jobi eSignature.”</blockquote>
-					<div class="name text-dark"><span class="fw-500">Rashed kabir,</span> Lead Designer</div>
-					<div class="review pt-40 md-pt-20 mt-40 md-mt-30 d-flex justify-content-between align-items-center">
-						<div class="text-md fw-500 text-dark">4.5 Excellent</div>
-						<ul class="style-none d-flex">
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star-fill"></i></a></li>
-							<li><a href="#"><i class="bi bi-star"></i></a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- /.feedback-block-one -->
-			</div>
-		</div>
-		<ul class="slider-arrows slick-arrow-one d-flex justify-content-center style-none sm-mt-30">
-			<li class="prev_b slick-arrow"><i class="bi bi-arrow-left"></i></li>
-			<li class="next_b slick-arrow"><i class="bi bi-arrow-right"></i></li>
-		</ul>
+@*
+   ---------------------------------------------------------------------------
+   4) Counters - wherever the template hardcodes numbers (e.g. "7,096 jobs"),
+      use these:
+   ---------------------------------------------------------------------------
+*@
 
-		<div class="partner-logos pt-150 xl-pt-120 md-pt-80 sm-pt-40 pb-80 md-pb-40">
-			<div class="partner-slider">
-				<div class="item">
-					<div class="logo d-flex align-items-center"><img src="images/logo/media_03.png" alt=""></div>
-				</div>
-				<div class="item">
-					<div class="logo d-flex align-items-center"><img src="images/logo/media_04.png" alt=""></div>
-				</div>
-				<div class="item">
-					<div class="logo d-flex align-items-center"><img src="images/logo/media_05.png" alt=""></div>
-				</div>
-				<div class="item">
-					<div class="logo d-flex align-items-center"><img src="images/logo/media_06.png" alt=""></div>
-				</div>
-				<div class="item">
-					<div class="logo d-flex align-items-center"><img src="images/logo/media_07.png" alt=""></div>
-				</div>
-				<div class="item">
-					<div class="logo d-flex align-items-center"><img src="images/logo/media_08.png" alt=""></div>
-				</div>
-				<div class="item">
-					<div class="logo d-flex align-items-center"><img src="images/logo/media_05.png" alt=""></div>
-				</div>
-			</div>
-		</div>
-		<!-- /.partner-logos -->
-	</div>
-</section>
-<!-- /.feedback-section-one -->
-<!--
-		=============================================
-			Text Feature Two
-		==============================================
-		-->
-<section class="text-feature-two position-relative pt-180 xl-pt-150 lg-pt-100 pb-180 xl-pb-150 lg-pb-120">
-	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-lg-5 order-lg-last">
-				<div class="wow fadeInRight">
-					<div class="title-one">
-						<div class="sub-title">TOP BRAND</div>
-						<h2>Collaboration with Top Brands.</h2>
-					</div>
-					<p class="text-lg mt-40 lg-mt-20 mb-40 lg-mb-30">We collaborate with a number of top tier companies on imagining the future of work, have a look.</p>
-					<a href="about-us.html" class="btn-nine tran3s d-flex align-items-center">
-						<span class="fw-500 me-2">Learn More</span>
-						<i class="bi bi-arrow-right"></i>
-					</a>
-				</div>
-			</div>
-			<div class="col-lg-7 order-lg-first">
-				<div class="big-circle rounded-circle position-relative d-flex align-items-center justify-content-center ms-lg-5 wow fadeInLeft">
-					<div class="inner-circle rounded-circle d-flex align-items-center justify-content-center">
-						<img src="images/lazy.svg" data-src="images/logo/logo_02.png" alt="" class="lazy-img">
-					</div>
-					<!-- /.inner-circle -->
-					<div class="brand-icon icon_01 rounded-circle d-flex align-items-center justify-content-center">
-						<img src="images/lazy.svg" data-src="images/logo/media_09.png" alt="" class="lazy-img">
-					</div>
-					<div class="brand-icon icon_02 rounded-circle d-flex align-items-center justify-content-center">
-						<img src="images/lazy.svg" data-src="images/logo/media_10.png" alt="" class="lazy-img">
-					</div>
-					<div class="brand-icon icon_03 rounded-circle d-flex align-items-center justify-content-center">
-						<img src="images/lazy.svg" data-src="images/logo/media_11.png" alt="" class="lazy-img">
-					</div>
-					<div class="brand-icon icon_04 rounded-circle d-flex align-items-center justify-content-center">
-						<img src="images/lazy.svg" data-src="images/logo/media_12.png" alt="" class="lazy-img">
-					</div>
-					<div class="brand-icon icon_05 rounded-circle d-flex align-items-center justify-content-center">
-						<img src="images/lazy.svg" data-src="images/logo/media_13.png" alt="" class="lazy-img">
-					</div>
-					<img src="images/lazy.svg" data-src="images/shape/shape_10.svg" alt="" class="lazy-img shapes shape_01">
-				</div>
-				<!-- /.big-circle -->
-			</div>
-		</div>
-	</div>
-</section>
-<!-- /.text-feature-two -->
-<!--
-		=====================================================
-			Blog Section One
-		=====================================================
-		-->
-<section class="blog-section-one">
-	<div class="container">
-		<div class="position-relative">
-			<div class="title-one mb-30 lg-mb-10">
-				<h2>Jobi Guides</h2>
-			</div>
+<span>@summary.TotalActiveJobs.ToString("N0")</span>   @* live jobs *@
+<span>@summary.TotalCompanies.ToString("N0")</span>     @* companies *@
+<span>@summary.TotalCategories.ToString("N0")</span>    @* categories *@
 
-			<div class="row gx-xxl-5">
-				<div class="col-lg-4 col-md-6">
-					<article class="blog-meta-one mt-35 wow fadeInUp">
-						<figure class="post-img m0">
-							<a href="blog-details.html" class="w-100 d-block"><img src="images/lazy.svg" data-src="images/blog/blog_img_01.jpg" alt="" class="lazy-img w-100 tran4s"></a>
-						</figure>
-						<div class="post-data mt-30 lg-mt-20">
-							<ul class="tags style-none d-flex">
-								<li><a href="#">Developer</a></li>
-								<li><a href="#">Code</a></li>
-							</ul>
-							<a href="blog-details.html" class="mt-10 mb-10"><h4 class="tran3s blog-title">Print, publishing qui visual layout mockups.</h4></a>
-							<div class="author">By <a href="#" class="text-dark fw-500">Rashed Kabir</a></div>
-						</div>
-					</article>
-					<!-- /.blog-meta-one -->
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<article class="blog-meta-one mt-35 wow fadeInUp" data-wow-delay="0.1s">
-						<figure class="post-img m0">
-							<a href="blog-details.html" class="w-100 d-block"><img src="images/lazy.svg" data-src="images/blog/blog_img_02.jpg" alt="" class="lazy-img w-100 tran4s"></a>
-						</figure>
-						<div class="post-data mt-30 lg-mt-20">
-							<ul class="tags style-none d-flex">
-								<li><a href="#">Design</a></li>
-								<li><a href="#">Art</a></li>
-							</ul>
-							<a href="blog-details.html" class="mt-10 mb-10"><h4 class="tran3s blog-title">Designer’s checklist for every UX/UI project.</h4></a>
-							<div class="author">By <a href="#" class="text-dark fw-500">Julie Margot</a></div>
-						</div>
-					</article>
-					<!-- /.blog-meta-one -->
-				</div>
-				<div class="col-lg-4 col-md-6 d-none d-lg-block">
-					<article class="blog-meta-one mt-35 wow fadeInUp" data-wow-delay="0.19s">
-						<figure class="post-img m0">
-							<a href="blog-details.html" class="w-100 d-block"><img src="images/lazy.svg" data-src="images/blog/blog_img_03.jpg" alt="" class="lazy-img w-100 tran4s"></a>
-						</figure>
-						<div class="post-data mt-30 lg-mt-20">
-							<ul class="tags style-none d-flex">
-								<li><a href="#">Solution</a></li>
-								<li><a href="#">Work</a></li>
-							</ul>
-							<a href="blog-details.html" class="mt-10 mb-10"><h4 class="tran3s blog-title">Make more productive work flow in few steps.</h4></a>
-							<div class="author">By <a href="#" class="text-dark fw-500">Jubayer Al Hasan</a></div>
-						</div>
-					</article>
-					<!-- /.blog-meta-one -->
-				</div>
-			</div>
+@*
+   ---------------------------------------------------------------------------
+   5) Featured jobs carousel - use the same card loop as the job list snippet,
+      over summary.FeaturedJobs.
+   ---------------------------------------------------------------------------
+*@
 
-			<div class="text-center explore-btn sm-mt-30"><a href="blog-v1.html" class="btn-one">Explore More</a></div>
-		</div>
-	</div>
-</section>
-<!-- /.blog-section-one -->
-<!--
-		=====================================================
-			Fancy Banner One
-		=====================================================
-		-->
-<section class="fancy-banner-one mt-150 xl-mt-120 lg-mt-100">
-	<div class="container">
-		<div class="bg-wrapper position-relative ps-4 pe-4 pt-55 wow fadeInUp">
-			<div class="row">
-				<div class="col-xxl-11 m-auto">
-					<div class="row">
-						<div class="col-xl-5 col-lg-6 order-lg-last">
-							<div class="text-wrapper">
-								<div class="title-two">
-									<h2 class="text-white">Get your <br> <span>Matched Jobs</span> in a few minutes.</h2>
-								</div>
-								<p class="text-md mt-25 lg-mt-20 mb-45 lg-mb-30">Find your dream job & earn from world leading brands. Upload your CV now.</p>
-								<form action="#" class="upload-btn position-relative d-flex align-items-center justify-content-center">
-									<img src="images/lazy.svg" data-src="images/icon/icon_11.svg" alt="" class="lazy-img"> <span class="fw-500 ms-2 text-dark">Upload your CV</span>
-									<input type="file" id="uploadCV" name="uploadCV">
-								</form>
-							</div>
-						</div>
-						<div class="col-xl-7 col-lg-6 order-lg-first">
-							<div class="img-meta md-mt-20 position-relative">
-								<img src="images/lazy.svg" data-src="images/assets/img_09.png" alt="" class="lazy-img m-auto">
-								<img src="images/lazy.svg" data-src="images/shape/shape_12.svg" alt="" class="lazy-img shapes shape_01">
-								<img src="images/lazy.svg" data-src="images/shape/shape_13.svg" alt="" class="lazy-img shapes shape_02">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<img src="images/lazy.svg" data-src="images/shape/shape_14.svg" alt="" class="lazy-img shapes shape_03">
-		</div>
-	</div>
-	<!-- /.bg-wrapper -->
-</section>
-<!-- /.fancy-banner-one -->
-<!--
-		=====================================================
-			Job Portal Intro
-		=====================================================
-		-->
-<section class="job-portal-intro">
-	<div class="container">
-		<div class="wrapper bottom-border pt-100 lg-pt-80 md-pt-50 pb-65 md-pb-50">
-			<div class="row align-items-center">
-				<div class="col-lg-7">
-					<div class="text-center text-lg-start">
-						<h2>Most complete job portal.</h2>
-						<p class="text-md m0 md-pb-20">Signup and start find your job or talents.</p>
-					</div>
-				</div>
-				<div class="col-lg-5">
-					<ul class="btn-group style-none d-flex flex-wrap justify-content-center justify-content-lg-end">
-						<li class="me-2"><a href="job-list-v1.html" class="btn-three">Looking for job?</a></li>
-						<li class="ms-2"><a href="signup.html" class="btn-four">Post a job</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-<!-- /.job-portal-intro -->
+@foreach (var job in summary.FeaturedJobs)
+{
+    <div class="job-list-one style-two position-relative border-style mb-20">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-5">
+                <div class="job-title d-flex align-items-center">
+                    <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="logo">
+                        <img src="~/images/lazy.svg" data-src="/images/logo/media_22.png" alt="@job.CompanyName" class="lazy-img m-auto">
+                    </a>
+                    <div class="split-box1">
+                        <span class="job-duration fw-500">@job.JobType.ToLabel()</span>
+                        <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-500 tran3s">@job.Title</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="job-location">@job.Location</div>
+                <div class="job-salary">
+                    <span class="fw-500 text-dark">@job.SalaryRange</span> . @job.ExperienceLevel.ToLabel()
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="btn-group d-flex align-items-center justify-content-sm-end xs-mt-20">
+                    <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="apply-btn text-center tran3s">APPLY</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
+@*
+   ---------------------------------------------------------------------------
+   6) Latest blog posts (Model.LatestBlogs) - drop into the blog section.
+   ---------------------------------------------------------------------------
+*@
+
+@foreach (var post in Model.LatestBlogs)
+{
+    <article class="blog-meta-one mt-30">
+        <figure class="post-img m0">
+            <a asp-controller="Blog" asp-action="Details" asp-route-slug="@post.Slug" class="w-100 d-block">
+                <img src="~/images/lazy.svg"
+                     data-src="@(string.IsNullOrWhiteSpace(post.ImageUrl) ? "/images/blog/blog_img_01.jpg" : post.ImageUrl)"
+                     alt="@post.Title" class="lazy-img w-100 tran4s">
+            </a>
+        </figure>
+        <div class="post-data">
+            <div class="date">@(post.PublishedAt?.ToString("dd MMM, yyyy") ?? "Draft")</div>
+            <a asp-controller="Blog" asp-action="Details" asp-route-slug="@post.Slug">
+                <h4 class="tran3s mb-20">@post.Title</h4>
+            </a>
+            <p>@post.Summary</p>
+        </div>
+    </article>
+}

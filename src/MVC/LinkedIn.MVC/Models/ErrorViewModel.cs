@@ -1,4 +1,4 @@
-namespace LinkedIn.MVC.Models
+﻿namespace LinkedIn.MVC.Models
 {
     public class ErrorViewModel
     {
