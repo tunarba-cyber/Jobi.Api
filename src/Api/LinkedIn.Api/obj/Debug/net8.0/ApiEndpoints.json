@@ -666,6 +666,153 @@
     "EndpointName": "GetBlogBySlug"
   },
   {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Candidates.CandidateEndpoints",
+    "Method": "Search",
+    "RelativePath": "api/candidates/",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "location",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "experienceLevel",
+        "Type": "System.Nullable\u00601[[LinkedIn.Modules.Jobs.Domain.Enums.ExperienceLevel, LinkedIn.Modules.Jobs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Shared.Abstractions.Paging.PagedResult\u00601[[LinkedIn.Modules.Jobs.Features.Candidates.Dtos.CandidateProfileDto, LinkedIn.Modules.Jobs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Candidates"
+    ],
+    "EndpointName": "SearchCandidates"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Candidates.CandidateEndpoints",
+    "Method": "GetBySlug",
+    "RelativePath": "api/candidates/{slug}",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slug",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Candidates.Dtos.CandidateProfileDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Candidates"
+    ],
+    "EndpointName": "GetCandidateBySlug"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Candidates.CandidateEndpoints",
+    "Method": "GetMine",
+    "RelativePath": "api/candidates/me",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Candidates.Dtos.CandidateProfileDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 404
+      }
+    ],
+    "Tags": [
+      "Candidates"
+    ],
+    "EndpointName": "GetMyCandidateProfile"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Candidates.CandidateEndpoints",
+    "Method": "UpsertMine",
+    "RelativePath": "api/candidates/me",
+    "HttpMethod": "PUT",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "LinkedIn.Modules.Jobs.Features.Candidates.UpsertMyProfile.UpsertMyProfileCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "LinkedIn.Modules.Jobs.Features.Candidates.Dtos.CandidateProfileDto",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Http.HttpValidationProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Candidates"
+    ],
+    "EndpointName": "UpsertMyCandidateProfile"
+  },
+  {
     "ContainingType": "LinkedIn.Modules.Jobs.Features.Categories.CategoryEndpoints",
     "Method": "GetCategories",
     "RelativePath": "api/categories/",

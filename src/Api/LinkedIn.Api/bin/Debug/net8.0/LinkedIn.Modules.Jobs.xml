@@ -13,6 +13,26 @@
             same reason GetJobsHandler denormalizes Company.Name onto Job.
             </summary>
         </member>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.CandidateProfile">
+            <summary>
+            A candidate's public profile - powers candidates-v*.html (the browsable
+            directory) and candidate-profile-v*.html (single profile view). OwnerUserId
+            is a plain string reference to AppUser.Id, same pattern as Company.OwnerUserId
+            - no database FK across modules, ownership checked in application code.
+            </summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.CandidateProfile.Slug">
+            <summary>URL-safe identifier, e.g. candidate-profile-v1.html?slug=jane-doe.</summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.CandidateProfile.Headline">
+            <summary>e.g. "Senior UI/UX Designer" - shown under the name on directory cards.</summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.CandidateProfile.Skills">
+            <summary>Comma-separated for simplicity (e.g. "Figma,React,TypeScript") - a full tagging table isn't worth the complexity right now.</summary>
+        </member>
+        <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.CandidateProfile.IsAvailableForWork">
+            <summary>Toggled off to hide from the public directory/search without deleting the profile.</summary>
+        </member>
         <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.Category">
             <summary>
             A job category - "UI/UX Design", "Development", "Marketing".
@@ -92,6 +112,23 @@
         <member name="M:LinkedIn.Modules.Jobs.Features.Applications.ApplyToJob.ApplyToJobCommand.#ctor(System.Int64,System.String,System.String,System.String,System.String,System.String)">
             <summary>CandidateUserId/Name/Email are set by the endpoint from the JWT, never the request body.</summary>
         </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Candidates.SearchCandidates.SearchCandidatesQuery">
+            <summary>Powers candidates-v1..v4.html - the public, browsable directory.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.Candidates.UpsertMyProfile.UpsertMyProfileCommand">
+            <summary>
+            One command handles both "create my profile" and "edit my profile" - if the
+            caller has no profile yet, one is created; if they do, it's updated. Simpler
+            than separate Create/Update commands for a 1-per-user resource.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.Candidates.UpsertMyProfile.UpsertMyProfileCommand.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,LinkedIn.Modules.Jobs.Domain.Enums.ExperienceLevel,System.Boolean)">
+            <summary>
+            One command handles both "create my profile" and "edit my profile" - if the
+            caller has no profile yet, one is created; if they do, it's updated. Simpler
+            than separate Create/Update commands for a 1-per-user resource.
+            </summary>
+        </member>
         <member name="T:LinkedIn.Modules.Jobs.Features.Categories.CreateCategory.CreateCategoryCommand">
             <summary>Slug is optional - it is derived from Name when omitted.</summary>
         </member>
@@ -136,32 +173,6 @@
             Lookup by slug, not id, so public URLs stay readable and stable:
             /job-grid-v1.html?category=ui-ux-design
             </summary>
-        </member>
-        <member name="T:LinkedIn.Modules.Jobs.Features.Categories.SlugGenerator">
-            <summary>
-            Turns "UI/UX Design" into "ui-ux-design". Handles the Azerbaijani and Turkish
-            characters (ə, ç, ğ, ı, ö, ş, ü) that a job board in Baku will absolutely hit.
-            </summary>
-        </member>
-        <member name="M:LinkedIn.Modules.Jobs.Features.Categories.SlugGenerator.NonSlugCharacters">
-            <remarks>
-            Pattern:<br/>
-            <code>[^a-z0-9]+</code><br/>
-            Explanation:<br/>
-            <code>
-            ○ Match a character in the set [^0-9a-z] atomically at least once.<br/>
-            </code>
-            </remarks>
-        </member>
-        <member name="M:LinkedIn.Modules.Jobs.Features.Categories.SlugGenerator.MultipleHyphens">
-            <remarks>
-            Pattern:<br/>
-            <code>-{2,}</code><br/>
-            Explanation:<br/>
-            <code>
-            ○ Match '-' atomically at least twice.<br/>
-            </code>
-            </remarks>
         </member>
         <member name="T:LinkedIn.Modules.Jobs.Features.Companies.CreateCompany.CreateCompanyCommand">
             <summary>OwnerUserId is set by the endpoint from the caller's JWT, never the request body.</summary>
@@ -293,6 +304,26 @@
         <member name="M:LinkedIn.Modules.Jobs.Features.Jobs.UpdateJob.UpdateJobCommand.#ctor(System.Int64,System.String,System.String,System.String,System.String,System.Int64,System.String,LinkedIn.Modules.Jobs.Domain.Enums.JobType,LinkedIn.Modules.Jobs.Domain.Enums.ExperienceLevel,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Int32,System.Nullable{System.DateTimeOffset},LinkedIn.Modules.Jobs.Domain.Enums.JobStatus,System.Boolean)">
             <summary>RequestingUserId is set by the endpoint from the caller's JWT, same as CreateJobCommand.</summary>
         </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.SlugGenerator.NonSlugCharacters">
+            <remarks>
+            Pattern:<br/>
+            <code>[^a-z0-9]+</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match a character in the set [^0-9a-z] atomically at least once.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Features.SlugGenerator.MultipleHyphens">
+            <remarks>
+            Pattern:<br/>
+            <code>-{2,}</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match '-' atomically at least twice.<br/>
+            </code>
+            </remarks>
+        </member>
         <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.JobsDbContextFactory">
             <summary>
             Lets you run "dotnet ef migrations add" from inside the module project without
@@ -337,6 +368,18 @@
             <inheritdoc />
         </member>
         <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddApplications.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddCandidateProfiles">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddCandidateProfiles.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddCandidateProfiles.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddCandidateProfiles.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
         <member name="T:LinkedIn.Modules.Jobs.JobsModule">
