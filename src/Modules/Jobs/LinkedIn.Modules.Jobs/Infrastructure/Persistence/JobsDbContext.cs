@@ -13,6 +13,8 @@ public sealed class JobsDbContext : DbContext
     public DbSet<Company> Companies => Set<Company>();
     public DbSet<Application> Applications => Set<Application>();
     public DbSet<CandidateProfile> CandidateProfiles => Set<CandidateProfile>();
+    public DbSet<SavedJob> SavedJobs => Set<SavedJob>();
+    public DbSet<SavedCandidate> SavedCandidates => Set<SavedCandidate>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

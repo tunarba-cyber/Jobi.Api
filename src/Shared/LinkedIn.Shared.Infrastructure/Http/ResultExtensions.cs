@@ -20,6 +20,16 @@ public static class ResultExtensions
             ? Results.Created(locationFactory(result.Value), result.Value)
             : Problem(result.Error);
 
+    public static IResult ToProblem(this Error error) =>
+    Results.Problem(title: error.Code, detail: error.Description, statusCode: error.Type switch
+    {
+        ErrorType.NotFound => StatusCodes.Status404NotFound,
+        ErrorType.Conflict => StatusCodes.Status409Conflict,
+        ErrorType.Validation => StatusCodes.Status400BadRequest,
+        ErrorType.Unauthorized => StatusCodes.Status401Unauthorized,
+        ErrorType.Forbidden => StatusCodes.Status403Forbidden,
+        _ => StatusCodes.Status500InternalServerError
+    });
     private static IResult Problem(Error error)
     {
         var statusCode = error.Type switch

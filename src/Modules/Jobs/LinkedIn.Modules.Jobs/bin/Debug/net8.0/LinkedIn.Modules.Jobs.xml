@@ -84,6 +84,12 @@
         <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.Job.IsFeatured">
             <summary>Surfaces the job in index.html's featured-jobs carousel.</summary>
         </member>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.SavedCandidate">
+            <summary>An employer's bookmarked candidate - powers employer-dashboard-saved-candidate.html.</summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.SavedJob">
+            <summary>A candidate's bookmarked job - powers candidate-dashboard-saved-jobs.html.</summary>
+        </member>
         <member name="T:LinkedIn.Modules.Jobs.Domain.Enums.JobStatus">
             <summary>
             Draft: being written, never shown on any public page.
@@ -380,6 +386,18 @@
             <inheritdoc />
         </member>
         <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddCandidateProfiles.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddSavedItems">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddSavedItems.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddSavedItems.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddSavedItems.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
         <member name="T:LinkedIn.Modules.Jobs.JobsModule">

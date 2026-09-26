@@ -1558,5 +1558,167 @@
       "Jobs"
     ],
     "EndpointName": "GetJobBySlug"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.SavedCandidates.SavedCandidateEndpoints",
+    "Method": "GetMine",
+    "RelativePath": "api/saved-candidates/",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[LinkedIn.Modules.Jobs.Features.SavedCandidates.Dtos.SavedCandidateDto, LinkedIn.Modules.Jobs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "SavedCandidates"
+    ],
+    "EndpointName": "GetMySavedCandidates"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.SavedCandidates.SavedCandidateEndpoints",
+    "Method": "Save",
+    "RelativePath": "api/saved-candidates/{candidateProfileId:long}",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "candidateProfileId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 409
+      }
+    ],
+    "Tags": [
+      "SavedCandidates"
+    ],
+    "EndpointName": "SaveCandidate"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.SavedCandidates.SavedCandidateEndpoints",
+    "Method": "Unsave",
+    "RelativePath": "api/saved-candidates/{candidateProfileId:long}",
+    "HttpMethod": "DELETE",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "candidateProfileId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ],
+    "Tags": [
+      "SavedCandidates"
+    ],
+    "EndpointName": "UnsaveCandidate"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.SavedJobs.SavedJobEndpoints",
+    "Method": "GetMine",
+    "RelativePath": "api/saved-jobs/",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[LinkedIn.Modules.Jobs.Features.SavedJobs.Dtos.SavedJobDto, LinkedIn.Modules.Jobs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "SavedJobs"
+    ],
+    "EndpointName": "GetMySavedJobs"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.SavedJobs.SavedJobEndpoints",
+    "Method": "Save",
+    "RelativePath": "api/saved-jobs/{jobId:long}",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "jobId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 409
+      }
+    ],
+    "Tags": [
+      "SavedJobs"
+    ],
+    "EndpointName": "SaveJob"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.SavedJobs.SavedJobEndpoints",
+    "Method": "Unsave",
+    "RelativePath": "api/saved-jobs/{jobId:long}",
+    "HttpMethod": "DELETE",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "jobId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ],
+    "Tags": [
+      "SavedJobs"
+    ],
+    "EndpointName": "UnsaveJob"
   }
 ]
