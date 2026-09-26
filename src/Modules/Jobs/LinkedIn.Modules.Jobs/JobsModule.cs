@@ -3,6 +3,7 @@ using LinkedIn.Modules.Jobs.Features.Candidates;
 using LinkedIn.Modules.Jobs.Features.Categories;
 using LinkedIn.Modules.Jobs.Features.Companies;
 using LinkedIn.Modules.Jobs.Features.Home;
+using LinkedIn.Modules.Jobs.Features.JobAlerts;
 using LinkedIn.Modules.Jobs.Features.Jobs;
 using LinkedIn.Modules.Jobs.Features.SavedCandidates;
 using LinkedIn.Modules.Jobs.Features.SavedJobs;
@@ -62,5 +63,6 @@ public sealed class JobsModule : IModule
         endpoints.MapCandidateEndpoints();
         endpoints.MapSavedJobEndpoints();
         endpoints.MapSavedCandidateEndpoints();
+        endpoints.MapJobAlertEndpoints();
     }
 }

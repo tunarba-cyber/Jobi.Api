@@ -84,6 +84,13 @@
         <member name="P:LinkedIn.Modules.Jobs.Domain.Entities.Job.IsFeatured">
             <summary>Surfaces the job in index.html's featured-jobs carousel.</summary>
         </member>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.JobAlert">
+            <summary>
+            A candidate's saved search criteria - powers candidate-dashboard-job-alert.html.
+            Stores what to match against; no background matching/notification job exists
+            yet, so this is currently just persisted preferences, not an active alert.
+            </summary>
+        </member>
         <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.SavedCandidate">
             <summary>An employer's bookmarked candidate - powers employer-dashboard-saved-candidate.html.</summary>
         </member>
@@ -398,6 +405,18 @@
             <inheritdoc />
         </member>
         <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddSavedItems.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddJobAlerts">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddJobAlerts.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddJobAlerts.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddJobAlerts.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
         <member name="T:LinkedIn.Modules.Jobs.JobsModule">
