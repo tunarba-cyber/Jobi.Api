@@ -186,3 +186,4 @@ C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Blogs.xml
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.pdb
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Blogs.Contracts.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Api.staticwebassets.runtime.json

@@ -1241,6 +1241,34 @@
     "EndpointName": "UpdateMyCompany"
   },
   {
+    "ContainingType": "LinkedIn.Api.Features.Contact.ContactEndpoints",
+    "Method": "SendContactMessage",
+    "RelativePath": "api/contact",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "LinkedIn.Api.Features.Contact.ContactRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Contact"
+    ],
+    "EndpointName": "SendContactMessage"
+  },
+  {
     "ContainingType": "LinkedIn.Modules.Jobs.Features.Home.HomeEndpoints",
     "Method": "GetHomeSummary",
     "RelativePath": "api/home/summary",
@@ -1836,5 +1864,89 @@
       "SavedJobs"
     ],
     "EndpointName": "UnsaveJob"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Uploads.UploadEndpoints",
+    "Method": "UploadLogo",
+    "RelativePath": "api/uploads/logo",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Uploads"
+    ],
+    "EndpointName": "UploadCompanyLogo"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Uploads.UploadEndpoints",
+    "Method": "UploadPhoto",
+    "RelativePath": "api/uploads/photo",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Uploads"
+    ],
+    "EndpointName": "UploadCandidatePhoto"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Uploads.UploadEndpoints",
+    "Method": "UploadResume",
+    "RelativePath": "api/uploads/resume",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Uploads"
+    ],
+    "EndpointName": "UploadResume"
   }
 ]

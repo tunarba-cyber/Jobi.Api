@@ -7,6 +7,7 @@ using LinkedIn.Modules.Jobs.Features.JobAlerts;
 using LinkedIn.Modules.Jobs.Features.Jobs;
 using LinkedIn.Modules.Jobs.Features.SavedCandidates;
 using LinkedIn.Modules.Jobs.Features.SavedJobs;
+using LinkedIn.Modules.Jobs.Features.Uploads;
 using LinkedIn.Modules.Jobs.Infrastructure.Persistence;
 using LinkedIn.Shared.Abstractions.Modules;
 using LinkedIn.Shared.Infrastructure.Persistence;
@@ -64,5 +65,6 @@ public sealed class JobsModule : IModule
         endpoints.MapSavedJobEndpoints();
         endpoints.MapSavedCandidateEndpoints();
         endpoints.MapJobAlertEndpoints();
+        endpoints.MapUploadEndpoints();
     }
 }

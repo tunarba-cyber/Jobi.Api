@@ -1,153 +1,330 @@
-﻿@* ===========================================================================
-   Views/Home/Index.cshtml
-   ===========================================================================
-
-   1) Add this at the very top of the file, replacing the existing @{ ... } block:
-*@
-
-@model LinkedIn.MVC.Models.ViewModels.HomeIndexViewModel
+﻿@model LinkedIn.MVC.Models.ViewModels.HomeIndexViewModel
 @{
     ViewData["Title"] = "Home";
     var summary = Model.Summary;
 }
 
-@*
-   ---------------------------------------------------------------------------
-   2) "Most Demanding Categories" - replace the six hardcoded
-      <div class="card-style-one ..."> blocks (lines ~98-145) with this loop.
-   ---------------------------------------------------------------------------
-*@
-
-<div class="card-wrapper row justify-content-center mt-75 lg-mt-40 md-mt-10">
-    @if (summary.FeaturedCategories.Count == 0)
-    {
-        <div class="col-12 text-center">
-            <p class="text-md">No categories published yet.</p>
-        </div>
-    }
-    else
-    {
-        @foreach (var (category, index) in summary.FeaturedCategories.Select((c, i) => (c, i)))
-        {
-            <div class="card-style-one text-center mt-20 wow fadeInUp" data-wow-delay="@($"0.{index}s")">
-                <a asp-controller="Job" asp-action="JobGrid" asp-route-categorySlug="@category.Slug"
-                   class="bg wrapper @(index == 0 ? "active" : "")">
-                    <div class="icon d-flex align-items-center justify-content-center">
-                        <img src="~/images/lazy.svg"
-                             data-src="@(string.IsNullOrWhiteSpace(category.IconUrl) ? "/images/icon/icon_01.svg" : category.IconUrl)"
-                             alt="@category.Name" class="lazy-img">
-                    </div>
-                    <div class="title fw-500">@category.Name</div>
-                    <div class="total-job">@category.JobCount Jobs</div>
-                </a>
+<!-- Hero Banner -->
+<div class="hero-banner-one position-relative">
+    <div class="container">
+        <div class="position-relative pt-200 md-pt-150 pb-150 xl-pb-120 md-pb-80">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1>Find & Hire <span>Top talent on Jobi.</span></h1>
+                    <p class="text-lg text-white mt-40 md-mt-30 mb-50 md-mb-30">We delivered blazing fast & striking work solution</p>
+                </div>
             </div>
-        }
-    }
+            <div class="position-relative">
+                <div class="row">
+                    <div class="col-xl-9 col-lg-8">
+                        <div class="job-search-one position-relative me-xl-5">
+                            <form asp-controller="Job" asp-action="JobList" method="get">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="input-box">
+                                            <div class="label">What are you looking for?</div>
+                                            <input type="text" name="search" class="form-control" placeholder="Job title or keyword">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="input-box border-left">
+                                            <div class="label">Category</div>
+                                            <select name="categorySlug" class="nice-select lg">
+                                                <option value="">All categories</option>
+                                                @foreach (var category in Model.AllCategories)
+                                                {
+                                                    <option value="@category.Slug">@category.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="fw-500 text-uppercase h-100 tran3s search-btn">Search</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="img-box">
+                <img src="~/images/lazy.svg" data-src="~/images/shape/shape_01.svg" alt="" class="lazy-img shapes">
+                <img src="~/images/lazy.svg" data-src="~/images/assets/img_01.jpg" alt="" class="lazy-img w-100">
+            </div>
+        </div>
+    </div>
+    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_02.svg" alt="" class="lazy-img shapes shape_01">
+    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_03.svg" alt="" class="lazy-img shapes shape_02">
 </div>
 
-@*
-   ---------------------------------------------------------------------------
-   3) Hero search dropdowns - replace the hardcoded <option> lists so the
-      search actually posts to the job list.
-   ---------------------------------------------------------------------------
-*@
+<!-- Category Section -->
+<section class="category-section-one bg-color position-relative pt-180 xl-pt-150 lg-pt-80 pb-140 xl-pb-120 lg-pb-60">
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-lg-6">
+                <div class="title-one">
+                    <h2>Most <span class="position-relative">Demanding <img src="~/images/lazy.svg" data-src="~/images/shape/shape_04.svg" alt="" class="lazy-img shapes shape"></span> Categories.</h2>
+                </div>
+            </div>
+            <div class="col-xxl-5 col-lg-6">
+                <p class="text-md mb-25 lg-mb-10 md-mt-20">Browse jobs by category and find the right fit for your skills.</p>
+                <a asp-controller="Job" asp-action="JobList" class="btn-two d-none d-lg-inline-block">Explore all fields</a>
+            </div>
+        </div>
 
-<form asp-controller="Job" asp-action="JobList" method="get">
-    <div class="row">
-        <div class="col-md-5">
-            <div class="input-box">
-                <div class="label">What are you looking for?</div>
-                <input type="text" name="search" class="form-control" placeholder="Job title or keyword">
-            </div>
+        <div class="card-wrapper row justify-content-center mt-75 lg-mt-40 md-mt-10">
+            @if (summary.FeaturedCategories.Count == 0)
+            {
+                <div class="col-12 text-center">
+                    <p class="text-md">No categories published yet.</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var (category, index) in summary.FeaturedCategories.Select((c, i) => (c, i)))
+                {
+                    <div class="card-style-one text-center mt-20 wow fadeInUp" data-wow-delay="@($"0.{index}s")">
+                        <a asp-controller="Job" asp-action="JobList" asp-route-categorySlug="@category.Slug" class="bg wrapper @(index == 0 ? "active" : "")">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <img src="~/images/lazy.svg"
+                                     data-src="@(string.IsNullOrWhiteSpace(category.IconUrl) ? "/images/icon/icon_01.svg" : category.IconUrl)"
+                                     alt="@category.Name" class="lazy-img">
+                            </div>
+                            <div class="title fw-500">@category.Name</div>
+                            <div class="total-job">@category.JobCount Jobs</div>
+                        </a>
+                    </div>
+                }
+            }
         </div>
-        <div class="col-md-4">
-            <div class="input-box border-left">
-                <div class="label">Category</div>
-                <select name="categorySlug" class="nice-select lg">
-                    <option value="">All categories</option>
-                    @foreach (var category in Model.AllCategories)
-                    {
-                        <option value="@category.Slug">@category.Name</option>
-                    }
-                </select>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <button type="submit" class="fw-500 text-uppercase h-100 tran3s search-btn">Search</button>
+
+        <div class="text-center mt-40 d-lg-none">
+            <a asp-controller="Job" asp-action="JobList" class="btn-two">Explore all fields</a>
         </div>
     </div>
-</form>
+    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_05.svg" alt="" class="lazy-img shapes shape_01">
+</section>
 
-@*
-   ---------------------------------------------------------------------------
-   4) Counters - wherever the template hardcodes numbers (e.g. "7,096 jobs"),
-      use these:
-   ---------------------------------------------------------------------------
-*@
+<!-- Text Feature One (static marketing content - no live data needed) -->
+<section class="text-feature-one position-relative pt-180 xl-pt-150 lg-pt-100 md-pt-80 pb-180 xl-pb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 order-lg-last">
+                <div class="ps-xxl-4 wow fadeInRight">
+                    <div class="title-one">
+                        <h2>Get top talent for your team on Jobi.</h2>
+                    </div>
+                    <p class="mt-40 md-mt-20 mb-40 md-mb-20">A full hybrid workforce management toolset, plus access to skilled candidates.</p>
+                    <ul class="list-style-one style-none">
+                        <li>Seamless searching</li>
+                        <li>Reach qualified candidates</li>
+                        <li>Simple, transparent posting</li>
+                    </ul>
+                    <a asp-controller="Account" asp-action="SignUp" class="btn-one lg mt-50 md-mt-30">Post a Job</a>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-11 m-auto order-lg-first">
+                <div class="img-data position-relative pe-xl-5 me-xl-5 md-mt-50">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-8 col-10">
+                            <img src="~/images/lazy.svg" data-src="~/images/assets/img_02.jpg" alt="" class="lazy-img img01">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-5">
+                            <img src="~/images/lazy.svg" data-src="~/images/assets/img_03.jpg" alt="" class="lazy-img img02 mt-35">
+                        </div>
+                        <div class="col-md-6 col-7">
+                            <img src="~/images/lazy.svg" data-src="~/images/assets/img_04.jpg" alt="" class="lazy-img img01 mt-35">
+                        </div>
+                    </div>
+                    <img src="~/images/lazy.svg" data-src="~/images/assets/screen_01.png" alt="" class="lazy-img shapes screen01 wow fadeInRight">
+                    <img src="~/images/lazy.svg" data-src="~/images/assets/screen_02.png" alt="" class="lazy-img shapes screen02 wow fadeInUp">
+                    <img src="~/images/lazy.svg" data-src="~/images/assets/screen_03.png" alt="" class="lazy-img shapes screen03 wow fadeInUp">
+                    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_06.svg" alt="" class="lazy-img shapes shape_01">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<span>@summary.TotalActiveJobs.ToString("N0")</span>   @* live jobs *@
-<span>@summary.TotalCompanies.ToString("N0")</span>     @* companies *@
-<span>@summary.TotalCategories.ToString("N0")</span>    @* categories *@
+<!-- How It Works (static informational content) -->
+<section class="how-it-works position-relative bg-color pt-110 lg-pt-80 pb-110 lg-pb-70">
+    <div class="container">
+        <div class="title-one text-center mb-65 lg-mb-40">
+            <h2 class="text-white">How it's <span class="position-relative">work? <img src="~/images/lazy.svg" data-src="~/images/shape/shape_07.svg" alt="" class="lazy-img shapes shape"></span></h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xxl-3 col-lg-4 col-md-6">
+                <div class="card-style-two text-center mt-25 wow fadeInUp">
+                    <div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img src="~/images/lazy.svg" data-src="~/images/icon/icon_08.svg" alt="" class="lazy-img"></div>
+                    <div class="title fw-500 text-white">Create Account</div>
+                    <p>It's very easy to open an account and start your journey.</p>
+                </div>
+            </div>
+            <div class="col-xxl-3 col-lg-4 col-md-6 m-auto">
+                <div class="card-style-two text-center position-relative arrow mt-25 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img src="~/images/lazy.svg" data-src="~/images/icon/icon_09.svg" alt="" class="lazy-img"></div>
+                    <div class="title fw-500 text-white">Complete your profile</div>
+                    <p>Complete your profile with all the info to get attention of client.</p>
+                </div>
+            </div>
+            <div class="col-xxl-3 col-lg-4 col-md-6">
+                <div class="card-style-two text-center mt-25 wow fadeInUp" data-wow-delay="0.19s">
+                    <div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img src="~/images/lazy.svg" data-src="~/images/icon/icon_10.svg" alt="" class="lazy-img"></div>
+                    <div class="title fw-500 text-white">Apply job or hire</div>
+                    <p>Apply & get your preferable jobs with all the requirements and get it.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_08.svg" alt="" class="lazy-img shapes shape_01">
+    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_09.svg" alt="" class="lazy-img shapes shape_02">
+</section>
 
-@*
-   ---------------------------------------------------------------------------
-   5) Featured jobs carousel - use the same card loop as the job list snippet,
-      over summary.FeaturedJobs.
-   ---------------------------------------------------------------------------
-*@
+@* Expert Section ("Find the best talented expert") removed - it showed fake
+   candidate names/photos with no real data behind them. HomeSummaryDto has no
+   FeaturedCandidates yet; add it (backend + DTO) if you want this section back
+   with real candidate profiles from the Candidates module. *@
 
-@foreach (var job in summary.FeaturedJobs)
-{
-    <div class="job-list-one style-two position-relative border-style mb-20">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-md-5">
-                <div class="job-title d-flex align-items-center">
-                    <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="logo">
-                        <img src="~/images/lazy.svg" data-src="/images/logo/media_22.png" alt="@job.CompanyName" class="lazy-img m-auto">
-                    </a>
-                    <div class="split-box1">
-                        <span class="job-duration fw-500">@job.JobType.ToLabel()</span>
-                        <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-500 tran3s">@job.Title</a>
+<!-- Feedback Section (decorative testimonials - standard template content, not live data) -->
+<section class="feedback-section-one pt-180 xl-pt-150 lg-pt-100">
+    <div class="container position-relative">
+        <div class="row">
+            <div class="col-lg-5 col-md-6">
+                <div class="title-one text-center text-md-start mb-65 md-mb-50">
+                    <h2>Trusted by leading startups.</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row feedback-slider-one">
+            <div class="item">
+                <div class="feedback-block-one">
+                    <div class="logo"><img src="~/images/logo/media_01.png" alt=""></div>
+                    <blockquote class="fw-500 mt-50 md-mt-30 mb-50 md-mb-30">"Jobi made hiring quick and painless for our team."</blockquote>
+                    <div class="name text-dark"><span class="fw-500">Rashed Kabir,</span> Lead Designer</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="feedback-block-one">
+                    <div class="logo"><img src="~/images/logo/media_02.png" alt=""></div>
+                    <blockquote class="fw-500 mt-50 md-mt-30 mb-50 md-mb-30">"We found qualified candidates within days."</blockquote>
+                    <div class="name text-dark"><span class="fw-500">Mark Joge,</span> Marketing Chief</div>
+                </div>
+            </div>
+        </div>
+        <ul class="slider-arrows slick-arrow-one d-flex justify-content-center style-none sm-mt-30">
+            <li class="prev_b slick-arrow"><i class="bi bi-arrow-left"></i></li>
+            <li class="next_b slick-arrow"><i class="bi bi-arrow-right"></i></li>
+        </ul>
+    </div>
+</section>
+
+<!-- Fancy Banner: CV upload -->
+<section class="fancy-banner-one mt-150 xl-mt-120 lg-mt-100">
+    <div class="container">
+        <div class="bg-wrapper position-relative ps-4 pe-4 pt-55 wow fadeInUp">
+            <div class="row">
+                <div class="col-xxl-11 m-auto">
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-6 order-lg-last">
+                            <div class="text-wrapper">
+                                <div class="title-two">
+                                    <h2 class="text-white">Get your <br> <span>Matched Jobs</span> in a few minutes.</h2>
+                                </div>
+                                <p class="text-md mt-25 lg-mt-20 mb-45 lg-mb-30">Find your dream job & upload your CV to get started.</p>
+                                @* Real upload wiring needs a signed-in candidate (JWT) -
+                                   that lands with the auth phase. For now this points at
+                                   login, same as Apply/Save elsewhere on the site. *@
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal"
+                                   class="upload-btn position-relative d-flex align-items-center justify-content-center">
+                                    <img src="~/images/lazy.svg" data-src="~/images/icon/icon_11.svg" alt="" class="lazy-img">
+                                    <span class="fw-500 ms-2 text-dark">Upload your CV</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-7 col-lg-6 order-lg-first">
+                            <div class="img-meta md-mt-20 position-relative">
+                                <img src="~/images/lazy.svg" data-src="~/images/assets/img_09.png" alt="" class="lazy-img m-auto">
+                                <img src="~/images/lazy.svg" data-src="~/images/shape/shape_12.svg" alt="" class="lazy-img shapes shape_01">
+                                <img src="~/images/lazy.svg" data-src="~/images/shape/shape_13.svg" alt="" class="lazy-img shapes shape_02">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="job-location">@job.Location</div>
-                <div class="job-salary">
-                    <span class="fw-500 text-dark">@job.SalaryRange</span> . @job.ExperienceLevel.ToLabel()
-                </div>
+            <img src="~/images/lazy.svg" data-src="~/images/shape/shape_14.svg" alt="" class="lazy-img shapes shape_03">
+        </div>
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section class="blog-section-one">
+    <div class="container">
+        <div class="position-relative">
+            <div class="title-one mb-30 lg-mb-10">
+                <h2>Jobi Guides</h2>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="btn-group d-flex align-items-center justify-content-sm-end xs-mt-20">
-                    <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="apply-btn text-center tran3s">APPLY</a>
+
+            <div class="row gx-xxl-5">
+                @if (Model.LatestBlogs.Count == 0)
+                {
+                    <div class="col-12 text-center">
+                        <p class="text-md">No articles published yet.</p>
+                    </div>
+                }
+                else
+                {
+                    @foreach (var post in Model.LatestBlogs)
+                    {
+                        <div class="col-lg-4 col-md-6">
+                            <article class="blog-meta-one mt-35 wow fadeInUp">
+                                <figure class="post-img m0">
+                                    <a asp-controller="Blog" asp-action="Details" asp-route-slug="@post.Slug" class="w-100 d-block">
+                                        <img src="~/images/lazy.svg"
+                                             data-src="@(string.IsNullOrWhiteSpace(post.ImageUrl) ? "/images/blog/blog_img_01.jpg" : post.ImageUrl)"
+                                             alt="@post.Title" class="lazy-img w-100 tran4s">
+                                    </a>
+                                </figure>
+                                <div class="post-data mt-30 lg-mt-20">
+                                    <a asp-controller="Blog" asp-action="Details" asp-route-slug="@post.Slug" class="mt-10 mb-10">
+                                        <h4 class="tran3s blog-title">@post.Title</h4>
+                                    </a>
+                                    <div class="author">@(post.PublishedAt?.ToString("dd MMM, yyyy") ?? "Draft")</div>
+                                </div>
+                            </article>
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="text-center explore-btn sm-mt-30">
+                <a asp-controller="Blog" asp-action="Index" class="btn-one">Explore More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Job Portal Intro -->
+<section class="job-portal-intro">
+    <div class="container">
+        <div class="wrapper bottom-border pt-100 lg-pt-80 md-pt-50 pb-65 md-pb-50">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <div class="text-center text-lg-start">
+                        <h2>Most complete job portal.</h2>
+                        <p class="text-md m0 md-pb-20">Signup and start finding your job or talent.</p>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <ul class="btn-group style-none d-flex flex-wrap justify-content-center justify-content-lg-end">
+                        <li class="me-2"><a asp-controller="Job" asp-action="JobList" class="btn-three">Looking for job?</a></li>
+                        <li class="ms-2"><a asp-controller="Account" asp-action="SignUp" class="btn-four">Post a job</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-}
-
-@*
-   ---------------------------------------------------------------------------
-   6) Latest blog posts (Model.LatestBlogs) - drop into the blog section.
-   ---------------------------------------------------------------------------
-*@
-
-@foreach (var post in Model.LatestBlogs)
-{
-    <article class="blog-meta-one mt-30">
-        <figure class="post-img m0">
-            <a asp-controller="Blog" asp-action="Details" asp-route-slug="@post.Slug" class="w-100 d-block">
-                <img src="~/images/lazy.svg"
-                     data-src="@(string.IsNullOrWhiteSpace(post.ImageUrl) ? "/images/blog/blog_img_01.jpg" : post.ImageUrl)"
-                     alt="@post.Title" class="lazy-img w-100 tran4s">
-            </a>
-        </figure>
-        <div class="post-data">
-            <div class="date">@(post.PublishedAt?.ToString("dd MMM, yyyy") ?? "Draft")</div>
-            <a asp-controller="Blog" asp-action="Details" asp-route-slug="@post.Slug">
-                <h4 class="tran3s mb-20">@post.Title</h4>
-            </a>
-            <p>@post.Summary</p>
-        </div>
-    </article>
-}
+</section>

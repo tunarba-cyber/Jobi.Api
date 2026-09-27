@@ -1,4 +1,5 @@
 using LinkedIn.Api.Extensions;
+using LinkedIn.Api.Features.Contact;
 using LinkedIn.Api.Middleware;
 using LinkedIn.Modules.Users.Infrastructure.Tokens;
 using LinkedIn.Shared.Infrastructure.Persistence;
@@ -123,6 +124,7 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddHealthChecks();
 
+
 // ---------------------------------------------------------------------------
 // Modules - discovered by convention, registered in one pass
 // ---------------------------------------------------------------------------
@@ -146,6 +148,7 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseHttpsRedirection();
+    app.UseStaticFiles();
 }
 
 app.UseSerilogRequestLogging();
@@ -156,6 +159,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapHealthChecks("/health");
+app.MapContactEndpoints();
 app.MapModuleEndpoints(modules);
 
 app.Logger.LogInformation(

@@ -1,127 +1,115 @@
-﻿@* ===========================================================================
-   Views/Job/JobDetails.cshtml
-   ===========================================================================
-
-   1) Replace the top @{ ... } block with:
-*@
-
-@using LinkedIn.MVC.Models.Api
-@model LinkedIn.MVC.Models.ViewModels.JobDetailsViewModel
+﻿@model LinkedIn.MVC.Models.ViewModels.JobDetailsViewModel
 @{
-    var job = Model.Job;
-    ViewData["Title"] = job.Title;
+    ViewData["Title"] = Model.Job.Title;
 }
 
-@*
-   ---------------------------------------------------------------------------
-   2) Banner / job title area.
-   ---------------------------------------------------------------------------
-*@
-
-<div class="title-two">
-    <h2 class="text-white">@job.Title</h2>
-</div>
-<div class="text-white mt-20">
-    @job.CompanyName . @job.Location . @job.JobType.ToLabel()
-</div>
-
-@*
-   ---------------------------------------------------------------------------
-   3) Job description body - replace the lorem-ipsum block.
-      Description is stored as HTML by the API, so it is rendered raw. If you
-      ever let untrusted users post jobs, sanitise it (HtmlSanitizer) before
-      this line - Html.Raw on user input is an XSS hole.
-   ---------------------------------------------------------------------------
-*@
-
-<div class="job-post-det">
-    @Html.Raw(job.Description)
-</div>
-
-@*
-   ---------------------------------------------------------------------------
-   4) Right-hand "Job Overview" card.
-   ---------------------------------------------------------------------------
-*@
-
-<div class="job-overview d-flex justify-content-between align-items-center pt-30 pb-15">
-    <ul class="style-none d-flex flex-wrap align-items-center justify-content-between w-100">
-        <li>
-            <span>Category</span>
-            <div>@job.CategoryName</div>
-        </li>
-        <li>
-            <span>Job Type</span>
-            <div>@job.JobType.ToLabel()</div>
-        </li>
-        <li>
-            <span>Experience</span>
-            <div>@job.ExperienceLevel.ToLabel()</div>
-        </li>
-        <li>
-            <span>Salary</span>
-            <div>@job.SalaryRange</div>
-        </li>
-        <li>
-            <span>Vacancies</span>
-            <div>@job.VacancyCount</div>
-        </li>
-        <li>
-            <span>Deadline</span>
-            <div>@(job.ApplicationDeadline?.ToString("dd MMM, yyyy") ?? "Open")</div>
-        </li>
-        <li>
-            <span>Posted</span>
-            <div>@job.PostedAgo</div>
-        </li>
-    </ul>
-</div>
-
-@if (job.Status != JobStatus.Active)
-{
-    <div class="alert alert-warning mt-20">This job is no longer accepting applications.</div>
-}
-
-@*
-   ---------------------------------------------------------------------------
-   5) Company block - links to the company page (GET /api/companies/{slug}).
-   ---------------------------------------------------------------------------
-*@
-
-<div class="company-side-detail">
-    <div class="name fw-500 text-dark text-center">@job.CompanyName</div>
-    <a asp-controller="Company" asp-action="Details" asp-route-slug="@job.CompanySlug"
-       class="btn-ten fw-500 text-white w-100 text-center tran3s mt-25">View company</a>
-</div>
-
-@*
-   ---------------------------------------------------------------------------
-   6) Related jobs.
-   ---------------------------------------------------------------------------
-*@
-
-@if (Model.RelatedJobs.Count > 0)
-{
-    <div class="related-job-item mt-60">
-        <h3 class="mb-30">Related Jobs</h3>
-        @foreach (var related in Model.RelatedJobs)
-        {
-            <div class="job-list-one style-two position-relative border-style mb-20">
-                <div class="row justify-content-between align-items-center">
-                    <div class="col-md-7">
-                        <div class="job-title d-flex align-items-center">
-                            <div class="split-box1">
-                                <span class="job-duration fw-500">@related.JobType.ToLabel()</span>
-                                <a asp-action="JobDetails" asp-route-slug="@related.Slug" class="title fw-500 tran3s">@related.Title</a>
-                            </div>
-                        </div>
+<!-- Inner Banner -->
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="position-relative">
+            <div class="row">
+                <div class="col-xl-6 m-auto text-center">
+                    <div class="title-two">
+                        <h2 class="text-white">Job Details</h2>
                     </div>
-                    <div class="col-md-5">
-                        <div class="job-location">@related.Location</div>
-                        <div class="job-salary"><span class="fw-500 text-dark">@related.SalaryRange</span></div>
+                    <p class="text-lg text-white mt-30 lg-mt-20">Here will be your company job details & requirements</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_02.svg" alt="" class="lazy-img shapes shape_01">
+    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_03.svg" alt="" class="lazy-img shapes shape_02">
+</div>
+
+<!-- Job Details -->
+<section class="job-details pt-100 lg-pt-80 pb-130 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-9 col-xl-8">
+                <div class="details-post-data me-xxl-5 pe-xxl-4">
+                    <div class="post-date">@Model.Job.PostedAgo by <a href="#" class="fw-500 text-dark">@Model.Job.CompanyName</a></div>
+                    <h3 class="post-title">@Model.Job.Title</h3>
+                    <ul class="share-buttons d-flex flex-wrap style-none">
+                        <li><a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-facebook"></i><span>Facebook</span></a></li>
+                        <li><a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-twitter"></i><span>Twitter</span></a></li>
+                        <li><a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-link-45deg"></i><span>Copy</span></a></li>
+                    </ul>
+
+                    <div class="post-block border-style mt-50 lg-mt-30">
+                        <div class="d-flex align-items-center">
+                            <div class="block-numb text-center fw-500 text-white rounded-circle me-2">1</div>
+                            <h4 class="block-title">Job Description</h4>
+                        </div>
+                        <p>@Model.Job.Description</p>
+                    </div>
+                    @* Responsibilities / Required Skills / Benefits blocks removed -
+                       Job entity has one Description field, not separate structured
+                       sections. Add those fields to Job later if you want this
+                       template's full multi-section layout. *@
+                </div>
+            </div>
+
+            <div class="col-xxl-3 col-xl-4">
+                <div class="job-company-info ms-xl-5 ms-xxl-0 lg-mt-50">
+                    <img src="~/images/lazy.svg" data-src="~/images/logo/media_37.png" alt="" class="lazy-img m-auto logo">
+                    <div class="text-md text-dark text-center mt-15 mb-20">@Model.Job.CompanyName</div>
+                    <a asp-controller="Company" asp-action="Details" asp-route-slug="@Model.Job.CompanySlug" class="website-btn tran3s">View company</a>
+
+                    <div class="border-top mt-40 pt-40">
+                        <ul class="job-meta-data row style-none">
+                            <li class="col-xl-7 col-md-4 col-sm-6"><span>Salary</span><div>@Model.Job.SalaryRange</div></li>
+                            <li class="col-xl-5 col-md-4 col-sm-6"><span>Expertise</span><div>@Model.Job.ExperienceLevel</div></li>
+                            <li class="col-xl-7 col-md-4 col-sm-6"><span>Location</span><div>@Model.Job.Location</div></li>
+                            <li class="col-xl-5 col-md-4 col-sm-6"><span>Job Type</span><div>@Model.Job.JobType</div></li>
+                            <li class="col-xl-7 col-md-4 col-sm-6"><span>Posted</span><div>@Model.Job.PostedAgo</div></li>
+                            <li class="col-xl-5 col-md-4 col-sm-6"><span>Vacancies</span><div>@Model.Job.VacancyCount</div></li>
+                        </ul>
+
+                        @* Tags removed - no Tags field on Job yet. *@
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn-one w-100 mt-25">Apply Now</a>
                     </div>
                 </div>
             </div>
-        }
+        </div>
     </div>
+</section>
+
+<!-- Related Job Slider -->
+@if (Model.RelatedJobs.Any())
+{
+    <section class="related-job-section pt-90 lg-pt-70 pb-120 lg-pb-70">
+        <div class="container">
+            <div class="position-relative">
+                <div class="title-three text-center text-md-start mb-55 lg-mb-40">
+                    <h2 class="main-font">Related Jobs</h2>
+                </div>
+
+                <div class="related-job-slider">
+                    @foreach (var job in Model.RelatedJobs)
+                    {
+                        <div class="item">
+                            <div class="job-list-two style-two position-relative">
+                                <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="logo">
+                                    <img src="~/images/logo/media_22.png" alt="" class="m-auto">
+                                </a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="save-btn text-center rounded-circle tran3s" title="Login to save"><i class="bi bi-bookmark-dash"></i></a>
+                                <div><a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="job-duration fw-500">@job.JobType</a></div>
+                                <div><a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-500 tran3s">@job.Title</a></div>
+                                <div class="job-salary"><span class="fw-500 text-dark">@job.SalaryRange</span></div>
+                                <div class="d-flex align-items-center justify-content-between mt-auto">
+                                    <div class="job-location"><a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug">@job.Location</a></div>
+                                    <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="apply-btn text-center tran3s">APPLY</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <ul class="slider-arrows slick-arrow-one color-two d-flex justify-content-center style-none sm-mt-20">
+                    <li class="prev_e slick-arrow"><i class="bi bi-arrow-left"></i></li>
+                    <li class="next_e slick-arrow"><i class="bi bi-arrow-right"></i></li>
+                </ul>
+            </div>
+        </div>
+    </section>
 }
