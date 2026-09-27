@@ -133,6 +133,62 @@ public sealed class JobiApiClient : IJobiApiClient
 
         return await GetOrDefaultAsync(url, PagedResult<BlogCardDto>.Empty(page, pageSize), ct);
     }
+    public async Task<ApiCallResult<bool>> RegisterAsync(RegisterRequest request, CancellationToken ct = default)
+    {
+        using var response = await _http.PostAsJsonAsync("api/auth/register", request, JsonOptions, ct);
+        if (response.IsSuccessStatusCode) return ApiCallResult<bool>.Ok(true);
+        return ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+    }
+
+    public async Task<ApiCallResult<AuthResultDto>> LoginAsync(LoginRequest request, CancellationToken ct = default)
+    {
+        using var response = await _http.PostAsJsonAsync("api/auth/login", request, JsonOptions, ct);
+        if (response.IsSuccessStatusCode)
+        {
+            var dto = await response.Content.ReadFromJsonAsync<AuthResultDto>(JsonOptions, ct);
+            return dto is not null ? ApiCallResult<AuthResultDto>.Ok(dto) : ApiCallResult<AuthResultDto>.Fail("Unexpected empty response.");
+        }
+        return ApiCallResult<AuthResultDto>.Fail(await ReadErrorAsync(response, ct));
+    }
+
+    public async Task<ApiCallResult<AuthResultDto>> RefreshAsync(string refreshToken, CancellationToken ct = default)
+    {
+        using var response = await _http.PostAsJsonAsync("api/auth/refresh", new { refreshToken }, JsonOptions, ct);
+        if (response.IsSuccessStatusCode)
+        {
+            var dto = await response.Content.ReadFromJsonAsync<AuthResultDto>(JsonOptions, ct);
+            return dto is not null ? ApiCallResult<AuthResultDto>.Ok(dto) : ApiCallResult<AuthResultDto>.Fail("Unexpected empty response.");
+        }
+        return ApiCallResult<AuthResultDto>.Fail(await ReadErrorAsync(response, ct));
+    }
+
+    public async Task LogoutAsync(string refreshToken, CancellationToken ct = default)
+    {
+        try { await _http.PostAsJsonAsync("api/auth/logout", new { refreshToken }, JsonOptions, ct); }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            // Logout failing server-side isn't worth blocking the user's sign-out for.
+            _logger.LogWarning(ex, "Logout call to API failed - proceeding with local sign-out anyway.");
+        }
+    }
+
+    private static async Task<string> ReadErrorAsync(HttpResponseMessage response, CancellationToken ct)
+    {
+        try
+        {
+            var problem = await response.Content.ReadFromJsonAsync<ProblemDetailsResponse>(JsonOptions, ct);
+            return problem?.Detail ?? problem?.Title ?? "Something went wrong. Please try again.";
+        }
+        catch { return "Something went wrong. Please try again."; }
+    }
+    public async Task<ApiCallResult<bool>> ConfirmEmailAsync(ConfirmEmailRequest request, CancellationToken ct = default)
+    {
+        using var response = await _http.PostAsJsonAsync("api/auth/confirm-email", request, JsonOptions, ct);
+        if (response.IsSuccessStatusCode) return ApiCallResult<bool>.Ok(true);
+        return ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+    }
+
+    private sealed record ProblemDetailsResponse(string? Title, string? Detail);
 
     public Task<BlogDetailsDto?> GetBlogBySlugAsync(string slug, CancellationToken ct = default) =>
         GetOrNullAsync<BlogDetailsDto>($"api/blogs/{Uri.EscapeDataString(slug)}", ct);

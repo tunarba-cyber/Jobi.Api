@@ -7,6 +7,7 @@ using LinkedIn.Shared.Abstractions.Primitives;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
 
 namespace LinkedIn.Modules.Users.Features.Register;
 
@@ -15,12 +16,15 @@ internal sealed class RegisterHandler : IRequestHandler<RegisterCommand, Result>
     private readonly UserManager<AppUser> _userManager;
     private readonly IEmailSender _emailSender;
     private readonly TimeProvider _timeProvider;
+    private readonly IConfiguration _configuration;
 
-    public RegisterHandler(UserManager<AppUser> userManager, IEmailSender emailSender, TimeProvider timeProvider)
+    public RegisterHandler(UserManager<AppUser> userManager, IEmailSender emailSender, TimeProvider timeProvider, IConfiguration configuration)
     {
         _userManager = userManager;
         _emailSender = emailSender;
         _timeProvider = timeProvider;
+        _configuration = configuration;
+         
     }
 
     public async Task<Result> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -51,13 +55,16 @@ internal sealed class RegisterHandler : IRequestHandler<RegisterCommand, Result>
         var rawToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
         var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(rawToken));
 
-        // No frontend confirmation page exists yet - the dev email shows the raw
-        // values needed to call POST /api/auth/confirm-email directly. Once a
-        // frontend page exists, replace this with a real link to it instead.
-        var body = $$"""
-    <p>Welcome, {{user.FirstName}}.</p>
-    <p>Confirm your email by calling <code>POST /api/auth/confirm-email</code> with:</p>
-    <pre>{ "userId": "{{user.Id}}", "token": "{{encodedToken}}" }</pre>
+        var frontendBaseUrl = _configuration["Frontend:BaseUrl"]
+    ?? throw new InvalidOperationException("Frontend:BaseUrl is not configured.");
+
+        var confirmationLink = $"{frontendBaseUrl.TrimEnd('/')}/Account/ConfirmEmail" +
+            $"?userId={Uri.EscapeDataString(user.Id)}&token={Uri.EscapeDataString(encodedToken)}";
+
+        var body = $"""
+    <p>Welcome, {user.FirstName}.</p>
+    <p>Please confirm your email by clicking the link below:</p>
+    <p><a href="{confirmationLink}">Confirm my email</a></p>
     """;
 
         await _emailSender.SendAsync(user.Email!, "Confirm your email", body, cancellationToken);

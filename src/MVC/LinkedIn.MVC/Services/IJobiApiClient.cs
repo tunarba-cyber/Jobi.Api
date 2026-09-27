@@ -26,6 +26,12 @@ public interface IJobiApiClient
         int page = 1,
         int pageSize = 50,
         CancellationToken ct = default);
+    // Auth --------------------------------------------------------------------
+    Task<ApiCallResult<bool>> RegisterAsync(RegisterRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<AuthResultDto>> LoginAsync(LoginRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<AuthResultDto>> RefreshAsync(string refreshToken, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> ConfirmEmailAsync(ConfirmEmailRequest request, CancellationToken ct = default);
+    Task LogoutAsync(string refreshToken, CancellationToken ct = default);
 
     Task<CategoryDto?> GetCategoryBySlugAsync(string slug, CancellationToken ct = default);
 
