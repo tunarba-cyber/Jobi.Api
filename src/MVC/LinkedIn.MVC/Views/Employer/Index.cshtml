@@ -1,0 +1,110 @@
+﻿@using LinkedIn.MVC.Models.Api
+@model LinkedIn.MVC.Models.ViewModels.EmployerDashboardViewModel
+@{
+    ViewData["Title"] = "Employer Dashboard";
+    var jobs = Model.Jobs;
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Employer Dashboard</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-40">
+            <div>
+                <h3 class="mb-5">@Model.Company.Name</h3>
+                @if (!string.IsNullOrWhiteSpace(Model.Company.WebsiteUrl))
+                {
+                    <a href="@Model.Company.WebsiteUrl" target="_blank" rel="noopener">@Model.Company.WebsiteUrl</a>
+                }
+            </div>
+            <div class="mt-3 mt-md-0">
+                <a asp-action="CompanyProfile" class="btn btn-outline-secondary me-2">Edit company</a>
+                <a asp-action="PostJob" class="btn-one">Post a new job</a>
+            </div>
+        </div>
+
+        @if (jobs.Items.Count == 0)
+        {
+            <div class="text-center">
+                <h4>You haven't posted any jobs yet.</h4>
+                <a asp-action="PostJob" class="btn-one mt-30">Post your first job</a>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr><th>Job</th><th>Category</th><th>Status</th><th>Posted</th><th class="text-end">Actions</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var job in jobs.Items)
+                        {
+                            <tr>
+                                <td class="fw-500">
+                                    @if (job.Status == JobStatus.Active)
+                                    {
+                                        <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug">@job.Title</a>
+                                    }
+                                    else
+                                    {
+                                        @job.Title
+                                    }
+                                </td>
+                                <td>@job.CategoryName</td>
+                                <td>
+                                    <span class="badge @(job.Status switch { JobStatus.Active => "bg-success", JobStatus.Closed => "bg-secondary", _ => "bg-warning text-dark" })">@job.Status</span>
+                                </td>
+                                <td>@job.PostedAgo</td>
+                                <td class="text-end text-nowrap">
+                                    <a asp-action="Applicants" asp-route-jobId="@job.Id" class="btn btn-sm btn-outline-primary">Applicants</a>
+                                    <a asp-action="EditJob" asp-route-id="@job.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+
+                                    <form asp-action="SetStatus" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@job.Id" />
+                                        <input type="hidden" name="status" value="@(job.Status == JobStatus.Active ? JobStatus.Closed : JobStatus.Active)" />
+                                        <button type="submit" class="btn btn-sm btn-outline-primary">
+                                            @(job.Status == JobStatus.Active ? "Close" : job.Status == JobStatus.Closed ? "Reopen" : "Publish")
+                                        </button>
+                                    </form>
+
+                                    <form asp-action="DeleteJob" method="post" class="d-inline"
+                                          onsubmit="return confirm('Delete this job? This cannot be undone.');">
+                                        <input type="hidden" name="id" value="@job.Id" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (jobs.TotalPages > 1)
+            {
+                <ul class="pagination-one d-flex align-items-center justify-content-center style-none mt-30">
+                    @if (jobs.HasPreviousPage)
+                    {
+                        <li><a asp-action="Index" asp-route-page="@(jobs.Page - 1)">Prev</a></li>
+                    }
+                    @for (var p = 1; p <= jobs.TotalPages; p++)
+                    {
+                        <li class="@(p == jobs.Page ? "active" : "")"><a asp-action="Index" asp-route-page="@p">@p</a></li>
+                    }
+                    @if (jobs.HasNextPage)
+                    {
+                        <li class="ms-2"><a asp-action="Index" asp-route-page="@(jobs.Page + 1)">Next</a></li>
+                    }
+                </ul>
+            }
+        }
+    </div>
+</section>

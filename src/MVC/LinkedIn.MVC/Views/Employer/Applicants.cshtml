@@ -1,0 +1,109 @@
+﻿@using LinkedIn.MVC.Models.Api
+@using Microsoft.Extensions.Options
+@model LinkedIn.MVC.Models.ViewModels.ApplicantsViewModel
+@inject IOptions<LinkedIn.MVC.Services.JobiApiOptions> ApiOptions
+@{
+    ViewData["Title"] = $"Applicants - {Model.Job.Title}";
+    var apps = Model.Applicants;
+    var apiBaseUrl = ApiOptions.Value.BaseUrl.TrimEnd('/');
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Applicants</h2></div>
+                <p class="text-lg text-white mt-15">@Model.Job.Title</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <a asp-action="Index" class="btn btn-outline-secondary mb-30">&larr; Back to my jobs</a>
+
+        @if (apps.Items.Count == 0)
+        {
+            <div class="text-center">
+                <h4>No applications yet.</h4>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr><th>Candidate</th><th>Applied</th><th>CV</th><th>Status</th><th class="text-end">Change status</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var app in apps.Items)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="fw-500">@app.CandidateName</div>
+                                    <div class="text-muted small">@app.CandidateEmail</div>
+                                    @if (!string.IsNullOrWhiteSpace(app.CoverLetter))
+                                    {
+                                        <div class="mt-10 small" style="max-width:320px; white-space:pre-wrap;">@app.CoverLetter</div>
+                                    }
+                                </td>
+                                <td>@app.AppliedAtUtc.ToString("dd MMM yyyy")</td>
+                                <td>
+                                    @if (!string.IsNullOrWhiteSpace(app.ResumeUrl))
+                                    {
+                                        <a href="@(apiBaseUrl + app.ResumeUrl)" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary">View CV</a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">No CV</span>
+                                    }
+                                </td>
+                                <td>
+                                    <span class="badge @(app.Status switch
+                                          {
+                                              ApplicationStatus.Hired => "bg-success",
+                                              ApplicationStatus.Rejected => "bg-danger",
+                                              ApplicationStatus.Shortlisted => "bg-info text-dark",
+                                              ApplicationStatus.Reviewed => "bg-secondary",
+                                              _ => "bg-warning text-dark"
+                                          })">@app.Status</span>
+                                </td>
+                                <td class="text-end">
+                                    <form asp-action="UpdateApplicantStatus" method="post" class="d-inline-flex align-items-center gap-2">
+                                        <input type="hidden" name="applicationId" value="@app.Id" />
+                                        <input type="hidden" name="jobId" value="@Model.Job.Id" />
+                                        <select name="status" class="form-select form-select-sm" style="width:auto;" onchange="this.form.submit()">
+                                            @foreach (ApplicationStatus status in Enum.GetValues<ApplicationStatus>())
+                                            {
+                                                <option value="@status" selected="@(app.Status == status)">@status</option>
+                                            }
+                                        </select>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (apps.TotalPages > 1)
+            {
+                <ul class="pagination-one d-flex align-items-center justify-content-center style-none mt-30">
+                    @if (apps.HasPreviousPage)
+                    {
+                        <li><a asp-action="Applicants" asp-route-jobId="@Model.Job.Id" asp-route-page="@(apps.Page - 1)">Prev</a></li>
+                    }
+                    @for (var p = 1; p <= apps.TotalPages; p++)
+                    {
+                        <li class="@(p == apps.Page ? "active" : "")"><a asp-action="Applicants" asp-route-jobId="@Model.Job.Id" asp-route-page="@p">@p</a></li>
+                    }
+                    @if (apps.HasNextPage)
+                    {
+                        <li class="ms-2"><a asp-action="Applicants" asp-route-jobId="@Model.Job.Id" asp-route-page="@(apps.Page + 1)">Next</a></li>
+                    }
+                </ul>
+            }
+        }
+    </div>
+</section>

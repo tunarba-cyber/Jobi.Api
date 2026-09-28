@@ -13,6 +13,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using System.Security.Claims;
+using LinkedIn.Modules.Jobs.Infrastructure.Persistence;
+using LinkedIn.Shared.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinkedIn.Modules.Jobs.Features.Jobs;
 
@@ -61,6 +64,19 @@ internal static class JobEndpoints
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .ProducesProblem(StatusCodes.Status403Forbidden)
             .RequireAuthorization("RequireEmployer");
+        group.MapGet("/mine", GetMyJobs)
+    .WithName("GetMyJobs")
+    .WithSummary("The calling employer's own jobs in every status (Draft, Active, Closed).")
+    .Produces<PagedResult<JobDto>>()
+    .ProducesProblem(StatusCodes.Status401Unauthorized)
+    .ProducesProblem(StatusCodes.Status403Forbidden)
+    .RequireAuthorization("RequireEmployer");
+
+        group.MapGet("/mine/{id:long}", GetMyJob)
+            .WithName("GetMyJob")
+            .Produces<JobDto>()
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .RequireAuthorization("RequireEmployer");
     }
 
     private static async Task<IResult> GetJobs(
@@ -73,6 +89,7 @@ internal static class JobEndpoints
         string? location = null,
         bool onlyFeatured = false,
         bool includeAllStatuses = false,
+        
         string? sortBy = null,
         bool descending = false,
         int page = 1,
@@ -104,6 +121,44 @@ internal static class JobEndpoints
     {
         var result = await sender.Send(new GetJobBySlugQuery(slug), cancellationToken);
         return result.ToHttpResult();
+    }
+    private static async Task<IResult> GetMyJobs(
+    ClaimsPrincipal user,
+    JobsDbContext db,
+    CancellationToken cancellationToken,
+    int page = 1,
+    int pageSize = 10)
+    {
+        var userId = user.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        page = Math.Max(page, 1);
+        pageSize = Math.Clamp(pageSize, 1, 50);
+
+        var query = db.Jobs
+            .AsNoTracking()
+            .Where(j => j.Company!.OwnerUserId == userId)
+            .OrderByDescending(j => j.CreatedAtUtc)
+            .Select(JobMappings.ToDto);
+
+        return Results.Ok(await query.ToPagedResultAsync(page, pageSize, cancellationToken));
+    }
+
+    private static async Task<IResult> GetMyJob(
+        long id,
+        ClaimsPrincipal user,
+        JobsDbContext db,
+        CancellationToken cancellationToken)
+    {
+        var userId = user.FindFirstValue(ClaimTypes.NameIdentifier)!;
+
+        var dto = await db.Jobs
+            .AsNoTracking()
+            .Where(j => j.Id == id && j.Company!.OwnerUserId == userId)
+            .Select(JobMappings.ToDto)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        return dto is null
+            ? Results.Problem(title: "Job.NotFound", statusCode: StatusCodes.Status404NotFound)
+            : Results.Ok(dto);
     }
 
     private static async Task<IResult> CreateJob(

@@ -176,6 +176,75 @@ public sealed class JobiApiClient : IJobiApiClient
             ? ApiCallResult<bool>.Ok(true)
             : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
     }
+    public Task<CompanyDto?> GetMyCompanyAsync(CancellationToken ct = default) =>
+    GetOrNullAsync<CompanyDto>("api/companies/me", ct);
+
+    public Task<ApiCallResult<CompanyDto>> CreateCompanyAsync(CreateCompanyRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<CompanyDto>(HttpMethod.Post, "api/companies", request, ct);
+
+    public Task<ApiCallResult<CompanyDto>> UpdateMyCompanyAsync(UpdateCompanyRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<CompanyDto>(HttpMethod.Put, "api/companies/me", request, ct);
+
+    public async Task<PagedResult<JobDto>> GetMyJobsAsync(int page = 1, int pageSize = 10, CancellationToken ct = default)
+    {
+        var url = BuildUrl("api/jobs/mine", new()
+        {
+            ["page"] = page.ToString(),
+            ["pageSize"] = pageSize.ToString()
+        });
+        return await GetOrDefaultAsync(url, PagedResult<JobDto>.Empty(page, pageSize), ct);
+    }
+
+    public Task<JobDto?> GetMyJobAsync(long id, CancellationToken ct = default) =>
+        GetOrNullAsync<JobDto>($"api/jobs/mine/{id}", ct);
+
+    public Task<ApiCallResult<JobDto>> CreateJobAsync(JobWriteRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<JobDto>(HttpMethod.Post, "api/jobs", request, ct);
+
+    public Task<ApiCallResult<JobDto>> UpdateJobAsync(long id, JobWriteRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<JobDto>(HttpMethod.Put, $"api/jobs/{id}", request, ct);
+
+    public async Task<ApiCallResult<bool>> DeleteJobAsync(long id, CancellationToken ct = default)
+    {
+        try
+        {
+            using var response = await _http.DeleteAsync($"api/jobs/{id}", ct);
+            return response.IsSuccessStatusCode
+                ? ApiCallResult<bool>.Ok(true)
+                : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            _logger.LogError(ex, "API call failed: DELETE api/jobs/{Id}", id);
+            return ApiCallResult<bool>.Fail("Can't reach the server. Please try again.");
+        }
+    }
+
+    /// <summary>One place for "send a JSON body, get a typed result or a readable error".</summary>
+    private async Task<ApiCallResult<T>> SendJsonAsync<T>(HttpMethod method, string url, object body, CancellationToken ct)
+    {
+        try
+        {
+            using var request = new HttpRequestMessage(method, url)
+            {
+                Content = JsonContent.Create(body, options: JsonOptions)
+            };
+            using var response = await _http.SendAsync(request, ct);
+
+            if (!response.IsSuccessStatusCode)
+                return ApiCallResult<T>.Fail(await ReadErrorAsync(response, ct));
+
+            var dto = await response.Content.ReadFromJsonAsync<T>(JsonOptions, ct);
+            return dto is not null
+                ? ApiCallResult<T>.Ok(dto)
+                : ApiCallResult<T>.Fail("Unexpected empty response.");
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            _logger.LogError(ex, "API call failed: {Method} {Url}", method, url);
+            return ApiCallResult<T>.Fail("Can't reach the server. Please try again.");
+        }
+    }
 
     private sealed record UploadResultDto(string? Url);
 
@@ -248,6 +317,10 @@ public sealed class JobiApiClient : IJobiApiClient
         try
         {
             var problem = await response.Content.ReadFromJsonAsync<ProblemDetailsResponse>(JsonOptions, ct);
+
+            if (problem?.Errors is { Count: > 0 })
+                return string.Join(" ", problem.Errors.Values.SelectMany(messages => messages));
+
             return problem?.Detail ?? problem?.Title ?? "Something went wrong. Please try again.";
         }
         catch { return "Something went wrong. Please try again."; }
@@ -259,7 +332,26 @@ public sealed class JobiApiClient : IJobiApiClient
         return ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
     }
 
-    private sealed record ProblemDetailsResponse(string? Title, string? Detail);
+    public async Task<PagedResult<ApplicantDto>> GetApplicantsForJobAsync(long jobId, int page = 1, int pageSize = 20, CancellationToken ct = default)
+    {
+        var url = BuildUrl($"api/applications/job/{jobId}", new()
+        {
+            ["page"] = page.ToString(),
+            ["pageSize"] = pageSize.ToString()
+        });
+        return await GetOrDefaultAsync(url, PagedResult<ApplicantDto>.Empty(page, pageSize), ct);
+    }
+
+    public async Task<ApiCallResult<bool>> UpdateApplicationStatusAsync(long applicationId, ApplicationStatus status, CancellationToken ct = default)
+    {
+        // NewStatus travels as an int for the same reason JobWriteRequest's enums do -
+        // the API has no JsonStringEnumConverter registered.
+        var result = await SendJsonAsync<ApplicantDto>(
+            HttpMethod.Put, $"api/applications/{applicationId}/status", new { newStatus = (int)status }, ct);
+
+        return result.Success ? ApiCallResult<bool>.Ok(true) : ApiCallResult<bool>.Fail(result.ErrorMessage!);
+    }
+    private sealed record ProblemDetailsResponse(string? Title, string? Detail, Dictionary<string, string[]>? Errors);
 
     public Task<BlogDetailsDto?> GetBlogBySlugAsync(string slug, CancellationToken ct = default) =>
         GetOrNullAsync<BlogDetailsDto>($"api/blogs/{Uri.EscapeDataString(slug)}", ct);

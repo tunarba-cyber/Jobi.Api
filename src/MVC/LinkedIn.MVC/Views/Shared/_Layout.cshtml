@@ -65,8 +65,12 @@
                             <ul class="d-flex align-items-center style-none">
                                 @if (User.Identity?.IsAuthenticated == true)
                                 {
-                                    <li class="d-none d-md-block"><a asp-controller="Job" asp-action="JobList" class="job-post-btn tran3s">Post Job</a></li>
-                                    @if (User.IsInRole("Candidate"))
+                                    if (User.IsInRole("Employer"))
+                                    {
+                                        <li class="d-none d-md-block"><a asp-controller="Employer" asp-action="PostJob" class="job-post-btn tran3s">Post Job</a></li>
+                                        <li class="ms-3"><a asp-controller="Employer" asp-action="Index" class="fw-500">My Jobs</a></li>
+                                    }
+                                    else if (User.IsInRole("Candidate"))
                                     {
                                         <li class="ms-3"><a asp-controller="Application" asp-action="My" class="fw-500">My Applications</a></li>
                                         <li class="ms-3"><a asp-controller="SavedJobs" asp-action="Index" class="fw-500">Saved Jobs</a></li>
@@ -205,8 +209,7 @@
                                                     <div class="menu-column">
                                                         <h6 class="mega-menu-title">Company</h6>
                                                         <ul class="style-none mega-dropdown-list">
-                                                            <li><a asp-controller="Company" asp-action="Index" class="dropdown-item"><span>Company List</span></a></li>
-                                                            <li><a asp-controller="Company" asp-action="Details" class="dropdown-item"><span>Company Details</span></a></li>
+                                                            <li><a asp-controller="Employer" asp-action="Index" class="dropdown-item"><span>Employer Dashboard</span></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>

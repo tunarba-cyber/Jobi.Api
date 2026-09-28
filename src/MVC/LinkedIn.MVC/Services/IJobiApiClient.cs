@@ -43,6 +43,18 @@ public interface IJobiApiClient
     Task<IReadOnlyList<SavedJobDto>> GetSavedJobsAsync(CancellationToken ct = default);
     Task<ApiCallResult<bool>> SaveJobAsync(long jobId, CancellationToken ct = default);
     Task<ApiCallResult<bool>> UnsaveJobAsync(long jobId, CancellationToken ct = default);
+    // Employer ------------------------------------------------------------------
+    Task<CompanyDto?> GetMyCompanyAsync(CancellationToken ct = default);
+    Task<ApiCallResult<CompanyDto>> CreateCompanyAsync(CreateCompanyRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<CompanyDto>> UpdateMyCompanyAsync(UpdateCompanyRequest request, CancellationToken ct = default);
+
+    Task<PagedResult<JobDto>> GetMyJobsAsync(int page = 1, int pageSize = 10, CancellationToken ct = default);
+    Task<JobDto?> GetMyJobAsync(long id, CancellationToken ct = default);
+    Task<ApiCallResult<JobDto>> CreateJobAsync(JobWriteRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<JobDto>> UpdateJobAsync(long id, JobWriteRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> DeleteJobAsync(long id, CancellationToken ct = default);
+    Task<PagedResult<ApplicantDto>> GetApplicantsForJobAsync(long jobId, int page = 1, int pageSize = 20, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> UpdateApplicationStatusAsync(long applicationId, ApplicationStatus status, CancellationToken ct = default);
 
     // Blog ------------------------------------------------------------------
     Task<PagedResult<BlogCardDto>> GetBlogsAsync(

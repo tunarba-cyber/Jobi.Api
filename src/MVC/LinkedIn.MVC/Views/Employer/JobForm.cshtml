@@ -1,0 +1,118 @@
+﻿@using LinkedIn.MVC.Models.Api
+@model LinkedIn.MVC.Models.ViewModels.JobFormViewModel
+@{
+    var isEdit = Model.Id is not null;
+    ViewData["Title"] = isEdit ? "Edit Job" : "Post a Job";
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">@(isEdit ? "Edit Job" : "Post a Job")</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 m-auto">
+                <div asp-validation-summary="All" class="alert alert-danger"></div>
+
+                <form method="post" asp-action="@(isEdit ? "EditJob" : "PostJob")" asp-route-id="@Model.Id">
+                    <input type="hidden" name="Slug" value="@Model.Slug" />
+                    <input type="hidden" name="IsFeatured" value="@Model.IsFeatured.ToString().ToLowerInvariant()" />
+
+                    <div class="mb-4">
+                        <label class="form-label fw-500">Job title*</label>
+                        <input name="Title" value="@Model.Title" class="form-control" maxlength="200" />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-500">Category*</label>
+                            <select name="CategoryId" class="form-select">
+                                <option value="0">Select a category</option>
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <option value="@category.Id" selected="@(category.Id == Model.CategoryId)">@category.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-500">Location*</label>
+                            <input name="Location" value="@Model.Location" class="form-control" maxlength="200" placeholder="Baku, Azerbaijan" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-500">Job type</label>
+                            <select name="JobType" class="form-select">
+                                @foreach (JobType type in Enum.GetValues<JobType>())
+                                {
+                                    <option value="@type" selected="@(Model.JobType == type)">@type.ToLabel()</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-500">Experience level</label>
+                            <select name="ExperienceLevel" class="form-select">
+                                @foreach (ExperienceLevel level in Enum.GetValues<ExperienceLevel>())
+                                {
+                                    <option value="@level" selected="@(Model.ExperienceLevel == level)">@level.ToLabel()</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    @* step="1": whole numbers only. Browsers post decimals with a dot, which an az-AZ
+                       server culture (comma decimal separator) would reject. *@
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <label class="form-label fw-500">Salary from</label>
+                            <input name="SalaryMin" type="number" step="1" min="0" value="@Model.SalaryMin?.ToString("0")" class="form-control" />
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label class="form-label fw-500">Salary to</label>
+                            <input name="SalaryMax" type="number" step="1" min="0" value="@Model.SalaryMax?.ToString("0")" class="form-control" />
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <label class="form-label fw-500">Vacancies</label>
+                            <input name="VacancyCount" type="number" step="1" min="1" value="@Model.VacancyCount" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-500">Application deadline</label>
+                            <input name="ApplicationDeadline" type="date" value="@Model.ApplicationDeadline?.ToString("yyyy-MM-dd")" class="form-control" />
+                        </div>
+                        @if (isEdit)
+                        {
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label fw-500">Status</label>
+                                <select name="Status" class="form-select">
+                                    @foreach (JobStatus status in Enum.GetValues<JobStatus>())
+                                    {
+                                        <option value="@status" selected="@(Model.Status == status)">@status</option>
+                                    }
+                                </select>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-500">Description*</label>
+                        <textarea name="Description" class="form-control" rows="10">@Model.Description</textarea>
+                    </div>
+
+                    <button type="submit" class="btn-one">@(isEdit ? "Save changes" : "Create job")</button>
+                    <a asp-action="Index" class="btn btn-outline-secondary ms-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

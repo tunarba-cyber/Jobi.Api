@@ -1,0 +1,47 @@
+﻿@model LinkedIn.MVC.Models.ViewModels.CompanyFormViewModel
+@{
+    ViewData["Title"] = Model.IsEdit ? "Edit Company" : "Create Company";
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">@(Model.IsEdit ? "Edit Company" : "Create Your Company")</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 m-auto">
+                <div asp-validation-summary="All" class="alert alert-danger"></div>
+
+                <form asp-action="CompanyProfile" method="post">
+                    <input type="hidden" asp-for="IsEdit" />
+
+                    <div class="mb-4">
+                        <label asp-for="Name" class="form-label fw-500">Company name*</label>
+                        <input asp-for="Name" class="form-control" placeholder="Acme Inc." />
+                    </div>
+                    <div class="mb-4">
+                        <label asp-for="WebsiteUrl" class="form-label fw-500">Website</label>
+                        <input asp-for="WebsiteUrl" type="url" class="form-control" placeholder="https://example.com" />
+                    </div>
+                    <div class="mb-4">
+                        <label asp-for="Description" class="form-label fw-500">About the company</label>
+                        <textarea asp-for="Description" class="form-control" rows="6" maxlength="2000"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-one">@(Model.IsEdit ? "Save changes" : "Create company")</button>
+                    @if (Model.IsEdit)
+                    {
+                        <a asp-action="Index" class="btn btn-outline-secondary ms-2">Cancel</a>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
