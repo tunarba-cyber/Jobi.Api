@@ -18,6 +18,7 @@ public sealed class JobListViewModel
     public required PagedResult<JobDto> Jobs { get; init; }
     public required JobSearchRequest Filters { get; init; }
     public IReadOnlyList<CategoryDto> Categories { get; init; } = Array.Empty<CategoryDto>();
+    public IReadOnlySet<long> SavedJobIds { get; init; } = new HashSet<long>();
 
     public bool IsEmpty => Jobs.Items.Count == 0;
 
@@ -44,6 +45,7 @@ public sealed class JobDetailsViewModel
 
     /// <summary>Other jobs in the same category, current one excluded.</summary>
     public IReadOnlyList<JobDto> RelatedJobs { get; init; } = Array.Empty<JobDto>();
+    public IReadOnlySet<long> SavedJobIds { get; init; } = new HashSet<long>();
 }
 
 public sealed class BlogListViewModel

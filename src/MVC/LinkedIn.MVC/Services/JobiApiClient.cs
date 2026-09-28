@@ -110,6 +110,74 @@ public sealed class JobiApiClient : IJobiApiClient
 
     public Task<CategoryDto?> GetCategoryBySlugAsync(string slug, CancellationToken ct = default) =>
         GetOrNullAsync<CategoryDto>($"api/categories/{Uri.EscapeDataString(slug)}", ct);
+    public async Task<ApiCallResult<string>> UploadResumeAsync(Stream file, string fileName, string contentType, CancellationToken ct = default)
+    {
+        using var content = new MultipartFormDataContent();
+        var fileContent = new StreamContent(file);
+        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
+        content.Add(fileContent, "file", fileName); // "file" must match the API's IFormFile parameter name
+
+        using var response = await _http.PostAsync("api/uploads/resume", content, ct);
+        if (!response.IsSuccessStatusCode)
+            return ApiCallResult<string>.Fail(await ReadErrorAsync(response, ct));
+
+        var body = await response.Content.ReadFromJsonAsync<UploadResultDto>(JsonOptions, ct);
+        return body?.Url is { } url
+            ? ApiCallResult<string>.Ok(url)
+            : ApiCallResult<string>.Fail("Upload succeeded but no file URL was returned.");
+    }
+
+    public async Task<ApiCallResult<ApplicationDto>> ApplyAsync(ApplyRequest request, CancellationToken ct = default)
+    {
+        using var response = await _http.PostAsJsonAsync("api/applications", request, JsonOptions, ct);
+        if (!response.IsSuccessStatusCode)
+            return ApiCallResult<ApplicationDto>.Fail(await ReadErrorAsync(response, ct));
+
+        var dto = await response.Content.ReadFromJsonAsync<ApplicationDto>(JsonOptions, ct);
+        return dto is not null
+            ? ApiCallResult<ApplicationDto>.Ok(dto)
+            : ApiCallResult<ApplicationDto>.Fail("Unexpected empty response.");
+    }
+
+    public async Task<PagedResult<ApplicationDto>> GetMyApplicationsAsync(int page = 1, int pageSize = 10, CancellationToken ct = default)
+    {
+        var url = BuildUrl("api/applications/mine", new()
+        {
+            ["page"] = page.ToString(),
+            ["pageSize"] = pageSize.ToString()
+        });
+        return await GetOrDefaultAsync(url, PagedResult<ApplicationDto>.Empty(page, pageSize), ct);
+    }
+
+    public async Task<ApiCallResult<bool>> WithdrawApplicationAsync(long applicationId, CancellationToken ct = default)
+    {
+        using var response = await _http.DeleteAsync($"api/applications/{applicationId}", ct);
+        return response.IsSuccessStatusCode
+            ? ApiCallResult<bool>.Ok(true)
+            : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+    }
+
+    public async Task<IReadOnlyList<SavedJobDto>> GetSavedJobsAsync(CancellationToken ct = default) =>
+        await GetOrDefaultAsync<IReadOnlyList<SavedJobDto>>("api/saved-jobs", Array.Empty<SavedJobDto>(), ct);
+
+    public async Task<ApiCallResult<bool>> SaveJobAsync(long jobId, CancellationToken ct = default)
+    {
+        using var response = await _http.PostAsync($"api/saved-jobs/{jobId}", null, ct);
+        // 409 means "already saved" - the end state the user wanted, so not an error.
+        if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.Conflict)
+            return ApiCallResult<bool>.Ok(true);
+        return ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+    }
+
+    public async Task<ApiCallResult<bool>> UnsaveJobAsync(long jobId, CancellationToken ct = default)
+    {
+        using var response = await _http.DeleteAsync($"api/saved-jobs/{jobId}", ct);
+        return response.IsSuccessStatusCode
+            ? ApiCallResult<bool>.Ok(true)
+            : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+    }
+
+    private sealed record UploadResultDto(string? Url);
 
     // -----------------------------------------------------------------------
     // Blog
@@ -174,6 +242,9 @@ public sealed class JobiApiClient : IJobiApiClient
 
     private static async Task<string> ReadErrorAsync(HttpResponseMessage response, CancellationToken ct)
     {
+        if (response.StatusCode == HttpStatusCode.Unauthorized) return "Please log in to continue.";
+        if (response.StatusCode == HttpStatusCode.Forbidden) return "Your account type can't do this.";
+
         try
         {
             var problem = await response.Content.ReadFromJsonAsync<ProblemDetailsResponse>(JsonOptions, ct);

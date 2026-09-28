@@ -4,5 +4,6 @@ public sealed record SavedJobDto(
     long Id,
     long JobId,
     string JobTitle,
+    string JobSlug,
     string CompanyName,
     DateTimeOffset SavedAtUtc);

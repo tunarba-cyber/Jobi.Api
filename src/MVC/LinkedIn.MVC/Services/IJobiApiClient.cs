@@ -34,6 +34,15 @@ public interface IJobiApiClient
     Task LogoutAsync(string refreshToken, CancellationToken ct = default);
 
     Task<CategoryDto?> GetCategoryBySlugAsync(string slug, CancellationToken ct = default);
+    // Candidate actions ---------------------------------------------------------
+    Task<ApiCallResult<string>> UploadResumeAsync(Stream file, string fileName, string contentType, CancellationToken ct = default);
+    Task<ApiCallResult<ApplicationDto>> ApplyAsync(ApplyRequest request, CancellationToken ct = default);
+    Task<PagedResult<ApplicationDto>> GetMyApplicationsAsync(int page = 1, int pageSize = 10, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> WithdrawApplicationAsync(long applicationId, CancellationToken ct = default);
+
+    Task<IReadOnlyList<SavedJobDto>> GetSavedJobsAsync(CancellationToken ct = default);
+    Task<ApiCallResult<bool>> SaveJobAsync(long jobId, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> UnsaveJobAsync(long jobId, CancellationToken ct = default);
 
     // Blog ------------------------------------------------------------------
     Task<PagedResult<BlogCardDto>> GetBlogsAsync(

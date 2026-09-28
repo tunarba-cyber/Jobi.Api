@@ -70,7 +70,8 @@ public class JobController : Controller
         var model = new JobDetailsViewModel
         {
             Job = job,
-            RelatedJobs = related.Items.Where(j => j.Id != job.Id).Take(4).ToList()
+            RelatedJobs = related.Items.Where(j => j.Id != job.Id).Take(4).ToList(),
+            SavedJobIds = await LoadSavedJobIdsAsync(ct)
         };
 
         return View(model);
@@ -111,9 +112,18 @@ public class JobController : Controller
         {
             Jobs = await jobsTask,
             Filters = filters,
-            Categories = (await categoriesTask).Items
+            Categories = (await categoriesTask).Items,
+            SavedJobIds = await LoadSavedJobIdsAsync(ct)
         };
 
         return View(viewName, model);
+    }
+    private async Task<IReadOnlySet<long>> LoadSavedJobIdsAsync(CancellationToken ct)
+    {
+        if (User.Identity?.IsAuthenticated != true || !User.IsInRole("Candidate"))
+            return new HashSet<long>();
+
+        var saved = await _api.GetSavedJobsAsync(ct);
+        return saved.Select(s => s.JobId).ToHashSet();
     }
 }

@@ -3,15 +3,12 @@
     ViewData["Title"] = Model.Job.Title;
 }
 
-<!-- Inner Banner -->
 <div class="inner-banner-one position-relative">
     <div class="container">
         <div class="position-relative">
             <div class="row">
                 <div class="col-xl-6 m-auto text-center">
-                    <div class="title-two">
-                        <h2 class="text-white">Job Details</h2>
-                    </div>
+                    <div class="title-two"><h2 class="text-white">Job Details</h2></div>
                     <p class="text-lg text-white mt-30 lg-mt-20">Here will be your company job details & requirements</p>
                 </div>
             </div>
@@ -21,7 +18,6 @@
     <img src="~/images/lazy.svg" data-src="~/images/shape/shape_03.svg" alt="" class="lazy-img shapes shape_02">
 </div>
 
-<!-- Job Details -->
 <section class="job-details pt-100 lg-pt-80 pb-130 lg-pb-80">
     <div class="container">
         <div class="row">
@@ -42,10 +38,6 @@
                         </div>
                         <p>@Model.Job.Description</p>
                     </div>
-                    @* Responsibilities / Required Skills / Benefits blocks removed -
-                       Job entity has one Description field, not separate structured
-                       sections. Add those fields to Job later if you want this
-                       template's full multi-section layout. *@
                 </div>
             </div>
 
@@ -65,8 +57,22 @@
                             <li class="col-xl-5 col-md-4 col-sm-6"><span>Vacancies</span><div>@Model.Job.VacancyCount</div></li>
                         </ul>
 
-                        @* Tags removed - no Tags field on Job yet. *@
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn-one w-100 mt-25">Apply Now</a>
+                        @if (User.Identity?.IsAuthenticated != true)
+                        {
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn-one w-100 mt-25">Apply Now</a>
+                        }
+                        else if (User.IsInRole("Candidate"))
+                        {
+                            <button type="button" class="btn-one w-100 mt-25" data-bs-toggle="modal" data-bs-target="#applyModal">Apply Now</button>
+                            <div class="mt-15 text-center">
+                                <partial name="_SaveJobButton" model="new LinkedIn.MVC.Models.ViewModels.SaveJobButtonViewModel(Model.Job.Id, Model.SavedJobIds.Contains(Model.Job.Id))" />
+                                <span class="ms-1">@(Model.SavedJobIds.Contains(Model.Job.Id) ? "Saved" : "Save for later")</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <p class="text-center mt-25">Employer accounts can't apply to jobs.</p>
+                        }
                     </div>
                 </div>
             </div>
@@ -74,7 +80,6 @@
     </div>
 </section>
 
-<!-- Related Job Slider -->
 @if (Model.RelatedJobs.Any())
 {
     <section class="related-job-section pt-90 lg-pt-70 pb-120 lg-pb-70">
@@ -92,7 +97,7 @@
                                 <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="logo">
                                     <img src="~/images/logo/media_22.png" alt="" class="m-auto">
                                 </a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="save-btn text-center rounded-circle tran3s" title="Login to save"><i class="bi bi-bookmark-dash"></i></a>
+                                <partial name="_SaveJobButton" model="new LinkedIn.MVC.Models.ViewModels.SaveJobButtonViewModel(job.Id, Model.SavedJobIds.Contains(job.Id))" />
                                 <div><a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="job-duration fw-500">@job.JobType</a></div>
                                 <div><a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-500 tran3s">@job.Title</a></div>
                                 <div class="job-salary"><span class="fw-500 text-dark">@job.SalaryRange</span></div>
@@ -112,4 +117,35 @@
             </div>
         </div>
     </section>
+}
+
+@if (User.IsInRole("Candidate"))
+{
+    <div class="modal fade" id="applyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-3">
+                <div class="modal-header border-0">
+                    <h4 class="modal-title">Apply for @Model.Job.Title</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form asp-controller="Application" asp-action="Apply" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="JobId" value="@Model.Job.Id" />
+                    <input type="hidden" name="JobSlug" value="@Model.Job.Slug" />
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label fw-500">Cover letter (optional)</label>
+                            <textarea name="CoverLetter" class="form-control" rows="5" maxlength="4000" placeholder="Tell the employer why you're a good fit"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-500">CV (PDF, DOC or DOCX, max 5 MB)</label>
+                            <input type="file" name="Resume" class="form-control" accept=".pdf,.doc,.docx" />
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="submit" class="btn-one">Submit application</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 }

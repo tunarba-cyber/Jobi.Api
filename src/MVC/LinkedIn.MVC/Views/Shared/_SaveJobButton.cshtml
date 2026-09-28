@@ -1,0 +1,20 @@
+﻿@model LinkedIn.MVC.Models.ViewModels.SaveJobButtonViewModel
+
+@if (User.Identity?.IsAuthenticated != true)
+{
+    <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal"
+       class="save-btn text-center rounded-circle tran3s @Model.ExtraClass" title="Log in to save">
+        <i class="bi bi-bookmark-dash"></i>
+    </a>
+}
+else if (User.IsInRole("Candidate"))
+{
+    <form asp-controller="SavedJobs" asp-action="@(Model.IsSaved ? "Unsave" : "Save")" method="post" class="d-inline m-0">
+        <input type="hidden" name="jobId" value="@Model.JobId" />
+        <input type="hidden" name="returnUrl" value="@(Context.Request.Path + Context.Request.QueryString)" />
+        <button type="submit" class="save-btn text-center rounded-circle tran3s @Model.ExtraClass"
+                style="border:none;" title="@(Model.IsSaved ? "Remove from saved" : "Save job")">
+            <i class="bi @(Model.IsSaved ? "bi-bookmark-check-fill" : "bi-bookmark-dash")"></i>
+        </button>
+    </form>
+}

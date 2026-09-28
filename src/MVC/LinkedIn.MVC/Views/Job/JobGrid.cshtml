@@ -1,6 +1,9 @@
-﻿@model LinkedIn.MVC.Models.ViewModels.JobListViewModel
+﻿@using LinkedIn.MVC.Models.Api
+@using LinkedIn.MVC.Models.ViewModels
+@model LinkedIn.MVC.Models.ViewModels.JobListViewModel
 @{
-    ViewData["Title"] = "Job Grid";
+    ViewData["Title"] = "Job Listing";
+    var f = Model.Filters;
 }
 
 <!-- Inner Banner -->
@@ -24,7 +27,7 @@
                                     <div class="col-md-5">
                                         <div class="input-box">
                                             <div class="label">What are you looking for?</div>
-                                            <input type="text" name="search" value="@Model.Filters.Search" class="form-control" placeholder="Job title or keyword">
+                                            <input type="text" name="search" value="@f.Search" class="form-control" placeholder="Job title or keyword">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -34,7 +37,7 @@
                                                 <option value="">All categories</option>
                                                 @foreach (var category in Model.Categories)
                                                 {
-                                                    <option value="@category.Slug" selected="@(category.Slug == Model.Filters.CategorySlug)">@category.Name</option>
+                                                    <option value="@category.Slug" selected="@(category.Slug == f.CategorySlug)">@category.Name</option>
                                                 }
                                             </select>
                                         </div>
@@ -66,24 +69,74 @@
                     <button type="button" class="btn-close text-reset d-lg-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     <div class="main-title fw-500 text-dark">Filter By</div>
                     <div class="light-bg border-20 ps-4 pe-4 pt-25 pb-30 mt-20">
-                        <div class="filter-block bottom-line pb-25">
-                            <a class="filter-title fw-500 text-dark" data-bs-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="true">Category</a>
-                            <div class="collapse show" id="collapseCategory">
-                                <div class="main-body">
-                                    <ul class="style-none filter-input">
-                                        @foreach (var category in Model.Categories)
-                                        {
-                                            <li>
-                                                <a asp-controller="Job" asp-action="JobGrid" asp-route-categorySlug="@category.Slug" asp-route-search="@Model.Filters.Search" style="display:block; text-decoration:none;">
-                                                    <label style="cursor:pointer;">@category.Name</label>
-                                                </a>
-                                            </li>
-                                        }
-                                    </ul>
+                        <form asp-controller="Job" asp-action="JobGrid" method="get" id="filterForm">
+                            <input type="hidden" name="search" value="@f.Search" />
+
+                            <div class="filter-block bottom-line pb-25">
+                                <a class="filter-title fw-500 text-dark" data-bs-toggle="collapse" href="#collapseCategory" role="button">Category</a>
+                                <div class="collapse show" id="collapseCategory">
+                                    <div class="main-body">
+                                        <ul class="style-none filter-input">
+                                            @foreach (var category in Model.Categories)
+                                            {
+                                                <li>
+                                                    <input type="radio" name="categorySlug" value="@category.Slug"
+                                                           checked="@(category.Slug == f.CategorySlug)"
+                                                           onchange="document.getElementById('filterForm').submit()">
+                                                    <label>@category.Name <span>@category.JobCount</span></label>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <a asp-controller="Job" asp-action="JobGrid" class="btn-ten fw-500 text-white w-100 text-center tran3s mt-30">Clear Filters</a>
+
+                            <div class="filter-block bottom-line pb-25 mt-25">
+                                <a class="filter-title fw-500 text-dark" data-bs-toggle="collapse" href="#collapseJobType" role="button">Job Type</a>
+                                <div class="collapse show" id="collapseJobType">
+                                    <div class="main-body">
+                                        <ul class="style-none filter-input">
+                                            @foreach (JobType type in Enum.GetValues<JobType>())
+                                            {
+                                                <li>
+                                                    <input type="radio" name="jobType" value="@type"
+                                                           checked="@(f.JobType == type)"
+                                                           onchange="document.getElementById('filterForm').submit()">
+                                                    <label>@type.ToLabel()</label>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filter-block bottom-line pb-25 mt-25">
+                                <a class="filter-title fw-500 text-dark" data-bs-toggle="collapse" href="#collapseExperience" role="button">Experience</a>
+                                <div class="collapse show" id="collapseExperience">
+                                    <div class="main-body">
+                                        <ul class="style-none filter-input">
+                                            @foreach (ExperienceLevel level in Enum.GetValues<ExperienceLevel>())
+                                            {
+                                                <li>
+                                                    <input type="radio" name="experienceLevel" value="@level"
+                                                           checked="@(f.ExperienceLevel == level)"
+                                                           onchange="document.getElementById('filterForm').submit()">
+                                                    <label>@level.ToLabel()</label>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="filter-block bottom-line pb-25 mt-25">
+                                <div class="filter-title fw-500 text-dark">Location</div>
+                                <input type="text" name="location" value="@f.Location" class="form-control" placeholder="Any location">
+                            </div>
+
+                            <button type="submit" class="btn-ten fw-500 text-white w-100 text-center tran3s mt-30">Apply filter</button>
+                            <a asp-controller="Job" asp-action="JobGrid" class="btn-ten fw-500 w-100 text-center tran3s mt-10">Reset</a>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -91,38 +144,91 @@
             <div class="col-xl-9 col-lg-8">
                 <div class="job-post-item-wrapper ms-xxl-5 ms-xl-3">
                     <div class="upper-filter d-flex justify-content-between align-items-center mb-20">
-                        <div class="total-job-found">All <span class="text-dark">@Model.Jobs.TotalCount</span> jobs found</div>
+                        <div class="total-job-found">All <span class="text-dark">@Model.Jobs.TotalCount.ToString("N0")</span> jobs found</div>
+                        <div class="d-flex align-items-center">
+                            <div class="short-filter d-flex align-items-center">
+                                <div class="text-dark fw-500 me-2">Sort:</div>
+                                <select class="nice-select" onchange="window.location.href = this.value">
+                                    <option value="@Url.Action("JobGrid", "Job", new { search = f.Search, categorySlug = f.CategorySlug, jobType = f.JobType, experienceLevel = f.ExperienceLevel, location = f.Location, sortBy = "createdAt", descending = true })">Latest</option>
+                                    <option value="@Url.Action("JobGrid", "Job", new { search = f.Search, categorySlug = f.CategorySlug, jobType = f.JobType, experienceLevel = f.ExperienceLevel, location = f.Location, sortBy = "title", descending = false })">Title A-Z</option>
+                                    <option value="@Url.Action("JobGrid", "Job", new { search = f.Search, categorySlug = f.CategorySlug, jobType = f.JobType, experienceLevel = f.ExperienceLevel, location = f.Location, sortBy = "salary", descending = true })">Salary (high to low)</option>
+                                </select>
+                            </div>
+                            <button class="style-changer-btn text-center rounded-circle tran3s ms-2 list-btn" title="List view"><i class="bi bi-list"></i></button>
+                            <button class="style-changer-btn text-center rounded-circle tran3s ms-2 grid-btn active" title="Grid view"><i class="bi bi-grid"></i></button>
+                        </div>
                     </div>
 
-                    <div class="accordion-box grid-style show">
-                        @if (Model.IsEmpty)
-                        {
-                            <p class="text-center">No jobs found matching your filters.</p>
-                        }
-                        else
-                        {
+                    @if (Model.IsEmpty)
+                    {
+                        <div class="text-center pt-60 pb-60">
+                            <h4 class="fw-500">No jobs match your filters.</h4>
+                            <p class="text-md mt-10">Try clearing a filter or searching for a different keyword.</p>
+                            <a asp-controller="Job" asp-action="JobGrid" class="btn-ten fw-500 text-white tran3s mt-20">Clear filters</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- List style (hidden by default, toggled by theme.js) -->
+                        <div class="accordion-box list-style">
+                            @foreach (var job in Model.Jobs.Items)
+                            {
+                                var listSaveButton = new SaveJobButtonViewModel(job.Id, Model.SavedJobIds.Contains(job.Id), "me-3");
+
+                                <div class="job-list-one style-two position-relative border-style mb-20">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-md-5">
+                                            <div class="job-title d-flex align-items-center">
+                                                <a asp-action="JobDetails" asp-route-slug="@job.Slug" class="logo">
+                                                    <img src="~/images/lazy.svg" data-src="~/images/logo/media_22.png" alt="@job.CompanyName" class="lazy-img m-auto">
+                                                </a>
+                                                <div class="split-box1">
+                                                    <span class="job-duration fw-500">@job.JobType.ToLabel()</span>
+                                                    <a asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-500 tran3s">@job.Title</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6">
+                                            <div class="job-location"><a asp-action="JobDetails" asp-route-slug="@job.Slug">@job.Location</a></div>
+                                            <div class="job-salary"><span class="fw-500 text-dark">@job.SalaryRange</span> . @job.ExperienceLevel.ToLabel()</div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="btn-group d-flex align-items-center justify-content-sm-end xs-mt-20">
+                                                <partial name="_SaveJobButton" model="listSaveButton" />
+                                                <a asp-action="JobDetails" asp-route-slug="@job.Slug" class="apply-btn text-center tran3s">APPLY</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Grid style (shown by default on this page) -->
+                        <div class="accordion-box grid-style show">
                             <div class="row">
                                 @foreach (var job in Model.Jobs.Items)
                                 {
+                                    var gridSaveButton = new SaveJobButtonViewModel(job.Id, Model.SavedJobIds.Contains(job.Id));
+
                                     <div class="col-sm-6 mb-30">
                                         <div class="job-list-two style-two position-relative">
-                                            <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="logo">
+                                            <a asp-action="JobDetails" asp-route-slug="@job.Slug" class="logo">
                                                 <img src="~/images/lazy.svg" data-src="~/images/logo/media_22.png" alt="@job.CompanyName" class="lazy-img m-auto">
                                             </a>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="save-btn text-center rounded-circle tran3s" title="Login to save"><i class="bi bi-bookmark-dash"></i></a>
-                                            <div><a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="job-duration fw-500">@job.JobType</a></div>
-                                            <div><a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-500 tran3s">@job.Title</a></div>
+                                            <partial name="_SaveJobButton" model="gridSaveButton" />
+                                            <div><span class="job-duration fw-500">@job.JobType.ToLabel()</span></div>
+                                            <div><a asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-500 tran3s">@job.Title</a></div>
                                             <div class="job-salary"><span class="fw-500 text-dark">@job.SalaryRange</span></div>
                                             <div class="d-flex align-items-center justify-content-between mt-auto">
-                                                <div class="job-location"><a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug">@job.Location</a></div>
-                                                <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="apply-btn text-center tran3s">APPLY</a>
+                                                <div class="job-location"><a asp-action="JobDetails" asp-route-slug="@job.Slug">@job.Location</a></div>
+                                                <a asp-action="JobDetails" asp-route-slug="@job.Slug" class="apply-btn text-center tran3s">APPLY</a>
                                             </div>
                                         </div>
                                     </div>
                                 }
                             </div>
-                        }
-                    </div>
+                        </div>
+                    }
 
                     @if (Model.Jobs.TotalPages > 1)
                     {
@@ -132,11 +238,19 @@
                                 of <span class="text-dark fw-500">@Model.Jobs.TotalCount</span>
                             </p>
                             <ul class="pagination-one d-flex align-items-center justify-content-center justify-content-sm-start style-none">
-                                @for (int p = 1; p <= Model.Jobs.TotalPages; p++)
+                                @if (Model.Jobs.HasPreviousPage)
+                                {
+                                    <li><a asp-action="JobGrid" asp-all-route-data="Model.RouteValuesFor(Model.Jobs.Page - 1)">Prev</a></li>
+                                }
+                                @for (var p = 1; p <= Model.Jobs.TotalPages; p++)
                                 {
                                     <li class="@(p == Model.Jobs.Page ? "active" : "")">
-                                        <a asp-controller="Job" asp-action="JobGrid" asp-all-route-data="Model.RouteValuesFor(p)">@p</a>
+                                        <a asp-action="JobGrid" asp-all-route-data="Model.RouteValuesFor(p)">@p</a>
                                     </li>
+                                }
+                                @if (Model.Jobs.HasNextPage)
+                                {
+                                    <li class="ms-2"><a asp-action="JobGrid" asp-all-route-data="Model.RouteValuesFor(Model.Jobs.Page + 1)" class="d-flex align-items-center">Next <i class="bi bi-chevron-right"></i></a></li>
                                 }
                             </ul>
                         </div>
@@ -145,4 +259,3 @@
             </div>
         </div>
     </div>
-</section>

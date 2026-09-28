@@ -1,0 +1,50 @@
+﻿@model LinkedIn.MVC.Models.ViewModels.SavedJobsViewModel
+@{
+    ViewData["Title"] = "Saved Jobs";
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Saved Jobs</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        @if (Model.Items.Count == 0)
+        {
+            <div class="text-center">
+                <h4>You haven't saved any jobs yet.</h4>
+                <a asp-controller="Job" asp-action="JobList" class="btn-one mt-30">Browse jobs</a>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model.Items)
+            {
+                <div class="job-list-one style-two position-relative border-style mb-20">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-md-7">
+                            <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@item.JobSlug" class="title fw-500 tran3s">@item.JobTitle</a>
+                            <div class="job-location">@item.CompanyName . saved @item.SavedAtUtc.ToString("dd MMM yyyy")</div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="d-flex align-items-center justify-content-md-end xs-mt-20">
+                                <form asp-controller="SavedJobs" asp-action="Unsave" method="post" class="d-inline me-3">
+                                    <input type="hidden" name="jobId" value="@item.JobId" />
+                                    <input type="hidden" name="returnUrl" value="@Url.Action("Index", "SavedJobs")" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                                </form>
+                                <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@item.JobSlug" class="apply-btn text-center tran3s">VIEW &amp; APPLY</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</section>

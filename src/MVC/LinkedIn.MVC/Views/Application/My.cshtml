@@ -1,0 +1,77 @@
+﻿@using LinkedIn.MVC.Models.Api
+@model LinkedIn.MVC.Models.ViewModels.MyApplicationsViewModel
+@{
+    ViewData["Title"] = "My Applications";
+    var apps = Model.Applications;
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">My Applications</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        @if (apps.Items.Count == 0)
+        {
+            <div class="text-center">
+                <h4>You haven't applied to any jobs yet.</h4>
+                <a asp-controller="Job" asp-action="JobList" class="btn-one mt-30">Browse jobs</a>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr><th>Job</th><th>Company</th><th>Applied</th><th>Status</th><th></th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var app in apps.Items)
+                        {
+                            <tr>
+                                <td class="fw-500">@app.JobTitle</td>
+                                <td>@app.CompanyName</td>
+                                <td>@app.AppliedAtUtc.ToString("dd MMM yyyy")</td>
+                                <td>@app.Status</td>
+                                <td class="text-end">
+                                    @if (app.Status is ApplicationStatus.Applied or ApplicationStatus.Reviewed or ApplicationStatus.Shortlisted)
+                                    {
+                                        <form asp-controller="Application" asp-action="Withdraw" method="post" class="d-inline"
+                                              onsubmit="return confirm('Withdraw this application?');">
+                                            <input type="hidden" name="id" value="@app.Id" />
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">Withdraw</button>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (apps.TotalPages > 1)
+            {
+                <ul class="pagination-one d-flex align-items-center justify-content-center style-none mt-30">
+                    @if (apps.HasPreviousPage)
+                    {
+                        <li><a asp-action="My" asp-route-page="@(apps.Page - 1)">Prev</a></li>
+                    }
+                    @for (var p = 1; p <= apps.TotalPages; p++)
+                    {
+                        <li class="@(p == apps.Page ? "active" : "")"><a asp-action="My" asp-route-page="@p">@p</a></li>
+                    }
+                    @if (apps.HasNextPage)
+                    {
+                        <li class="ms-2"><a asp-action="My" asp-route-page="@(apps.Page + 1)">Next</a></li>
+                    }
+                </ul>
+            }
+        }
+    </div>
+</section>

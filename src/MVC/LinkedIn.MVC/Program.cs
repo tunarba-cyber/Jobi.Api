@@ -15,6 +15,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/";
         options.ExpireTimeSpan = TimeSpan.FromDays(14);
         options.SlidingExpiration = true;
+        options.AccessDeniedPath = "/";
     });
 
 // Same-origin raw client used ONLY by AuthTokenHandler to call refresh without recursing.
