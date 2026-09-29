@@ -25,3 +25,34 @@ public sealed record SavedJobDto(
     string JobSlug,
     string CompanyName,
     DateTimeOffset SavedAtUtc);
+public sealed record CandidateProfileDto(
+    long Id,
+    string Slug,
+    string FullName,
+    string Headline,
+    string? Bio,
+    string? Location,
+    string? PhotoUrl,
+    string? ResumeUrl,
+    string? Skills,
+    ExperienceLevel ExperienceLevel,
+    bool IsAvailableForWork);
+
+public sealed record UpsertCandidateProfileRequest(
+    string FullName,
+    string Headline,
+    string? Bio,
+    string? Location,
+    string? PhotoUrl,
+    string? ResumeUrl,
+    string? Skills,
+    int ExperienceLevel,          // int, not the enum - same JSON-enum trap as JobWriteRequest
+    bool IsAvailableForWork);
+public sealed record CandidateSearchRequest
+{
+    public string? Search { get; init; }
+    public string? Location { get; init; }
+    public ExperienceLevel? ExperienceLevel { get; init; }
+    public int Page { get; init; } = 1;
+    public int PageSize { get; init; } = 10;
+}

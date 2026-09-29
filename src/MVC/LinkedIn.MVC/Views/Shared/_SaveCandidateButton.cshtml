@@ -1,0 +1,13 @@
+﻿@model LinkedIn.MVC.Models.ViewModels.SaveCandidateButtonViewModel
+
+@if (User.Identity?.IsAuthenticated == true && User.IsInRole("Employer"))
+{
+    <form asp-controller="SavedCandidates" asp-action="@(Model.IsSaved ? "Unsave" : "Save")" method="post" class="d-inline m-0">
+        <input type="hidden" name="candidateProfileId" value="@Model.CandidateProfileId" />
+        <input type="hidden" name="returnUrl" value="@(Context.Request.Path + Context.Request.QueryString)" />
+        <button type="submit" class="btn btn-sm @(Model.IsSaved ? "btn-secondary" : "btn-outline-secondary") @Model.ExtraClass">
+            <i class="bi @(Model.IsSaved ? "bi-bookmark-check-fill" : "bi-bookmark-dash")"></i>
+            @(Model.IsSaved ? "Saved" : "Save")
+        </button>
+    </form>
+}

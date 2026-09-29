@@ -43,6 +43,19 @@ public interface IJobiApiClient
     Task<IReadOnlyList<SavedJobDto>> GetSavedJobsAsync(CancellationToken ct = default);
     Task<ApiCallResult<bool>> SaveJobAsync(long jobId, CancellationToken ct = default);
     Task<ApiCallResult<bool>> UnsaveJobAsync(long jobId, CancellationToken ct = default);
+    // Candidate profile -----------------------------------------------------
+    Task<CandidateProfileDto?> GetMyCandidateProfileAsync(CancellationToken ct = default);
+    Task<ApiCallResult<CandidateProfileDto>> UpsertMyCandidateProfileAsync(UpsertCandidateProfileRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<string>> UploadPhotoAsync(Stream file, string fileName, string contentType, CancellationToken ct = default);
+    // Public candidates -------------------------------------------------------
+    Task<PagedResult<CandidateProfileDto>> SearchCandidatesAsync(CandidateSearchRequest request, CancellationToken ct = default);
+    Task<CandidateProfileDto?> GetCandidateBySlugAsync(string slug, CancellationToken ct = default);
+    Task<IReadOnlyList<SavedCandidateDto>> GetSavedCandidatesAsync(CancellationToken ct = default);
+    Task<ApiCallResult<bool>> SaveCandidateAsync(long candidateProfileId, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> UnsaveCandidateAsync(long candidateProfileId, CancellationToken ct = default);
+
+    // Public companies ---------------------------------------------------------
+    Task<CompanyDto?> GetCompanyBySlugAsync(string slug, CancellationToken ct = default);
     // Employer ------------------------------------------------------------------
     Task<CompanyDto?> GetMyCompanyAsync(CancellationToken ct = default);
     Task<ApiCallResult<CompanyDto>> CreateCompanyAsync(CreateCompanyRequest request, CancellationToken ct = default);

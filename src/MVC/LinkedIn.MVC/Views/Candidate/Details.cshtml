@@ -1,0 +1,74 @@
+﻿@using LinkedIn.MVC.Models.ViewModels
+@using Microsoft.Extensions.Options
+@model LinkedIn.MVC.Models.Api.CandidateProfileDto
+@inject IOptions<LinkedIn.MVC.Services.JobiApiOptions> ApiOptions
+@{
+    ViewData["Title"] = Model.FullName;
+    var apiBaseUrl = ApiOptions.Value.BaseUrl.TrimEnd('/');
+
+    var isSavedByMe = User.IsInRole("Employer")
+      && (await Context.RequestServices.GetRequiredService<LinkedIn.MVC.Services.IJobiApiClient>()
+          .GetSavedCandidatesAsync(Context.RequestAborted))
+          .Any(s => s.CandidateProfileId == Model.Id);
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">@Model.FullName</h2></div>
+                <p class="text-lg text-white mt-15">@Model.Headline</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                @if (!string.IsNullOrWhiteSpace(Model.Bio))
+                {
+                    <h4>About</h4>
+                    <p style="white-space:pre-wrap;">@Model.Bio</p>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.Skills))
+                {
+                    <h4 class="mt-30">Skills</h4>
+                    <div class="job-tags d-flex flex-wrap pt-10">
+                        @foreach (var skill in Model.Skills.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            <a href="#" class="pe-none">@skill</a>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="col-lg-4">
+                <div class="job-company-info">
+                    @if (!string.IsNullOrWhiteSpace(Model.PhotoUrl))
+                    {
+                        <img src="@(apiBaseUrl + Model.PhotoUrl)" alt="@Model.FullName" class="lazy-img m-auto logo rounded-circle" style="width:100px; height:100px; object-fit:cover;">
+                    }
+                    <div class="text-md text-dark text-center mt-15 mb-20">@Model.FullName</div>
+
+                    <ul class="job-meta-data row style-none">
+                        <li class="col-12 mb-10"><span>Experience</span><div>@Model.ExperienceLevel.ToLabel()</div></li>
+                        @if (!string.IsNullOrWhiteSpace(Model.Location))
+                        {
+                            <li class="col-12 mb-10"><span>Location</span><div>@Model.Location</div></li>
+                        }
+                        <li class="col-12"><span>Status</span><div>@(Model.IsAvailableForWork ? "Available for work" : "Not currently available")</div></li>
+                        <li class="col-12 mt-15">
+                            <partial name="_SaveCandidateButton" model="new SaveCandidateButtonViewModel(Model.Id, isSavedByMe)" />
+                        </li>
+                    </ul>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.ResumeUrl))
+                    {
+                        <a href="@(apiBaseUrl + Model.ResumeUrl)" target="_blank" rel="noopener" class="btn-one w-100 mt-25">Download CV</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

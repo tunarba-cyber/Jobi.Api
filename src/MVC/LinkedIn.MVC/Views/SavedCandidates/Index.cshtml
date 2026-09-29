@@ -1,0 +1,49 @@
+﻿@model LinkedIn.MVC.Models.ViewModels.SavedCandidatesViewModel
+@{
+    ViewData["Title"] = "Saved Candidates";
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Saved Candidates</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        @if (Model.Items.Count == 0)
+        {
+            <div class="text-center">
+                <h4>You haven't saved any candidates yet.</h4>
+                <a asp-controller="Candidate" asp-action="Index" class="btn-one mt-30">Browse candidates</a>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model.Items)
+            {
+                <div class="job-list-one style-two position-relative border-style mb-20">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-md-7">
+                            <div class="title fw-500">@item.CandidateName</div>
+                            <div class="job-location">@item.Headline . saved @item.SavedAtUtc.ToString("dd MMM yyyy")</div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="d-flex align-items-center justify-content-md-end xs-mt-20">
+                                <form asp-controller="SavedCandidates" asp-action="Unsave" method="post" class="d-inline me-3">
+                                    <input type="hidden" name="candidateProfileId" value="@item.CandidateProfileId" />
+                                    <input type="hidden" name="returnUrl" value="@Url.Action("Index", "SavedCandidates")" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</section>

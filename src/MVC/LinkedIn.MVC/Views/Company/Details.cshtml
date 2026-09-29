@@ -1,0 +1,32 @@
+﻿@model LinkedIn.MVC.Models.ViewModels.CompanyDetailsViewModel
+@{
+    ViewData["Title"] = Model.Company.Name;
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">@Model.Company.Name</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 m-auto text-center">
+                @if (!string.IsNullOrWhiteSpace(Model.Company.WebsiteUrl))
+                {
+                    <a href="@Model.Company.WebsiteUrl" target="_blank" rel="noopener" class="d-block mb-20">@Model.Company.WebsiteUrl</a>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.Company.Description))
+                {
+                    <p style="white-space:pre-wrap;">@Model.Company.Description</p>
+                }
+                <a asp-controller="Job" asp-action="JobList" class="btn-one mt-30">See open positions</a>
+            </div>
+        </div>
+    </div>
+</section>

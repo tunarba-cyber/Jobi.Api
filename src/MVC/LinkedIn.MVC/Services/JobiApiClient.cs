@@ -247,6 +247,66 @@ public sealed class JobiApiClient : IJobiApiClient
     }
 
     private sealed record UploadResultDto(string? Url);
+    public Task<CandidateProfileDto?> GetMyCandidateProfileAsync(CancellationToken ct = default) =>
+    GetOrNullAsync<CandidateProfileDto>("api/candidates/me", ct);
+
+    public Task<ApiCallResult<CandidateProfileDto>> UpsertMyCandidateProfileAsync(UpsertCandidateProfileRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<CandidateProfileDto>(HttpMethod.Put, "api/candidates/me", request, ct);
+
+    public async Task<ApiCallResult<string>> UploadPhotoAsync(Stream file, string fileName, string contentType, CancellationToken ct = default)
+    {
+        using var content = new MultipartFormDataContent();
+        var fileContent = new StreamContent(file);
+        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
+        content.Add(fileContent, "file", fileName);
+
+        using var response = await _http.PostAsync("api/uploads/photo", content, ct);
+        if (!response.IsSuccessStatusCode)
+            return ApiCallResult<string>.Fail(await ReadErrorAsync(response, ct));
+
+        var body = await response.Content.ReadFromJsonAsync<UploadResultDto>(JsonOptions, ct);
+        return body?.Url is { } url
+            ? ApiCallResult<string>.Ok(url)
+            : ApiCallResult<string>.Fail("Upload succeeded but no file URL was returned.");
+    }
+    public async Task<IReadOnlyList<SavedCandidateDto>> GetSavedCandidatesAsync(CancellationToken ct = default) =>
+    await GetOrDefaultAsync<IReadOnlyList<SavedCandidateDto>>("api/saved-candidates", Array.Empty<SavedCandidateDto>(), ct);
+
+    public async Task<ApiCallResult<bool>> SaveCandidateAsync(long candidateProfileId, CancellationToken ct = default)
+    {
+        using var response = await _http.PostAsync($"api/saved-candidates/{candidateProfileId}", null, ct);
+        if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.Conflict)
+            return ApiCallResult<bool>.Ok(true);
+        return ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+    }
+
+    public async Task<ApiCallResult<bool>> UnsaveCandidateAsync(long candidateProfileId, CancellationToken ct = default)
+    {
+        using var response = await _http.DeleteAsync($"api/saved-candidates/{candidateProfileId}", ct);
+        return response.IsSuccessStatusCode
+            ? ApiCallResult<bool>.Ok(true)
+            : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+    }
+    public async Task<PagedResult<CandidateProfileDto>> SearchCandidatesAsync(CandidateSearchRequest request, CancellationToken ct = default)
+    {
+        var query = new Dictionary<string, string?>
+        {
+            ["search"] = NullIfBlank(request.Search),
+            ["location"] = NullIfBlank(request.Location),
+            ["experienceLevel"] = request.ExperienceLevel?.ToString(),
+            ["page"] = request.Page.ToString(),
+            ["pageSize"] = request.PageSize.ToString()
+        };
+
+        var url = BuildUrl("api/candidates", query);
+        return await GetOrDefaultAsync(url, PagedResult<CandidateProfileDto>.Empty(request.Page, request.PageSize), ct);
+    }
+
+    public Task<CandidateProfileDto?> GetCandidateBySlugAsync(string slug, CancellationToken ct = default) =>
+        GetOrNullAsync<CandidateProfileDto>($"api/candidates/{Uri.EscapeDataString(slug)}", ct);
+
+    public Task<CompanyDto?> GetCompanyBySlugAsync(string slug, CancellationToken ct = default) =>
+        GetOrNullAsync<CompanyDto>($"api/companies/{Uri.EscapeDataString(slug)}", ct);
 
     // -----------------------------------------------------------------------
     // Blog

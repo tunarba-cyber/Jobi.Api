@@ -30,6 +30,12 @@ public sealed class ApplicantsViewModel
     public required JobDto Job { get; init; }
     public required PagedResult<ApplicantDto> Applicants { get; init; }
 }
+public sealed record SaveCandidateButtonViewModel(long CandidateProfileId, bool IsSaved, string ExtraClass = "");
+
+public sealed class SavedCandidatesViewModel
+{
+    public IReadOnlyList<SavedCandidateDto> Items { get; init; } = Array.Empty<SavedCandidateDto>();
+}
 
 public sealed class JobFormViewModel
 {
