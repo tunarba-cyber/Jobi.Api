@@ -40,24 +40,43 @@ public class EmployerController : Controller
                 IsEdit = true,
                 Name = company.Name,
                 Description = company.Description,
-                WebsiteUrl = company.WebsiteUrl
+                WebsiteUrl = company.WebsiteUrl,
+                CurrentLogoUrl = company.LogoUrl
             });
     }
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> CompanyProfile(CompanyFormViewModel model, CancellationToken ct)
     {
+        var existing = await _api.GetMyCompanyAsync(ct);
+        model.IsEdit = existing is not null;
+        model.CurrentLogoUrl = existing?.LogoUrl;
+        model.ValidateLogo(ModelState);
+
         if (!ModelState.IsValid) return View(model);
 
-        var existing = await _api.GetMyCompanyAsync(ct);
+        var logoUrl = existing?.LogoUrl;
+        if (model.Logo is { Length: > 0 })
+        {
+            await using var stream = model.Logo.OpenReadStream();
+            var upload = await _api.UploadLogoAsync(
+                stream, model.Logo.FileName, model.Logo.ContentType, ct);
+
+            if (!upload.Success)
+            {
+                ModelState.AddModelError(nameof(model.Logo), upload.ErrorMessage!);
+                return View(model);
+            }
+
+            logoUrl = upload.Value;
+            model.CurrentLogoUrl = logoUrl;
+        }
 
         var result = existing is null
             ? await _api.CreateCompanyAsync(
-                new CreateCompanyRequest(model.Name.Trim(), null, model.Description, model.WebsiteUrl, null), ct)
-            // LogoUrl is passed through untouched - the update handler overwrites it
-            // with whatever it receives, so sending null here would wipe the logo.
+                new CreateCompanyRequest(model.Name.Trim(), null, model.Description, model.WebsiteUrl, logoUrl), ct)
             : await _api.UpdateMyCompanyAsync(
-                new UpdateCompanyRequest(model.Name.Trim(), model.Description, model.WebsiteUrl, existing.LogoUrl), ct);
+                new UpdateCompanyRequest(model.Name.Trim(), model.Description, model.WebsiteUrl, logoUrl), ct);
 
         if (!result.Success)
         {

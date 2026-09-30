@@ -1,0 +1,105 @@
+﻿@using Microsoft.Extensions.Options
+@model LinkedIn.MVC.Models.ViewModels.BlogListViewModel
+@inject IOptions<LinkedIn.MVC.Services.JobiApiOptions> ApiOptions
+@{
+    ViewData["Title"] = "Jobi Guides";
+    var apiBaseUrl = ApiOptions.Value.BaseUrl.TrimEnd('/');
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Jobi Guides</h2></div>
+                <p class="text-lg text-white mt-30 lg-mt-20 mb-35 lg-mb-20">Career advice, hiring insights and workplace ideas.</p>
+            </div>
+        </div>
+    </div>
+    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_02.svg" alt="" class="lazy-img shapes shape_01">
+    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_03.svg" alt="" class="lazy-img shapes shape_02">
+</div>
+
+<section class="blog-section-one pt-110 lg-pt-80 pb-160 xl-pb-150 lg-pb-80">
+    <div class="container">
+        <form asp-action="Index" method="get" class="row align-items-end mb-50 lg-mb-30">
+            <div class="col-lg-6 mb-20">
+                <label for="blog-search" class="form-label fw-500">Search articles</label>
+                <input id="blog-search" type="search" name="search" value="@Model.Search" class="form-control" maxlength="200" placeholder="Title or keyword">
+            </div>
+            <div class="col-lg-4 mb-20">
+                <label for="blog-category" class="form-label fw-500">Category</label>
+                <select id="blog-category" name="categorySlug" class="form-select">
+                    <option value="">All categories</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Slug" selected="@(category.Slug == Model.CategorySlug)">@category.Name (@category.Count)</option>
+                    }
+                </select>
+            </div>
+            <div class="col-lg-2 mb-20">
+                <button type="submit" class="btn-one w-100">Search</button>
+            </div>
+        </form>
+
+        @if (Model.Blogs.Items.Count == 0)
+        {
+            <div class="text-center pt-40 pb-40">
+                <h4>No articles found</h4>
+                <p class="text-md mt-10">Try another search or category.</p>
+                <a asp-action="Index" class="btn-one mt-20">Clear filters</a>
+            </div>
+        }
+        else
+        {
+            <div class="row gx-xxl-5">
+                @foreach (var post in Model.Blogs.Items)
+                {
+                    var imageUrl = string.IsNullOrWhiteSpace(post.ImageUrl)
+                        ? Url.Content("~/images/blog/blog_img_01.jpg")
+                        : post.ImageUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+                            ? post.ImageUrl
+                            : apiBaseUrl + post.ImageUrl;
+
+                    <div class="col-lg-4 col-md-6">
+                        <article class="blog-meta-one mt-35 wow fadeInUp">
+                            <figure class="post-img m0">
+                                <a asp-action="Details" asp-route-slug="@post.Slug" class="w-100 d-block">
+                                    <img src="~/images/lazy.svg" data-src="@imageUrl" alt="@post.Title" class="lazy-img w-100 tran4s">
+                                </a>
+                            </figure>
+                            <div class="post-data mt-30 lg-mt-20">
+                                <div class="author">@post.CategoryName · @(post.PublishedAt?.ToString("dd MMM, yyyy") ?? "Draft")</div>
+                                <a asp-action="Details" asp-route-slug="@post.Slug" class="mt-10 mb-10 d-block">
+                                    <h4 class="tran3s blog-title">@post.Title</h4>
+                                </a>
+                                <p>@post.Summary</p>
+                            </div>
+                        </article>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (Model.Blogs.TotalPages > 1)
+        {
+            <div class="pt-50 d-flex justify-content-center">
+                <ul class="pagination-one d-flex align-items-center style-none">
+                    @if (Model.Blogs.HasPreviousPage)
+                    {
+                        <li><a asp-action="Index" asp-route-page="@(Model.Blogs.Page - 1)" asp-route-search="@Model.Search" asp-route-categorySlug="@Model.CategorySlug">Prev</a></li>
+                    }
+                    @for (var pageNumber = 1; pageNumber <= Model.Blogs.TotalPages; pageNumber++)
+                    {
+                        <li class="@(pageNumber == Model.Blogs.Page ? "active" : "")">
+                            <a asp-action="Index" asp-route-page="@pageNumber" asp-route-search="@Model.Search" asp-route-categorySlug="@Model.CategorySlug">@pageNumber</a>
+                        </li>
+                    }
+                    @if (Model.Blogs.HasNextPage)
+                    {
+                        <li class="ms-2"><a asp-action="Index" asp-route-page="@(Model.Blogs.Page + 1)" asp-route-search="@Model.Search" asp-route-categorySlug="@Model.CategorySlug">Next <i class="bi bi-chevron-right"></i></a></li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</section>

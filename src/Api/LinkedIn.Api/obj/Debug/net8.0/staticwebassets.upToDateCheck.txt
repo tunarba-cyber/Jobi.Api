@@ -1,0 +1,3 @@
+wwwroot\uploads\photos\2cad6c79-05f2-4466-aef8-e5be13133c44-415703dd-64bf-44e5-ae21-6961f36376b8.jpg
+wwwroot\uploads\photos\2cad6c79-05f2-4466-aef8-e5be13133c44-51139bd2-88da-4a07-9d5e-bfcb9af02217.jpg
+wwwroot\uploads\resumes\2cad6c79-05f2-4466-aef8-e5be13133c44-04bd776b-a655-48bd-a3e8-f4efc07e19ef.docx

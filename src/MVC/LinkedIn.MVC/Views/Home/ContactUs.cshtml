@@ -1,4 +1,5 @@
-﻿@{
+﻿@model LinkedIn.MVC.Models.ViewModels.ContactViewModel
+@{
 	ViewData["Title"] = "Contact Us";
 }
 <!--
@@ -56,33 +57,38 @@
 			<div class="row">
 				<div class="col-xl-9 m-auto">
 					<div class="form-style-one mt-85 lg-mt-50 wow fadeInUp">
-						<form action="inc/contact.php" id="contact-form" data-toggle="validator">
-							<div class="messages"></div>
+						<form asp-action="ContactUs" method="post" id="contact-form">
+							<div asp-validation-summary="All" class="alert alert-danger"></div>
+							@if (TempData[LinkedIn.MVC.Models.FlashKeys.Success] is string success)
+							{
+								<div class="alert alert-success">@success</div>
+							}
 							<div class="row controls">
 								<div class="col-sm-6">
 									<div class="input-group-meta form-group mb-30">
-										<label for="">Name*</label>
-										<input type="text" placeholder="Your Name*" name="name" required="required" data-error="Name is required.">
-										<div class="help-block with-errors"></div>
+										<label asp-for="Name">Name*</label>
+										<input asp-for="Name" placeholder="Your Name*" maxlength="100">
+										<span asp-validation-for="Name" class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="input-group-meta form-group mb-30">
-										<label for="">Email*</label>
-										<input type="email" placeholder="Email Address*" name="email" required="required" data-error="Valid email is required.">
-										<div class="help-block with-errors"></div>
+										<label asp-for="Email">Email*</label>
+										<input asp-for="Email" type="email" placeholder="Email Address*" maxlength="255">
+										<span asp-validation-for="Email" class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-12">
 									<div class="input-group-meta form-group mb-35">
-										<label for="">Subject (optional)</label>
-										<input type="text" placeholder="Write about the subject here.." name="subject">
+										<label asp-for="Subject">Subject (optional)</label>
+										<input asp-for="Subject" placeholder="Write about the subject here.." maxlength="200">
+										<span asp-validation-for="Subject" class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-12">
 									<div class="input-group-meta form-group mb-35">
-										<textarea placeholder="Your message*" name="message" required="required" data-error="Please,leave us a message."></textarea>
-										<div class="help-block with-errors"></div>
+										<textarea asp-for="Message" placeholder="Your message*" maxlength="4000"></textarea>
+										<span asp-validation-for="Message" class="text-danger"></span>
 									</div>
 								</div>
 								<div class="col-12"><button class="btn-eleven fw-500 tran3s d-block">Send Message</button></div>

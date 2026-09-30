@@ -1,4 +1,5 @@
 using LinkedIn.MVC.Models;
+using LinkedIn.MVC.Models.Api;
 using LinkedIn.MVC.Models.ViewModels;
 using LinkedIn.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,26 @@ public class HomeController : Controller
 
     public IActionResult AboutUs() => View();
 
-    public IActionResult ContactUs() => View();
+    [HttpGet]
+    public IActionResult ContactUs() => View(new ContactViewModel());
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> ContactUs(ContactViewModel model, CancellationToken ct)
+    {
+        if (!ModelState.IsValid) return View(model);
+
+        var result = await _api.SendContactMessageAsync(new ContactRequest(
+            model.Name.Trim(), model.Email.Trim(), model.Subject?.Trim(), model.Message.Trim()), ct);
+
+        if (!result.Success)
+        {
+            ModelState.AddModelError(string.Empty, result.ErrorMessage!);
+            return View(model);
+        }
+
+        TempData[FlashKeys.Success] = "Your message has been sent. We'll get back to you soon.";
+        return RedirectToAction(nameof(ContactUs));
+    }
 
     public IActionResult Faq() => View();
 

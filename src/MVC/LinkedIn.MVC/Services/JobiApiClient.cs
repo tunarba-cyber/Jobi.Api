@@ -185,6 +185,10 @@ public sealed class JobiApiClient : IJobiApiClient
     public Task<ApiCallResult<CompanyDto>> UpdateMyCompanyAsync(UpdateCompanyRequest request, CancellationToken ct = default) =>
         SendJsonAsync<CompanyDto>(HttpMethod.Put, "api/companies/me", request, ct);
 
+    public Task<ApiCallResult<string>> UploadLogoAsync(
+        Stream file, string fileName, string contentType, CancellationToken ct = default) =>
+        UploadFileAsync("api/uploads/logo", file, fileName, contentType, ct);
+
     public async Task<PagedResult<JobDto>> GetMyJobsAsync(int page = 1, int pageSize = 10, CancellationToken ct = default)
     {
         var url = BuildUrl("api/jobs/mine", new()
@@ -268,6 +272,32 @@ public sealed class JobiApiClient : IJobiApiClient
         return body?.Url is { } url
             ? ApiCallResult<string>.Ok(url)
             : ApiCallResult<string>.Fail("Upload succeeded but no file URL was returned.");
+    }
+
+    private async Task<ApiCallResult<string>> UploadFileAsync(
+        string url, Stream file, string fileName, string contentType, CancellationToken ct)
+    {
+        try
+        {
+            using var content = new MultipartFormDataContent();
+            using var fileContent = new StreamContent(file);
+            fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
+            content.Add(fileContent, "file", Path.GetFileName(fileName));
+
+            using var response = await _http.PostAsync(url, content, ct);
+            if (!response.IsSuccessStatusCode)
+                return ApiCallResult<string>.Fail(await ReadErrorAsync(response, ct));
+
+            var body = await response.Content.ReadFromJsonAsync<UploadResultDto>(JsonOptions, ct);
+            return body?.Url is { Length: > 0 } uploadedUrl
+                ? ApiCallResult<string>.Ok(uploadedUrl)
+                : ApiCallResult<string>.Fail("Upload succeeded but no file URL was returned.");
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            _logger.LogError(ex, "API call failed: POST {Url}", url);
+            return ApiCallResult<string>.Fail("Can't reach the server. Please try again.");
+        }
     }
     public async Task<IReadOnlyList<SavedCandidateDto>> GetSavedCandidatesAsync(CancellationToken ct = default) =>
     await GetOrDefaultAsync<IReadOnlyList<SavedCandidateDto>>("api/saved-candidates", Array.Empty<SavedCandidateDto>(), ct);
@@ -443,6 +473,23 @@ public sealed class JobiApiClient : IJobiApiClient
     public async Task<IReadOnlyList<BlogCategoryDto>> GetBlogCategoriesAsync(CancellationToken ct = default) =>
         await GetOrDefaultAsync<IReadOnlyList<BlogCategoryDto>>(
             "api/blog-categories", Array.Empty<BlogCategoryDto>(), ct);
+
+    public async Task<ApiCallResult<bool>> SendContactMessageAsync(
+        ContactRequest request, CancellationToken ct = default)
+    {
+        try
+        {
+            using var response = await _http.PostAsJsonAsync("api/contact", request, JsonOptions, ct);
+            return response.IsSuccessStatusCode
+                ? ApiCallResult<bool>.Ok(true)
+                : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            _logger.LogError(ex, "API call failed: POST api/contact");
+            return ApiCallResult<bool>.Fail("Can't reach the server. Please try again.");
+        }
+    }
 
     // -----------------------------------------------------------------------
     // Plumbing

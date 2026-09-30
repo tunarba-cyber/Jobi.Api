@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using LinkedIn.MVC.Models.Api;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace LinkedIn.MVC.Models.ViewModels;
@@ -12,6 +13,9 @@ public sealed class EmployerDashboardViewModel
 
 public sealed class CompanyFormViewModel
 {
+    private static readonly HashSet<string> AllowedLogoExtensions =
+        new(StringComparer.OrdinalIgnoreCase) { ".jpg", ".jpeg", ".png", ".webp" };
+
     public bool IsEdit { get; set; }
 
     [Required(ErrorMessage = "Company name is required.")]
@@ -24,6 +28,21 @@ public sealed class CompanyFormViewModel
     [MaxLength(500)]
     [Url(ErrorMessage = "Enter a valid website URL, including https://")]
     public string? WebsiteUrl { get; set; }
+
+    public string? CurrentLogoUrl { get; set; }
+
+    public IFormFile? Logo { get; set; }
+
+    public void ValidateLogo(ModelStateDictionary modelState)
+    {
+        if (Logo is not { Length: > 0 }) return;
+
+        if (Logo.Length > 2 * 1024 * 1024)
+            modelState.AddModelError(nameof(Logo), "Company logo must be 2 MB or smaller.");
+
+        if (!AllowedLogoExtensions.Contains(Path.GetExtension(Logo.FileName)))
+            modelState.AddModelError(nameof(Logo), "Company logo must be a JPG, JPEG, PNG, or WEBP image.");
+    }
 }
 public sealed class ApplicantsViewModel
 {

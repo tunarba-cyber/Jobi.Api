@@ -1,0 +1,46 @@
+﻿@using Microsoft.Extensions.Options
+@model LinkedIn.MVC.Models.Api.BlogDetailsDto
+@inject IOptions<LinkedIn.MVC.Services.JobiApiOptions> ApiOptions
+@{
+    ViewData["Title"] = Model.Title;
+    var apiBaseUrl = ApiOptions.Value.BaseUrl.TrimEnd('/');
+    var imageUrl = string.IsNullOrWhiteSpace(Model.ImageUrl)
+        ? Url.Content("~/images/blog/blog_img_01.jpg")
+        : Model.ImageUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+            ? Model.ImageUrl
+            : apiBaseUrl + Model.ImageUrl;
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">@Model.Title</h2></div>
+                <p class="text-lg text-white mt-30 lg-mt-20 mb-0">@Model.CategoryName · @(Model.PublishedAt?.ToString("dd MMM, yyyy") ?? "Draft")</p>
+            </div>
+        </div>
+    </div>
+    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_02.svg" alt="" class="lazy-img shapes shape_01">
+</div>
+
+<article class="pt-110 lg-pt-80 pb-160 xl-pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 col-lg-10 m-auto">
+                <img src="@imageUrl" alt="@Model.Title" class="w-100 mb-45 lg-mb-30">
+                <p class="text-lg fw-500 text-dark mb-30">@Model.Summary</p>
+                <div class="text-md">
+                    @foreach (var paragraph in Model.Content.Replace("\r\n", "\n").Split("\n\n", StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        <p class="mb-25">@paragraph.Trim()</p>
+                    }
+                </div>
+                <div class="border-top mt-50 pt-30 d-flex flex-wrap align-items-center justify-content-between">
+                    <a asp-action="Index" asp-route-categorySlug="@Model.CategorySlug" class="fw-500">@Model.CategoryName</a>
+                    <span>@Model.ViewCount view@(Model.ViewCount == 1 ? string.Empty : "s")</span>
+                </div>
+                <a asp-action="Index" class="btn-one mt-40">Back to all guides</a>
+            </div>
+        </div>
+    </div>
+</article>

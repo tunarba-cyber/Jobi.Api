@@ -1,6 +1,9 @@
-﻿@model LinkedIn.MVC.Models.ViewModels.CompanyFormViewModel
+﻿@using Microsoft.Extensions.Options
+@model LinkedIn.MVC.Models.ViewModels.CompanyFormViewModel
+@inject IOptions<LinkedIn.MVC.Services.JobiApiOptions> ApiOptions
 @{
     ViewData["Title"] = Model.IsEdit ? "Edit Company" : "Create Company";
+    var apiBaseUrl = ApiOptions.Value.BaseUrl.TrimEnd('/');
 }
 
 <div class="inner-banner-one position-relative">
@@ -19,8 +22,29 @@
             <div class="col-lg-7 m-auto">
                 <div asp-validation-summary="All" class="alert alert-danger"></div>
 
-                <form asp-action="CompanyProfile" method="post">
+                <form asp-action="CompanyProfile" method="post" enctype="multipart/form-data">
                     <input type="hidden" asp-for="IsEdit" />
+
+                    <div class="row align-items-center mb-4">
+                        <div class="col-auto">
+                            @if (!string.IsNullOrWhiteSpace(Model.CurrentLogoUrl))
+                            {
+                                <img src="@(apiBaseUrl + Model.CurrentLogoUrl)" alt="Company logo" class="rounded-circle" style="width:80px; height:80px; object-fit:cover;" />
+                            }
+                            else
+                            {
+                                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width:80px; height:80px;">
+                                    <i class="bi bi-building fs-2"></i>
+                                </div>
+                            }
+                        </div>
+                        <div class="col">
+                            <label asp-for="Logo" class="form-label fw-500">Company logo</label>
+                            <input asp-for="Logo" type="file" class="form-control" accept=".jpg,.jpeg,.png,.webp" />
+                            <small class="text-muted">JPG, PNG, or WEBP. Maximum 2 MB.</small>
+                            <span asp-validation-for="Logo" class="text-danger"></span>
+                        </div>
+                    </div>
 
                     <div class="mb-4">
                         <label asp-for="Name" class="form-label fw-500">Company name*</label>

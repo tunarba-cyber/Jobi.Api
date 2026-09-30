@@ -64,6 +64,7 @@ public interface IJobiApiClient
     Task<CompanyDto?> GetMyCompanyAsync(CancellationToken ct = default);
     Task<ApiCallResult<CompanyDto>> CreateCompanyAsync(CreateCompanyRequest request, CancellationToken ct = default);
     Task<ApiCallResult<CompanyDto>> UpdateMyCompanyAsync(UpdateCompanyRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<string>> UploadLogoAsync(Stream file, string fileName, string contentType, CancellationToken ct = default);
 
     Task<PagedResult<JobDto>> GetMyJobsAsync(int page = 1, int pageSize = 10, CancellationToken ct = default);
     Task<JobDto?> GetMyJobAsync(long id, CancellationToken ct = default);
@@ -85,6 +86,9 @@ public interface IJobiApiClient
     Task<BlogDetailsDto?> GetBlogBySlugAsync(string slug, CancellationToken ct = default);
 
     Task<IReadOnlyList<BlogCategoryDto>> GetBlogCategoriesAsync(CancellationToken ct = default);
+
+    // Contact ---------------------------------------------------------------
+    Task<ApiCallResult<bool>> SendContactMessageAsync(ContactRequest request, CancellationToken ct = default);
 }
 
 /// <summary>
