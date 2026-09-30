@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using LinkedIn.MVC.Models.Api;
+﻿using LinkedIn.MVC.Models.Api;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.ComponentModel.DataAnnotations;
 
 namespace LinkedIn.MVC.Models.ViewModels;
 
@@ -78,4 +79,27 @@ public sealed class CandidatesListViewModel
 public sealed class CompanyDetailsViewModel
 {
     public required CompanyDto Company { get; init; }
+}
+public sealed class JobAlertsViewModel
+{
+    public IReadOnlyList<JobAlertDto> Alerts { get; init; } = Array.Empty<JobAlertDto>();
+    public IReadOnlyList<CategoryDto> Categories { get; init; } = Array.Empty<CategoryDto>();
+}
+
+public sealed class JobAlertFormViewModel
+{
+    public long? Id { get; set; }
+
+    [MaxLength(200)]
+    public string? Keyword { get; set; }
+
+    public long? CategoryId { get; set; }
+
+    [MaxLength(200)]
+    public string? Location { get; set; }
+
+    public bool IsActive { get; set; } = true;
+
+    [BindNever]
+    public IReadOnlyList<CategoryDto> Categories { get; set; } = Array.Empty<CategoryDto>();
 }

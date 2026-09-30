@@ -56,3 +56,5 @@ public sealed record CandidateSearchRequest
     public int Page { get; init; } = 1;
     public int PageSize { get; init; } = 10;
 }
+public sealed record JobAlertDto(long Id, string? Keyword, long? CategoryId, string? Location, bool IsActive, DateTimeOffset CreatedAtUtc);
+public sealed record UpsertJobAlertRequest(string? Keyword, long? CategoryId, string? Location, bool IsActive);

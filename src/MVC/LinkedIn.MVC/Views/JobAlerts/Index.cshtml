@@ -1,0 +1,95 @@
+﻿@using LinkedIn.MVC.Models.Api
+@model LinkedIn.MVC.Models.ViewModels.JobAlertsViewModel
+@{
+    ViewData["Title"] = "Job Alerts";
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Job Alerts</h2></div>
+                <p class="text-lg text-white mt-15">Save a search and check back for matching jobs</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4 class="mb-20">Create a new alert</h4>
+                <form asp-action="Create" method="post" class="mb-50">
+                    <div class="mb-3">
+                        <label class="form-label fw-500">Keyword</label>
+                        <input name="Keyword" class="form-control" maxlength="200" placeholder="e.g. Frontend Developer">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-500">Category</label>
+                        <select name="CategoryId" class="form-select">
+                            <option value="">Any category</option>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-500">Location</label>
+                        <input name="Location" class="form-control" maxlength="200" placeholder="e.g. Baku">
+                    </div>
+                    <button type="submit" class="btn-one">Create alert</button>
+                </form>
+            </div>
+
+            <div class="col-lg-6">
+                <h4 class="mb-20">Your alerts</h4>
+                @if (Model.Alerts.Count == 0)
+                {
+                    <p class="text-muted">You haven't created any job alerts yet.</p>
+                }
+                else
+                {
+                    @foreach (var alert in Model.Alerts)
+                    {
+                        var categoryName = Model.Categories.FirstOrDefault(c => c.Id == alert.CategoryId)?.Name;
+
+                        <div class="job-list-one style-two position-relative border-style mb-15">
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-md-8">
+                                    <div class="fw-500">
+                                        @(string.IsNullOrWhiteSpace(alert.Keyword) ? "Any keyword" : alert.Keyword)
+                                        @if (categoryName is not null)
+                                        {
+                                            <span> . @categoryName</span>
+                                        }
+                                        @if (!string.IsNullOrWhiteSpace(alert.Location))
+                                        {
+                                            <span> . @alert.Location</span>
+                                        }
+                                    </div>
+                                    <div class="text-muted small">@(alert.IsActive ? "Active" : "Paused")</div>
+                                </div>
+                                <div class="col-md-4 text-md-end xs-mt-15">
+                                    <form asp-action="ToggleActive" method="post" class="d-inline me-2">
+                                        <input type="hidden" name="id" value="@alert.Id" />
+                                        <input type="hidden" name="isActive" value="@(!alert.IsActive)" />
+                                        <input type="hidden" name="keyword" value="@alert.Keyword" />
+                                        <input type="hidden" name="categoryId" value="@alert.CategoryId" />
+                                        <input type="hidden" name="location" value="@alert.Location" />
+                                        <button type="submit" class="btn btn-sm btn-outline-secondary">@(alert.IsActive ? "Pause" : "Activate")</button>
+                                    </form>
+                                    <form asp-action="Delete" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@alert.Id" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</section>

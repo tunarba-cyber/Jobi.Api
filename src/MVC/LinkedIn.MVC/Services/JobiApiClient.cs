@@ -307,6 +307,30 @@ public sealed class JobiApiClient : IJobiApiClient
 
     public Task<CompanyDto?> GetCompanyBySlugAsync(string slug, CancellationToken ct = default) =>
         GetOrNullAsync<CompanyDto>($"api/companies/{Uri.EscapeDataString(slug)}", ct);
+    public async Task<IReadOnlyList<JobAlertDto>> GetMyJobAlertsAsync(CancellationToken ct = default) =>
+    await GetOrDefaultAsync<IReadOnlyList<JobAlertDto>>("api/job-alerts", Array.Empty<JobAlertDto>(), ct);
+
+    public Task<ApiCallResult<JobAlertDto>> CreateJobAlertAsync(UpsertJobAlertRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<JobAlertDto>(HttpMethod.Post, "api/job-alerts", request, ct);
+
+    public Task<ApiCallResult<JobAlertDto>> UpdateJobAlertAsync(long id, UpsertJobAlertRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<JobAlertDto>(HttpMethod.Put, $"api/job-alerts/{id}", request, ct);
+
+    public async Task<ApiCallResult<bool>> DeleteJobAlertAsync(long id, CancellationToken ct = default)
+    {
+        try
+        {
+            using var response = await _http.DeleteAsync($"api/job-alerts/{id}", ct);
+            return response.IsSuccessStatusCode
+                ? ApiCallResult<bool>.Ok(true)
+                : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            _logger.LogError(ex, "API call failed: DELETE api/job-alerts/{Id}", id);
+            return ApiCallResult<bool>.Fail("Can't reach the server. Please try again.");
+        }
+    }
 
     // -----------------------------------------------------------------------
     // Blog

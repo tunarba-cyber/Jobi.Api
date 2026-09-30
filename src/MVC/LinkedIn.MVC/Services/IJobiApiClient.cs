@@ -47,6 +47,10 @@ public interface IJobiApiClient
     Task<CandidateProfileDto?> GetMyCandidateProfileAsync(CancellationToken ct = default);
     Task<ApiCallResult<CandidateProfileDto>> UpsertMyCandidateProfileAsync(UpsertCandidateProfileRequest request, CancellationToken ct = default);
     Task<ApiCallResult<string>> UploadPhotoAsync(Stream file, string fileName, string contentType, CancellationToken ct = default);
+    Task<IReadOnlyList<JobAlertDto>> GetMyJobAlertsAsync(CancellationToken ct = default);
+    Task<ApiCallResult<JobAlertDto>> CreateJobAlertAsync(UpsertJobAlertRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<JobAlertDto>> UpdateJobAlertAsync(long id, UpsertJobAlertRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> DeleteJobAlertAsync(long id, CancellationToken ct = default);
     // Public candidates -------------------------------------------------------
     Task<PagedResult<CandidateProfileDto>> SearchCandidatesAsync(CandidateSearchRequest request, CancellationToken ct = default);
     Task<CandidateProfileDto?> GetCandidateBySlugAsync(string slug, CancellationToken ct = default);
