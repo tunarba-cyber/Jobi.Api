@@ -172,8 +172,8 @@
                                             Dashboard
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a asp-controller="Candidate" asp-action="Profile" class="dropdown-item"><span>Candidate Dashboard</span></a></li>
-                                            <li><a asp-controller="Company" asp-action="Details" class="dropdown-item"><span>Employer Dashboard</span></a></li>
+                                            <li><a asp-controller="Candidate" asp-action="Index" class="dropdown-item"><span>Candidate Dashboard</span></a></li>
+                                            <li><a asp-controller="Employer" asp-action="Index" class="dropdown-item"><span>Employer Dashboard</span></a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item dropdown">
@@ -204,7 +204,6 @@
                                                         <h6 class="mega-menu-title">Candidates</h6>
                                                         <ul class="style-none mega-dropdown-list">
                                                             <li><a asp-controller="Candidate" asp-action="Index" class="dropdown-item"><span>Candidates List</span></a></li>
-                                                            <li><a asp-controller="Candidate" asp-action="Profile" class="dropdown-item"><span>Candidates Details</span></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -290,7 +289,7 @@
                             <h5 class="footer-title">Company</h5>
                             <ul class="footer-nav-link style-none">
                                 <li><a asp-controller="Home" asp-action="AboutUs">About us</a></li>
-                                <li><a href="blog-v2.html">Blogs</a></li>
+                                <li><a asp-controller="Blog" asp-action="Index">Blogs</a></li>
                                 <li><a asp-controller="Home" asp-action="Faq">FAQ’s</a></li>
                                 <li><a asp-controller="Home" asp-action="ContactUs">Contact</a></li>
                             </ul>

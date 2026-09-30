@@ -2,7 +2,7 @@
 @model LinkedIn.MVC.Models.Api.BlogDetailsDto
 @inject IOptions<LinkedIn.MVC.Services.JobiApiOptions> ApiOptions
 @{
-    ViewData["Title"] = Model.Title;
+    ViewData["Title"] = "Blog Details";
     var apiBaseUrl = ApiOptions.Value.BaseUrl.TrimEnd('/');
     var imageUrl = string.IsNullOrWhiteSpace(Model.ImageUrl)
         ? Url.Content("~/images/blog/blog_img_01.jpg")

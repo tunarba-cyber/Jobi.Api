@@ -7,7 +7,7 @@ using System.Net.Mail;
 
 namespace LinkedIn.Api.Features.Contact;
 
-public sealed record ContactRequest(string Name, string Email, string Subject, string Message);
+public sealed record ContactRequest(string Name, string Email, string? Subject, string Message);
 
 internal static class ContactEndpoints
 {

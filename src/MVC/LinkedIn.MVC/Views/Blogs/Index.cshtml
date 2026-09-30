@@ -2,7 +2,7 @@
 @model LinkedIn.MVC.Models.ViewModels.BlogListViewModel
 @inject IOptions<LinkedIn.MVC.Services.JobiApiOptions> ApiOptions
 @{
-    ViewData["Title"] = "Jobi Guides";
+    ViewData["Title"] = "Blogs";
     var apiBaseUrl = ApiOptions.Value.BaseUrl.TrimEnd('/');
 }
 
