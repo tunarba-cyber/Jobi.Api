@@ -30,7 +30,7 @@ internal static class SavedCandidateEndpoints
             .AsNoTracking()
             .Where(s => s.EmployerUserId == userId)
             .OrderByDescending(s => s.CreatedAtUtc)
-            .Select(s => new SavedCandidateDto(s.Id, s.CandidateProfileId, s.CandidateProfile!.FullName, s.CandidateProfile.Headline, s.CreatedAtUtc))
+            .Select(s => new SavedCandidateDto(s.Id, s.CandidateProfileId, s.CandidateProfile!.FullName, s.CandidateProfile.Headline, s.CandidateProfile.Slug, s.CreatedAtUtc))
             .ToListAsync(ct);
 
         return Results.Ok(items);

@@ -23,6 +23,7 @@ internal sealed class GetJobsHandler : IRequestHandler<GetJobsQuery, Result<Page
         var search = request.Search?.Trim();
         var categorySlug = request.CategorySlug?.Trim().ToLowerInvariant();
         var location = request.Location?.Trim();
+        var companySlug = request.CompanySlug?.Trim().ToLowerInvariant();
 
         var query = _db.Jobs
             .AsNoTracking()
@@ -33,7 +34,8 @@ internal sealed class GetJobsHandler : IRequestHandler<GetJobsQuery, Result<Page
             .WhereIf(request.ExperienceLevel.HasValue, j => j.ExperienceLevel == request.ExperienceLevel)
             .WhereIf(!string.IsNullOrWhiteSpace(location), j => j.Location.Contains(location!))
             .WhereIf(!string.IsNullOrWhiteSpace(search),
-                j => j.Title.Contains(search!) || j.Company!.Name.Contains(search!));
+                j => j.Title.Contains(search!) || j.Company!.Name.Contains(search!))
+            .WhereIf(!string.IsNullOrWhiteSpace(companySlug), j => j.Company!.Slug == companySlug);
 
         query = ApplySort(query, request.SortBy, request.Descending);
 

@@ -29,7 +29,7 @@
                 <div class="job-list-one style-two position-relative border-style mb-20">
                     <div class="row justify-content-between align-items-center">
                         <div class="col-md-7">
-                            <div class="title fw-500">@item.CandidateName</div>
+                            <a asp-controller="Candidate" asp-action="Details" asp-route-slug="@item.Slug" class="title fw-500">@item.CandidateName</a>
                             <div class="job-location">@item.Headline . saved @item.SavedAtUtc.ToString("dd MMM yyyy")</div>
                         </div>
                         <div class="col-md-5">

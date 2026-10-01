@@ -81,7 +81,9 @@ internal static class JobEndpoints
 
     private static async Task<IResult> GetJobs(
         ISender sender,
+        
         CancellationToken cancellationToken,
+        string? companySlug = null,
         string? search = null,
         string? categorySlug = null,
         JobType? jobType = null,
@@ -107,7 +109,8 @@ internal static class JobEndpoints
             SortBy = sortBy,
             Descending = descending,
             Page = page,
-            PageSize = pageSize
+            PageSize = pageSize,
+            CompanySlug = companySlug,
         };
 
         var result = await sender.Send(query, cancellationToken);

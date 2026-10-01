@@ -20,6 +20,9 @@ public class CompanyController : Controller
         if (string.IsNullOrWhiteSpace(slug)) return RedirectToAction(nameof(Index));
 
         var company = await _api.GetCompanyBySlugAsync(slug, ct);
-        return company is null ? NotFound() : View(new CompanyDetailsViewModel { Company = company });
+        if (company is null) return NotFound();
+
+        var jobs = await _api.GetJobsAsync(new JobSearchRequest { CompanySlug = slug, PageSize = 6 }, ct);
+        return View(new CompanyDetailsViewModel { Company = company, Jobs = jobs });
     }
 }

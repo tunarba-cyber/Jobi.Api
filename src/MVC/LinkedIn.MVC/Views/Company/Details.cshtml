@@ -25,7 +25,35 @@
                 {
                     <p style="white-space:pre-wrap;">@Model.Company.Description</p>
                 }
-                <a asp-controller="Job" asp-action="JobList" class="btn-one mt-30">See open positions</a>
+            </div>
+        </div>
+
+        @if (Model.Jobs.Items.Count > 0)
+        {
+            <div class="row mt-50">
+                <div class="col-lg-8 m-auto">
+                    <h4 class="mb-30">Open positions at @Model.Company.Name</h4>
+                    @foreach (var job in Model.Jobs.Items)
+                    {
+                        <div class="job-list-one style-two position-relative border-style mb-15">
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-md-8">
+                                    <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-500">@job.Title</a>
+                                    <div class="job-location">@job.Location . @job.JobType</div>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="apply-btn text-center tran3s">VIEW</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="row mt-40">
+            <div class="col-lg-8 m-auto text-center">
+                <a asp-controller="Job" asp-action="JobList" class="btn-one">See all open positions</a>
             </div>
         </div>
     </div>

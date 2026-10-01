@@ -99,6 +99,7 @@ public sealed record JobSearchRequest
 {
     public string? Search { get; init; }
     public string? CategorySlug { get; init; }
+    public string? CompanySlug { get; init; }
     public JobType? JobType { get; init; }
     public ExperienceLevel? ExperienceLevel { get; init; }
     public string? Location { get; init; }

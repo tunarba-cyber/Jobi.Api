@@ -71,6 +71,7 @@ public sealed class JobiApiClient : IJobiApiClient
         {
             ["search"] = NullIfBlank(request.Search),
             ["categorySlug"] = NullIfBlank(request.CategorySlug),
+            ["companySlug"] = NullIfBlank(request.CompanySlug),
             // Enum query parameters bind by name on the API side.
             ["jobType"] = request.JobType?.ToString(),
             ["experienceLevel"] = request.ExperienceLevel?.ToString(),

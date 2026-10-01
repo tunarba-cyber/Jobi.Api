@@ -24,4 +24,5 @@ public sealed record GetJobsQuery : PagedQuery, IRequest<Result<PagedResult<JobD
     public bool IncludeAllStatuses { get; init; }
     public string? SortBy { get; init; }
     public bool Descending { get; init; }
+    public string? CompanySlug { get; init; }
 }
