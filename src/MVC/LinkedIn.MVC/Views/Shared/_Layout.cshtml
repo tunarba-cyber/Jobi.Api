@@ -69,11 +69,12 @@
                                     {
                                         <li class="d-none d-md-block"><a asp-controller="Employer" asp-action="PostJob" class="job-post-btn tran3s">Post Job</a></li>
                                         <li class="ms-3"><a asp-controller="Employer" asp-action="Index" class="fw-500">My Jobs</a></li>
+                                        <li class="ms-3"><a asp-controller="Employer" asp-action="CompanyProfile" class="fw-500">Edit Company</a></li>
                                         <li class="ms-3"><a asp-controller="SavedCandidates" asp-action="Index" class="fw-500">Saved</a></li>
-
                                     }
                                     else if (User.IsInRole("Candidate"))
                                     {
+                                        <li class="ms-3"><a asp-controller="Candidate" asp-action="Profile" class="fw-500">My Profile</a></li>
                                         <li class="ms-3"><a asp-controller="Application" asp-action="My" class="fw-500">My Applications</a></li>
                                         <li class="ms-3"><a asp-controller="SavedJobs" asp-action="Index" class="fw-500">Saved Jobs</a></li>
                                         <li class="ms-3"><a asp-controller="JobAlerts" asp-action="Index" class="fw-500">Job Alerts</a></li>
@@ -172,7 +173,7 @@
                                             Dashboard
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a asp-controller="Candidate" asp-action="Index" class="dropdown-item"><span>Candidate Dashboard</span></a></li>
+                                            <li><a asp-controller="Candidate" asp-action="Profile" class="dropdown-item"><span>Candidate Dashboard</span></a></li>
                                             <li><a asp-controller="Employer" asp-action="Index" class="dropdown-item"><span>Employer Dashboard</span></a></li>
                                         </ul>
                                     </li>
