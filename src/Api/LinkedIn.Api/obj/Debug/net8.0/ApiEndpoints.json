@@ -1427,6 +1427,11 @@
     "Order": 0,
     "Parameters": [
       {
+        "Name": "companySlug",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "search",
         "Type": "System.String",
         "IsRequired": false

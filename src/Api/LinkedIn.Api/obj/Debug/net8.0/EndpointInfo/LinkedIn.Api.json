@@ -1602,6 +1602,13 @@
         "operationId": "GetJobs",
         "parameters": [
           {
+            "name": "companySlug",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "search",
             "in": "query",
             "schema": {
@@ -3276,6 +3283,10 @@
             "nullable": true
           },
           "headline": {
+            "type": "string",
+            "nullable": true
+          },
+          "slug": {
             "type": "string",
             "nullable": true
           },

@@ -148,8 +148,9 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseHttpsRedirection();
-    app.UseStaticFiles();
 }
+
+app.UseStaticFiles();
 
 app.UseSerilogRequestLogging();
 app.UseCors(CorsExtensions.FrontendPolicy);
