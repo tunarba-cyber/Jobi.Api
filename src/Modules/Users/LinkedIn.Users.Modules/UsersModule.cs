@@ -1,9 +1,11 @@
 using LinkedIn.Modules.Users.Domain.Entities;
 using LinkedIn.Modules.Users.Features;
+using LinkedIn.Modules.Users.Infrastructure;
 using LinkedIn.Modules.Users.Infrastructure.BackgroundJobs;
 using LinkedIn.Modules.Users.Infrastructure.Email;
 using LinkedIn.Modules.Users.Infrastructure.Persistence;
 using LinkedIn.Modules.Users.Infrastructure.Tokens;
+using LinkedIn.Shared.Abstractions.Contracts;
 using LinkedIn.Shared.Abstractions.Modules;
 using LinkedIn.Shared.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
@@ -68,6 +70,7 @@ public sealed class UsersModule : IModule
         services.Configure<SmtpOptions>(configuration.GetSection(SmtpOptions.SectionName));
 
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IUserDirectory, UserDirectory>();
 
         // No code change needed to go live with real email - set Smtp:Host in
         // config (appsettings/user-secrets/environment) and this automatically

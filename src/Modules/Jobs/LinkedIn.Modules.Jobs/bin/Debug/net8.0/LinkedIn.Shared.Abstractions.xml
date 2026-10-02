@@ -4,6 +4,12 @@
         <name>LinkedIn.Shared.Abstractions</name>
     </assembly>
     <members>
+        <member name="T:LinkedIn.Shared.Abstractions.Contracts.IUserDirectory">
+            <summary>
+            Public contract the Users module exposes to other modules. Messaging never
+            touches UsersDbContext or the AppUser entity - it only talks to this.
+            </summary>
+        </member>
         <member name="T:LinkedIn.Shared.Abstractions.Entities.BaseEntity">
             <summary>
             Shared base for all entities across all modules. Pronia duplicated this per
