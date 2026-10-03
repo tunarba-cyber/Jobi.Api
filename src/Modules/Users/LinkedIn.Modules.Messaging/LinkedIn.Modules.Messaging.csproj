@@ -16,7 +16,7 @@
 	<ItemGroup>
 		<!-- COPY the Version values from the Users csproj -->
 		<PackageReference Include="MediatR" Version="12.4.1" />
-		<PackageReference Include="FluentValidation" Version="11.9.2" />
+		<PackageReference Include="FluentValidation" Version="11.11.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
 			<PrivateAssets>all</PrivateAssets>
@@ -26,6 +26,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\Shared\LinkedIn.Shared.Abstractions\LinkedIn.Shared.Abstractions.csproj" />
+	  <ProjectReference Include="..\..\..\Shared\LinkedIn.Shared.Infrastructure\LinkedIn.Shared.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

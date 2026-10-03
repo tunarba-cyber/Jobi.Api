@@ -17,3 +17,6 @@ C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Modules.Messaging\o
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Modules.Messaging\obj\Debug\net8.0\LinkedIn.Modules.Messaging.pdb
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Modules.Messaging\obj\Debug\net8.0\LinkedIn.Modules.Messaging.genruntimeconfig.cache
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Modules.Messaging\obj\Debug\net8.0\ref\LinkedIn.Modules.Messaging.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Modules.Messaging\bin\Debug\net8.0\LinkedIn.Shared.Infrastructure.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Modules.Messaging\bin\Debug\net8.0\LinkedIn.Shared.Infrastructure.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Users\LinkedIn.Modules.Messaging\bin\Debug\net8.0\LinkedIn.Shared.Infrastructure.xml

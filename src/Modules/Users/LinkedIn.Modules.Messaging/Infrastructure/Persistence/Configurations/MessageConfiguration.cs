@@ -6,15 +6,14 @@ namespace LinkedIn.Modules.Messaging.Infrastructure.Persistence.Configurations;
 
 internal sealed class MessageConfiguration : IEntityTypeConfiguration<Message>
 {
-    public void Configure(EntityTypeBuilder<Message> b)
+    public void Configure(EntityTypeBuilder<Message> builder)
     {
-        b.ToTable("Messages");
-        b.HasKey(m => m.Id);
-
-        b.Property(m => m.SenderId).HasMaxLength(64).IsRequired();
-        b.Property(m => m.Body).HasMaxLength(4000).IsRequired();
-
-        // Paging a conversation newest-first.
-        b.HasIndex(m => new { m.ConversationId, m.SentAtUtc });
+        builder.ToTable("Messages");
+        builder.HasKey(m => m.Id);
+        builder.Property(m => m.SenderId).HasMaxLength(450).IsRequired();
+        builder.Property(m => m.Content).HasMaxLength(4000).IsRequired();
+        builder.HasOne(m => m.Conversation).WithMany(c => c.Messages)
+            .HasForeignKey(m => m.ConversationId).OnDelete(DeleteBehavior.Cascade);
+        builder.HasIndex(m => m.ConversationId);
     }
 }

@@ -6,22 +6,12 @@ namespace LinkedIn.Modules.Messaging.Infrastructure.Persistence.Configurations;
 
 internal sealed class ConversationConfiguration : IEntityTypeConfiguration<Conversation>
 {
-    public void Configure(EntityTypeBuilder<Conversation> b)
+    public void Configure(EntityTypeBuilder<Conversation> builder)
     {
-        b.ToTable("Conversations");
-        b.HasKey(c => c.Id);
-
-        // 64 (not 450) so the composite unique index stays under SQL Server's 1700-byte key limit.
-        b.Property(c => c.UserAId).HasMaxLength(64).IsRequired();
-        b.Property(c => c.UserBId).HasMaxLength(64).IsRequired();
-        b.Property(c => c.LastMessagePreview).HasMaxLength(100);
-
-        b.HasIndex(c => new { c.UserAId, c.UserBId }).IsUnique();
-        b.HasIndex(c => c.UserBId);
-
-        b.HasMany(c => c.Messages)
-            .WithOne()
-            .HasForeignKey(m => m.ConversationId)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.ToTable("Conversations");
+        builder.HasKey(c => c.Id);
+        builder.Property(c => c.UserAId).HasMaxLength(450).IsRequired();
+        builder.Property(c => c.UserBId).HasMaxLength(450).IsRequired();
+        builder.HasIndex(c => new { c.UserAId, c.UserBId }).IsUnique();
     }
 }

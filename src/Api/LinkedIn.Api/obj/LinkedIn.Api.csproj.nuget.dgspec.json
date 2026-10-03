@@ -42,8 +42,8 @@
               "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Messaging\\LinkedIn.Modules.Messaging.csproj": {
                 "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Messaging\\LinkedIn.Modules.Messaging.csproj"
               },
-              "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.Users.csproj": {
-                "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.Users.csproj"
+              "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.USers.csproj": {
+                "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.USers.csproj"
               },
               "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Abstractions\\LinkedIn.Shared.Abstractions.csproj": {
                 "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Abstractions\\LinkedIn.Shared.Abstractions.csproj"
@@ -512,6 +512,9 @@
             "projectReferences": {
               "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Abstractions\\LinkedIn.Shared.Abstractions.csproj": {
                 "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Abstractions\\LinkedIn.Shared.Abstractions.csproj"
+              },
+              "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Infrastructure\\LinkedIn.Shared.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Infrastructure\\LinkedIn.Shared.Infrastructure.csproj"
               }
             }
           }
@@ -535,7 +538,7 @@
           "dependencies": {
             "FluentValidation": {
               "target": "Package",
-              "version": "[11.9.2, )"
+              "version": "[11.11.0, )"
             },
             "MediatR": {
               "target": "Package",

@@ -6,8 +6,7 @@ internal sealed class SendMessageCommandValidator : AbstractValidator<SendMessag
 {
     public SendMessageCommandValidator()
     {
-        RuleFor(c => c.SenderId).NotEmpty();
-        RuleFor(c => c.RecipientId).NotEmpty().MaximumLength(64);
-        RuleFor(c => c.Body).NotEmpty().MaximumLength(4000);
+        RuleFor(c => c.RecipientUserId).NotEmpty();
+        RuleFor(c => c.Content).NotEmpty().MaximumLength(4000);
     }
 }

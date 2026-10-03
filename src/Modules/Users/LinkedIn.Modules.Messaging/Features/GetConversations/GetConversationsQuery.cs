@@ -4,5 +4,4 @@ using MediatR;
 
 namespace LinkedIn.Modules.Messaging.Features.GetConversations;
 
-public sealed record GetConversationsQuery(string UserId, int Page = 1, int PageSize = 20)
-    : IRequest<Result<IReadOnlyList<ConversationDto>>>;
+public sealed record GetConversationsQuery(string RequestingUserId) : IRequest<Result<List<ConversationDto>>>;

@@ -4,5 +4,4 @@ using MediatR;
 
 namespace LinkedIn.Modules.Messaging.Features.SendMessage;
 
-public sealed record SendMessageCommand(string SenderId, string RecipientId, string Body)
-    : IRequest<Result<MessageDto>>;
+public sealed record SendMessageCommand(string RequestingUserId, string RecipientUserId, string Content) : IRequest<Result<MessageDto>>;

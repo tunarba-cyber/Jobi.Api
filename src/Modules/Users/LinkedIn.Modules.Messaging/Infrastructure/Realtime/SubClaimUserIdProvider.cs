@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace LinkedIn.Modules.Messaging.Infrastructure.Realtime;
 
-/// <summary>Makes Clients.User(id) target the same id the REST endpoints see.</summary>
+// Maps SignalR's "user" concept to the JWT's NameIdentifier claim - same id
+// used everywhere else in the app (ClaimTypes.NameIdentifier).
 internal sealed class SubClaimUserIdProvider : IUserIdProvider
 {
     public string? GetUserId(HubConnectionContext connection) =>
-        connection.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-        ?? connection.User.FindFirst("sub")?.Value;
+        connection.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 }
