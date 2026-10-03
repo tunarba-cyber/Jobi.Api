@@ -1792,6 +1792,78 @@
     "EndpointName": "GetMyJob"
   },
   {
+    "ContainingType": "LinkedIn.Modules.Messaging.Features.MessagingEndpoints",
+    "Method": "GetConversations",
+    "RelativePath": "api/messages/",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Messaging"
+    ],
+    "EndpointName": "GetMyConversations"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Messaging.Features.MessagingEndpoints",
+    "Method": "Send",
+    "RelativePath": "api/messages/",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "LinkedIn.Modules.Messaging.Features.MessagingEndpoints\u002BSendMessageRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Messaging"
+    ],
+    "EndpointName": "SendMessage"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Messaging.Features.MessagingEndpoints",
+    "Method": "GetMessages",
+    "RelativePath": "api/messages/{conversationId:long}",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "conversationId",
+        "Type": "System.Int64",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Messaging"
+    ],
+    "EndpointName": "GetConversationMessages"
+  },
+  {
     "ContainingType": "LinkedIn.Modules.Jobs.Features.SavedCandidates.SavedCandidateEndpoints",
     "Method": "GetMine",
     "RelativePath": "api/saved-candidates/",

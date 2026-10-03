@@ -2018,7 +2018,7 @@
           "LinkedIn.Shared.Abstractions": "1.0.0",
           "LinkedIn.Shared.Infrastructure": "1.0.0",
           "MediatR": "12.4.1",
-          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8"
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.11"
         },
         "compile": {
           "bin/placeholder/LinkedIn.Modules.Messaging.dll": {}

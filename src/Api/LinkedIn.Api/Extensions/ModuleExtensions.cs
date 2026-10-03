@@ -76,22 +76,23 @@ public static class ModuleExtensions
 
     private static void LoadReferencedModuleAssemblies()
     {
-        var entryAssembly = Assembly.GetEntryAssembly();
-        if (entryAssembly is null) return;
+        var loaded = AppDomain.CurrentDomain.GetAssemblies()
+            .Select(a => a.GetName().Name)
+            .ToHashSet(StringComparer.Ordinal);
 
-        foreach (var reference in entryAssembly.GetReferencedAssemblies())
+        foreach (var path in Directory.EnumerateFiles(AppContext.BaseDirectory, ModuleAssemblyPrefix + "*.dll"))
         {
-            if (reference.Name?.StartsWith(ModuleAssemblyPrefix, StringComparison.Ordinal) != true)
-                continue;
-
             try
             {
-                Assembly.Load(reference);
+                var name = AssemblyName.GetAssemblyName(path);
+                if (name.Name is null || loaded.Contains(name.Name))
+                    continue;
+
+                Assembly.Load(name);
             }
-            catch (Exception ex) when (ex is FileNotFoundException or BadImageFormatException)
+            catch (Exception ex) when (ex is FileNotFoundException or BadImageFormatException or FileLoadException)
             {
-                // A referenced module that cannot be loaded is a deployment problem,
-                // not something to crash discovery over.
+                // Not a loadable module assembly - ignore, same policy as before.
             }
         }
     }

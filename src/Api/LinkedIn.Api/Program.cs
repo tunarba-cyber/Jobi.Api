@@ -69,6 +69,26 @@ builder.Services
             ValidateLifetime = true,
             ClockSkew = TimeSpan.FromSeconds(30) // small tolerance, not the 5-minute default
         };
+
+        // SignalR (WebSockets) cannot send an Authorization header from a browser,
+        // so the client sends the token as ?access_token=... instead. Accept it
+        // from the query string ONLY for hub URLs - never for normal API routes,
+        // because URLs end up in logs and caches.
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+
+                if (!string.IsNullOrEmpty(accessToken) &&
+                    context.HttpContext.Request.Path.StartsWithSegments("/hubs"))
+                {
+                    context.Token = accessToken;
+                }
+
+                return Task.CompletedTask;
+            }
+        };
     });
 
 builder.Services.AddAuthorizationBuilder()
