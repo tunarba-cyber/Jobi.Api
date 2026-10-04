@@ -8,7 +8,7 @@ public sealed class MessagingDbContextFactory : IDesignTimeDbContextFactory<Mess
     public MessagingDbContext CreateDbContext(string[] args)
     {
         var connectionString = Environment.GetEnvironmentVariable("JOBI_DESIGNTIME_CONNECTION")
-            ?? "Server=.//SQLEXPRESS;Database=LinkedIn;Trusted_Connection=True;TrustServerCertificate=True";
+            ?? "Server=.\\SQLEXPRESS;Database=LinkedIn;Trusted_Connection=True;TrustServerCertificate=True";
 
         var options = new DbContextOptionsBuilder<MessagingDbContext>()
             .UseSqlServer(connectionString, sql =>

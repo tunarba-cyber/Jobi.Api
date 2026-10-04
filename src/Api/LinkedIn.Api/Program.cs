@@ -79,13 +79,8 @@ builder.Services
             OnMessageReceived = context =>
             {
                 var accessToken = context.Request.Query["access_token"];
-
-                if (!string.IsNullOrEmpty(accessToken) &&
-                    context.HttpContext.Request.Path.StartsWithSegments("/hubs"))
-                {
+                if (!string.IsNullOrEmpty(accessToken) && context.HttpContext.Request.Path.StartsWithSegments("/hubs"))
                     context.Token = accessToken;
-                }
-
                 return Task.CompletedTask;
             }
         };

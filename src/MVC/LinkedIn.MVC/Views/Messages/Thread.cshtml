@@ -1,0 +1,48 @@
+﻿@model LinkedIn.MVC.Models.ViewModels.ConversationViewModel
+@{
+    ViewData["Title"] = "Conversation";
+}
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <a asp-action="Index" class="btn btn-outline-secondary mb-20">&larr; Back</a>
+        <div class="border rounded p-20 mb-20" style="max-height:400px; overflow-y:auto;">
+            @foreach (var m in Model.Messages)
+            {
+                <div class="mb-10">
+                    <strong>@(m.SenderId == Model.OtherUserId ? "Them" : "You"):</strong> @m.Content
+                    <div class="text-muted small">@m.SentAtUtc.ToString("dd MMM, HH:mm")</div>
+                </div>
+            }
+        </div>
+        <form asp-action="Send" method="post">
+            <input type="hidden" name="recipientUserId" value="@Model.OtherUserId" />
+            <div class="input-group">
+                <input name="content" class="form-control" maxlength="4000" placeholder="Type a message..." required />
+                <button type="submit" class="btn-one">Send</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@8.0.0/dist/browser/signalr.min.js"></script>
+<script>
+    (async function () {
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("@ViewBag.ApiBaseUrl/hubs/chat", { accessTokenFactory: () => "@ViewBag.AccessToken" })
+            .withAutomaticReconnect()
+            .build();
+
+        connection.on("ReceiveMessage", function (msg) {
+            const box = document.querySelector(".border.rounded.p-20.mb-20");
+            const div = document.createElement("div");
+            div.className = "mb-10";
+            const who = msg.senderId === "@Model.OtherUserId" ? "Them" : "You";
+            div.innerHTML = "<strong>" + who + ":</strong> " + msg.content;
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+        });
+
+        try { await connection.start(); } catch (err) { console.error(err); }
+    })();
+</script>

@@ -60,6 +60,9 @@ public interface IJobiApiClient
 
     // Public companies ---------------------------------------------------------
     Task<CompanyDto?> GetCompanyBySlugAsync(string slug, CancellationToken ct = default);
+    Task<IReadOnlyList<ConversationDto>> GetMyConversationsAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<MessageDto>> GetConversationMessagesAsync(long conversationId, CancellationToken ct = default);
+    Task<ApiCallResult<MessageDto>> SendMessageAsync(SendMessageRequest request, CancellationToken ct = default);
     // Employer ------------------------------------------------------------------
     Task<CompanyDto?> GetMyCompanyAsync(CancellationToken ct = default);
     Task<ApiCallResult<CompanyDto>> CreateCompanyAsync(CreateCompanyRequest request, CancellationToken ct = default);

@@ -115,6 +115,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSm9iXEpvYkxpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Pc/source/repos/LinkedIn/src/MVC/LinkedIn.MVC/Views/Messages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Pc/source/repos/LinkedIn/src/MVC/LinkedIn.MVC/Views/Messages/Thread.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVzc2FnZXNcVGhyZWFkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Pc/source/repos/LinkedIn/src/MVC/LinkedIn.MVC/Views/SavedCandidates/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2F2ZWRDYW5kaWRhdGVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

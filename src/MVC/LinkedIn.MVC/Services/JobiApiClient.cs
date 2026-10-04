@@ -177,6 +177,14 @@ public sealed class JobiApiClient : IJobiApiClient
             ? ApiCallResult<bool>.Ok(true)
             : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
     }
+    public async Task<IReadOnlyList<ConversationDto>> GetMyConversationsAsync(CancellationToken ct = default) =>
+    await GetOrDefaultAsync<IReadOnlyList<ConversationDto>>("api/messages", Array.Empty<ConversationDto>(), ct);
+
+    public async Task<IReadOnlyList<MessageDto>> GetConversationMessagesAsync(long conversationId, CancellationToken ct = default) =>
+        await GetOrDefaultAsync<IReadOnlyList<MessageDto>>($"api/messages/{conversationId}", Array.Empty<MessageDto>(), ct);
+
+    public Task<ApiCallResult<MessageDto>> SendMessageAsync(SendMessageRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<MessageDto>(HttpMethod.Post, "api/messages", request, ct);
     public Task<CompanyDto?> GetMyCompanyAsync(CancellationToken ct = default) =>
     GetOrNullAsync<CompanyDto>("api/companies/me", ct);
 
