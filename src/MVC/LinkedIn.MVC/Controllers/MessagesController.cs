@@ -26,10 +26,16 @@ public class MessagesController : Controller
     public async Task<IActionResult> Thread(long id, CancellationToken ct)
     {
         var messages = await _api.GetConversationMessagesAsync(id, ct);
-        var other = (await _api.GetMyConversationsAsync(ct)).FirstOrDefault(c => c.Id == id)?.OtherUserId ?? "";
+        var convo = (await _api.GetMyConversationsAsync(ct)).FirstOrDefault(c => c.Id == id);
         ViewBag.ApiBaseUrl = _apiOptions.Value.BaseUrl.TrimEnd('/');
         ViewBag.AccessToken = HttpContext.GetTokenAsync("access_token").Result;
-        return View(new ConversationViewModel { ConversationId = id, OtherUserId = other, Messages = messages });
+        return View(new ConversationViewModel
+        {
+            ConversationId = id,
+            OtherUserId = convo?.OtherUserId ?? "",
+            OtherUserName = convo?.OtherUserName ?? "Unknown",
+            Messages = messages
+        });
     }
 
     [HttpPost, ValidateAntiForgeryToken]

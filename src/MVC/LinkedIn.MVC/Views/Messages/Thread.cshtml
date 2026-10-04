@@ -1,25 +1,44 @@
 ﻿@model LinkedIn.MVC.Models.ViewModels.ConversationViewModel
 @{
-    ViewData["Title"] = "Conversation";
+    ViewData["Title"] = Model.OtherUserName;
 }
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">@Model.OtherUserName</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
     <div class="container">
-        <a asp-action="Index" class="btn btn-outline-secondary mb-20">&larr; Back</a>
-        <div class="border rounded p-20 mb-20" style="max-height:400px; overflow-y:auto;">
+        <a asp-action="Index" class="btn-ten fw-500 text-white tran3s mb-30 d-inline-block">&larr; Back to Messages</a>
+
+        <div class="job-list-one style-two position-relative border-style p-30 mb-20" style="max-height:420px; overflow-y:auto;" id="messageBox">
             @foreach (var m in Model.Messages)
             {
-                <div class="mb-10">
-                    <strong>@(m.SenderId == Model.OtherUserId ? "Them" : "You"):</strong> @m.Content
-                    <div class="text-muted small">@m.SentAtUtc.ToString("dd MMM, HH:mm")</div>
+                <div class="mb-15">
+                    <span class="fw-500">@(m.SenderId == Model.OtherUserId ? Model.OtherUserName : "You")</span>
+                    <span class="text-muted small ms-2">@m.SentAtUtc.ToString("dd MMM, HH:mm")</span>
+                    <div>@m.Content</div>
                 </div>
             }
         </div>
-        <form asp-action="Send" method="post">
+
+        <form asp-action="Send" method="post" class="job-search-one position-relative">
             <input type="hidden" name="recipientUserId" value="@Model.OtherUserId" />
-            <div class="input-group">
-                <input name="content" class="form-control" maxlength="4000" placeholder="Type a message..." required />
-                <button type="submit" class="btn-one">Send</button>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="input-box">
+                        <input name="content" class="form-control" maxlength="4000" placeholder="Type a message..." required />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="fw-500 text-uppercase h-100 tran3s search-btn w-100">Send</button>
+                </div>
             </div>
         </form>
     </div>
@@ -27,18 +46,18 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@8.0.0/dist/browser/signalr.min.js"></script>
 <script>
-    (async function () {
+    (async function() {
         const connection = new signalR.HubConnectionBuilder()
             .withUrl("@ViewBag.ApiBaseUrl/hubs/chat", { accessTokenFactory: () => "@ViewBag.AccessToken" })
             .withAutomaticReconnect()
             .build();
 
-        connection.on("ReceiveMessage", function (msg) {
-            const box = document.querySelector(".border.rounded.p-20.mb-20");
-            const div = document.createElement("div");
-            div.className = "mb-10";
-            const who = msg.senderId === "@Model.OtherUserId" ? "Them" : "You";
-            div.innerHTML = "<strong>" + who + ":</strong> " + msg.content;
+        connection.on("ReceiveMessage", function(msg) {
+            const box = document.getElementById('messageBox');
+            const div = document.createElement('div');
+            div.className = 'mb-15';
+            const who = msg.senderId === "@Model.OtherUserId" ? "@Model.OtherUserName" : "You";
+            div.innerHTML = `<span class="fw-500">${who}</span><div>${msg.content}</div>`;
             box.appendChild(div);
             box.scrollTop = box.scrollHeight;
         });

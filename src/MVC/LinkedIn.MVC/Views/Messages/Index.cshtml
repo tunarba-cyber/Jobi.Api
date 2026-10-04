@@ -37,7 +37,7 @@
                 <a asp-action="Thread" asp-route-id="@c.Id" class="d-block job-list-one style-two position-relative border-style mb-15 p-20">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <div class="fw-500">@c.OtherUserId</div>
+                            <div class="fw-500">@c.OtherUserName</div>
                             <div class="text-muted small">@c.LastMessage</div>
                         </div>
                         @if (c.UnreadCount > 0)
