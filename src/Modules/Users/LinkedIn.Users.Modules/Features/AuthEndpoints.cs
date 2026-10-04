@@ -74,6 +74,7 @@ internal static class AuthEndpoints
             .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .RequireAuthorization();
+
     }
 
     private static async Task<IResult> Register(RegisterCommand command, ISender sender, CancellationToken ct) =>

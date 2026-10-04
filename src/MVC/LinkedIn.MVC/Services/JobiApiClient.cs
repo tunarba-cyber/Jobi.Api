@@ -177,6 +177,8 @@ public sealed class JobiApiClient : IJobiApiClient
             ? ApiCallResult<bool>.Ok(true)
             : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
     }
+    public async Task<IReadOnlyList<UserSummaryDto>> SearchUsersAsync(string query, CancellationToken ct = default) =>
+    await GetOrDefaultAsync<IReadOnlyList<UserSummaryDto>>($"api/messages/search-users?q={Uri.EscapeDataString(query)}", Array.Empty<UserSummaryDto>(), ct);
     public async Task<IReadOnlyList<ConversationDto>> GetMyConversationsAsync(CancellationToken ct = default) =>
     await GetOrDefaultAsync<IReadOnlyList<ConversationDto>>("api/messages", Array.Empty<ConversationDto>(), ct);
 

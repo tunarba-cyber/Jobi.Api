@@ -44,4 +44,7 @@ public class MessagesController : Controller
         }
         return RedirectToAction(nameof(Index));
     }
+    [HttpGet]
+    public async Task<IActionResult> SearchUsers(string q, CancellationToken ct) =>
+    Json(await _api.SearchUsersAsync(q, ct));
 }

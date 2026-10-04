@@ -1864,6 +1864,32 @@
     "EndpointName": "GetConversationMessages"
   },
   {
+    "ContainingType": "LinkedIn.Modules.Messaging.Features.MessagingEndpoints",
+    "Method": "SearchUsers",
+    "RelativePath": "api/messages/search-users",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Messaging"
+    ],
+    "EndpointName": "SearchMessageableUsers"
+  },
+  {
     "ContainingType": "LinkedIn.Modules.Jobs.Features.SavedCandidates.SavedCandidateEndpoints",
     "Method": "GetMine",
     "RelativePath": "api/saved-candidates/",

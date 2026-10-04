@@ -1,14 +1,15 @@
-using System.Security.Claims;
 using LinkedIn.Modules.Messaging.Features.Dtos;
 using LinkedIn.Modules.Messaging.Features.GetConversations;
 using LinkedIn.Modules.Messaging.Features.GetMessages;
 using LinkedIn.Modules.Messaging.Features.MarkConversationRead;
 using LinkedIn.Modules.Messaging.Features.SendMessage;
+using LinkedIn.Shared.Abstractions.Contracts;
 using LinkedIn.Shared.Infrastructure.Http;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using System.Security.Claims;
 
 namespace LinkedIn.Modules.Messaging.Features;
 
@@ -21,6 +22,7 @@ internal static class MessagingEndpoints
         group.MapGet("/", GetConversations).WithName("GetMyConversations");
         group.MapGet("/{conversationId:long}", GetMessages).WithName("GetConversationMessages");
         group.MapPost("/", Send).WithName("SendMessage");
+        group.MapGet("/search-users", SearchUsers).WithName("SearchMessageableUsers");
     }
 
     private static async Task<IResult> GetConversations(ClaimsPrincipal user, ISender sender, CancellationToken ct)
@@ -45,6 +47,12 @@ internal static class MessagingEndpoints
         var result = await sender.Send(new SendMessageCommand(userId, request.RecipientUserId, request.Content), ct);
         return result.ToHttpResult();
     }
+    private static async Task<IResult> SearchUsers(string q, IUserDirectory directory, CancellationToken ct)
+    {
+        var results = await directory.SearchAsync(q, 10, ct);
+        return Results.Ok(results);
+    }
+
 
     private sealed record SendMessageRequest(string RecipientUserId, string Content);
 }

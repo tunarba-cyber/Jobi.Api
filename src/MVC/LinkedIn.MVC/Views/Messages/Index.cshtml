@@ -16,12 +16,14 @@
 <section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
     <div class="container">
 
-        <form asp-action="Send" method="post" class="mb-30">
-            <div class="input-group">
-                <input name="recipientUserId" class="form-control" placeholder="Recipient user ID" required />
-                <input type="text" class="form-control" placeholder="Type a message..." name="content" maxlength="4000" required />
-                <button type="submit" class="btn-one">Start</button>
-            </div>
+        <div class="mb-30">
+            <input id="userSearch" class="form-control" placeholder="Search by name to start a conversation..." autocomplete="off" />
+            <div id="userResults" class="list-group mt-5"></div>
+        </div>
+
+        <form id="startForm" asp-action="Send" method="post" style="display:none;">
+            <input type="hidden" name="recipientUserId" id="recipientUserId" />
+            <input type="hidden" name="content" value="Hi!" />
         </form>
 
         @if (Model.Items.Count == 0)
@@ -48,3 +50,30 @@
         }
     </div>
 </section>
+
+@section Scripts {
+    <script>
+        const searchBox = document.getElementById('userSearch');
+        const results = document.getElementById('userResults');
+        let timer;
+
+        searchBox.addEventListener('input', function() {
+            clearTimeout(timer);
+            const q = this.value.trim();
+            if (q.length < 2) { results.innerHTML = ''; return; }
+
+            timer = setTimeout(async () => {
+                const res = await fetch('/Messages/SearchUsers?q=' + encodeURIComponent(q));
+                const users = await res.json();
+                results.innerHTML = users.map(u =>
+                    `<button type="button" class="list-group-item list-group-item-action" onclick="startChat('${u.id}')">${u.firstName} ${u.lastName}</button>`
+                ).join('');
+            }, 300);
+        });
+
+        function startChat(userId) {
+            document.getElementById('recipientUserId').value = userId;
+            document.getElementById('startForm').submit();
+        }
+    </script>
+}

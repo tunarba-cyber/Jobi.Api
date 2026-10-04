@@ -76,7 +76,7 @@ public interface IJobiApiClient
     Task<ApiCallResult<bool>> DeleteJobAsync(long id, CancellationToken ct = default);
     Task<PagedResult<ApplicantDto>> GetApplicantsForJobAsync(long jobId, int page = 1, int pageSize = 20, CancellationToken ct = default);
     Task<ApiCallResult<bool>> UpdateApplicationStatusAsync(long applicationId, ApplicationStatus status, CancellationToken ct = default);
-
+    Task<IReadOnlyList<UserSummaryDto>> SearchUsersAsync(string query, CancellationToken ct = default);
     // Blog ------------------------------------------------------------------
     Task<PagedResult<BlogCardDto>> GetBlogsAsync(
         int page = 1,

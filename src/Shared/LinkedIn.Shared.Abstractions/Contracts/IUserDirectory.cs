@@ -10,4 +10,5 @@ public interface IUserDirectory
 {
     Task<bool> ExistsAsync(string userId, CancellationToken ct);
     Task<IReadOnlyDictionary<string, UserSummary>> GetSummariesAsync(IEnumerable<string> userIds, CancellationToken ct);
+    Task<IReadOnlyList<UserSummary>> SearchAsync(string query, int maxResults, CancellationToken ct);
 }

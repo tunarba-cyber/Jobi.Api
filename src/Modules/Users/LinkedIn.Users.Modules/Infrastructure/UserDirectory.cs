@@ -20,4 +20,15 @@ internal sealed class UserDirectory : IUserDirectory
             .Where(u => ids.Contains(u.Id))
             .ToDictionaryAsync(u => u.Id, u => new UserSummary(u.Id, u.FirstName, u.LastName), ct);
     }
+    public async Task<IReadOnlyList<UserSummary>> SearchAsync(string query, int maxResults, CancellationToken ct)
+    {
+        var q = query.Trim();
+        if (q.Length < 2) return Array.Empty<UserSummary>();
+
+        return await _db.Users.AsNoTracking()
+            .Where(u => u.EmailConfirmed && (u.FirstName.Contains(q) || u.LastName.Contains(q)))
+            .Take(maxResults)
+            .Select(u => new UserSummary(u.Id, u.FirstName, u.LastName))
+            .ToListAsync(ct);
+    }
 }

@@ -2118,6 +2118,29 @@
         }
       }
     },
+    "/api/messages/search-users": {
+      "get": {
+        "tags": [
+          "Messaging"
+        ],
+        "operationId": "SearchMessageableUsers",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/saved-candidates": {
       "get": {
         "tags": [

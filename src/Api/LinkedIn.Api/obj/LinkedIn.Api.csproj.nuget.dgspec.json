@@ -510,6 +510,9 @@
             "framework": "net8.0",
             "targetAlias": "net8.0",
             "projectReferences": {
+              "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.USers.csproj": {
+                "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.USers.csproj"
+              },
               "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Abstractions\\LinkedIn.Shared.Abstractions.csproj": {
                 "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Abstractions\\LinkedIn.Shared.Abstractions.csproj"
               },

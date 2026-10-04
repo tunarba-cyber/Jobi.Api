@@ -1120,6 +1120,7 @@
       "LinkedIn.Modules.Messaging/1.0.0": {
         "dependencies": {
           "FluentValidation": "11.11.0",
+          "LinkedIn.Modules.USers": "1.0.0",
           "LinkedIn.Shared.Abstractions": "1.0.0",
           "LinkedIn.Shared.Infrastructure": "1.0.0",
           "MediatR": "12.4.1",
