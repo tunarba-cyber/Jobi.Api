@@ -158,6 +158,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options => options.DocumentTitle = "LinkedIn API");
     await app.ApplyMigrationsAsync();
+    await LinkedIn.Modules.Users.Infrastructure.AdminSeeder.SeedAsync(app.Services, app.Configuration);
     await LinkedIn.Api.Infrastructure.Seed.DataSeeder.SeedAsync(app.Services);
 }
 else

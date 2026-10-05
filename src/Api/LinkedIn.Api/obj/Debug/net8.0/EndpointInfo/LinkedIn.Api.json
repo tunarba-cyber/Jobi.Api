@@ -524,6 +524,29 @@
         }
       }
     },
+    "/api/auth/promote-to-admin": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "PromoteToAdmin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromoteToAdminCommand"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/blog-categories": {
       "get": {
         "tags": [
@@ -3293,6 +3316,16 @@
           }
         },
         "additionalProperties": { }
+      },
+      "PromoteToAdminCommand": {
+        "type": "object",
+        "properties": {
+          "targetUserId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "RefreshTokenRequest": {
         "type": "object",

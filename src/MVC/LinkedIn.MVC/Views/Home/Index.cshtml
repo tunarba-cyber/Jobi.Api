@@ -282,17 +282,17 @@
                         <div class="col-lg-4 col-md-6">
                             <article class="blog-meta-one mt-35 wow fadeInUp">
                                 <figure class="post-img m0">
-                                    <a asp-controller="Blog" asp-action="Details" asp-route-slug="@post.Slug" class="w-100 d-block">
+                                    <a asp-controller="Blog" asp-action="Details" asp-route-id="@post.Id" class="w-100 d-block">
                                         <img src="~/images/lazy.svg"
                                              data-src="@(string.IsNullOrWhiteSpace(post.ImageUrl) ? "/images/blog/blog_img_01.jpg" : post.ImageUrl)"
                                              alt="@post.Title" class="lazy-img w-100 tran4s">
                                     </a>
                                 </figure>
                                 <div class="post-data mt-30 lg-mt-20">
-                                    <a asp-controller="Blog" asp-action="Details" asp-route-slug="@post.Slug" class="mt-10 mb-10">
+                                    <a asp-controller="Blog" asp-action="Details" asp-route-id="@post.Id" class="mt-10 mb-10">
                                         <h4 class="tran3s blog-title">@post.Title</h4>
                                     </a>
-                                    <div class="author">@(post.PublishedAt?.ToString("dd MMM, yyyy") ?? "Draft")</div>
+                                    <div class="author">@post.CreatedAtUtc.ToString("dd MMM, yyyy")</div>
                                 </div>
                             </article>
                         </div>

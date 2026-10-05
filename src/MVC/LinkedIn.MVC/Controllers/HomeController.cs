@@ -27,7 +27,7 @@ public class HomeController : Controller
         {
             Summary = await summaryTask,
             AllCategories = (await categoriesTask).Items,
-            LatestBlogs = (await blogsTask).Items
+            LatestBlogs = (await blogsTask).Select(b => new BlogCardDto(b.Id, b.Title, b.Slug, null, null, b.CategoryName, b.CreatedAtUtc, 0)).ToList()
         };
 
         return View(model);

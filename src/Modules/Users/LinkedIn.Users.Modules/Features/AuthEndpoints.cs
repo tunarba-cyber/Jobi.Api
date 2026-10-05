@@ -4,9 +4,9 @@ using LinkedIn.Modules.Users.Features.ForgotPassword;
 using LinkedIn.Modules.Users.Features.Login;
 using LinkedIn.Modules.Users.Features.Logout;
 using LinkedIn.Modules.Users.Features.LogoutAll;
-using LinkedIn.Modules.Users.Features.Register;
-using System.Security.Claims;
+using LinkedIn.Modules.Users.Features.PromoteToAdmin;
 using LinkedIn.Modules.Users.Features.RefreshToken;
+using LinkedIn.Modules.Users.Features.Register;
 using LinkedIn.Modules.Users.Features.ResetPassword;
 using LinkedIn.Shared.Infrastructure.Http;
 using MediatR;
@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Routing;
+using System.Security.Claims;
 
 namespace LinkedIn.Modules.Users.Features;
 
@@ -74,6 +75,10 @@ internal static class AuthEndpoints
             .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .RequireAuthorization();
+        group.MapPost("/promote-to-admin", async (PromoteToAdminCommand command, ISender sender, CancellationToken ct) =>
+        (await sender.Send(command, ct)).ToHttpResult())
+    .WithName("PromoteToAdmin")
+    .RequireAuthorization("RequireAdmin");
 
     }
 

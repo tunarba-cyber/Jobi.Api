@@ -352,6 +352,32 @@
     "Summary": "Revokes every active refresh token for the current user - all devices/sessions."
   },
   {
+    "ContainingType": "LinkedIn.Modules.Users.Features.AuthEndpoints\u002B\u003C\u003Ec",
+    "Method": "\u003CMapAuthEndpoints\u003Eb__0_0",
+    "RelativePath": "api/auth/promote-to-admin",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "LinkedIn.Modules.Users.Features.PromoteToAdmin.PromoteToAdminCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Auth"
+    ],
+    "EndpointName": "PromoteToAdmin"
+  },
+  {
     "ContainingType": "LinkedIn.Modules.Users.Features.AuthEndpoints",
     "Method": "Refresh",
     "RelativePath": "api/auth/refresh",

@@ -63,6 +63,14 @@
             confirm their email first (see ConfirmEmail), then log in separately.
             </summary>
         </member>
+        <member name="T:LinkedIn.Modules.Users.Infrastructure.AdminSeeder">
+            <summary>
+            Runs once at startup. If no Admin exists yet, creates one from config -
+            the only way to get a first Admin account, since registration deliberately
+            blocks self-granting that role. Safe to run every startup: it's a no-op
+            once an Admin already exists.
+            </summary>
+        </member>
         <member name="T:LinkedIn.Modules.Users.Infrastructure.BackgroundJobs.RefreshTokenCleanupService">
             <summary>
             Refresh token rows accumulate forever otherwise - every login and every

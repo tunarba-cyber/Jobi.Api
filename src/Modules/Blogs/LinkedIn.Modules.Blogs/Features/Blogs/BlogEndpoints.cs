@@ -47,7 +47,7 @@ public static class BlogEndpoints
             return Results.Created($"/api/blogs/{id}", new { id });
         })
         .WithName("CreateBlog")
-        .RequireAuthorization();
+        .RequireAuthorization("RequireAdmin");   // instead of .RequireAuthorization();
 
         group.MapPut("/{id:guid}", async (Guid id, UpdateBlogCommand command, ISender sender, CancellationToken ct) =>
         {
@@ -56,7 +56,7 @@ public static class BlogEndpoints
             return Results.NoContent();
         })
         .WithName("UpdateBlog")
-        .RequireAuthorization();
+        .RequireAuthorization("RequireAdmin");   // instead of .RequireAuthorization();
 
         group.MapDelete("/{id:guid}", async (Guid id, ISender sender, CancellationToken ct) =>
         {
@@ -64,7 +64,7 @@ public static class BlogEndpoints
             return Results.NoContent();
         })
         .WithName("DeleteBlog")
-        .RequireAuthorization();
+        .RequireAuthorization("RequireAdmin");   // instead of .RequireAuthorization();
 
         return app;
     }

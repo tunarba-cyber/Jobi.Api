@@ -78,17 +78,12 @@ public interface IJobiApiClient
     Task<ApiCallResult<bool>> UpdateApplicationStatusAsync(long applicationId, ApplicationStatus status, CancellationToken ct = default);
     Task<IReadOnlyList<UserSummaryDto>> SearchUsersAsync(string query, CancellationToken ct = default);
     // Blog ------------------------------------------------------------------
-    Task<PagedResult<BlogCardDto>> GetBlogsAsync(
-        int page = 1,
-        int pageSize = 9,
-        string? categorySlug = null,
-        string? search = null,
-        bool? onlyFeatured = null,
-        CancellationToken ct = default);
-
-    Task<BlogDetailsDto?> GetBlogBySlugAsync(string slug, CancellationToken ct = default);
-
+    Task<IReadOnlyList<BlogListItemDto>> GetBlogsAsync(int page = 1, int pageSize = 50, CancellationToken ct = default);
     Task<IReadOnlyList<BlogCategoryDto>> GetBlogCategoriesAsync(CancellationToken ct = default);
+    Task<ApiCallResult<CreatedIdResponse>> CreateBlogAsync(CreateBlogRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<object?>> UpdateBlogAsync(UpdateBlogRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<object?>> DeleteBlogAsync(Guid id, CancellationToken ct = default);
+    Task<ApiCallResult<object?>> CreateBlogCategoryAsync(string name, CancellationToken ct = default);
 
     // Contact ---------------------------------------------------------------
     Task<ApiCallResult<bool>> SendContactMessageAsync(ContactRequest request, CancellationToken ct = default);

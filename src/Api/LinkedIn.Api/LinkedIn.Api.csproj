@@ -34,7 +34,7 @@
 	  <ProjectReference Include="..\..\Modules\Blogs\LinkedIn.Modules.Blogs\LinkedIn.Modules.Blogs.csproj" />
 	  <ProjectReference Include="..\..\Modules\Jobs\LinkedIn.Modules.Jobs\LinkedIn.Modules.Jobs.csproj" />
 	  <ProjectReference Include="..\..\Modules\Users\LinkedIn.Modules.Messaging\LinkedIn.Modules.Messaging.csproj" />
-	  <ProjectReference Include="..\..\Modules\Users\LinkedIn.Users.Modules\LinkedIn.Modules.USers.csproj" />
+	  <ProjectReference Include="..\..\Modules\Users\LinkedIn.Users.Modules\LinkedIn.Modules.Users.csproj" />
 	  <ProjectReference Include="..\..\Shared\LinkedIn.Shared.Abstractions\LinkedIn.Shared.Abstractions.csproj" />
 	  <ProjectReference Include="..\..\Shared\LinkedIn.Shared.Infrastructure\LinkedIn.Shared.Infrastructure.csproj" />
 	</ItemGroup>

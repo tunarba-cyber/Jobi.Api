@@ -63,13 +63,13 @@
                     <div class="col-lg-4 col-md-6">
                         <article class="blog-meta-one mt-35 wow fadeInUp">
                             <figure class="post-img m0">
-                                <a asp-action="Details" asp-route-slug="@post.Slug" class="w-100 d-block">
+                                <a asp-action="Details" asp-route-id="@post.Id" class="w-100 d-block">
                                     <img src="~/images/lazy.svg" data-src="@imageUrl" alt="@post.Title" class="lazy-img w-100 tran4s">
                                 </a>
                             </figure>
                             <div class="post-data mt-30 lg-mt-20">
-                                <div class="author">@post.CategoryName · @(post.PublishedAt?.ToString("dd MMM, yyyy") ?? "Draft")</div>
-                                <a asp-action="Details" asp-route-slug="@post.Slug" class="mt-10 mb-10 d-block">
+                                <div class="author">@post.CategoryName · @post.CreatedAtUtc.ToString("dd MMM, yyyy")</div>
+                                <a asp-action="Details" asp-route-id="@post.Id" class="mt-10 mb-10 d-block">
                                     <h4 class="tran3s blog-title">@post.Title</h4>
                                 </a>
                                 <p>@post.Summary</p>

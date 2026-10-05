@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-xl-9 m-auto text-center">
                 <div class="title-two"><h2 class="text-white">@Model.Title</h2></div>
-                <p class="text-lg text-white mt-30 lg-mt-20 mb-0">@Model.CategoryName · @(Model.PublishedAt?.ToString("dd MMM, yyyy") ?? "Draft")</p>
+                <p class="text-lg text-white mt-30 lg-mt-20 mb-0">@(Model.CategoryName ?? "-") · @Model.PublishedAt.ToString("dd MMM, yyyy")</p>
             </div>
         </div>
     </div>
@@ -28,15 +28,24 @@
         <div class="row">
             <div class="col-xl-9 col-lg-10 m-auto">
                 <img src="@imageUrl" alt="@Model.Title" class="w-100 mb-45 lg-mb-30">
-                <p class="text-lg fw-500 text-dark mb-30">@Model.Summary</p>
+                @if (!string.IsNullOrWhiteSpace(Model.Summary))
+                {
+                    <p class="text-lg fw-500 text-dark mb-30">@Model.Summary</p>
+                }
                 <div class="text-md">
-                    @foreach (var paragraph in Model.Content.Replace("\r\n", "\n").Split("\n\n", StringSplitOptions.RemoveEmptyEntries))
+                    @if (!string.IsNullOrWhiteSpace(Model.Content))
                     {
-                        <p class="mb-25">@paragraph.Trim()</p>
+                        @foreach (var paragraph in Model.Content.Replace("\r\n", "\n").Split("\n\n", StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            <p class="mb-25">@paragraph.Trim()</p>
+                        }
                     }
                 </div>
                 <div class="border-top mt-50 pt-30 d-flex flex-wrap align-items-center justify-content-between">
-                    <a asp-action="Index" asp-route-categorySlug="@Model.CategorySlug" class="fw-500">@Model.CategoryName</a>
+                    @if (!string.IsNullOrWhiteSpace(Model.CategoryName))
+                    {
+                        <a asp-action="Index" class="fw-500">@Model.CategoryName</a>
+                    }
                     <span>@Model.ViewCount view@(Model.ViewCount == 1 ? string.Empty : "s")</span>
                 </div>
                 <a asp-action="Index" class="btn-one mt-40">Back to all guides</a>

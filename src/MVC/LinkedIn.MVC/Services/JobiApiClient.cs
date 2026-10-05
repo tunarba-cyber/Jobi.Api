@@ -376,25 +376,25 @@ public sealed class JobiApiClient : IJobiApiClient
     // -----------------------------------------------------------------------
     // Blog
     // -----------------------------------------------------------------------
-    public async Task<PagedResult<BlogCardDto>> GetBlogsAsync(
-        int page = 1,
-        int pageSize = 9,
-        string? categorySlug = null,
-        string? search = null,
-        bool? onlyFeatured = null,
-        CancellationToken ct = default)
-    {
-        var url = BuildUrl("api/blogs", new()
-        {
-            ["page"] = page.ToString(),
-            ["pageSize"] = pageSize.ToString(),
-            ["categorySlug"] = NullIfBlank(categorySlug),
-            ["search"] = NullIfBlank(search),
-            ["onlyFeatured"] = onlyFeatured?.ToString().ToLowerInvariant()
-        });
+    public async Task<IReadOnlyList<BlogListItemDto>> GetBlogsAsync(int page = 1, int pageSize = 50, CancellationToken ct = default) =>
+    await GetOrDefaultAsync<IReadOnlyList<BlogListItemDto>>(
+        $"api/blogs?page={page}&pageSize={pageSize}", Array.Empty<BlogListItemDto>(), ct);
 
-        return await GetOrDefaultAsync(url, PagedResult<BlogCardDto>.Empty(page, pageSize), ct);
-    }
+    public async Task<IReadOnlyList<BlogCategoryDto>> GetBlogCategoriesAsync(CancellationToken ct = default) =>
+        await GetOrDefaultAsync<IReadOnlyList<BlogCategoryDto>>(
+            "api/blog-categories", Array.Empty<BlogCategoryDto>(), ct);
+
+    public Task<ApiCallResult<CreatedIdResponse>> CreateBlogAsync(CreateBlogRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<CreatedIdResponse>(HttpMethod.Post, "api/blogs", request, ct);
+
+    public Task<ApiCallResult<object?>> UpdateBlogAsync(UpdateBlogRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<object?>(HttpMethod.Put, $"api/blogs/{request.Id}", request, ct);
+
+    public Task<ApiCallResult<object?>> DeleteBlogAsync(Guid id, CancellationToken ct = default) =>
+        SendJsonAsync<object?>(HttpMethod.Delete, $"api/blogs/{id}", null, ct);
+
+    public Task<ApiCallResult<object?>> CreateBlogCategoryAsync(string name, CancellationToken ct = default) =>
+        SendJsonAsync<object?>(HttpMethod.Post, "api/blog-categories", new { Name = name }, ct);
     public async Task<ApiCallResult<bool>> RegisterAsync(RegisterRequest request, CancellationToken ct = default)
     {
         using var response = await _http.PostAsJsonAsync("api/auth/register", request, JsonOptions, ct);
@@ -478,12 +478,9 @@ public sealed class JobiApiClient : IJobiApiClient
     }
     private sealed record ProblemDetailsResponse(string? Title, string? Detail, Dictionary<string, string[]>? Errors);
 
-    public Task<BlogDetailsDto?> GetBlogBySlugAsync(string slug, CancellationToken ct = default) =>
-        GetOrNullAsync<BlogDetailsDto>($"api/blogs/{Uri.EscapeDataString(slug)}", ct);
+  
 
-    public async Task<IReadOnlyList<BlogCategoryDto>> GetBlogCategoriesAsync(CancellationToken ct = default) =>
-        await GetOrDefaultAsync<IReadOnlyList<BlogCategoryDto>>(
-            "api/blog-categories", Array.Empty<BlogCategoryDto>(), ct);
+  
 
     public async Task<ApiCallResult<bool>> SendContactMessageAsync(
         ContactRequest request, CancellationToken ct = default)

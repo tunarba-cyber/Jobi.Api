@@ -38,7 +38,7 @@ public static class BlogCategoryEndpoints
 
             return Results.Created($"/api/blog-categories/{category.Id}", new { category.Id, category.Name, category.Slug });
         })
-        .RequireAuthorization();
+        .RequireAuthorization("RequireAdmin");   // instead of .RequireAuthorization()
 
         return app;
     }

@@ -1,3 +1,4 @@
+using LinkedIn.MVC.Models.Api;
 using LinkedIn.MVC.Models.ViewModels;
 using LinkedIn.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,36 +16,60 @@ public class BlogController : Controller
 
     public BlogController(IJobiApiClient api) => _api = api;
 
-    // GET /Blog?categorySlug=design&search=ux&page=2
+    // GET /Blog?page=2
     public async Task<IActionResult> Index(
-        string? categorySlug,
-        string? search,
         int page = 1,
         CancellationToken ct = default)
     {
-        var blogsTask = _api.GetBlogsAsync(page < 1 ? 1 : page, 9, categorySlug, search, ct: ct);
+        var blogsTask = _api.GetBlogsAsync(page < 1 ? 1 : page, 9, ct);
         var categoriesTask = _api.GetBlogCategoriesAsync(ct);
 
         await Task.WhenAll(blogsTask, categoriesTask);
 
+        var blogs = await blogsTask;
+
         return View(new BlogListViewModel
         {
-            Blogs = await blogsTask,
+            Blogs = new PagedResult<BlogCardDto>
+            {
+                Items = blogs.Select(b => new BlogCardDto(b.Id, b.Title, b.Slug, null, null, b.CategoryName, b.CreatedAtUtc, 0)).ToList(),
+                Page = page,
+                PageSize = 9,
+                TotalCount = blogs.Count
+            },
             Categories = await categoriesTask,
-            CategorySlug = categorySlug,
-            Search = search
+            CategorySlug = null,
+            Search = null
         });
     }
 
-    // GET /Blog/Details/my-post-slug
-    public async Task<IActionResult> Details(string slug, CancellationToken ct)
+    // GET /Blog/Details/my-post-id
+    public async Task<IActionResult> Details(Guid id, CancellationToken ct)
     {
-        if (string.IsNullOrWhiteSpace(slug))
+        if (id == Guid.Empty)
         {
             return RedirectToAction(nameof(Index));
         }
 
-        var blog = await _api.GetBlogBySlugAsync(slug, ct);
-        return blog is null ? NotFound() : View(blog);
+        // For now, fetch the blog from the list and convert to details view
+        var blogs = await _api.GetBlogsAsync(1, 100, ct);
+        var blog = blogs.FirstOrDefault(b => b.Id == id);
+
+        if (blog is null)
+            return NotFound();
+
+        var blogDetails = new BlogDetailsDto(
+            blog.Id,
+            blog.Title,
+            blog.Slug,
+            "",
+            null,
+            null,
+            blog.CategoryName,
+            null,
+            blog.CreatedAtUtc,
+            0);
+
+        return View(blogDetails);
     }
 }
