@@ -1,0 +1,154 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    var recentBlogs = Model?.RecentBlogs as IReadOnlyList<LinkedIn.MVC.Models.Api.BlogListItemDto>;
+    var categories = Model?.Categories as IReadOnlyList<LinkedIn.MVC.Models.Api.BlogCategoryDto>;
+    int totalBlogs = Model?.TotalBlogs ?? 0;
+    int totalCategories = Model?.TotalCategories ?? 0;
+}
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="mb-30">Admin Dashboard</h1>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-30">
+            <div class="col-md-6 col-lg-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Blogs</h5>
+                        <h2 class="text-primary">@totalBlogs</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Categories</h5>
+                        <h2 class="text-success">@totalCategories</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Published Blogs</h5>
+                        <h2 class="text-info">@(recentBlogs?.Count(b => b.PublishedAt.HasValue) ?? 0)</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Draft Blogs</h5>
+                        <h2 class="text-warning">@(recentBlogs?.Count(b => !b.PublishedAt.HasValue) ?? 0)</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Recent Blogs -->
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Recent Blogs</h5>
+                        <a asp-action="CreateBlog" class="btn btn-primary btn-sm">+ New Blog</a>
+                    </div>
+                    <div class="card-body p-0">
+                        @if (recentBlogs?.Count() == 0)
+                        {
+                            <p class="p-3 text-muted">No blogs yet. <a asp-action="CreateBlog">Create your first blog</a></p>
+                        }
+                        else
+                        {
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var blog in recentBlogs?.Take(5) ?? [])
+                                    {
+                                        <tr>
+                                            <td><strong>@blog.Title</strong></td>
+                                            <td>@(blog.CategoryName ?? "-")</td>
+                                            <td>
+                                                @if (blog.PublishedAt.HasValue)
+                                                {
+                                                    <span class="badge bg-success">Published</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-warning">Draft</span>
+                                                }
+                                            </td>
+                                            <td>@blog.PublishedAt?.ToString("dd MMM yyyy")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="Blogs" class="btn btn-outline-primary btn-sm">View All Blogs →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions & Categories -->
+            <div class="col-lg-4">
+                <!-- Quick Actions -->
+                <div class="card shadow-sm mb-30">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a asp-action="CreateBlog" class="btn btn-primary">Create Blog Post</a>
+                            <a asp-action="Categories" class="btn btn-outline-primary">Manage Categories</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories -->
+                <div class="card shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">Categories</h5>
+                        <span class="badge bg-primary">@totalCategories</span>
+                    </div>
+                    <div class="card-body p-0">
+                        @if (categories?.Count() == 0)
+                        {
+                            <p class="p-3 text-muted mb-0">No categories yet</p>
+                        }
+                        else
+                        {
+                            <ul class="list-group list-group-flush">
+                                @foreach (var category in categories?.Take(5) ?? [])
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>@category.Name</span>
+                                        <span class="badge bg-light text-dark">@category.Count</span>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <a asp-action="Categories" class="btn btn-outline-primary btn-sm w-100">Manage Categories →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

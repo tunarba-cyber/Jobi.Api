@@ -1,0 +1,46 @@
+﻿using LinkedIn.MVC.Models.Api;
+using LinkedIn.MVC.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace LinkedIn.MVC.Controllers;
+
+[Authorize(Roles = "Admin")]
+public class AdminController : Controller
+{
+    private readonly IJobiApiClient _api;
+    public AdminController(IJobiApiClient api) => _api = api;
+
+    public async Task<IActionResult> Blogs(CancellationToken ct) =>
+        View(await _api.GetBlogsAsync(ct: ct));
+
+    public async Task<IActionResult> CreateBlog(CancellationToken ct)
+    {
+        ViewBag.Categories = await _api.GetBlogCategoriesAsync(ct);
+        return View();
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateBlog(CreateBlogRequest request, CancellationToken ct)
+    {
+        await _api.CreateBlogAsync(request, ct);
+        return RedirectToAction(nameof(Blogs));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteBlog(Guid id, CancellationToken ct)
+    {
+        await _api.DeleteBlogAsync(id, ct);
+        return RedirectToAction(nameof(Blogs));
+    }
+
+    public async Task<IActionResult> Categories(CancellationToken ct) =>
+        View(await _api.GetBlogCategoriesAsync(ct));
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateCategory(string name, CancellationToken ct)
+    {
+        await _api.CreateBlogCategoryAsync(name, ct);
+        return RedirectToAction(nameof(Categories));
+    }
+}

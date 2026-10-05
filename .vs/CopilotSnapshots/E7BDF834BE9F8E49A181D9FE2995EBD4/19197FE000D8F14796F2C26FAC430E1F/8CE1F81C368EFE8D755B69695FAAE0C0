@@ -1,0 +1,88 @@
+﻿using LinkedIn.MVC.Models.Api;
+using LinkedIn.MVC.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace LinkedIn.MVC.Controllers;
+
+[Authorize(Roles = "Admin")]
+public class AdminController : Controller
+{
+    private readonly IJobiApiClient _api;
+    public AdminController(IJobiApiClient api) => _api = api;
+
+    public async Task<IActionResult> Index(CancellationToken ct)
+    {
+        var blogsTask = _api.GetBlogsAsync(1, 10, ct);
+        var categoriesTask = _api.GetBlogCategoriesAsync(ct);
+
+        await Task.WhenAll(blogsTask, categoriesTask);
+
+        var viewModel = new
+        {
+            RecentBlogs = await blogsTask,
+            TotalBlogs = (await blogsTask).Count,
+            Categories = await categoriesTask,
+            TotalCategories = (await categoriesTask).Count
+        };
+
+        return View(viewModel);
+    }
+
+    public async Task<IActionResult> Blogs(CancellationToken ct) =>
+        View(await _api.GetBlogsAsync(ct: ct));
+
+    public async Task<IActionResult> CreateBlog(CancellationToken ct)
+    {
+        var categories = await _api.GetBlogCategoriesAsync(ct);
+
+        if (categories.Count == 0)
+        {
+            TempData[FlashKeys.Warning] = "No blog categories exist yet. Please create a category first.";
+            return RedirectToAction(nameof(Categories));
+        }
+
+        ViewBag.Categories = categories;
+        return View();
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateBlog(CreateBlogRequest request, CancellationToken ct)
+    {
+        // Validate that a category was selected
+        if (request.CategoryId <= 0)
+        {
+            TempData[FlashKeys.Error] = "Please select a category for the blog post.";
+            return RedirectToAction(nameof(CreateBlog));
+        }
+
+        try
+        {
+            await _api.CreateBlogAsync(request, ct);
+            TempData[FlashKeys.Success] = "Blog post created successfully.";
+            return RedirectToAction(nameof(Blogs));
+        }
+        catch (Exception ex)
+        {
+            TempData[FlashKeys.Error] = $"Failed to create blog post: {ex.Message}";
+            return RedirectToAction(nameof(CreateBlog));
+        }
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteBlog(Guid id, CancellationToken ct)
+    {
+        await _api.DeleteBlogAsync(id, ct);
+        return RedirectToAction(nameof(Blogs));
+    }
+
+    public async Task<IActionResult> Categories(CancellationToken ct) =>
+        View(await _api.GetBlogCategoriesAsync(ct));
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateCategory(string name, CancellationToken ct)
+    {
+        await _api.CreateBlogCategoryAsync(name, ct);
+        return RedirectToAction(nameof(Categories));
+    }
+}

@@ -1,0 +1,75 @@
+﻿using LinkedIn.MVC.Models.Api;
+using LinkedIn.MVC.Models.ViewModels;
+using LinkedIn.MVC.Services;
+using Microsoft.AspNetCore.Mvc;
+
+namespace LinkedIn.MVC.Controllers;
+
+/// <summary>
+/// New controller - the template has no Blog views yet. Add
+/// Views/Blog/Index.cshtml and Views/Blog/Details.cshtml from the Jobi
+/// blog-v1.html / blog-details.html template pages.
+/// </summary>
+public class BlogController : Controller
+{
+    private readonly IJobiApiClient _api;
+
+    public BlogController(IJobiApiClient api) => _api = api;
+
+    // GET /Blog?page=2
+    public async Task<IActionResult> Index(
+        int page = 1,
+        CancellationToken ct = default)
+    {
+        var blogsTask = _api.GetBlogsAsync(page < 1 ? 1 : page, 9, ct);
+        var categoriesTask = _api.GetBlogCategoriesAsync(ct);
+
+        await Task.WhenAll(blogsTask, categoriesTask);
+
+        var blogs = await blogsTask;
+
+        return View(new BlogListViewModel
+        {
+            Blogs = new PagedResult<BlogCardDto>
+            {
+                Items = blogs.Select(b => new BlogCardDto(b.Id, b.Title, b.Slug, b.Summary, b.ImageUrl, b.CategoryName, b.PublishedAt ?? DateTimeOffset.UtcNow, 0)).ToList(),
+                Page = page,
+                PageSize = 9,
+                TotalCount = blogs.Count
+            },
+            Categories = await categoriesTask,
+            CategorySlug = null,
+            Search = null
+        });
+    }
+
+    // GET /Blog/Details/my-post-id
+    public async Task<IActionResult> Details(Guid id, CancellationToken ct)
+    {
+        if (id == Guid.Empty)
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        // For now, fetch the blog from the list and convert to details view
+        var blogs = await _api.GetBlogsAsync(1, 100, ct);
+        var blog = blogs.FirstOrDefault(b => b.Id == id);
+
+        if (blog is null)
+            return NotFound();
+
+        var blogDetails = new BlogDetailsDto(
+            blog.Id,
+            blog.Title,
+            blog.Slug,
+            "",
+            null,
+            null,
+            blog.CategoryName,
+            null,
+            blog.CreatedAtUtc,
+            0);
+
+        return View(blogDetails);
+    }
+}

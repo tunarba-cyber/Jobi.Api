@@ -1,0 +1,28 @@
+﻿namespace LinkedIn.MVC.Models.Api;
+
+// Paged result wrapper for API responses
+public sealed record PagedResult<T>(IReadOnlyList<T> Items, int Page, int PageSize, int TotalCount)
+{
+    public int TotalPages => PageSize == 0 ? 0 : (int)Math.Ceiling(TotalCount / (double)PageSize);
+    public bool HasNext => Page < TotalPages;
+}
+
+// Blog list item DTO matching the API response structure
+public sealed record BlogListItemDto(
+    Guid Id,
+    string Title,
+    string Slug,
+    string Summary,
+    string? ImageUrl,
+    string CategoryName,
+    string CategorySlug,
+    bool IsFeatured,
+    DateTimeOffset? PublishedAt);
+
+public sealed record BlogDto(Guid Id, string Title, string Slug, string Content, Guid CategoryId, bool IsFeatured, bool IsPublished);
+public sealed record BlogCardDto(Guid Id, string Title, string Slug, string? Summary, string? ImageUrl, string? CategoryName, DateTimeOffset CreatedAtUtc, int ViewCount = 0);
+public sealed record BlogDetailsDto(Guid Id, string Title, string Slug, string Content, string? Summary, string? ImageUrl, string? CategoryName, string? CategorySlug, DateTimeOffset PublishedAt, int ViewCount);
+public sealed record BlogCategoryDto(Guid Id, string Name, string Slug, int Count);
+public sealed record CreateBlogRequest(string Title, string? Slug, string Content, Guid CategoryId, bool IsFeatured, bool IsPublished);
+public sealed record UpdateBlogRequest(Guid Id, string Title, string? Slug, string Content, Guid CategoryId, bool IsFeatured, bool IsPublished);
+public sealed record CreatedIdResponse(Guid Id);

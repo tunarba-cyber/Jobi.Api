@@ -1,0 +1,46 @@
+﻿@using LinkedIn.MVC.Models.Api
+@{
+    ViewData["Title"] = "New Blog";
+}
+@{
+    var categories = ViewBag.Categories as IReadOnlyList<BlogCategoryDto> ?? Array.Empty<BlogCategoryDto>();
+}
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <h2 class="mb-20">New Blog</h2>
+
+        <form asp-action="CreateBlog" method="post">
+            <div class="mb-15">
+                <label class="form-label">Title</label>
+                <input name="Title" class="form-control" required maxlength="200" />
+            </div>
+            <div class="mb-15">
+                <label class="form-label">Slug (optional - derived from title if left blank)</label>
+                <input name="Slug" class="form-control" />
+            </div>
+            <div class="mb-15">
+                <label class="form-label">Category</label>
+                <select name="CategoryId" class="form-control" required>
+                    @foreach (var c in categories)
+                    {
+                        <option value="@c.Id">@c.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-15">
+                <label class="form-label">Content</label>
+                <textarea name="Content" class="form-control" rows="10" required></textarea>
+            </div>
+            <div class="form-check mb-10">
+                <input type="checkbox" name="IsFeatured" value="true" class="form-check-input" id="isFeatured" />
+                <label class="form-check-label" for="isFeatured">Featured</label>
+            </div>
+            <div class="form-check mb-20">
+                <input type="checkbox" name="IsPublished" value="true" class="form-check-input" id="isPublished" checked />
+                <label class="form-check-label" for="isPublished">Published</label>
+            </div>
+            <button type="submit" class="btn-one">Create</button>
+        </form>
+    </div>
+</section>

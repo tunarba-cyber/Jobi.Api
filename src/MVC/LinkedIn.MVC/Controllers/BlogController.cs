@@ -32,7 +32,7 @@ public class BlogController : Controller
         {
             Blogs = new PagedResult<BlogCardDto>
             {
-                Items = blogs.Select(b => new BlogCardDto(b.Id, b.Title, b.Slug, null, null, b.CategoryName, b.CreatedAtUtc, 0)).ToList(),
+                Items = blogs.Select(b => new BlogCardDto(b.Id, b.Title, b.Slug, b.Summary, b.ImageUrl, b.CategoryName, b.PublishedAt ?? DateTimeOffset.UtcNow, 0)).ToList(),
                 Page = page,
                 PageSize = 9,
                 TotalCount = blogs.Count
@@ -62,12 +62,12 @@ public class BlogController : Controller
             blog.Id,
             blog.Title,
             blog.Slug,
-            "",
+            blog.Summary,
             null,
-            null,
+            blog.ImageUrl,
             blog.CategoryName,
-            null,
-            blog.CreatedAtUtc,
+            blog.CategorySlug,
+            blog.PublishedAt ?? DateTimeOffset.UtcNow,
             0);
 
         return View(blogDetails);

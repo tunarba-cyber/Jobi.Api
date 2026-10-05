@@ -1,0 +1,32 @@
+﻿@model IReadOnlyList<LinkedIn.MVC.Models.Api.BlogCategoryDto>
+@{
+    ViewData["Title"] = "Blog Categories";
+}
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <h2 class="mb-20">Blog Categories</h2>
+
+        <form asp-action="CreateCategory" method="post" class="d-flex mb-30" style="max-width:400px;">
+            <input name="name" class="form-control me-10" placeholder="New category name" required />
+            <button type="submit" class="btn-one">Add</button>
+        </form>
+
+        @if (Model.Count == 0)
+        {
+            <p>No categories yet.</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead><tr><th>Name</th><th>Slug</th><th>Blog count</th></tr></thead>
+                <tbody>
+                    @foreach (var c in Model)
+                    {
+                        <tr><td>@c.Name</td><td>@c.Slug</td><td>@c.Count</td></tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</section>

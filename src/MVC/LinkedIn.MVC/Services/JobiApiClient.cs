@@ -376,9 +376,13 @@ public sealed class JobiApiClient : IJobiApiClient
     // -----------------------------------------------------------------------
     // Blog
     // -----------------------------------------------------------------------
-    public async Task<IReadOnlyList<BlogListItemDto>> GetBlogsAsync(int page = 1, int pageSize = 50, CancellationToken ct = default) =>
-    await GetOrDefaultAsync<IReadOnlyList<BlogListItemDto>>(
-        $"api/blogs?page={page}&pageSize={pageSize}", Array.Empty<BlogListItemDto>(), ct);
+    public async Task<IReadOnlyList<BlogListItemDto>> GetBlogsAsync(int page = 1, int pageSize = 50, CancellationToken ct = default)
+    {
+        var result = await GetOrDefaultAsync<PagedResult<BlogListItemDto>>(
+            $"api/blogs?page={page}&pageSize={pageSize}", 
+            PagedResult<BlogListItemDto>.Empty(page, pageSize), ct);
+        return result.Items;
+    }
 
     public async Task<IReadOnlyList<BlogCategoryDto>> GetBlogCategoriesAsync(CancellationToken ct = default) =>
         await GetOrDefaultAsync<IReadOnlyList<BlogCategoryDto>>(

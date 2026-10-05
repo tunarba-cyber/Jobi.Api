@@ -1,6 +1,17 @@
 namespace LinkedIn.MVC.Models.Api;
 
-public sealed record BlogListItemDto(Guid Id, string Title, string Slug, string? CategoryName, bool IsFeatured, bool IsPublished, DateTimeOffset CreatedAtUtc);
+// Blog list item DTO matching the API response structure
+public sealed record BlogListItemDto(
+    Guid Id,
+    string Title,
+    string Slug,
+    string Summary,
+    string? ImageUrl,
+    string CategoryName,
+    string CategorySlug,
+    bool IsFeatured,
+    DateTimeOffset? PublishedAt);
+
 public sealed record BlogDto(Guid Id, string Title, string Slug, string Content, Guid CategoryId, bool IsFeatured, bool IsPublished);
 public sealed record BlogCardDto(Guid Id, string Title, string Slug, string? Summary, string? ImageUrl, string? CategoryName, DateTimeOffset CreatedAtUtc, int ViewCount = 0);
 public sealed record BlogDetailsDto(Guid Id, string Title, string Slug, string Content, string? Summary, string? ImageUrl, string? CategoryName, string? CategorySlug, DateTimeOffset PublishedAt, int ViewCount);

@@ -1,0 +1,45 @@
+﻿@model IReadOnlyList<LinkedIn.MVC.Models.Api.BlogListItemDto>
+@{
+    ViewData["Title"] = "Manage Blogs";
+}
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-20">
+            <h2>Manage Blogs</h2>
+            <a asp-action="CreateBlog" class="btn-one">+ New Blog</a>
+        </div>
+
+        @if (Model.Count == 0)
+        {
+            <p>No blog posts yet.</p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr><th>Title</th><th>Category</th><th>Featured</th><th>Published</th><th>Created</th><th></th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var b in Model)
+                    {
+                        <tr>
+                            <td>@b.Title</td>
+                            <td>@(b.CategoryName ?? "-")</td>
+                            <td>@(b.IsFeatured ? "Yes" : "No")</td>
+                            <td>@(b.PublishedAt.HasValue ? "Yes" : "No")</td>
+                            <td>@b.PublishedAt?.ToString("dd MMM yyyy")</td>
+                            <td>
+                                <form asp-action="DeleteBlog" method="post" class="d-inline"
+                                      onsubmit="return confirm('Delete this blog post?');">
+                                    <input type="hidden" name="id" value="@b.Id" />
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</section>
