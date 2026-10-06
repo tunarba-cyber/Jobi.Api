@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LinkedIn.MVC")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1ac0bb7aabbb34d5f4e8ae0c539f4cf95393eb69")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+819227ebed8c2f18c997ffeeeef7037069c7bf4f")]
 [assembly: System.Reflection.AssemblyProductAttribute("LinkedIn.MVC")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LinkedIn.MVC")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

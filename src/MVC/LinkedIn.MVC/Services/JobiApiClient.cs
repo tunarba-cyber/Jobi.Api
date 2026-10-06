@@ -16,9 +16,6 @@ public sealed class JobiApiClient : IJobiApiClient
     private readonly HttpClient _http;
     private readonly ILogger<JobiApiClient> _logger;
 
-    // The API does not register JsonStringEnumConverter, so enums arrive as
-    // numbers today. JsonStringEnumConverter still accepts integer values, so
-    // this reads both and keeps working if the API switches to string enums.
     private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web)
     {
         PropertyNameCaseInsensitive = true,
@@ -31,11 +28,6 @@ public sealed class JobiApiClient : IJobiApiClient
         _logger = logger;
     }
 
-    /// <summary>
-    /// Call before a request that needs a signed-in user once auth is wired:
-    /// client.WithBearer(token). Left unused for now - all endpoints below are
-    /// anonymous.
-    /// </summary>
     public JobiApiClient WithBearer(string accessToken)
     {
         _http.DefaultRequestHeaders.Authorization =
@@ -57,8 +49,6 @@ public sealed class JobiApiClient : IJobiApiClient
             ["featuredJobsCount"] = featuredJobsCount.ToString()
         });
 
-        // The homepage must render even if the API is down - an empty summary
-        // degrades to zero counters instead of a 500 page.
         return await GetOrDefaultAsync(url, HomeSummaryDto.Empty, ct);
     }
 
@@ -72,7 +62,6 @@ public sealed class JobiApiClient : IJobiApiClient
             ["search"] = NullIfBlank(request.Search),
             ["categorySlug"] = NullIfBlank(request.CategorySlug),
             ["companySlug"] = NullIfBlank(request.CompanySlug),
-            // Enum query parameters bind by name on the API side.
             ["jobType"] = request.JobType?.ToString(),
             ["experienceLevel"] = request.ExperienceLevel?.ToString(),
             ["location"] = NullIfBlank(request.Location),
@@ -91,10 +80,11 @@ public sealed class JobiApiClient : IJobiApiClient
         GetOrNullAsync<JobDto>($"api/jobs/{Uri.EscapeDataString(slug)}", ct);
 
     // -----------------------------------------------------------------------
-    // Categories
+    // Categories (Job Categories)
     // -----------------------------------------------------------------------
     public async Task<PagedResult<CategoryDto>> GetCategoriesAsync(
         bool onlyFeatured = false,
+        bool includeInactive = false,
         int page = 1,
         int pageSize = 50,
         CancellationToken ct = default)
@@ -102,6 +92,7 @@ public sealed class JobiApiClient : IJobiApiClient
         var url = BuildUrl("api/categories", new()
         {
             ["onlyFeatured"] = onlyFeatured ? "true" : null,
+            ["includeInactive"] = includeInactive ? "true" : null,
             ["page"] = page.ToString(),
             ["pageSize"] = pageSize.ToString()
         });
@@ -111,12 +102,35 @@ public sealed class JobiApiClient : IJobiApiClient
 
     public Task<CategoryDto?> GetCategoryBySlugAsync(string slug, CancellationToken ct = default) =>
         GetOrNullAsync<CategoryDto>($"api/categories/{Uri.EscapeDataString(slug)}", ct);
+
+    public Task<ApiCallResult<CategoryDto>> CreateCategoryAsync(CreateCategoryRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<CategoryDto>(HttpMethod.Post, "api/categories", request, ct);
+
+    public async Task<ApiCallResult<bool>> DeleteCategoryAsync(long id, CancellationToken ct = default)
+    {
+        try
+        {
+            using var response = await _http.DeleteAsync($"api/categories/{id}", ct);
+            return response.IsSuccessStatusCode
+                ? ApiCallResult<bool>.Ok(true)
+                : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            _logger.LogError(ex, "API call failed: DELETE api/categories/{Id}", id);
+            return ApiCallResult<bool>.Fail("Can't reach the server. Please try again.");
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    // Candidate actions
+    // -----------------------------------------------------------------------
     public async Task<ApiCallResult<string>> UploadResumeAsync(Stream file, string fileName, string contentType, CancellationToken ct = default)
     {
         using var content = new MultipartFormDataContent();
         var fileContent = new StreamContent(file);
         fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
-        content.Add(fileContent, "file", fileName); // "file" must match the API's IFormFile parameter name
+        content.Add(fileContent, "file", fileName);
 
         using var response = await _http.PostAsync("api/uploads/resume", content, ct);
         if (!response.IsSuccessStatusCode)
@@ -164,7 +178,6 @@ public sealed class JobiApiClient : IJobiApiClient
     public async Task<ApiCallResult<bool>> SaveJobAsync(long jobId, CancellationToken ct = default)
     {
         using var response = await _http.PostAsync($"api/saved-jobs/{jobId}", null, ct);
-        // 409 means "already saved" - the end state the user wanted, so not an error.
         if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.Conflict)
             return ApiCallResult<bool>.Ok(true);
         return ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
@@ -177,18 +190,21 @@ public sealed class JobiApiClient : IJobiApiClient
             ? ApiCallResult<bool>.Ok(true)
             : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
     }
+
     public async Task<IReadOnlyList<UserSummaryDto>> SearchUsersAsync(string query, CancellationToken ct = default) =>
-    await GetOrDefaultAsync<IReadOnlyList<UserSummaryDto>>($"api/messages/search-users?q={Uri.EscapeDataString(query)}", Array.Empty<UserSummaryDto>(), ct);
+        await GetOrDefaultAsync<IReadOnlyList<UserSummaryDto>>($"api/messages/search-users?q={Uri.EscapeDataString(query)}", Array.Empty<UserSummaryDto>(), ct);
+
     public async Task<IReadOnlyList<ConversationDto>> GetMyConversationsAsync(CancellationToken ct = default) =>
-    await GetOrDefaultAsync<IReadOnlyList<ConversationDto>>("api/messages", Array.Empty<ConversationDto>(), ct);
+        await GetOrDefaultAsync<IReadOnlyList<ConversationDto>>("api/messages", Array.Empty<ConversationDto>(), ct);
 
     public async Task<IReadOnlyList<MessageDto>> GetConversationMessagesAsync(long conversationId, CancellationToken ct = default) =>
         await GetOrDefaultAsync<IReadOnlyList<MessageDto>>($"api/messages/{conversationId}", Array.Empty<MessageDto>(), ct);
 
     public Task<ApiCallResult<MessageDto>> SendMessageAsync(SendMessageRequest request, CancellationToken ct = default) =>
         SendJsonAsync<MessageDto>(HttpMethod.Post, "api/messages", request, ct);
+
     public Task<CompanyDto?> GetMyCompanyAsync(CancellationToken ct = default) =>
-    GetOrNullAsync<CompanyDto>("api/companies/me", ct);
+        GetOrNullAsync<CompanyDto>("api/companies/me", ct);
 
     public Task<ApiCallResult<CompanyDto>> CreateCompanyAsync(CreateCompanyRequest request, CancellationToken ct = default) =>
         SendJsonAsync<CompanyDto>(HttpMethod.Post, "api/companies", request, ct);
@@ -235,24 +251,26 @@ public sealed class JobiApiClient : IJobiApiClient
         }
     }
 
-    /// <summary>One place for "send a JSON body, get a typed result or a readable error".</summary>
-    private async Task<ApiCallResult<T>> SendJsonAsync<T>(HttpMethod method, string url, object body, CancellationToken ct)
+    private async Task<ApiCallResult<T>> SendJsonAsync<T>(HttpMethod method, string url, object? body, CancellationToken ct)
     {
         try
         {
             using var request = new HttpRequestMessage(method, url)
             {
-                Content = JsonContent.Create(body, options: JsonOptions)
+                Content = body is null ? null : JsonContent.Create(body, options: JsonOptions)
             };
             using var response = await _http.SendAsync(request, ct);
 
             if (!response.IsSuccessStatusCode)
                 return ApiCallResult<T>.Fail(await ReadErrorAsync(response, ct));
 
+            if (response.StatusCode == HttpStatusCode.NoContent)
+                return ApiCallResult<T>.Ok(default!);
+
             var dto = await response.Content.ReadFromJsonAsync<T>(JsonOptions, ct);
             return dto is not null
                 ? ApiCallResult<T>.Ok(dto)
-                : ApiCallResult<T>.Fail("Unexpected empty response.");
+                : ApiCallResult<T>.Ok(default!);
         }
         catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
         {
@@ -262,8 +280,12 @@ public sealed class JobiApiClient : IJobiApiClient
     }
 
     private sealed record UploadResultDto(string? Url);
+
+    // -----------------------------------------------------------------------
+    // Candidate profile
+    // -----------------------------------------------------------------------
     public Task<CandidateProfileDto?> GetMyCandidateProfileAsync(CancellationToken ct = default) =>
-    GetOrNullAsync<CandidateProfileDto>("api/candidates/me", ct);
+        GetOrNullAsync<CandidateProfileDto>("api/candidates/me", ct);
 
     public Task<ApiCallResult<CandidateProfileDto>> UpsertMyCandidateProfileAsync(UpsertCandidateProfileRequest request, CancellationToken ct = default) =>
         SendJsonAsync<CandidateProfileDto>(HttpMethod.Put, "api/candidates/me", request, ct);
@@ -310,8 +332,9 @@ public sealed class JobiApiClient : IJobiApiClient
             return ApiCallResult<string>.Fail("Can't reach the server. Please try again.");
         }
     }
+
     public async Task<IReadOnlyList<SavedCandidateDto>> GetSavedCandidatesAsync(CancellationToken ct = default) =>
-    await GetOrDefaultAsync<IReadOnlyList<SavedCandidateDto>>("api/saved-candidates", Array.Empty<SavedCandidateDto>(), ct);
+        await GetOrDefaultAsync<IReadOnlyList<SavedCandidateDto>>("api/saved-candidates", Array.Empty<SavedCandidateDto>(), ct);
 
     public async Task<ApiCallResult<bool>> SaveCandidateAsync(long candidateProfileId, CancellationToken ct = default)
     {
@@ -328,6 +351,7 @@ public sealed class JobiApiClient : IJobiApiClient
             ? ApiCallResult<bool>.Ok(true)
             : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
     }
+
     public async Task<PagedResult<CandidateProfileDto>> SearchCandidatesAsync(CandidateSearchRequest request, CancellationToken ct = default)
     {
         var query = new Dictionary<string, string?>
@@ -348,8 +372,9 @@ public sealed class JobiApiClient : IJobiApiClient
 
     public Task<CompanyDto?> GetCompanyBySlugAsync(string slug, CancellationToken ct = default) =>
         GetOrNullAsync<CompanyDto>($"api/companies/{Uri.EscapeDataString(slug)}", ct);
+
     public async Task<IReadOnlyList<JobAlertDto>> GetMyJobAlertsAsync(CancellationToken ct = default) =>
-    await GetOrDefaultAsync<IReadOnlyList<JobAlertDto>>("api/job-alerts", Array.Empty<JobAlertDto>(), ct);
+        await GetOrDefaultAsync<IReadOnlyList<JobAlertDto>>("api/job-alerts", Array.Empty<JobAlertDto>(), ct);
 
     public Task<ApiCallResult<JobAlertDto>> CreateJobAlertAsync(UpsertJobAlertRequest request, CancellationToken ct = default) =>
         SendJsonAsync<JobAlertDto>(HttpMethod.Post, "api/job-alerts", request, ct);
@@ -378,8 +403,8 @@ public sealed class JobiApiClient : IJobiApiClient
     // -----------------------------------------------------------------------
     public async Task<IReadOnlyList<BlogListItemDto>> GetBlogsAsync(int page = 1, int pageSize = 50, CancellationToken ct = default)
     {
-        var result = await GetOrDefaultAsync<PagedResult<BlogListItemDto>>(
-            $"api/blogs?page={page}&pageSize={pageSize}", 
+        var result = await GetOrDefaultAsync(
+            $"api/blogs?page={page}&pageSize={pageSize}",
             PagedResult<BlogListItemDto>.Empty(page, pageSize), ct);
         return result.Items;
     }
@@ -399,6 +424,10 @@ public sealed class JobiApiClient : IJobiApiClient
 
     public Task<ApiCallResult<object?>> CreateBlogCategoryAsync(string name, CancellationToken ct = default) =>
         SendJsonAsync<object?>(HttpMethod.Post, "api/blog-categories", new { Name = name }, ct);
+
+    // -----------------------------------------------------------------------
+    // Auth
+    // -----------------------------------------------------------------------
     public async Task<ApiCallResult<bool>> RegisterAsync(RegisterRequest request, CancellationToken ct = default)
     {
         using var response = await _http.PostAsJsonAsync("api/auth/register", request, JsonOptions, ct);
@@ -433,7 +462,6 @@ public sealed class JobiApiClient : IJobiApiClient
         try { await _http.PostAsJsonAsync("api/auth/logout", new { refreshToken }, JsonOptions, ct); }
         catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
         {
-            // Logout failing server-side isn't worth blocking the user's sign-out for.
             _logger.LogWarning(ex, "Logout call to API failed - proceeding with local sign-out anyway.");
         }
     }
@@ -454,6 +482,7 @@ public sealed class JobiApiClient : IJobiApiClient
         }
         catch { return "Something went wrong. Please try again."; }
     }
+
     public async Task<ApiCallResult<bool>> ConfirmEmailAsync(ConfirmEmailRequest request, CancellationToken ct = default)
     {
         using var response = await _http.PostAsJsonAsync("api/auth/confirm-email", request, JsonOptions, ct);
@@ -473,18 +502,13 @@ public sealed class JobiApiClient : IJobiApiClient
 
     public async Task<ApiCallResult<bool>> UpdateApplicationStatusAsync(long applicationId, ApplicationStatus status, CancellationToken ct = default)
     {
-        // NewStatus travels as an int for the same reason JobWriteRequest's enums do -
-        // the API has no JsonStringEnumConverter registered.
         var result = await SendJsonAsync<ApplicantDto>(
             HttpMethod.Put, $"api/applications/{applicationId}/status", new { newStatus = (int)status }, ct);
 
         return result.Success ? ApiCallResult<bool>.Ok(true) : ApiCallResult<bool>.Fail(result.ErrorMessage!);
     }
+
     private sealed record ProblemDetailsResponse(string? Title, string? Detail, Dictionary<string, string[]>? Errors);
-
-  
-
-  
 
     public async Task<ApiCallResult<bool>> SendContactMessageAsync(
         ContactRequest request, CancellationToken ct = default)
@@ -515,7 +539,6 @@ public sealed class JobiApiClient : IJobiApiClient
     private static string? NullIfBlank(string? value) =>
         string.IsNullOrWhiteSpace(value) ? null : value.Trim();
 
-    /// <summary>404 is a normal answer for a slug lookup, not an error.</summary>
     private async Task<T?> GetOrNullAsync<T>(string url, CancellationToken ct) where T : class
     {
         try
@@ -539,10 +562,6 @@ public sealed class JobiApiClient : IJobiApiClient
         }
     }
 
-    /// <summary>
-    /// List endpoints fall back to an empty page so one dead API call cannot
-    /// take a whole page down - the view renders its "nothing found" state.
-    /// </summary>
     private async Task<T> GetOrDefaultAsync<T>(string url, T fallback, CancellationToken ct)
     {
         try

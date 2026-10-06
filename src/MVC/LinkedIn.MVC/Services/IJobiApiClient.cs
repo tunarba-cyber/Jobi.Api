@@ -20,12 +20,18 @@ public interface IJobiApiClient
 
     Task<JobDto?> GetJobBySlugAsync(string slug, CancellationToken ct = default);
 
-    // Categories ------------------------------------------------------------
+    // Categories (Job Categories) --------------------------------------------
     Task<PagedResult<CategoryDto>> GetCategoriesAsync(
         bool onlyFeatured = false,
+        bool includeInactive = false,
         int page = 1,
         int pageSize = 50,
         CancellationToken ct = default);
+
+    Task<CategoryDto?> GetCategoryBySlugAsync(string slug, CancellationToken ct = default);
+    Task<ApiCallResult<CategoryDto>> CreateCategoryAsync(CreateCategoryRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> DeleteCategoryAsync(long id, CancellationToken ct = default);
+
     // Auth --------------------------------------------------------------------
     Task<ApiCallResult<bool>> RegisterAsync(RegisterRequest request, CancellationToken ct = default);
     Task<ApiCallResult<AuthResultDto>> LoginAsync(LoginRequest request, CancellationToken ct = default);
@@ -33,7 +39,6 @@ public interface IJobiApiClient
     Task<ApiCallResult<bool>> ConfirmEmailAsync(ConfirmEmailRequest request, CancellationToken ct = default);
     Task LogoutAsync(string refreshToken, CancellationToken ct = default);
 
-    Task<CategoryDto?> GetCategoryBySlugAsync(string slug, CancellationToken ct = default);
     // Candidate actions ---------------------------------------------------------
     Task<ApiCallResult<string>> UploadResumeAsync(Stream file, string fileName, string contentType, CancellationToken ct = default);
     Task<ApiCallResult<ApplicationDto>> ApplyAsync(ApplyRequest request, CancellationToken ct = default);
@@ -43,6 +48,7 @@ public interface IJobiApiClient
     Task<IReadOnlyList<SavedJobDto>> GetSavedJobsAsync(CancellationToken ct = default);
     Task<ApiCallResult<bool>> SaveJobAsync(long jobId, CancellationToken ct = default);
     Task<ApiCallResult<bool>> UnsaveJobAsync(long jobId, CancellationToken ct = default);
+
     // Candidate profile -----------------------------------------------------
     Task<CandidateProfileDto?> GetMyCandidateProfileAsync(CancellationToken ct = default);
     Task<ApiCallResult<CandidateProfileDto>> UpsertMyCandidateProfileAsync(UpsertCandidateProfileRequest request, CancellationToken ct = default);
@@ -51,6 +57,7 @@ public interface IJobiApiClient
     Task<ApiCallResult<JobAlertDto>> CreateJobAlertAsync(UpsertJobAlertRequest request, CancellationToken ct = default);
     Task<ApiCallResult<JobAlertDto>> UpdateJobAlertAsync(long id, UpsertJobAlertRequest request, CancellationToken ct = default);
     Task<ApiCallResult<bool>> DeleteJobAlertAsync(long id, CancellationToken ct = default);
+
     // Public candidates -------------------------------------------------------
     Task<PagedResult<CandidateProfileDto>> SearchCandidatesAsync(CandidateSearchRequest request, CancellationToken ct = default);
     Task<CandidateProfileDto?> GetCandidateBySlugAsync(string slug, CancellationToken ct = default);
@@ -63,6 +70,7 @@ public interface IJobiApiClient
     Task<IReadOnlyList<ConversationDto>> GetMyConversationsAsync(CancellationToken ct = default);
     Task<IReadOnlyList<MessageDto>> GetConversationMessagesAsync(long conversationId, CancellationToken ct = default);
     Task<ApiCallResult<MessageDto>> SendMessageAsync(SendMessageRequest request, CancellationToken ct = default);
+
     // Employer ------------------------------------------------------------------
     Task<CompanyDto?> GetMyCompanyAsync(CancellationToken ct = default);
     Task<ApiCallResult<CompanyDto>> CreateCompanyAsync(CreateCompanyRequest request, CancellationToken ct = default);
@@ -77,6 +85,7 @@ public interface IJobiApiClient
     Task<PagedResult<ApplicantDto>> GetApplicantsForJobAsync(long jobId, int page = 1, int pageSize = 20, CancellationToken ct = default);
     Task<ApiCallResult<bool>> UpdateApplicationStatusAsync(long applicationId, ApplicationStatus status, CancellationToken ct = default);
     Task<IReadOnlyList<UserSummaryDto>> SearchUsersAsync(string query, CancellationToken ct = default);
+
     // Blog ------------------------------------------------------------------
     Task<IReadOnlyList<BlogListItemDto>> GetBlogsAsync(int page = 1, int pageSize = 50, CancellationToken ct = default);
     Task<IReadOnlyList<BlogCategoryDto>> GetBlogCategoriesAsync(CancellationToken ct = default);

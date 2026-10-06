@@ -11,3 +11,6 @@ public sealed record CategoryDto(
     bool IsActive,
     bool IsFeatured,
     int JobCount);
+
+public sealed record CreateCategoryRequest(
+    string Name, string? Slug, string? IconUrl, string? Description, int DisplayOrder, bool IsFeatured);

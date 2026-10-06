@@ -29,6 +29,9 @@ public class AdminController : Controller
         return View(viewModel);
     }
 
+    // -------------------------------------------------------------------
+    // Blogs
+    // -------------------------------------------------------------------
     public async Task<IActionResult> Blogs(CancellationToken ct) =>
         View(await _api.GetBlogsAsync(ct: ct));
 
@@ -41,24 +44,62 @@ public class AdminController : Controller
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateBlog(CreateBlogRequest request, CancellationToken ct)
     {
-        await _api.CreateBlogAsync(request, ct);
+        var result = await _api.CreateBlogAsync(request, ct);
+        if (!result.Success)
+        {
+            ModelState.AddModelError(string.Empty, result.ErrorMessage ?? "Failed to create blog.");
+            ViewBag.Categories = await _api.GetBlogCategoriesAsync(ct);
+            return View(request);
+        }
         return RedirectToAction(nameof(Blogs));
     }
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteBlog(Guid id, CancellationToken ct)
     {
-        await _api.DeleteBlogAsync(id, ct);
+        var result = await _api.DeleteBlogAsync(id, ct);
+        if (!result.Success)
+            TempData["Error"] = result.ErrorMessage;
         return RedirectToAction(nameof(Blogs));
     }
 
+    // -------------------------------------------------------------------
+    // Blog Categories
+    // -------------------------------------------------------------------
     public async Task<IActionResult> Categories(CancellationToken ct) =>
         View(await _api.GetBlogCategoriesAsync(ct));
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateCategory(string name, CancellationToken ct)
     {
-        await _api.CreateBlogCategoryAsync(name, ct);
+        var result = await _api.CreateBlogCategoryAsync(name, ct);
+        if (!result.Success)
+            TempData["Error"] = result.ErrorMessage;
         return RedirectToAction(nameof(Categories));
+    }
+
+    // -------------------------------------------------------------------
+    // Job Categories (separate from Blog Categories above - different
+    // entity, different API, different purpose: these power job filtering)
+    // -------------------------------------------------------------------
+    public async Task<IActionResult> JobCategories(CancellationToken ct) =>
+        View(await _api.GetCategoriesAsync(includeInactive: true, pageSize: 100, ct: ct));
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateJobCategory(CreateCategoryRequest request, CancellationToken ct)
+    {
+        var result = await _api.CreateCategoryAsync(request, ct);
+        if (!result.Success)
+            TempData["Error"] = result.ErrorMessage;
+        return RedirectToAction(nameof(JobCategories));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteJobCategory(long id, CancellationToken ct)
+    {
+        var result = await _api.DeleteCategoryAsync(id, ct);
+        if (!result.Success)
+            TempData["Error"] = result.ErrorMessage;
+        return RedirectToAction(nameof(JobCategories));
     }
 }
