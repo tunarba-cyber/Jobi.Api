@@ -104,7 +104,7 @@ public class JobController : Controller
         };
 
         var jobsTask = _api.GetJobsAsync(filters, ct);
-        var categoriesTask = _api.GetCategoriesAsync(onlyFeatured: false, page: 1, pageSize: 50, ct);
+        var categoriesTask = _api.GetCategoriesAsync(onlyFeatured: false, page: 1, pageSize: 50, ct: ct);
 
         await Task.WhenAll(jobsTask, categoriesTask);
 

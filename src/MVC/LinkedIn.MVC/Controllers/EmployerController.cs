@@ -202,7 +202,7 @@ public class EmployerController : Controller
 
     // ---- Helpers -----------------------------------------------------------
     private async Task<IReadOnlyList<CategoryDto>> LoadCategoriesAsync(CancellationToken ct) =>
-        (await _api.GetCategoriesAsync(onlyFeatured: false, page: 1, pageSize: 50, ct)).Items;
+        (await _api.GetCategoriesAsync(onlyFeatured: false, page: 1, pageSize: 50, ct: ct)).Items;
 
     private bool IsValid(JobFormViewModel model)
     {

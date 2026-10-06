@@ -17,8 +17,8 @@ public class HomeController : Controller
     {
         // Three calls, run together - they are independent and the homepage
         // waits on the slowest one, not the sum.
-        var summaryTask = _api.GetHomeSummaryAsync(featuredCategoriesCount: 6, featuredJobsCount: 6, ct);
-        var categoriesTask = _api.GetCategoriesAsync(onlyFeatured: false, page: 1, pageSize: 50, ct);
+        var summaryTask = _api.GetHomeSummaryAsync(featuredCategoriesCount: 6, featuredJobsCount: 6, ct: ct);
+        var categoriesTask = _api.GetCategoriesAsync(onlyFeatured: false, page: 1, pageSize: 50, ct: ct);
         var blogsTask = _api.GetBlogsAsync(page: 1, pageSize: 3, ct: ct);
 
         await Task.WhenAll(summaryTask, categoriesTask, blogsTask);

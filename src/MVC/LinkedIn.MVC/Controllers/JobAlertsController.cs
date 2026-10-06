@@ -17,7 +17,7 @@ public class JobAlertsController : Controller
     public async Task<IActionResult> Index(CancellationToken ct)
     {
         var alerts = await _api.GetMyJobAlertsAsync(ct);
-        var categories = (await _api.GetCategoriesAsync(onlyFeatured: false, page: 1, pageSize: 50, ct)).Items;
+        var categories = (await _api.GetCategoriesAsync(onlyFeatured: false, page: 1, pageSize: 50, ct: ct)).Items;
         return View(new JobAlertsViewModel { Alerts = alerts, Categories = categories });
     }
 
