@@ -20,7 +20,7 @@
             </div>
         }
 
-        <form asp-action="CreateBlog" method="post">
+        <form asp-action="CreateBlog" method="post" enctype="multipart/form-data">
             <div class="mb-15">
                 <label class="form-label">Title</label>
                 <input name="Title" class="form-control" required maxlength="200" />
@@ -43,8 +43,8 @@
                 <textarea name="Content" class="form-control" rows="10" required></textarea>
             </div>
             <div class="mb-15">
-                <label class="form-label">Image URL (optional)</label>
-                <input name="ImageUrl" class="form-control" maxlength="500" />
+                <label class="form-label">Cover Image (optional)</label>
+                <input type="file" name="image" class="form-control" accept=".jpg,.jpeg,.png,.webp" />
             </div>
             <div class="form-check mb-10">
                 <input type="checkbox" name="IsFeatured" value="true" class="form-check-input" id="isFeatured" />

@@ -489,6 +489,8 @@ public sealed class JobiApiClient : IJobiApiClient
         if (response.IsSuccessStatusCode) return ApiCallResult<bool>.Ok(true);
         return ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
     }
+    public Task<ApiCallResult<CategoryDto>> UpdateCategoryAsync(long id, UpdateCategoryRequest request, CancellationToken ct = default) =>
+    SendJsonAsync<CategoryDto>(HttpMethod.Put, $"api/categories/{id}", request, ct);
 
     public async Task<PagedResult<ApplicantDto>> GetApplicantsForJobAsync(long jobId, int page = 1, int pageSize = 20, CancellationToken ct = default)
     {

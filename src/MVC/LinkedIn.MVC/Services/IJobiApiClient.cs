@@ -96,6 +96,7 @@ public interface IJobiApiClient
 
     // Contact ---------------------------------------------------------------
     Task<ApiCallResult<bool>> SendContactMessageAsync(ContactRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<CategoryDto>> UpdateCategoryAsync(long id, UpdateCategoryRequest request, CancellationToken ct = default);
 }
 
 /// <summary>

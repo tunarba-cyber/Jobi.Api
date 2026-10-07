@@ -42,9 +42,23 @@ public class AdminController : Controller
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> CreateBlog(CreateBlogRequest request, CancellationToken ct)
+    public async Task<IActionResult> CreateBlog(CreateBlogRequest request, IFormFile? image, CancellationToken ct)
     {
-        var result = await _api.CreateBlogAsync(request, ct);
+        string? imageUrl = request.ImageUrl;
+        if (image is { Length: > 0 })
+        {
+            await using var stream = image.OpenReadStream();
+            var upload = await _api.UploadPhotoAsync(stream, image.FileName, image.ContentType, ct);
+            if (!upload.Success)
+            {
+                ModelState.AddModelError(string.Empty, upload.ErrorMessage!);
+                ViewBag.Categories = await _api.GetBlogCategoriesAsync(ct);
+                return View(request);
+            }
+            imageUrl = upload.Value;
+        }
+
+        var result = await _api.CreateBlogAsync(request with { ImageUrl = imageUrl }, ct);
         if (!result.Success)
         {
             ModelState.AddModelError(string.Empty, result.ErrorMessage ?? "Failed to create blog.");
@@ -91,6 +105,20 @@ public class AdminController : Controller
         var result = await _api.CreateCategoryAsync(request, ct);
         if (!result.Success)
             TempData["Error"] = result.ErrorMessage;
+        return RedirectToAction(nameof(JobCategories));
+    }
+    public async Task<IActionResult> EditJobCategory(long id, CancellationToken ct)
+    {
+        var categories = await _api.GetCategoriesAsync(includeInactive: true, pageSize: 100, ct: ct);
+        var category = categories.Items.FirstOrDefault(c => c.Id == id);
+        return category is null ? NotFound() : View(category);
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> EditJobCategory(long id, UpdateCategoryRequest request, CancellationToken ct)
+    {
+        var result = await _api.UpdateCategoryAsync(id, request, ct);
+        if (!result.Success) TempData["Error"] = result.ErrorMessage;
         return RedirectToAction(nameof(JobCategories));
     }
 

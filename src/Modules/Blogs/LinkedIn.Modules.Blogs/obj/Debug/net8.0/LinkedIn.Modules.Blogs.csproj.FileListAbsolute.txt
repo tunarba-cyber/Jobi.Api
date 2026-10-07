@@ -25,3 +25,8 @@ C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\D
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.pdb
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\LinkedIn.Modules.Blogs.genruntimeconfig.cache
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\obj\Debug\net8.0\ref\LinkedIn.Modules.Blogs.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Jobs.Contracts.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Jobs.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Jobs.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Jobs.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Jobs.Contracts.pdb

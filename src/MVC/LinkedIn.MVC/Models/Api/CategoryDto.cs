@@ -14,3 +14,4 @@ public sealed record CategoryDto(
 
 public sealed record CreateCategoryRequest(
     string Name, string? Slug, string? IconUrl, string? Description, int DisplayOrder, bool IsFeatured);
+public sealed record UpdateCategoryRequest(string Name, string? Slug, string? IconUrl, string? Description, int DisplayOrder, bool IsActive, bool IsFeatured);

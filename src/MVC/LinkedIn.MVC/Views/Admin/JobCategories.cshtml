@@ -66,6 +66,7 @@
                                 <form asp-action="DeleteJobCategory" method="post" class="d-inline"
                                       onsubmit="return confirm('Delete this category?');">
                                     <input type="hidden" name="id" value="@c.Id" />
+                                    <a asp-action="EditJobCategory" asp-route-id="@c.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
                                     <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                                 </form>
                             </td>
