@@ -32,6 +32,9 @@ internal static class JobEndpoints
             .WithName("GetJobs")
             .WithSummary("Lists jobs. Use onlyFeatured=true&pageSize=6 for the homepage carousel.")
             .Produces<PagedResult<JobDto>>();
+        group.MapGet("/admin", GetAllJobsAdmin).WithName("GetAllJobsAdmin").RequireAuthorization("RequireAdmin");
+        group.MapPut("/{id:long}/status", SetJobStatusAdmin).WithName("SetJobStatusAdmin").RequireAuthorization("RequireAdmin");
+        group.MapDelete("/{id:long}/admin", DeleteJobAdmin).WithName("DeleteJobAdmin").RequireAuthorization("RequireAdmin");
 
         group.MapGet("/{slug}", GetJobBySlug)
             .WithName("GetJobBySlug")
@@ -143,6 +146,40 @@ internal static class JobEndpoints
             .Select(JobMappings.ToDto);
 
         return Results.Ok(await query.ToPagedResultAsync(page, pageSize, cancellationToken));
+    }
+    private sealed record SetJobStatusRequest(JobStatus Status);
+
+    private static async Task<IResult> GetAllJobsAdmin(
+        JobsDbContext db, CancellationToken ct,
+        JobStatus? status = null, string? search = null, int page = 1, int pageSize = 15)
+    {
+        var q = db.Jobs.AsNoTracking()
+            .WhereIf(status.HasValue, j => j.Status == status)
+            .WhereIf(!string.IsNullOrWhiteSpace(search), j => j.Title.Contains(search!) || j.Company!.Name.Contains(search!))
+            .OrderByDescending(j => j.CreatedAtUtc)
+            .Select(JobMappings.ToDto);
+
+        return Results.Ok(await q.ToPagedResultAsync(Math.Max(page, 1), Math.Clamp(pageSize, 1, 50), ct));
+    }
+
+    private static async Task<IResult> SetJobStatusAdmin(long id, SetJobStatusRequest request, JobsDbContext db, CancellationToken ct)
+    {
+        var job = await db.Jobs.FirstOrDefaultAsync(j => j.Id == id, ct);
+        if (job is null) return Results.Problem(title: "Job.NotFound", statusCode: StatusCodes.Status404NotFound);
+
+        job.Status = request.Status;
+        await db.SaveChangesAsync(ct);
+        return Results.NoContent();
+    }
+
+    private static async Task<IResult> DeleteJobAdmin(long id, JobsDbContext db, CancellationToken ct)
+    {
+        var job = await db.Jobs.FirstOrDefaultAsync(j => j.Id == id, ct);
+        if (job is null) return Results.NoContent();
+
+        db.Jobs.Remove(job); // soft-deleted by interceptor
+        await db.SaveChangesAsync(ct);
+        return Results.NoContent();
     }
 
     private static async Task<IResult> GetMyJob(

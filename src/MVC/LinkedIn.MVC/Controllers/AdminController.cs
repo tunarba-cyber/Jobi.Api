@@ -130,4 +130,22 @@ public class AdminController : Controller
             TempData["Error"] = result.ErrorMessage;
         return RedirectToAction(nameof(JobCategories));
     }
+    public async Task<IActionResult> Jobs(JobStatus? status, string? search, int page = 1, CancellationToken ct = default) =>
+    View(await _api.GetAdminJobsAsync(status, search, page < 1 ? 1 : page, ct));
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> SetJobStatus(long id, JobStatus status, CancellationToken ct)
+    {
+        var result = await _api.SetJobStatusAsync(id, status, ct);
+        if (!result.Success) TempData["Error"] = result.ErrorMessage;
+        return RedirectToAction(nameof(Jobs));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> AdminDeleteJob(long id, CancellationToken ct)
+    {
+        var result = await _api.AdminDeleteJobAsync(id, ct);
+        if (!result.Success) TempData["Error"] = result.ErrorMessage;
+        return RedirectToAction(nameof(Jobs));
+    }
 }

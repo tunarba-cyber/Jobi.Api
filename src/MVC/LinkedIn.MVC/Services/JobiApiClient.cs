@@ -75,6 +75,30 @@ public sealed class JobiApiClient : IJobiApiClient
         var url = BuildUrl("api/jobs", query);
         return await GetOrDefaultAsync(url, PagedResult<JobDto>.Empty(request.Page, request.PageSize), ct);
     }
+    public async Task<PagedResult<JobDto>> GetAdminJobsAsync(JobStatus? status, string? search, int page = 1, CancellationToken ct = default)
+    {
+        var url = BuildUrl("api/jobs/admin", new()
+        {
+            ["status"] = status?.ToString(),
+            ["search"] = NullIfBlank(search),
+            ["page"] = page.ToString()
+        });
+        return await GetOrDefaultAsync(url, PagedResult<JobDto>.Empty(page, 15), ct);
+    }
+
+    public async Task<ApiCallResult<bool>> SetJobStatusAsync(long id, JobStatus status, CancellationToken ct = default)
+    {
+        var r = await SendJsonAsync<object>(HttpMethod.Put, $"api/jobs/{id}/status", new { status = (int)status }, ct);
+        return r.Success ? ApiCallResult<bool>.Ok(true) : ApiCallResult<bool>.Fail(r.ErrorMessage!);
+    }
+
+    public async Task<ApiCallResult<bool>> AdminDeleteJobAsync(long id, CancellationToken ct = default)
+    {
+        using var response = await _http.DeleteAsync($"api/jobs/{id}/admin", ct);
+        return response.IsSuccessStatusCode
+            ? ApiCallResult<bool>.Ok(true)
+            : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+    }
 
     public Task<JobDto?> GetJobBySlugAsync(string slug, CancellationToken ct = default) =>
         GetOrNullAsync<JobDto>($"api/jobs/{Uri.EscapeDataString(slug)}", ct);

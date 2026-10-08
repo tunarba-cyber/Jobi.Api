@@ -19,6 +19,9 @@ public interface IJobiApiClient
     Task<PagedResult<JobDto>> GetJobsAsync(JobSearchRequest request, CancellationToken ct = default);
 
     Task<JobDto?> GetJobBySlugAsync(string slug, CancellationToken ct = default);
+    Task<PagedResult<JobDto>> GetAdminJobsAsync(JobStatus? status, string? search, int page = 1, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> SetJobStatusAsync(long id, JobStatus status, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> AdminDeleteJobAsync(long id, CancellationToken ct = default);
 
     // Categories (Job Categories) --------------------------------------------
     Task<PagedResult<CategoryDto>> GetCategoriesAsync(
