@@ -1,4 +1,5 @@
-﻿using LinkedIn.MVC.Models.Api;
+﻿using LinkedIn.MVC.Models;
+using LinkedIn.MVC.Models.Api;
 using LinkedIn.MVC.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -107,6 +108,7 @@ public class AdminController : Controller
             TempData["Error"] = result.ErrorMessage;
         return RedirectToAction(nameof(JobCategories));
     }
+
     public async Task<IActionResult> EditJobCategory(long id, CancellationToken ct)
     {
         var categories = await _api.GetCategoriesAsync(includeInactive: true, pageSize: 100, ct: ct);
@@ -130,8 +132,12 @@ public class AdminController : Controller
             TempData["Error"] = result.ErrorMessage;
         return RedirectToAction(nameof(JobCategories));
     }
+
+    // -------------------------------------------------------------------
+    // Jobs
+    // -------------------------------------------------------------------
     public async Task<IActionResult> Jobs(JobStatus? status, string? search, int page = 1, CancellationToken ct = default) =>
-    View(await _api.GetAdminJobsAsync(status, search, page < 1 ? 1 : page, ct));
+        View(await _api.GetAdminJobsAsync(status, search, page < 1 ? 1 : page, ct));
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> SetJobStatus(long id, JobStatus status, CancellationToken ct)
@@ -147,5 +153,44 @@ public class AdminController : Controller
         var result = await _api.AdminDeleteJobAsync(id, ct);
         if (!result.Success) TempData["Error"] = result.ErrorMessage;
         return RedirectToAction(nameof(Jobs));
+    }
+
+    // -------------------------------------------------------------------
+    // Users
+    // -------------------------------------------------------------------
+    public async Task<IActionResult> Users(string? search, UserRole? role, int page = 1, CancellationToken ct = default) =>
+        View(await _api.GetAdminUsersAsync(search, role, page < 1 ? 1 : page, ct));
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> SuspendUser(string id, CancellationToken ct) =>
+        Done(await _api.SuspendUserAsync(id, ct), "User suspended.", nameof(Users));
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> ReinstateUser(string id, CancellationToken ct) =>
+        Done(await _api.ReinstateUserAsync(id, ct), "User reinstated.", nameof(Users));
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> ChangeUserRole(string id, UserRole role, CancellationToken ct) =>
+        Done(await _api.ChangeUserRoleAsync(id, role, ct), $"Role changed to {role}.", nameof(Users));
+
+    // -------------------------------------------------------------------
+    // Contact Messages
+    // -------------------------------------------------------------------
+    public async Task<IActionResult> ContactMessages(bool unreadOnly, int page = 1, CancellationToken ct = default) =>
+        View(await _api.GetContactMessagesAsync(unreadOnly, page < 1 ? 1 : page, ct));
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> MarkContactRead(long id, CancellationToken ct) =>
+        Done(await _api.MarkContactReadAsync(id, ct), "Marked as read.", nameof(ContactMessages));
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteContactMessage(long id, CancellationToken ct) =>
+        Done(await _api.DeleteContactMessageAsync(id, ct), "Message deleted.", nameof(ContactMessages));
+
+    private IActionResult Done(ApiCallResult<bool> result, string successMessage, string action)
+    {
+        if (result.Success) TempData[FlashKeys.Success] = successMessage;
+        else TempData[FlashKeys.Error] = result.ErrorMessage;
+        return RedirectToAction(action);
     }
 }

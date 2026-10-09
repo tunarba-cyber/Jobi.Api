@@ -41,5 +41,6 @@ public sealed class MessagingModule : IModule
     {
         endpoints.MapMessagingEndpoints();
         endpoints.MapHub<ChatHub>("/hubs/chat");
+        endpoints.MapAdminContactEndpoints();
     }
 }

@@ -90,5 +90,6 @@ public sealed class UsersModule : IModule
     public void MapEndpoints(IEndpointRouteBuilder endpoints)
     {
         endpoints.MapAuthEndpoints();
+        endpoints.MapAdminUserEndpoints();
     }
 }

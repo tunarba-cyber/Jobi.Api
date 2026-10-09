@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "LinkedIn.Modules.USers/1.0.0": {
+      "LinkedIn.Modules.Users/1.0.0": {
         "dependencies": {
           "FluentValidation": "11.11.0",
           "LinkedIn.Shared.Abstractions": "1.0.0",
@@ -20,7 +20,7 @@
           "System.IdentityModel.Tokens.Jwt": "8.0.1"
         },
         "runtime": {
-          "LinkedIn.Modules.USers.dll": {}
+          "LinkedIn.Modules.Users.dll": {}
         }
       },
       "Azure.Core/1.38.0": {
@@ -904,7 +904,7 @@
     }
   },
   "libraries": {
-    "LinkedIn.Modules.USers/1.0.0": {
+    "LinkedIn.Modules.Users/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

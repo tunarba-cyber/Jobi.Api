@@ -41,6 +41,13 @@ public interface IJobiApiClient
     Task<ApiCallResult<AuthResultDto>> RefreshAsync(string refreshToken, CancellationToken ct = default);
     Task<ApiCallResult<bool>> ConfirmEmailAsync(ConfirmEmailRequest request, CancellationToken ct = default);
     Task LogoutAsync(string refreshToken, CancellationToken ct = default);
+    Task<PagedResult<AdminUserDto>> GetAdminUsersAsync(string? search, UserRole? role, int page = 1, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> SuspendUserAsync(string id, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> ReinstateUserAsync(string id, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> ChangeUserRoleAsync(string id, UserRole role, CancellationToken ct = default);
+    Task<PagedResult<ContactMessageDto>> GetContactMessagesAsync(bool unreadOnly, int page = 1, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> MarkContactReadAsync(long id, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> DeleteContactMessageAsync(long id, CancellationToken ct = default);
 
     // Candidate actions ---------------------------------------------------------
     Task<ApiCallResult<string>> UploadResumeAsync(Stream file, string fileName, string contentType, CancellationToken ct = default);

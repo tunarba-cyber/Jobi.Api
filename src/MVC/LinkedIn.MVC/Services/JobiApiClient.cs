@@ -102,6 +102,61 @@ public sealed class JobiApiClient : IJobiApiClient
 
     public Task<JobDto?> GetJobBySlugAsync(string slug, CancellationToken ct = default) =>
         GetOrNullAsync<JobDto>($"api/jobs/{Uri.EscapeDataString(slug)}", ct);
+    public async Task<PagedResult<AdminUserDto>> GetAdminUsersAsync(string? search, UserRole? role, int page = 1, CancellationToken ct = default)
+    {
+        var url = BuildUrl("api/admin/users", new()
+        {
+            ["search"] = NullIfBlank(search),
+            ["role"] = role?.ToString(),
+            ["page"] = page.ToString()
+        });
+        return await GetOrDefaultAsync(url, PagedResult<AdminUserDto>.Empty(page, 15), ct);
+    }
+
+    public Task<ApiCallResult<bool>> SuspendUserAsync(string id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Put, $"api/admin/users/{Uri.EscapeDataString(id)}/suspend", null, ct);
+
+    public Task<ApiCallResult<bool>> ReinstateUserAsync(string id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Put, $"api/admin/users/{Uri.EscapeDataString(id)}/reinstate", null, ct);
+
+    public Task<ApiCallResult<bool>> ChangeUserRoleAsync(string id, UserRole role, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Put, $"api/admin/users/{Uri.EscapeDataString(id)}/role", new { role = (int)role }, ct);
+
+    public async Task<PagedResult<ContactMessageDto>> GetContactMessagesAsync(bool unreadOnly, int page = 1, CancellationToken ct = default)
+    {
+        var url = BuildUrl("api/admin/contact-messages", new()
+        {
+            ["unreadOnly"] = unreadOnly ? "true" : null,
+            ["page"] = page.ToString()
+        });
+        return await GetOrDefaultAsync(url, PagedResult<ContactMessageDto>.Empty(page, 15), ct);
+    }
+
+    public Task<ApiCallResult<bool>> MarkContactReadAsync(long id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Put, $"api/admin/contact-messages/{id}/read", null, ct);
+
+    public Task<ApiCallResult<bool>> DeleteContactMessageAsync(long id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Delete, $"api/admin/contact-messages/{id}", null, ct);
+
+    /// <summary>For endpoints that answer 204 with no body (SendJsonAsync treats an empty body as a failure).</summary>
+    private async Task<ApiCallResult<bool>> SendNoContentAsync(HttpMethod method, string url, object? body, CancellationToken ct)
+    {
+        try
+        {
+            using var request = new HttpRequestMessage(method, url);
+            if (body is not null) request.Content = JsonContent.Create(body, options: JsonOptions);
+            using var response = await _http.SendAsync(request, ct);
+
+            return response.IsSuccessStatusCode
+                ? ApiCallResult<bool>.Ok(true)
+                : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
+        }
+        catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+        {
+            _logger.LogError(ex, "API call failed: {Method} {Url}", method, url);
+            return ApiCallResult<bool>.Fail("Can't reach the server. Please try again.");
+        }
+    }
 
     // -----------------------------------------------------------------------
     // Categories (Job Categories)
