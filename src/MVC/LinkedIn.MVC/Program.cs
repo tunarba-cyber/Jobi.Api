@@ -15,7 +15,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/";
         options.ExpireTimeSpan = TimeSpan.FromDays(14);
         options.SlidingExpiration = true;
-        options.AccessDeniedPath = "/";
+        options.AccessDeniedPath = "/Error/403";
     });
 
 // Same-origin raw client used ONLY by AuthTokenHandler to call refresh without recursing.
@@ -40,15 +40,16 @@ var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
+
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
-app.UseAuthentication();   // <-- must come before UseAuthorization, and before MapControllerRoute
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(name: "jobDetails", pattern: "Job/JobDetails/{slug}", defaults: new { controller = "Job", action = "JobDetails" });

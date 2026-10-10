@@ -21,7 +21,7 @@
             <div class="col-lg-8 m-auto">
                 <div asp-validation-summary="All" class="alert alert-danger"></div>
 
-                <form method="post" asp-action="@(isEdit ? "EditJob" : "PostJob")" asp-route-id="@Model.Id">
+                <form method="post" asp-action="@(isEdit ? "EditJob" : "PostJob")" asp-route-id="@Model.Id" data-validate>
                     <input type="hidden" name="Slug" value="@Model.Slug" />
                     <input type="hidden" name="IsFeatured" value="@Model.IsFeatured.ToString().ToLowerInvariant()" />
 

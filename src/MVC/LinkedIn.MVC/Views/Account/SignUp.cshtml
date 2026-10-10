@@ -31,25 +31,25 @@
 
                 <div class="tab-content mt-40">
                     <div class="tab-pane fade show active" role="tabpanel" id="fc1">
-                        <form asp-controller="Account" asp-action="SignUp" method="post">
+                        <form asp-controller="Account" asp-action="SignUp" method="post" data-validate>
                             <input type="hidden" asp-for="Role" value="Candidate" />
                             <div class="row">
                                 <div class="col-12"><div class="input-group-meta position-relative mb-25"><label>First Name*</label><input asp-for="FirstName" type="text" placeholder="Rashed"></div></div>
                                 <div class="col-12"><div class="input-group-meta position-relative mb-25"><label>Last Name*</label><input asp-for="LastName" type="text" placeholder="Kabir"></div></div>
                                 <div class="col-12"><div class="input-group-meta position-relative mb-25"><label>Email*</label><input asp-for="Email" type="email" placeholder="rshdkabir@gmail.com"></div></div>
-                                <div class="col-12"><div class="input-group-meta position-relative mb-20"><label>Password*</label><input asp-for="Password" type="password" placeholder="Enter Password" class="pass_log_id"></div></div>
+                                <div class="col-12"><div class="input-group-meta position-relative mb-20"><label>Password*</label><input asp-for="Password" type="password" placeholder="Enter Password" class="pass_log_id" minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,}" title="At least 8 characters with an uppercase letter, a lowercase letter, and a digit"></div></div>
                                 <div class="col-12"><button type="submit" class="btn-eleven fw-500 tran3s d-block mt-20">Register</button></div>
                             </div>
                         </form>
                     </div>
                     <div class="tab-pane fade" role="tabpanel" id="fc2">
-                        <form asp-controller="Account" asp-action="SignUp" method="post">
+                        <form asp-controller="Account" asp-action="SignUp" method="post" data-validate>
                             <input type="hidden" name="Role" value="Employer" />
                             <div class="row">
                                 <div class="col-12"><div class="input-group-meta position-relative mb-25"><label>First Name*</label><input name="FirstName" type="text" placeholder="Zubayer"></div></div>
                                 <div class="col-12"><div class="input-group-meta position-relative mb-25"><label>Last Name*</label><input name="LastName" type="text" placeholder="Hasan"></div></div>
                                 <div class="col-12"><div class="input-group-meta position-relative mb-25"><label>Email*</label><input name="Email" type="email" placeholder="zubayerhasan@gmail.com"></div></div>
-                                <div class="col-12"><div class="input-group-meta position-relative mb-20"><label>Password*</label><input name="Password" type="password" placeholder="Enter Password" class="pass_log_id"></div></div>
+                                <div class="col-12"><div class="input-group-meta position-relative mb-20"><label>Password*</label><input name="Password" type="password" placeholder="Enter Password" class="pass_log_id" minlength="8" pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,}" title="At least 8 characters with an uppercase letter, a lowercase letter, and a digit"></div></div>
                                 <div class="col-12"><button type="submit" class="btn-eleven fw-500 tran3s d-block mt-20">Register</button></div>
                             </div>
                         </form>

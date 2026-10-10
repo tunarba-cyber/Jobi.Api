@@ -9,7 +9,7 @@
       "LinkedIn.Modules.Messaging/1.0.0": {
         "dependencies": {
           "FluentValidation": "11.11.0",
-          "LinkedIn.Modules.USers": "1.0.0",
+          "LinkedIn.Modules.Users": "1.0.0",
           "LinkedIn.Shared.Abstractions": "1.0.0",
           "LinkedIn.Shared.Infrastructure": "1.0.0",
           "MediatR": "12.4.1",
@@ -872,7 +872,7 @@
           }
         }
       },
-      "LinkedIn.Modules.USers/1.0.0": {
+      "LinkedIn.Modules.Users/1.0.0": {
         "dependencies": {
           "FluentValidation": "11.11.0",
           "LinkedIn.Shared.Abstractions": "1.0.0",
@@ -1324,7 +1324,7 @@
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
-    "LinkedIn.Modules.USers/1.0.0": {
+    "LinkedIn.Modules.Users/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -23,7 +23,7 @@
             <div class="col-lg-8 m-auto">
                 <div asp-validation-summary="All" class="alert alert-danger"></div>
 
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" data-validate>
                     <div class="row align-items-center mb-4">
                         <div class="col-auto">
                             @if (!string.IsNullOrWhiteSpace(Model.CurrentPhotoUrl))

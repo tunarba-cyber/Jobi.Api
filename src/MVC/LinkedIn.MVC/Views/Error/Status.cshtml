@@ -1,0 +1,23 @@
+﻿@model LinkedIn.MVC.Models.ViewModels.StatusErrorViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="error-page d-flex align-items-center justify-content-center">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-5 col-md-6 ms-auto order-md-last">
+                <div class="error">@Model.Code</div>
+                <h2>@Model.Title</h2>
+                <p class="text-md">@Model.Message</p>
+                <a asp-controller="Home" asp-action="Index" class="btn-one w-100 d-flex align-items-center justify-content-between mt-30">
+                    <span>GO BACK HOME</span>
+                    <img src="~/images/icon/icon_61.svg" alt="">
+                </a>
+            </div>
+            <div class="col-md-6 order-md-first">
+                <img src="~/images/assets/404.svg" alt="" class="sm-mt-60">
+            </div>
+        </div>
+    </div>
+</div>

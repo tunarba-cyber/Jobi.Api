@@ -1,2 +1,50 @@
-﻿<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+﻿<style>
+    .was-validated .form-control:invalid,
+    .was-validated .form-select:invalid {
+        border-color: #dc3545;
+    }
+
+    .field-error {
+        color: #dc3545;
+        font-size: .85rem;
+        margin-top: 4px;
+        display: none;
+    }
+
+    .was-validated :invalid ~ .field-error {
+        display: block;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('form[data-validate]').forEach(function(form) {
+            form.setAttribute('novalidate', '');
+
+            form.querySelectorAll('input, textarea, select').forEach(function(el) {
+                if (el.type === 'hidden' || el.type === 'checkbox' || el.type === 'file') return;
+                const msg = document.createElement('div');
+                msg.className = 'field-error';
+                el.insertAdjacentElement('afterend', msg);
+                el.addEventListener('input', function() { msg.textContent = el.validationMessage; });
+            });
+
+            form.addEventListener('submit', function(e) {
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    form.querySelectorAll('input, textarea, select').forEach(function(el) {
+                        const next = el.nextElementSibling;
+                        if (next && next.classList.contains('field-error')) next.textContent = el.validationMessage;
+                    });
+                    const firstBad = form.querySelector(':invalid');
+                    if (firstBad) firstBad.focus();
+                }
+                form.classList.add('was-validated');
+            });
+        });
+    });
+</script>
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

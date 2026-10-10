@@ -22,7 +22,7 @@
             <div class="col-lg-7 m-auto">
                 <div asp-validation-summary="All" class="alert alert-danger"></div>
 
-                <form asp-action="CompanyProfile" method="post" enctype="multipart/form-data">
+                <form asp-action="CompanyProfile" method="post" enctype="multipart/form-data" data-validate>
                     <input type="hidden" asp-for="IsEdit" />
 
                     <div class="row align-items-center mb-4">

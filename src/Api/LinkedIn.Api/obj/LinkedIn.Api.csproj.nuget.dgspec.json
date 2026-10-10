@@ -588,7 +588,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.USers.csproj",
-        "projectName": "LinkedIn.Modules.USers",
+        "projectName": "LinkedIn.Modules.Users",
         "projectPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.USers.csproj",
         "packagesPath": "C:\\Users\\Pc\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\obj\\",

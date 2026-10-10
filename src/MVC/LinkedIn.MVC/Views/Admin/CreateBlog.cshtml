@@ -20,7 +20,7 @@
             </div>
         }
 
-        <form asp-action="CreateBlog" method="post" enctype="multipart/form-data">
+        <form asp-action="CreateBlog" method="post" enctype="multipart/form-data" data-validate>
             <div class="mb-15">
                 <label class="form-label">Title</label>
                 <input name="Title" class="form-control" required maxlength="200" />

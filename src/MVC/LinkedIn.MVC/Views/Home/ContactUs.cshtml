@@ -57,7 +57,7 @@
 			<div class="row">
 				<div class="col-xl-9 m-auto">
 					<div class="form-style-one mt-85 lg-mt-50 wow fadeInUp">
-						<form asp-action="ContactUs" method="post" id="contact-form">
+						<form asp-action="ContactUs" method="post" id="contact-form" data-validate>
 							<div asp-validation-summary="All" class="alert alert-danger"></div>
 							@if (TempData[LinkedIn.MVC.Models.FlashKeys.Success] is string success)
 							{

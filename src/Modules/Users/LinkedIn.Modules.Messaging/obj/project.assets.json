@@ -1551,7 +1551,7 @@
           }
         }
       },
-      "LinkedIn.Modules.USers/1.0.0": {
+      "LinkedIn.Modules.Users/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
@@ -1566,10 +1566,10 @@
           "System.IdentityModel.Tokens.Jwt": "8.0.1"
         },
         "compile": {
-          "bin/placeholder/LinkedIn.Modules.USers.dll": {}
+          "bin/placeholder/LinkedIn.Modules.Users.dll": {}
         },
         "runtime": {
-          "bin/placeholder/LinkedIn.Modules.USers.dll": {}
+          "bin/placeholder/LinkedIn.Modules.Users.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -3976,7 +3976,7 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "LinkedIn.Modules.USers/1.0.0": {
+    "LinkedIn.Modules.Users/1.0.0": {
       "type": "project",
       "path": "../LinkedIn.Users.Modules/LinkedIn.Modules.USers.csproj",
       "msbuildProject": "../LinkedIn.Users.Modules/LinkedIn.Modules.USers.csproj"
@@ -3995,7 +3995,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "FluentValidation >= 11.11.0",
-      "LinkedIn.Modules.USers >= 1.0.0",
+      "LinkedIn.Modules.Users >= 1.0.0",
       "LinkedIn.Shared.Abstractions >= 1.0.0",
       "LinkedIn.Shared.Infrastructure >= 1.0.0",
       "MediatR >= 12.4.1",
