@@ -80,6 +80,8 @@ public interface IJobiApiClient
     Task<IReadOnlyList<ConversationDto>> GetMyConversationsAsync(CancellationToken ct = default);
     Task<IReadOnlyList<MessageDto>> GetConversationMessagesAsync(long conversationId, CancellationToken ct = default);
     Task<ApiCallResult<MessageDto>> SendMessageAsync(SendMessageRequest request, CancellationToken ct = default);
+    Task<PagedResult<AdminCompanyDto>> GetAdminCompaniesAsync(string? search, int page = 1, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> AdminDeleteCompanyAsync(long id, CancellationToken ct = default);
 
     // Employer ------------------------------------------------------------------
     Task<CompanyDto?> GetMyCompanyAsync(CancellationToken ct = default);

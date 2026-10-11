@@ -2,7 +2,7 @@
 
 namespace LinkedIn.Modules.Jobs.Features;
 
-internal static partial class SlugGenerator
+public static partial class SlugGenerator
 {
     public static string Generate(string input)
     {

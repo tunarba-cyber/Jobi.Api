@@ -26,5 +26,8 @@
 	  <ProjectReference Include="..\..\..\Shared\LinkedIn.Shared.Infrastructure\LinkedIn.Shared.Infrastructure.csproj" />
 	  <ProjectReference Include="..\LinkedIn.Modules.Jobs.Contracts\LinkedIn.Modules.Jobs.Contracts.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+		<InternalsVisibleTo Include="LinkedIn.Tests" />
+	</ItemGroup>
 
 </Project>

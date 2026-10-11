@@ -281,7 +281,14 @@ public sealed class JobiApiClient : IJobiApiClient
 
     public Task<ApiCallResult<MessageDto>> SendMessageAsync(SendMessageRequest request, CancellationToken ct = default) =>
         SendJsonAsync<MessageDto>(HttpMethod.Post, "api/messages", request, ct);
+    public async Task<PagedResult<AdminCompanyDto>> GetAdminCompaniesAsync(string? search, int page = 1, CancellationToken ct = default)
+    {
+        var url = BuildUrl("api/admin/companies", new() { ["search"] = NullIfBlank(search), ["page"] = page.ToString() });
+        return await GetOrDefaultAsync(url, PagedResult<AdminCompanyDto>.Empty(page, 15), ct);
+    }
 
+    public Task<ApiCallResult<bool>> AdminDeleteCompanyAsync(long id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Delete, $"api/admin/companies/{id}", null, ct);
     public Task<CompanyDto?> GetMyCompanyAsync(CancellationToken ct = default) =>
         GetOrNullAsync<CompanyDto>("api/companies/me", ct);
 

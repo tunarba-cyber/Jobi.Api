@@ -132,6 +132,12 @@ public class AdminController : Controller
             TempData["Error"] = result.ErrorMessage;
         return RedirectToAction(nameof(JobCategories));
     }
+    public async Task<IActionResult> Companies(string? search, int page = 1, CancellationToken ct = default) =>
+    View(await _api.GetAdminCompaniesAsync(search, page < 1 ? 1 : page, ct));
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteCompany(long id, CancellationToken ct) =>
+        Done(await _api.AdminDeleteCompanyAsync(id, ct), "Company removed and its jobs closed.", nameof(Companies));
 
     // -------------------------------------------------------------------
     // Jobs

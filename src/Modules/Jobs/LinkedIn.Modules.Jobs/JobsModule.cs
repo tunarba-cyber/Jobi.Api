@@ -66,5 +66,6 @@ public sealed class JobsModule : IModule
         endpoints.MapSavedCandidateEndpoints();
         endpoints.MapJobAlertEndpoints();
         endpoints.MapUploadEndpoints();
+        endpoints.MapCompanyAdminEndpoints();
     }
 }

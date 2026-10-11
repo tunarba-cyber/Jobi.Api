@@ -1,0 +1,7 @@
+C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\bin\Debug\net8.0\.msCoverageSourceRootsMapping_LinkedIn.Tests
+C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\obj\Debug\net8.0\LinkedIn.Tests.csproj.AssemblyReference.cache
+C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\obj\Debug\net8.0\LinkedIn.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\obj\Debug\net8.0\LinkedIn.Tests.AssemblyInfoInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\obj\Debug\net8.0\LinkedIn.Tests.AssemblyInfo.cs
+C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\obj\Debug\net8.0\LinkedIn.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\obj\Debug\net8.0\LinkedIn.Tests.sourcelink.json
