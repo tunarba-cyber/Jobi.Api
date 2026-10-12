@@ -51,7 +51,7 @@ internal sealed class GlobalExceptionHandler : IExceptionHandler
         problem.Extensions["traceId"] = httpContext.TraceIdentifier;
 
         httpContext.Response.StatusCode = problem.Status ?? StatusCodes.Status500InternalServerError;
-        await httpContext.Response.WriteAsJsonAsync(problem, cancellationToken);
+        await httpContext.Response.WriteAsJsonAsync(problem, problem.GetType(), cancellationToken);
 
         return true;
     }

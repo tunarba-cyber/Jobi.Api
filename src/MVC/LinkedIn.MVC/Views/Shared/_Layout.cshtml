@@ -98,7 +98,7 @@
 
                                     <li class="ms-3 fw-500">@User.Identity.Name</li>
                                     <li class="ms-3">
-                                        <form asp-controller="Account" asp-action="Login" method="post" class="mt-10" data-validate>
+                                        <form asp-controller="Account" asp-action="Logout" method="post" class="mt-10">
                                             <button type="submit" class="login-btn-one" style="background:none;border:none;">Logout</button>
                                         </form>
                                     </li>
@@ -298,7 +298,7 @@
                             <img src="~/images/lazy.svg" data-src="~/images/shape/shape_28.svg" alt="" class="lazy-img mt-80 sm-mt-30 sm-mb-20">
                         </div>
                         <div class="col-lg-2 col-md-3 col-sm-4 mb-20">
-                            <h5 class="footer-title">Services​</h5>
+                            <h5 class="footer-title">Services</h5>
                             <ul class="footer-nav-link style-none">
                                 <li><a asp-controller="Job" asp-action="JobList">Browse Jobs</a></li>
                                 <li><a asp-controller="Company" asp-action="Index">Companies</a></li>

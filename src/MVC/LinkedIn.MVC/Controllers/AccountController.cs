@@ -45,6 +45,13 @@ public class AccountController : Controller
     {
         var returnUrl = string.IsNullOrWhiteSpace(model.ReturnUrl) ? "/" : model.ReturnUrl;
 
+        // Guard against empty submissions so they never reach the API.
+        if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
+        {
+            TempData["LoginError"] = "Please enter your email and password.";
+            return Redirect(returnUrl);
+        }
+
         var result = await _api.LoginAsync(new LoginRequest(model.Email, model.Password), ct);
         if (!result.Success)
         {
@@ -87,6 +94,7 @@ public class AccountController : Controller
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return RedirectToAction("Index", "Home");
     }
+
     public async Task<IActionResult> ConfirmEmail(string userId, string token, CancellationToken ct)
     {
         if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(token))

@@ -29,6 +29,12 @@ public sealed class AuthTokenHandler : DelegatingHandler
             return await base.SendAsync(request, ct); // background call, no signed-in user to attach
         }
 
+        // Never refresh before logout: refreshing rotates the refresh token, and
+        // AccountController.Logout would then revoke the stale one it read earlier,
+        // leaving the new token (and the server-side session) alive.
+        var isLogout = request.RequestUri?.AbsolutePath
+            .EndsWith("api/auth/logout", StringComparison.OrdinalIgnoreCase) == true;
+
         var authResult = await httpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         if (!authResult.Succeeded || authResult.Properties is null)
         {
@@ -43,7 +49,7 @@ public sealed class AuthTokenHandler : DelegatingHandler
 
         // Refresh a little before actual expiry, not after - avoids a request
         // failing mid-flight right at the boundary.
-        if (accessToken is not null && refreshToken is not null && expiresAt < DateTimeOffset.UtcNow.AddSeconds(30))
+        if (!isLogout && accessToken is not null && refreshToken is not null && expiresAt < DateTimeOffset.UtcNow.AddSeconds(30))
         {
             var refreshed = await TryRefreshAsync(refreshToken, ct);
             if (refreshed is not null)
