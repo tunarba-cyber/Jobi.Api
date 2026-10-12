@@ -80,6 +80,9 @@
                                             }
                                         </select>
                                     </form>
+                                    <a asp-controller="Interviews" asp-action="Schedule" asp-route-applicationId="@app.Id"
+                                       asp-route-candidate="@app.CandidateName" asp-route-job="@Model.Job.Title"
+                                       class="btn btn-sm btn-outline-primary ms-2">Schedule interview</a>
                                 </td>
                             </tr>
                         }

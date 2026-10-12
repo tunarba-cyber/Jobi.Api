@@ -1,0 +1,59 @@
+﻿@using LinkedIn.MVC.Models
+@using LinkedIn.MVC.Models.Api
+@model IReadOnlyList<InterviewDto>
+@{
+    ViewData["Title"] = "My Interviews";
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">My Interviews</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        @if (Model.Count == 0)
+        {
+            <p class="text-center text-muted">No interviews scheduled yet.</p>
+        }
+        @foreach (var i in Model)
+        {
+            var open = i.Status is InterviewStatus.Scheduled or InterviewStatus.Confirmed && i.ScheduledAtUtc > DateTimeOffset.UtcNow;
+            <div class="job-list-one style-two position-relative border-style mb-15 p-20">
+                <div class="d-flex justify-content-between flex-wrap">
+                    <div>
+                        <div class="fw-500">@i.JobTitle · @i.CompanyName</div>
+                        <div>@TimeDisplay.Local(i.ScheduledAtUtc) (@i.DurationMinutes min) · @(i.Mode == InterviewMode.Online ? "Online" : "On-site")</div>
+                        <div class="small">@i.LocationOrLink</div>
+                        @if (!string.IsNullOrWhiteSpace(i.Notes))
+                        {
+                            <div class="text-muted small mt-5">@i.Notes</div>
+                        }
+                    </div>
+                    <div class="text-nowrap mt-2 mt-md-0">
+                        <span class="badge @(i.Status switch { InterviewStatus.Confirmed => "bg-success", InterviewStatus.Scheduled => "bg-warning text-dark", _ => "bg-secondary" })">@i.Status</span>
+                        @if (open)
+                        {
+                            @if (i.Status == InterviewStatus.Scheduled)
+                            {
+                                <form asp-action="Respond" method="post" class="d-inline ms-2">
+                                    <input type="hidden" name="id" value="@i.Id" /><input type="hidden" name="accept" value="true" />
+                                    <button class="btn btn-sm btn-outline-success">Confirm</button>
+                                </form>
+                            }
+                            <form asp-action="Respond" method="post" class="d-inline" onsubmit="return confirm('Decline this interview?');">
+                                <input type="hidden" name="id" value="@i.Id" /><input type="hidden" name="accept" value="false" />
+                                <button class="btn btn-sm btn-outline-danger">Decline</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>

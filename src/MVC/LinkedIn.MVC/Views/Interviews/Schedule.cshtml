@@ -1,0 +1,73 @@
+﻿@using LinkedIn.MVC.Models.Api
+@model LinkedIn.MVC.Models.ViewModels.ScheduleInterviewViewModel
+@{
+    ViewData["Title"] = "Schedule Interview";
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Schedule Interview</h2></div>
+                <p class="text-lg text-white mt-15">@Model.CandidateName @(string.IsNullOrWhiteSpace(Model.JobTitle) ? "" : "· " + Model.JobTitle)</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 m-auto">
+                <div asp-validation-summary="All" class="alert alert-danger"></div>
+
+                <form asp-action="Schedule" method="post" id="scheduleForm" data-validate>
+                    <input type="hidden" asp-for="ApplicationId" />
+                    <input type="hidden" name="CandidateName" value="@Model.CandidateName" />
+                    <input type="hidden" name="JobTitle" value="@Model.JobTitle" />
+                    <input type="hidden" name="ScheduledAtUtc" id="scheduledAtUtc" />
+
+                    <div class="row">
+                        <div class="col-md-7 mb-4">
+                            <label class="form-label fw-500">Date and time (Baku time)*</label>
+                            <input type="datetime-local" id="localWhen" class="form-control" required />
+                        </div>
+                        <div class="col-md-5 mb-4">
+                            <label class="form-label fw-500">Duration (minutes)</label>
+                            <input name="DurationMinutes" type="number" min="15" max="480" step="15" value="@Model.DurationMinutes" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-500">Type</label>
+                        <select name="Mode" class="form-select">
+                            @foreach (InterviewMode m in Enum.GetValues<InterviewMode>())
+                            {
+                                <option value="@m" selected="@(Model.Mode == m)">@(m == InterviewMode.Online ? "Online" : "On-site")</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-500">Meeting link or address*</label>
+                        <input name="LocationOrLink" value="@Model.LocationOrLink" class="form-control" maxlength="500" required placeholder="https://meet.google.com/... or office address" />
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label fw-500">Notes for the candidate</label>
+                        <textarea name="Notes" class="form-control" rows="4" maxlength="1000">@Model.Notes</textarea>
+                    </div>
+                    <button type="submit" class="btn-one">Send invitation</button>
+                    <a asp-controller="Employer" asp-action="Index" class="btn btn-outline-secondary ms-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        // The browser's datetime-local has no timezone. Convert to a real UTC instant before posting.
+        document.getElementById('scheduleForm').addEventListener('submit', function() {
+            const v = document.getElementById('localWhen').value;
+            if (v) document.getElementById('scheduledAtUtc').value = new Date(v).toISOString();
+        });
+    </script>
+}

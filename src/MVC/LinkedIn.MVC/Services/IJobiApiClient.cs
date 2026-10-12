@@ -109,6 +109,11 @@ public interface IJobiApiClient
     // Contact ---------------------------------------------------------------
     Task<ApiCallResult<bool>> SendContactMessageAsync(ContactRequest request, CancellationToken ct = default);
     Task<ApiCallResult<CategoryDto>> UpdateCategoryAsync(long id, UpdateCategoryRequest request, CancellationToken ct = default);
+    Task<IReadOnlyList<InterviewDto>> GetMyInterviewsAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<InterviewDto>> GetEmployerInterviewsAsync(CancellationToken ct = default);
+    Task<ApiCallResult<InterviewDto>> ScheduleInterviewAsync(ScheduleInterviewRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> RespondInterviewAsync(long id, bool accept, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> CancelInterviewAsync(long id, CancellationToken ct = default);
 }
 
 /// <summary>

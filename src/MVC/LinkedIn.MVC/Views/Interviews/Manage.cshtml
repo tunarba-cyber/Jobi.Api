@@ -1,0 +1,54 @@
+﻿@using LinkedIn.MVC.Models
+@using LinkedIn.MVC.Models.Api
+@model IReadOnlyList<InterviewDto>
+@{
+    ViewData["Title"] = "Interviews";
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Interviews</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        @if (Model.Count == 0)
+        {
+            <p class="text-center text-muted">No interviews yet. Schedule one from a job's Applicants page.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead><tr><th>Candidate</th><th>Job</th><th>When (Baku)</th><th>Type</th><th>Status</th><th></th></tr></thead>
+                    <tbody>
+                        @foreach (var i in Model)
+                        {
+                            <tr>
+                                <td class="fw-500">@i.CandidateName</td>
+                                <td>@i.JobTitle</td>
+                                <td>@TimeDisplay.Local(i.ScheduledAtUtc)</td>
+                                <td>@(i.Mode == InterviewMode.Online ? "Online" : "On-site")</td>
+                                <td><span class="badge @(i.Status switch { InterviewStatus.Confirmed => "bg-success", InterviewStatus.Scheduled => "bg-warning text-dark", _ => "bg-secondary" })">@i.Status</span></td>
+                                <td class="text-end">
+                                    @if (i.Status is InterviewStatus.Scheduled or InterviewStatus.Confirmed)
+                                    {
+                                        <form asp-action="Cancel" method="post" onsubmit="return confirm('Cancel this interview?');">
+                                            <input type="hidden" name="id" value="@i.Id" />
+                                            <button class="btn btn-sm btn-outline-danger">Cancel</button>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</section>

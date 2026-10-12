@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LinkedIn.Shared.Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:LinkedIn.Shared.Infrastructure.Behaviors.LoggingBehavior`2">
+            <summary>
+            Logs every request with its duration. Gives you per-endpoint timing for free
+            and makes slow queries obvious before they become production problems.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Infrastructure.Behaviors.ValidationBehavior`2">
+             <summary>
+             Runs every registered FluentValidation validator before the handler executes.
+            
+             This fixes a real bug in the Pronia template: it registered validators with
+             AddValidatorsFromAssembly but never wired them into the MediatR pipeline, so
+             CreateProductCommandValidator and friends never actually ran. Registering a
+             validator is not the same as invoking it.
+             </summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Infrastructure.Http.ResultExtensions">
+            <summary>
+            One place that decides how a domain Result becomes an HTTP response.
+            Endpoints stay one-liners and status codes stay consistent across modules.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Infrastructure.Persistence.AuditingInterceptor">
+            <summary>
+            Stamps CreatedAt/CreatedBy/ModifiedAt/ModifiedBy automatically on save.
+            Handlers never set these by hand, so they can never be forgotten or faked.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Infrastructure.Persistence.ICurrentUser">
+            <summary>
+            Abstracts "who is making this request" so the auditing interceptor can stamp
+            CreatedBy/ModifiedBy without EF knowing anything about HTTP.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Shared.Infrastructure.Persistence.ModelBuilderExtensions.ApplySoftDeleteQueryFilter(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Applies "WHERE IsDeleted = 0" to every soft-deletable entity in the model.
+            Pronia hand-wrote a GlobalQueryFilter per entity; this discovers them
+            automatically so a new entity can never be accidentally left unfiltered.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Shared.Infrastructure.Persistence.QueryableExtensions.ToPagedResultAsync``1(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>Executes count + page in one place so no handler reinvents pagination.</summary>
+        </member>
+        <member name="M:LinkedIn.Shared.Infrastructure.Persistence.QueryableExtensions.WhereIf``1(System.Linq.IQueryable{``0},System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>Applies a filter only when the condition holds - keeps query building readable.</summary>
+        </member>
+        <member name="T:LinkedIn.Shared.Infrastructure.Persistence.SoftDeleteInterceptor">
+            <summary>
+            Converts Remove() into a soft delete. Handlers just call Remove() and the row
+            is preserved with IsDeleted = true, so job/category history is never destroyed.
+            </summary>
+        </member>
+    </members>
+</doc>

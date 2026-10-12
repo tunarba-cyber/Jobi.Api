@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LinkedIn.Shared.Abstractions")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+badddd5dce7cb71fcecf04a1c5064ffd4fc81fef")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c950aafd4fd9b5e703c5a4666a59313bf614da64")]
 [assembly: System.Reflection.AssemblyProductAttribute("LinkedIn.Shared.Abstractions")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LinkedIn.Shared.Abstractions")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

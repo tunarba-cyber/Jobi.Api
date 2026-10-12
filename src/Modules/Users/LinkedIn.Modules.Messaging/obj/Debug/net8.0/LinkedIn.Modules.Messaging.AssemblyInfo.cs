@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LinkedIn.Modules.Messaging")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f08d3fbf3da8a3877c77b402be5f1da948897e8d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c950aafd4fd9b5e703c5a4666a59313bf614da64")]
 [assembly: System.Reflection.AssemblyProductAttribute("LinkedIn.Modules.Messaging")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LinkedIn.Modules.Messaging")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

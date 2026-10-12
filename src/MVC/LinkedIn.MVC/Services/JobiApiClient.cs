@@ -614,6 +614,20 @@ public sealed class JobiApiClient : IJobiApiClient
             return ApiCallResult<bool>.Fail("Can't reach the server. Please try again.");
         }
     }
+    public async Task<IReadOnlyList<InterviewDto>> GetMyInterviewsAsync(CancellationToken ct = default) =>
+    await GetOrDefaultAsync<IReadOnlyList<InterviewDto>>("api/interviews/mine", Array.Empty<InterviewDto>(), ct);
+
+    public async Task<IReadOnlyList<InterviewDto>> GetEmployerInterviewsAsync(CancellationToken ct = default) =>
+        await GetOrDefaultAsync<IReadOnlyList<InterviewDto>>("api/interviews/employer", Array.Empty<InterviewDto>(), ct);
+
+    public Task<ApiCallResult<InterviewDto>> ScheduleInterviewAsync(ScheduleInterviewRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<InterviewDto>(HttpMethod.Post, "api/interviews", request, ct);
+
+    public Task<ApiCallResult<bool>> RespondInterviewAsync(long id, bool accept, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Put, $"api/interviews/{id}/respond", new { accept }, ct);
+
+    public Task<ApiCallResult<bool>> CancelInterviewAsync(long id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Put, $"api/interviews/{id}/cancel", null, ct);
 
     // -----------------------------------------------------------------------
     // Plumbing
