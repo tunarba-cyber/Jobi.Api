@@ -37,7 +37,7 @@
                         <div class="border rounded p-30 text-center">
                             <div class="fw-500 text-dark">@u.Name</div>
                             <div class="text-muted small mb-10">@u.Role · @u.FollowerCount follower@(u.FollowerCount == 1 ? "" : "s")</div>
-                            <partial name="_FollowButton" model="new FollowButtonViewModel(" User", u.UserId, u.IsFollowing)" />
+                            @await Html.PartialAsync("_FollowButton", new FollowButtonViewModel("User", u.UserId, u.IsFollowing))
                         </div>
                     </div>
                 }

@@ -37,7 +37,7 @@
                         <div class="border rounded p-30 text-center">
                             <a asp-controller="Company" asp-action="Details" asp-route-slug="@c.Slug" class="fw-500 text-dark d-block">@c.Name</a>
                             <div class="text-muted small mb-10">@c.FollowerCount follower@(c.FollowerCount == 1 ? "" : "s")</div>
-                            <partial name="_FollowButton" model="new FollowButtonViewModel(" Company", c.CompanyId.ToString(), c.IsFollowing)" />
+                            @await Html.PartialAsync("_FollowButton", new FollowButtonViewModel("Company", c.CompanyId.ToString(), c.IsFollowing))
                         </div>
                     </div>
                 }
