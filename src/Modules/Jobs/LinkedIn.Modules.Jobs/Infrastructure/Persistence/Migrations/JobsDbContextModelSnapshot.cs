@@ -332,6 +332,54 @@ namespace LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations
                     b.ToTable("Companies", "jobs");
                 });
 
+            modelBuilder.Entity("LinkedIn.Modules.Jobs.Domain.Entities.CompanyFollow", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("CompanyId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("DeletedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FollowerUserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("ModifiedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("FollowerUserId", "CompanyId")
+                        .IsUnique()
+                        .HasFilter("[IsDeleted] = 0");
+
+                    b.ToTable("CompanyFollows", "jobs");
+                });
+
             modelBuilder.Entity("LinkedIn.Modules.Jobs.Domain.Entities.Interview", b =>
                 {
                     b.Property<long>("Id")
@@ -652,6 +700,56 @@ namespace LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations
                     b.ToTable("SavedJobs", "jobs");
                 });
 
+            modelBuilder.Entity("LinkedIn.Modules.Jobs.Domain.Entities.UserFollow", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("DeletedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FollowedUserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FollowerUserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("ModifiedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FollowedUserId");
+
+                    b.HasIndex("FollowerUserId", "FollowedUserId")
+                        .IsUnique()
+                        .HasFilter("[IsDeleted] = 0");
+
+                    b.ToTable("UserFollows", "jobs");
+                });
+
             modelBuilder.Entity("LinkedIn.Modules.Jobs.Domain.Entities.Application", b =>
                 {
                     b.HasOne("LinkedIn.Modules.Jobs.Domain.Entities.Job", "Job")
@@ -661,6 +759,17 @@ namespace LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Job");
+                });
+
+            modelBuilder.Entity("LinkedIn.Modules.Jobs.Domain.Entities.CompanyFollow", b =>
+                {
+                    b.HasOne("LinkedIn.Modules.Jobs.Domain.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("LinkedIn.Modules.Jobs.Domain.Entities.Interview", b =>

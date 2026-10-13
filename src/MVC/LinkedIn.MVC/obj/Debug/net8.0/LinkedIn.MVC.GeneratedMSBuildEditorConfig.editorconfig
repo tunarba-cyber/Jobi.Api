@@ -127,6 +127,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JcU3RhdHVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Pc/source/repos/LinkedIn/src/MVC/LinkedIn.MVC/Views/Follow/Companies.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9sbG93XENvbXBhbmllcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Pc/source/repos/LinkedIn/src/MVC/LinkedIn.MVC/Views/Follow/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9sbG93XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Pc/source/repos/LinkedIn/src/MVC/LinkedIn.MVC/Views/Follow/Users.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9sbG93XFVzZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Pc/source/repos/LinkedIn/src/MVC/LinkedIn.MVC/Views/Home/AboutUs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dFVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -185,6 +197,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Pc/source/repos/LinkedIn/src/MVC/LinkedIn.MVC/Views/SavedJobs/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2F2ZWRKb2JzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Pc/source/repos/LinkedIn/src/MVC/LinkedIn.MVC/Views/Shared/_FollowButton.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb2xsb3dCdXR0b24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Pc/source/repos/LinkedIn/src/MVC/LinkedIn.MVC/Views/Shared/_Layout.cshtml]

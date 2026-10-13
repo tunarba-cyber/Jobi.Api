@@ -1,0 +1,57 @@
+﻿@using LinkedIn.MVC.Models.ViewModels
+@model ExploreCompaniesViewModel
+@{
+    ViewData["Title"] = "Explore Companies"; var list = Model.Companies;
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Explore Companies</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="d-flex justify-content-between flex-wrap mb-30">
+            <form asp-action="Companies" method="get" class="d-flex gap-2">
+                <input name="q" value="@Model.Search" class="form-control" placeholder="Search companies" />
+                <button type="submit" class="btn-one">Search</button>
+            </form>
+            <a asp-action="Index" class="btn btn-outline-secondary mt-2 mt-md-0">My network</a>
+        </div>
+
+        @if (list.Items.Count == 0)
+        {
+            <p class="text-center text-muted">No companies found.</p>
+        }
+        else
+        {
+            <div class="row">
+                @foreach (var c in list.Items)
+                {
+                    <div class="col-md-6 col-lg-4 mb-30">
+                        <div class="border rounded p-30 text-center">
+                            <a asp-controller="Company" asp-action="Details" asp-route-slug="@c.Slug" class="fw-500 text-dark d-block">@c.Name</a>
+                            <div class="text-muted small mb-10">@c.FollowerCount follower@(c.FollowerCount == 1 ? "" : "s")</div>
+                            <partial name="_FollowButton" model="new FollowButtonViewModel(" Company", c.CompanyId.ToString(), c.IsFollowing)" />
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (list.TotalPages > 1)
+            {
+                <ul class="pagination-one d-flex justify-content-center style-none mt-30">
+                    @for (var p = 1; p <= list.TotalPages; p++)
+                    {
+                        <li class="@(p == list.Page ? "active" : "")"><a asp-action="Companies" asp-route-page="@p" asp-route-q="@Model.Search">@p</a></li>
+                    }
+                </ul>
+            }
+        }
+    </div>
+</section>

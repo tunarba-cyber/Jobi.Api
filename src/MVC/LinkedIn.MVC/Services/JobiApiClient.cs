@@ -628,6 +628,41 @@ public sealed class JobiApiClient : IJobiApiClient
 
     public Task<ApiCallResult<bool>> CancelInterviewAsync(long id, CancellationToken ct = default) =>
         SendNoContentAsync(HttpMethod.Put, $"api/interviews/{id}/cancel", null, ct);
+    public async Task<FollowSummaryDto> GetFollowSummaryAsync(CancellationToken ct = default) =>
+    await GetOrDefaultAsync("api/follows/summary", new FollowSummaryDto(0, 0, 0, 0), ct);
+
+    public async Task<PagedResult<FollowUserDto>> ExploreUsersAsync(string? search, int page = 1, CancellationToken ct = default)
+    {
+        var url = BuildUrl("api/follows/users", new() { ["q"] = NullIfBlank(search), ["page"] = page.ToString() });
+        return await GetOrDefaultAsync(url, PagedResult<FollowUserDto>.Empty(page, 12), ct);
+    }
+
+    public async Task<IReadOnlyList<FollowUserDto>> GetFollowersAsync(CancellationToken ct = default) =>
+        await GetOrDefaultAsync<IReadOnlyList<FollowUserDto>>("api/follows/followers", Array.Empty<FollowUserDto>(), ct);
+
+    public async Task<IReadOnlyList<FollowUserDto>> GetFollowingAsync(CancellationToken ct = default) =>
+        await GetOrDefaultAsync<IReadOnlyList<FollowUserDto>>("api/follows/following", Array.Empty<FollowUserDto>(), ct);
+
+    public async Task<PagedResult<FollowCompanyDto>> ExploreCompaniesAsync(string? search, int page = 1, CancellationToken ct = default)
+    {
+        var url = BuildUrl("api/follows/companies", new() { ["q"] = NullIfBlank(search), ["page"] = page.ToString() });
+        return await GetOrDefaultAsync(url, PagedResult<FollowCompanyDto>.Empty(page, 12), ct);
+    }
+
+    public async Task<IReadOnlyList<FollowCompanyDto>> GetFollowedCompaniesAsync(CancellationToken ct = default) =>
+        await GetOrDefaultAsync<IReadOnlyList<FollowCompanyDto>>("api/follows/followed-companies", Array.Empty<FollowCompanyDto>(), ct);
+
+    public Task<ApiCallResult<bool>> FollowUserAsync(string id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Post, $"api/follows/users/{Uri.EscapeDataString(id)}", null, ct);
+
+    public Task<ApiCallResult<bool>> UnfollowUserAsync(string id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Delete, $"api/follows/users/{Uri.EscapeDataString(id)}", null, ct);
+
+    public Task<ApiCallResult<bool>> FollowCompanyAsync(long id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Post, $"api/follows/companies/{id}", null, ct);
+
+    public Task<ApiCallResult<bool>> UnfollowCompanyAsync(long id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Delete, $"api/follows/companies/{id}", null, ct);
 
     // -----------------------------------------------------------------------
     // Plumbing

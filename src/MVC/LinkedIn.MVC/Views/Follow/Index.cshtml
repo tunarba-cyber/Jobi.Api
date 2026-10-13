@@ -1,0 +1,82 @@
+﻿@using LinkedIn.MVC.Models.ViewModels
+@model FollowHubViewModel
+@{
+    ViewData["Title"] = "My Network"; var s = Model.Summary;
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">My Network</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row text-center mb-40">
+            <div class="col-4"><div class="fw-500 fs-3">@s.Followers</div><div class="text-muted">Followers</div></div>
+            <div class="col-4"><div class="fw-500 fs-3">@s.Following</div><div class="text-muted">Following</div></div>
+            <div class="col-4"><div class="fw-500 fs-3">@s.FollowedCompanies</div><div class="text-muted">Companies</div></div>
+        </div>
+        @if (s.CompanyFollowers > 0)
+        {
+            <p class="text-center text-muted mb-30">Your company has @s.CompanyFollowers follower@(s.CompanyFollowers == 1 ? "" : "s").</p>
+        }
+
+        <div class="text-center mb-30">
+            <a asp-action="Users" class="btn-one me-2">Explore users</a>
+            <a asp-action="Companies" class="btn btn-outline-secondary">Explore companies</a>
+        </div>
+
+        <ul class="nav nav-tabs w-100" role="tablist">
+            <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabFollowers" type="button">Followers</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabFollowing" type="button">Following</button></li>
+            <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabCompanies" type="button">Followed companies</button></li>
+        </ul>
+
+        <div class="tab-content mt-30">
+            <div class="tab-pane fade show active" id="tabFollowers">
+                @if (Model.Followers.Count == 0)
+                {
+                    <p class="text-muted">Nobody follows you yet.</p>
+                }
+                @foreach (var u in Model.Followers)
+                {
+                    <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+                        <div><span class="fw-500">@u.Name</span> <span class="text-muted small">@u.Role</span></div>
+                        <partial name="_FollowButton" model="new FollowButtonViewModel(" User", u.UserId, u.IsFollowing)" />
+                    </div>
+                }
+            </div>
+            <div class="tab-pane fade" id="tabFollowing">
+                @if (Model.Following.Count == 0)
+                {
+                    <p class="text-muted">You aren't following anyone yet.</p>
+                }
+                @foreach (var u in Model.Following)
+                {
+                    <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+                        <div><span class="fw-500">@u.Name</span> <span class="text-muted small">@u.Role</span></div>
+                        <partial name="_FollowButton" model="new FollowButtonViewModel(" User", u.UserId, u.IsFollowing)" />
+                    </div>
+                }
+            </div>
+            <div class="tab-pane fade" id="tabCompanies">
+                @if (Model.Companies.Count == 0)
+                {
+                    <p class="text-muted">You aren't following any companies yet.</p>
+                }
+                @foreach (var c in Model.Companies)
+                {
+                    <div class="d-flex justify-content-between align-items-center border-bottom py-3">
+                        <a asp-controller="Company" asp-action="Details" asp-route-slug="@c.Slug" class="fw-500">@c.Name</a>
+                        <partial name="_FollowButton" model="new FollowButtonViewModel(" Company", c.CompanyId.ToString(), c.IsFollowing)" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

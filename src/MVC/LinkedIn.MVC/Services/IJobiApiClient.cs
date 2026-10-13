@@ -114,6 +114,16 @@ public interface IJobiApiClient
     Task<ApiCallResult<InterviewDto>> ScheduleInterviewAsync(ScheduleInterviewRequest request, CancellationToken ct = default);
     Task<ApiCallResult<bool>> RespondInterviewAsync(long id, bool accept, CancellationToken ct = default);
     Task<ApiCallResult<bool>> CancelInterviewAsync(long id, CancellationToken ct = default);
+    Task<FollowSummaryDto> GetFollowSummaryAsync(CancellationToken ct = default);
+    Task<PagedResult<FollowUserDto>> ExploreUsersAsync(string? search, int page = 1, CancellationToken ct = default);
+    Task<IReadOnlyList<FollowUserDto>> GetFollowersAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<FollowUserDto>> GetFollowingAsync(CancellationToken ct = default);
+    Task<PagedResult<FollowCompanyDto>> ExploreCompaniesAsync(string? search, int page = 1, CancellationToken ct = default);
+    Task<IReadOnlyList<FollowCompanyDto>> GetFollowedCompaniesAsync(CancellationToken ct = default);
+    Task<ApiCallResult<bool>> FollowUserAsync(string id, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> UnfollowUserAsync(string id, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> FollowCompanyAsync(long id, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> UnfollowCompanyAsync(long id, CancellationToken ct = default);
 }
 
 /// <summary>

@@ -431,6 +431,18 @@
         <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddInterviews.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddFollows">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddFollows.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddFollows.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddFollows.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
         <member name="T:LinkedIn.Modules.Jobs.JobsModule">
             <summary>
             Self-registering module. The API host finds this by scanning assemblies, so

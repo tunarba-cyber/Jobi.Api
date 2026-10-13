@@ -1,0 +1,9 @@
+﻿@model LinkedIn.MVC.Models.ViewModels.FollowButtonViewModel
+
+<form asp-controller="Follow" asp-action="@((Model.IsFollowing ? "Unfollow" : "Follow") + Model.Kind)" method="post" class="d-inline m-0">
+    <input type="hidden" name="id" value="@Model.TargetId" />
+    <input type="hidden" name="returnUrl" value="@(Context.Request.Path + Context.Request.QueryString)" />
+    <button type="submit" class="btn btn-sm @(Model.IsFollowing ? "btn-secondary" : "btn-outline-primary")">
+        @(Model.IsFollowing ? "Following" : "Follow")
+    </button>
+</form>

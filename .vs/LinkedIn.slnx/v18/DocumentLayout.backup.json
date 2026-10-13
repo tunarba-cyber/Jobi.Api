@@ -3,8 +3,80 @@
   "WorkspaceRootPath": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\views\\follow\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\views\\follow\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\models\\viewmodels\\followviewmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\models\\viewmodels\\followviewmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\views\\follow\\companies.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\views\\follow\\companies.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\views\\follow\\users.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\views\\follow\\users.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\views\\shared\\_followbutton.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\views\\shared\\_followbutton.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\controllers\\followcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\controllers\\followcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\services\\jobiapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\services\\jobiapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\services\\ijobiapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\services\\ijobiapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\models\\api\\followdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\models\\api\\followdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Migrations\\20261013141707_AddFollows.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Migrations\\20261013141707_AddFollows.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\jobsmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|solutionrelative:src\\modules\\jobs\\linkedin.modules.jobs\\jobsmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\features\\jobs\\jobendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|solutionrelative:src\\modules\\jobs\\linkedin.modules.jobs\\features\\jobs\\jobendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\features\\follows\\followendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|solutionrelative:src\\modules\\jobs\\linkedin.modules.jobs\\features\\follows\\followendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\infrastructure\\persistence\\jobsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|solutionrelative:src\\modules\\jobs\\linkedin.modules.jobs\\infrastructure\\persistence\\jobsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\infrastructure\\persistence\\configurations\\followconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|solutionrelative:src\\modules\\jobs\\linkedin.modules.jobs\\infrastructure\\persistence\\configurations\\followconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\domain\\entities\\follows.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|solutionrelative:src\\modules\\jobs\\linkedin.modules.jobs\\domain\\entities\\follows.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32E9AFD8-7D14-4E61-8A26-9D00912AE0F6}|src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.USers.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\users\\linkedin.users.modules\\infrastructure\\userdirectory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32E9AFD8-7D14-4E61-8A26-9D00912AE0F6}|src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.USers.csproj|solutionrelative:src\\modules\\users\\linkedin.users.modules\\infrastructure\\userdirectory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{44641B40-5C85-1C9F-2C9E-A9320630D6D3}|src\\Shared\\LinkedIn.Shared.Abstractions\\LinkedIn.Shared.Abstractions.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\shared\\linkedin.shared.abstractions\\contracts\\iuserdirectory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{44641B40-5C85-1C9F-2C9E-A9320630D6D3}|src\\Shared\\LinkedIn.Shared.Abstractions\\LinkedIn.Shared.Abstractions.csproj|solutionrelative:src\\shared\\linkedin.shared.abstractions\\contracts\\iuserdirectory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\views\\employer\\applicants.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -27,14 +99,6 @@
       "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\controllers\\interviewscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\services\\jobiapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\services\\jobiapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\services\\ijobiapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\services\\ijobiapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\models\\viewmodels\\scheduleinterviewviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\models\\viewmodels\\scheduleinterviewviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -47,16 +111,8 @@
       "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\models\\api\\interviewdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\jobsmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|solutionrelative:src\\modules\\jobs\\linkedin.modules.jobs\\jobsmodule.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\features\\interviews\\interviewendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|solutionrelative:src\\modules\\jobs\\linkedin.modules.jobs\\features\\interviews\\interviewendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\infrastructure\\persistence\\jobsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|solutionrelative:src\\modules\\jobs\\linkedin.modules.jobs\\infrastructure\\persistence\\jobsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\infrastructure\\persistence\\configurations\\interviewconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -246,10 +302,6 @@
       "RelativeMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|solutionrelative:src\\mvc\\linkedin.mvc\\views\\admin\\jobs.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\features\\jobs\\jobendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|solutionrelative:src\\modules\\jobs\\linkedin.modules.jobs\\features\\jobs\\jobendpoints.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\jobs\\linkedin.modules.jobs\\domain\\enums\\jobstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A5D7CF3F-AEEE-3072-CAB7-6072020F365A}|src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj|solutionrelative:src\\modules\\jobs\\linkedin.modules.jobs\\domain\\enums\\jobstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -316,10 +368,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A41F1C4A-23CC-42E2-8012-3A2F0A2128FF}|src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\LinkedIn.Modules.Blogs.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\blogs\\linkedin.modules.blogs\\features\\blogs\\delete\\deleteblogcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A41F1C4A-23CC-42E2-8012-3A2F0A2128FF}|src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\LinkedIn.Modules.Blogs.csproj|solutionrelative:src\\modules\\blogs\\linkedin.modules.blogs\\features\\blogs\\delete\\deleteblogcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{32E9AFD8-7D14-4E61-8A26-9D00912AE0F6}|src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.USers.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\modules\\users\\linkedin.users.modules\\infrastructure\\userdirectory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32E9AFD8-7D14-4E61-8A26-9D00912AE0F6}|src\\Modules\\Users\\LinkedIn.Users.Modules\\LinkedIn.Modules.USers.csproj|solutionrelative:src\\modules\\users\\linkedin.users.modules\\infrastructure\\userdirectory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D3EF344C-4C47-4B2D-9AED-0DF97DE4FF76}|src\\MVC\\LinkedIn.MVC\\LinkedIn.MVC.csproj|c:\\users\\pc\\source\\repos\\linkedin\\src\\mvc\\linkedin.mvc\\controllers\\jobcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -400,7 +448,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -408,55 +456,202 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Applicants.cshtml",
-              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Employer\\Applicants.cshtml",
-              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Employer\\Applicants.cshtml",
-              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Employer\\Applicants.cshtml",
-              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Employer\\Applicants.cshtml",
-              "ViewState": "AgIAAD4AAAAAAAAAAADwv1UAAAAlAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Index.cshtml",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Index.cshtml",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Index.cshtml",
+              "ViewState": "AgIAADIAAAAAAAAAAADwv0QAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-12T18:31:26.482Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Manage.cshtml",
-              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Manage.cshtml",
-              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Manage.cshtml",
-              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Manage.cshtml",
-              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Manage.cshtml",
-              "ViewState": "AgIAABYAAAAAAAAAAADwvzUAAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-12T18:30:54.388Z"
+              "WhenOpened": "2026-10-13T14:21:52.479Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "My.cshtml",
-              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\My.cshtml",
-              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\My.cshtml",
-              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\My.cshtml",
-              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\My.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAADwvzoAAAAKAAAAAAAAAA==",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAMEBAAAAAAAAAADwv+ABAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-12T18:30:30.605Z"
+              "WhenOpened": "2026-10-05T14:15:48.202Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Companies.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Companies.cshtml",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Companies.cshtml",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Companies.cshtml",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Companies.cshtml",
+              "ViewState": "AgIAABcAAAAAAAAAAADgvywAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-13T14:21:12.703Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Schedule.cshtml",
-              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Schedule.cshtml",
-              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Schedule.cshtml",
-              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Schedule.cshtml",
-              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Schedule.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEgAAAABAAAAAAAAAA==",
+              "Title": "Users.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Users.cshtml",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Users.cshtml",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Users.cshtml",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Follow\\Users.cshtml",
+              "ViewState": "AgIAABkAAAAAAAAAAADwvzgAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-12T18:30:01.94Z"
+              "WhenOpened": "2026-10-13T14:20:16.836Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "_FollowButton.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_FollowButton.cshtml",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_FollowButton.cshtml",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_FollowButton.cshtml",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_FollowButton.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-13T14:19:40.129Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FollowController.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\FollowController.cs",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\FollowController.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\FollowController.cs",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Controllers\\FollowController.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAADwvywAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-13T14:19:12.324Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FollowViewModels.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\ViewModels\\FollowViewModels.cs",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\ViewModels\\FollowViewModels.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\ViewModels\\FollowViewModels.cs",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Models\\ViewModels\\FollowViewModels.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAmwA8AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-13T14:18:18.85Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FollowDtos.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\Api\\FollowDtos.cs",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\Api\\FollowDtos.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\Api\\FollowDtos.cs",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Models\\Api\\FollowDtos.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAB1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-13T14:17:51.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "20261013141707_AddFollows.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Migrations\\20261013141707_AddFollows.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Migrations\\20261013141707_AddFollows.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Migrations\\20261013141707_AddFollows.cs",
+              "RelativeToolTip": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Migrations\\20261013141707_AddFollows.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-13T14:17:07.313Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "FollowEndpoints.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Follows\\FollowEndpoints.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Follows\\FollowEndpoints.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Follows\\FollowEndpoints.cs",
+              "RelativeToolTip": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Follows\\FollowEndpoints.cs",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAIwKkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-13T14:15:38.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "FollowConfigurations.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Configurations\\FollowConfigurations.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Configurations\\FollowConfigurations.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Configurations\\FollowConfigurations.cs",
+              "RelativeToolTip": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Configurations\\FollowConfigurations.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-13T14:14:12.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IJobiApiClient.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Services\\IJobiApiClient.cs",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Services\\IJobiApiClient.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Services\\IJobiApiClient.cs",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Services\\IJobiApiClient.cs",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAqwH0AAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-06T11:37:50.11Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "JobiApiClient.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Services\\JobiApiClient.cs",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Services\\JobiApiClient.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Services\\JobiApiClient.cs",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Services\\JobiApiClient.cs",
+              "ViewState": "AgIAAH8CAAAAAAAAAAAzwJgCAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-05T14:08:15.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Follows.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Entities\\Follows.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Entities\\Follows.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Entities\\Follows.cs",
+              "RelativeToolTip": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Entities\\Follows.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-13T14:13:35.847Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "IUserDirectory.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Abstractions\\Contracts\\IUserDirectory.cs",
+              "RelativeDocumentMoniker": "src\\Shared\\LinkedIn.Shared.Abstractions\\Contracts\\IUserDirectory.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Shared\\LinkedIn.Shared.Abstractions\\Contracts\\IUserDirectory.cs",
+              "RelativeToolTip": "src\\Shared\\LinkedIn.Shared.Abstractions\\Contracts\\IUserDirectory.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAxwBAAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-13T14:09:53.078Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
               "Title": "InterviewsController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\InterviewsController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\InterviewsController.cs",
@@ -468,7 +663,82 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
+              "Title": "JobsModule.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\JobsModule.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\JobsModule.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\JobsModule.cs",
+              "RelativeToolTip": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\JobsModule.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAYwEgAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-08T17:49:16.438Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "JobEndpoints.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Jobs\\JobEndpoints.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Jobs\\JobEndpoints.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Jobs\\JobEndpoints.cs",
+              "RelativeToolTip": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Jobs\\JobEndpoints.cs",
+              "ViewState": "AgIAAMkAAAAAAAAAAAAUwLYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-08T17:49:40.418Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Schedule.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Schedule.cshtml",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Schedule.cshtml",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Schedule.cshtml",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Schedule.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-12T18:30:01.94Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "My.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\My.cshtml",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\My.cshtml",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\My.cshtml",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\My.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAADwvzoAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-12T18:30:30.605Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "JobsDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\JobsDbContext.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\JobsDbContext.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\JobsDbContext.cs",
+              "RelativeToolTip": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\JobsDbContext.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAuwBQAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-12T18:24:27.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Manage.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Manage.cshtml",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Manage.cshtml",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Manage.cshtml",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Interviews\\Manage.cshtml",
+              "ViewState": "AgIAABYAAAAAAAAAAADwvzUAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-12T18:30:54.388Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
               "Title": "ScheduleInterviewViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\ViewModels\\ScheduleInterviewViewModel.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\ViewModels\\ScheduleInterviewViewModel.cs",
@@ -480,20 +750,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAiwFwAAACKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-05T14:15:48.202Z",
+              "DocumentIndex": 17,
+              "Title": "UserDirectory.cs",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\UserDirectory.cs",
+              "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\UserDirectory.cs",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\UserDirectory.cs",
+              "RelativeToolTip": "src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\UserDirectory.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAIA+wCcAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-07T12:31:03.775Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 19,
+              "Title": "Applicants.cshtml",
+              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Employer\\Applicants.cshtml",
+              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Employer\\Applicants.cshtml",
+              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Employer\\Applicants.cshtml",
+              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Employer\\Applicants.cshtml",
+              "ViewState": "AgIAAD4AAAAAAAAAAADwv1UAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-12T18:31:26.482Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
               "Title": "TimeDisplay.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\TimeDisplay.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\TimeDisplay.cs",
@@ -505,7 +787,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 26,
               "Title": "InterviewDtos.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\Api\\InterviewDtos.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\Api\\InterviewDtos.cs",
@@ -517,7 +799,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 97,
+              "DocumentIndex": 109,
               "Title": "20261012182607_AddInterviews.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Migrations\\20261012182607_AddInterviews.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Migrations\\20261012182607_AddInterviews.cs",
@@ -529,7 +811,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 27,
               "Title": "InterviewEndpoints.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Interviews\\InterviewEndpoints.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Interviews\\InterviewEndpoints.cs",
@@ -541,43 +823,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "IJobiApiClient.cs",
-              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Services\\IJobiApiClient.cs",
-              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Services\\IJobiApiClient.cs",
-              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Services\\IJobiApiClient.cs",
-              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Services\\IJobiApiClient.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAA/wHMAAABcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-06T11:37:50.11Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "JobiApiClient.cs",
-              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Services\\JobiApiClient.cs",
-              "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Services\\JobiApiClient.cs",
-              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Services\\JobiApiClient.cs",
-              "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Services\\JobiApiClient.cs",
-              "ViewState": "AgIAAE4CAAAAAAAAAAA9wHUCAABUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-05T14:08:15.024Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "JobsDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\JobsDbContext.cs",
-              "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\JobsDbContext.cs",
-              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\JobsDbContext.cs",
-              "RelativeToolTip": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\JobsDbContext.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-12T18:24:27.369Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 28,
               "Title": "InterviewConfiguration.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Configurations\\InterviewConfiguration.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Infrastructure\\Persistence\\Configurations\\InterviewConfiguration.cs",
@@ -589,7 +835,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 29,
               "Title": "Interview.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Entities\\Interview.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Entities\\Interview.cs",
@@ -601,7 +847,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 30,
               "Title": "ApplicationStatus.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Enums\\ApplicationStatus.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Enums\\ApplicationStatus.cs",
@@ -613,7 +859,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 31,
               "Title": "InterviewEnums.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Enums\\InterviewEnums.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Enums\\InterviewEnums.cs",
@@ -625,19 +871,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "JobsModule.cs",
-              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\JobsModule.cs",
-              "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\JobsModule.cs",
-              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\JobsModule.cs",
-              "RelativeToolTip": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\JobsModule.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAYwEYAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-08T17:49:16.438Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 34,
               "Title": "AuthTokenHandler.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Services\\AuthTokenHandler.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Services\\AuthTokenHandler.cs",
@@ -649,7 +883,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 35,
               "Title": "GlobalExceptionHandler.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Api\\LinkedIn.Api\\Middleware\\GlobalExceptionHandler.cs",
               "RelativeDocumentMoniker": "src\\Api\\LinkedIn.Api\\Middleware\\GlobalExceptionHandler.cs",
@@ -661,7 +895,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 39,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Blog\\Index.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Blog\\Index.cshtml",
@@ -673,7 +907,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 38,
               "Title": "ContactUs.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Home\\ContactUs.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Home\\ContactUs.cshtml",
@@ -685,7 +919,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 33,
               "Title": "AdminController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\AdminController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\AdminController.cs",
@@ -697,7 +931,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 32,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\AccountController.cs",
@@ -709,7 +943,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 40,
               "Title": "Details.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Blog\\Details.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Blog\\Details.cshtml",
@@ -721,7 +955,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 42,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\HomeController.cs",
@@ -733,7 +967,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 43,
               "Title": "ContactEndpoints.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Api\\LinkedIn.Api\\Features\\Contact\\ContactEndpoints.cs",
               "RelativeDocumentMoniker": "src\\Api\\LinkedIn.Api\\Features\\Contact\\ContactEndpoints.cs",
@@ -745,7 +979,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 41,
               "Title": "BlogEndpoints.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Features\\Blogs\\BlogEndpoints.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Features\\Blogs\\BlogEndpoints.cs",
@@ -757,7 +991,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 36,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Program.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Program.cs",
@@ -769,7 +1003,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 37,
               "Title": "BlogController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\BlogController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\BlogController.cs",
@@ -781,7 +1015,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 44,
               "Title": "SharedTests.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\tests\\LinkedIn.Tests\\SharedTests.cs",
               "RelativeDocumentMoniker": "tests\\LinkedIn.Tests\\SharedTests.cs",
@@ -793,7 +1027,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 52,
               "Title": "CompanyAdminEndpoints.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Companies\\CompanyAdminEndpoints.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Companies\\CompanyAdminEndpoints.cs",
@@ -805,7 +1039,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 46,
               "Title": "LinkedIn.Tests.csproj",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\tests\\LinkedIn.Tests\\LinkedIn.Tests.csproj",
               "RelativeDocumentMoniker": "tests\\LinkedIn.Tests\\LinkedIn.Tests.csproj",
@@ -817,7 +1051,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 48,
               "Title": "LinkedIn.Modules.Jobs.csproj",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj",
@@ -829,7 +1063,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 45,
               "Title": "JobsTests.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\tests\\LinkedIn.Tests\\JobsTests.cs",
               "RelativeDocumentMoniker": "tests\\LinkedIn.Tests\\JobsTests.cs",
@@ -841,7 +1075,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 47,
               "Title": "Microsoft.PackageDependencyResolution.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\10.0.401\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\10.0.401\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.PackageDependencyResolution.targets",
@@ -853,7 +1087,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 49,
               "Title": "SlugGenerator.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\SlugGenerator.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\SlugGenerator.cs",
@@ -865,7 +1099,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 50,
               "Title": "Companies.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Companies.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Companies.cshtml",
@@ -877,7 +1111,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 51,
               "Title": "AdminDto.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\Api\\AdminDto.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\Api\\AdminDto.cs",
@@ -889,7 +1123,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 53,
               "Title": "CreateBlog.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Admin\\CreateBlog.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Admin\\CreateBlog.cshtml",
@@ -901,7 +1135,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 57,
               "Title": "SignUp.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Account\\SignUp.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Account\\SignUp.cshtml",
@@ -913,7 +1147,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 56,
               "Title": "JobForm.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Employer\\JobForm.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Employer\\JobForm.cshtml",
@@ -925,7 +1159,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 55,
               "Title": "CompanyProfile.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Employer\\CompanyProfile.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Employer\\CompanyProfile.cshtml",
@@ -937,7 +1171,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 54,
               "Title": "Profile.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Candidate\\Profile.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Candidate\\Profile.cshtml",
@@ -949,7 +1183,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 58,
               "Title": "_ValidationScriptsPartial.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
@@ -961,7 +1195,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 60,
               "Title": "ApplicationController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\ApplicationController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\ApplicationController.cs",
@@ -973,7 +1207,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 61,
               "Title": "Status.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Error\\Status.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Error\\Status.cshtml",
@@ -985,7 +1219,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 62,
               "Title": "ErrorController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\ErrorController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\ErrorController.cs",
@@ -997,7 +1231,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 59,
               "Title": "CandidateController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\CandidateController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\CandidateController.cs",
@@ -1009,7 +1243,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 63,
               "Title": "StatusErrorViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\ViewModels\\StatusErrorViewModel.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\ViewModels\\StatusErrorViewModel.cs",
@@ -1021,7 +1255,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 65,
               "Title": "Users.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Users.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Users.cshtml",
@@ -1033,7 +1267,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 64,
               "Title": "ContactMessages.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Admin\\ContactMessages.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Admin\\ContactMessages.cshtml",
@@ -1045,7 +1279,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 67,
               "Title": "UsersModule.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\UsersModule.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Users.Modules\\UsersModule.cs",
@@ -1057,7 +1291,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 66,
               "Title": "AuthDtos.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\Api\\AuthDtos.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\Api\\AuthDtos.cs",
@@ -1069,7 +1303,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 68,
               "Title": "AdminUserEndpoints.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\Features\\AdminUserEndpoints.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Users.Modules\\Features\\AdminUserEndpoints.cs",
@@ -1081,7 +1315,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 96,
+              "DocumentIndex": 108,
               "Title": "20261009133700_AddContactMessages.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Messaging\\Infrastructure\\Persistence\\Migrations\\20261009133700_AddContactMessages.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Modules.Messaging\\Infrastructure\\Persistence\\Migrations\\20261009133700_AddContactMessages.cs",
@@ -1093,7 +1327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 69,
               "Title": "MessagingModule.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Messaging\\MessagingModule.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Modules.Messaging\\MessagingModule.cs",
@@ -1105,7 +1339,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 70,
               "Title": "AdminContactEndpoints.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Messaging\\Features\\AdminContactEndpoints.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Modules.Messaging\\Features\\AdminContactEndpoints.cs",
@@ -1117,7 +1351,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 71,
               "Title": "MessagingDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Messaging\\Infrastructure\\Persistence\\MessagingDbContext.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Modules.Messaging\\Infrastructure\\Persistence\\MessagingDbContext.cs",
@@ -1129,7 +1363,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 72,
               "Title": "ContactMessageConfiguration.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Messaging\\Infrastructure\\Persistence\\Configurations\\ContactMessageConfiguration.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Modules.Messaging\\Infrastructure\\Persistence\\Configurations\\ContactMessageConfiguration.cs",
@@ -1141,7 +1375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 73,
               "Title": "ContactMessage.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Modules.Messaging\\Domain\\Entities\\ContactMessage.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Modules.Messaging\\Domain\\Entities\\ContactMessage.cs",
@@ -1153,7 +1387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 74,
               "Title": "Jobs.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Jobs.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Jobs.cshtml",
@@ -1165,19 +1399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
-              "Title": "JobEndpoints.cs",
-              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Jobs\\JobEndpoints.cs",
-              "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Jobs\\JobEndpoints.cs",
-              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Jobs\\JobEndpoints.cs",
-              "RelativeToolTip": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Jobs\\JobEndpoints.cs",
-              "ViewState": "AgIAAIgAAAAAAAAAAAAowLYAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-08T17:49:40.418Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 75,
               "Title": "JobStatus.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Enums\\JobStatus.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Domain\\Enums\\JobStatus.cs",
@@ -1189,7 +1411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 76,
               "Title": "CategorySummary.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs.Contracts\\CategorySummary.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs.Contracts\\CategorySummary.cs",
@@ -1201,7 +1423,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 77,
               "Title": "SmtpOptions.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\Email\\SmtpOptions.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\Email\\SmtpOptions.cs",
@@ -1213,7 +1435,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 79,
               "Title": "DevEmailSender.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\Email\\DevEmailSender.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\Email\\DevEmailSender.cs",
@@ -1225,7 +1447,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 78,
               "Title": "SmtpEmailSender.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\Email\\SmtpEmailSender.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\Email\\SmtpEmailSender.cs",
@@ -1237,7 +1459,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 82,
               "Title": "EditJobCategory.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Admin\\EditJobCategory.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Admin\\EditJobCategory.cshtml",
@@ -1249,7 +1471,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 81,
               "Title": "JobCategories.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Admin\\JobCategories.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Admin\\JobCategories.cshtml",
@@ -1261,7 +1483,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 83,
               "Title": "CategoryDto.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\Api\\CategoryDto.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\Api\\CategoryDto.cs",
@@ -1273,7 +1495,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 80,
               "Title": "Blogs.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Blogs.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Blogs.cshtml",
@@ -1285,7 +1507,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 84,
               "Title": "BlogDtos.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\Api\\BlogDtos.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\Api\\BlogDtos.cs",
@@ -1297,7 +1519,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 85,
               "Title": "Categories.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Categories.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Categories.cshtml",
@@ -1309,7 +1531,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
+              "DocumentIndex": 86,
               "Title": "UpdateCategoryCommand.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Categories\\UpdateCategory\\UpdateCategoryCommand.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Categories\\UpdateCategory\\UpdateCategoryCommand.cs",
@@ -1321,7 +1543,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 75,
+              "DocumentIndex": 88,
               "Title": "FileUploadService.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Uploads\\FileUploadService.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Uploads\\FileUploadService.cs",
@@ -1333,7 +1555,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 77,
+              "DocumentIndex": 90,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Index.cshtml",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Index.cshtml",
@@ -1345,7 +1567,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 74,
+              "DocumentIndex": 87,
               "Title": "UpdateBlogCommand.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Features\\Blogs\\Update\\UpdateBlogCommand.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Features\\Blogs\\Update\\UpdateBlogCommand.cs",
@@ -1357,7 +1579,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 76,
+              "DocumentIndex": 89,
               "Title": "UploadEndpoints.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Uploads\\UploadEndpoints.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Uploads\\UploadEndpoints.cs",
@@ -1369,7 +1591,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 78,
+              "DocumentIndex": 91,
               "Title": "DeleteBlogCommand.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Features\\Blogs\\Delete\\DeleteBlogCommand.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Features\\Blogs\\Delete\\DeleteBlogCommand.cs",
@@ -1381,7 +1603,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 81,
+              "DocumentIndex": 93,
               "Title": "JobAlertsController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\JobAlertsController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\JobAlertsController.cs",
@@ -1393,7 +1615,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 82,
+              "DocumentIndex": 94,
               "Title": "EmployerController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\EmployerController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\EmployerController.cs",
@@ -1405,19 +1627,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 79,
-              "Title": "UserDirectory.cs",
-              "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\UserDirectory.cs",
-              "RelativeDocumentMoniker": "src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\UserDirectory.cs",
-              "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\UserDirectory.cs",
-              "RelativeToolTip": "src\\Modules\\Users\\LinkedIn.Users.Modules\\Infrastructure\\UserDirectory.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-07T12:31:03.775Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 80,
+              "DocumentIndex": 92,
               "Title": "JobController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\JobController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\JobController.cs",
@@ -1429,7 +1639,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 83,
+              "DocumentIndex": 95,
               "Title": "CreateCategoryCommandValidator.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Categories\\CreateCategory\\CreateCategoryCommandValidator.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Categories\\CreateCategory\\CreateCategoryCommandValidator.cs",
@@ -1441,7 +1651,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 84,
+              "DocumentIndex": 96,
               "Title": "CreateCategoryCommand.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Categories\\CreateCategory\\CreateCategoryCommand.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Categories\\CreateCategory\\CreateCategoryCommand.cs",
@@ -1453,7 +1663,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 85,
+              "DocumentIndex": 97,
               "Title": "CategoryDto.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Categories\\Dtos\\CategoryDto.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Categories\\Dtos\\CategoryDto.cs",
@@ -1465,7 +1675,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 86,
+              "DocumentIndex": 98,
               "Title": "CategoryEndpoints.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Categories\\CategoryEndpoints.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\Features\\Categories\\CategoryEndpoints.cs",
@@ -1477,7 +1687,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 87,
+              "DocumentIndex": 99,
               "Title": "CreateBlogCommand.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Features\\Blogs\\Create\\CreateBlogCommand.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Features\\Blogs\\Create\\CreateBlogCommand.cs",
@@ -1489,7 +1699,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 88,
+              "DocumentIndex": 100,
               "Title": "BlogCategoryEndpoints.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Features\\Blogs\\BlogCategoryEndpoints.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Features\\Blogs\\BlogCategoryEndpoints.cs",
@@ -1501,7 +1711,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 89,
+              "DocumentIndex": 101,
               "Title": "BlogsDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Infrastructure\\Persistence\\BlogsDbContext.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Infrastructure\\Persistence\\BlogsDbContext.cs",
@@ -1513,7 +1723,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 91,
+              "DocumentIndex": 103,
               "Title": "SlugGenerator.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Infrastructure\\SlugGenerator.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Infrastructure\\SlugGenerator.cs",
@@ -1525,7 +1735,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 90,
+              "DocumentIndex": 102,
               "Title": "BlogsDbContextModelSnapshot.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Infrastructure\\Persistence\\Migrations\\BlogsDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\Infrastructure\\Persistence\\Migrations\\BlogsDbContextModelSnapshot.cs",
@@ -1537,7 +1747,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 92,
+              "DocumentIndex": 104,
               "Title": "MessagesController.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Controllers\\MessagesController.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Controllers\\MessagesController.cs",
@@ -1549,7 +1759,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 93,
+              "DocumentIndex": 105,
               "Title": "plan-fix-json-deserialization-error-for-blogs-api.md [Preview]",
               "DocumentMoniker": "C:\\Users\\Pc\\.copilot\\plans\\plan-fix-json-deserialization-error-for-blogs-api.md",
               "RelativeDocumentMoniker": "..\\..\\..\\.copilot\\plans\\plan-fix-json-deserialization-error-for-blogs-api.md",
@@ -1561,7 +1771,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 94,
+              "DocumentIndex": 106,
               "Title": "FlashKeys.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\FlashKeys.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\FlashKeys.cs",
@@ -1573,7 +1783,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 95,
+              "DocumentIndex": 107,
               "Title": "ErrorViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Models\\ErrorViewModel.cs",
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Models\\ErrorViewModel.cs",
