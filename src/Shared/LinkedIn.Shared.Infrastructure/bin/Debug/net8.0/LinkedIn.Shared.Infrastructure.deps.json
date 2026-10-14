@@ -22,7 +22,8 @@
         "runtime": {
           "lib/net8.0/FluentValidation.dll": {
             "assemblyVersion": "11.0.0.0",
-            "fileVersion": "11.11.0.0"
+            "fileVersion": "11.11.0.0",
+            "localPath": "FluentValidation.dll"
           }
         }
       },
@@ -34,7 +35,8 @@
         "runtime": {
           "lib/net6.0/MediatR.dll": {
             "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.4.1.0"
+            "fileVersion": "12.4.1.0",
+            "localPath": "MediatR.dll"
           }
         }
       },
@@ -42,7 +44,8 @@
         "runtime": {
           "lib/netstandard2.0/MediatR.Contracts.dll": {
             "assemblyVersion": "2.0.1.0",
-            "fileVersion": "2.0.1.0"
+            "fileVersion": "2.0.1.0",
+            "localPath": "MediatR.Contracts.dll"
           }
         }
       },
@@ -55,7 +58,8 @@
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {
             "assemblyVersion": "8.0.11.0",
-            "fileVersion": "8.0.1124.52104"
+            "fileVersion": "8.0.1124.52104",
+            "localPath": "Microsoft.EntityFrameworkCore.dll"
           }
         }
       },
@@ -63,7 +67,8 @@
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
             "assemblyVersion": "8.0.11.0",
-            "fileVersion": "8.0.1124.52104"
+            "fileVersion": "8.0.1124.52104",
+            "localPath": "Microsoft.EntityFrameworkCore.Abstractions.dll"
           }
         }
       },
@@ -74,7 +79,8 @@
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
             "assemblyVersion": "8.0.11.0",
-            "fileVersion": "8.0.1124.52104"
+            "fileVersion": "8.0.1124.52104",
+            "localPath": "Microsoft.EntityFrameworkCore.Relational.dll"
           }
         }
       },
@@ -87,7 +93,8 @@
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Caching.Memory.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.1024.46610"
+            "fileVersion": "8.0.1024.46610",
+            "localPath": "Microsoft.Extensions.Caching.Memory.dll"
           }
         }
       },
@@ -98,7 +105,8 @@
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.1024.46610"
+            "fileVersion": "8.0.1024.46610",
+            "localPath": "Microsoft.Extensions.DependencyInjection.dll"
           }
         }
       },
@@ -106,7 +114,8 @@
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.1024.46610"
+            "fileVersion": "8.0.1024.46610",
+            "localPath": "Microsoft.Extensions.DependencyInjection.Abstractions.dll"
           }
         }
       },
@@ -119,7 +128,8 @@
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Logging.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.1024.46610"
+            "fileVersion": "8.0.1024.46610",
+            "localPath": "Microsoft.Extensions.Logging.dll"
           }
         }
       },
@@ -130,7 +140,8 @@
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.1024.46610"
+            "fileVersion": "8.0.1024.46610",
+            "localPath": "Microsoft.Extensions.Logging.Abstractions.dll"
           }
         }
       },
@@ -141,7 +152,8 @@
         "runtime": {
           "lib/net8.0/Microsoft.Extensions.Options.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.224.6711"
+            "fileVersion": "8.0.224.6711",
+            "localPath": "Microsoft.Extensions.Options.dll"
           }
         }
       },

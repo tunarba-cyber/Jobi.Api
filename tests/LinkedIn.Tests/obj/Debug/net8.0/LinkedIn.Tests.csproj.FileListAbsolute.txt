@@ -158,3 +158,4 @@ C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\obj\Debug\net8.0\refint\L
 C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\obj\Debug\net8.0\LinkedIn.Tests.pdb
 C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\obj\Debug\net8.0\LinkedIn.Tests.genruntimeconfig.cache
 C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\obj\Debug\net8.0\ref\LinkedIn.Tests.dll
+C:\Users\Pc\source\repos\LinkedIn\tests\LinkedIn.Tests\bin\Debug\net8.0\LinkedIn.Tests.runtimeconfig.dev.json

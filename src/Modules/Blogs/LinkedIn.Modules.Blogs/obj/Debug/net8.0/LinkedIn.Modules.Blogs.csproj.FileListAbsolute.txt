@@ -30,3 +30,4 @@ C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\D
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Jobs.pdb
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Jobs.xml
 C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Jobs.Contracts.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Blogs\LinkedIn.Modules.Blogs\bin\Debug\net8.0\LinkedIn.Modules.Blogs.runtimeconfig.dev.json

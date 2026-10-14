@@ -189,3 +189,11 @@ C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\refint\L
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\LinkedIn.Api.pdb
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\LinkedIn.Api.genruntimeconfig.cache
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\ref\LinkedIn.Api.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Api.runtimeconfig.dev.json
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.lib.module.js
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.BrowserTools.js
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.BrowserTools.Config.js
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\dotnet-watch\browser-tools-key.public.json
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\dotnet-watch\browser-tools-key.private.json
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\jsmodules\jsmodules.build.manifest.json
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\scopedcss\scopedcss.cache

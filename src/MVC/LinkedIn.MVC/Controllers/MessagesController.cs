@@ -1,4 +1,5 @@
-﻿using LinkedIn.MVC.Models.Api;
+﻿using LinkedIn.MVC.Models;
+using LinkedIn.MVC.Models.Api;
 using LinkedIn.MVC.Models.ViewModels;
 using LinkedIn.MVC.Services;
 using Microsoft.AspNetCore.Authentication;
@@ -27,14 +28,14 @@ public class MessagesController : Controller
     {
         var messages = await _api.GetConversationMessagesAsync(id, ct);
         var convo = (await _api.GetMyConversationsAsync(ct)).FirstOrDefault(c => c.Id == id);
-        ViewBag.ApiBaseUrl = _apiOptions.Value.BaseUrl.TrimEnd('/');
-        ViewBag.AccessToken = HttpContext.GetTokenAsync("access_token").Result;
         return View(new ConversationViewModel
         {
             ConversationId = id,
             OtherUserId = convo?.OtherUserId ?? "",
             OtherUserName = convo?.OtherUserName ?? "Unknown",
-            Messages = messages
+            Messages = messages,
+            ApiBaseUrl = _apiOptions.Value.BaseUrl.TrimEnd('/'),
+            AccessToken = await HttpContext.GetTokenAsync(AuthTokens.Access) ?? string.Empty
         });
     }
 

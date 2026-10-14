@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LinkedIn.MVC.Controllers;
 
 [Authorize(Roles = "Candidate,Employer")]
-public class FollowController : Controller
+public class FollowController : AppController
 {
     private readonly IJobiApiClient _api;
     public FollowController(IJobiApiClient api) => _api = api;
@@ -37,26 +37,34 @@ public class FollowController : Controller
         View(new ExploreCompaniesViewModel { Companies = await _api.ExploreCompaniesAsync(q, page < 1 ? 1 : page, ct), Search = q });
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> FollowUser(string id, string? returnUrl, CancellationToken ct) =>
-        Done(await _api.FollowUserAsync(id, ct), returnUrl);
-
-    [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> UnfollowUser(string id, string? returnUrl, CancellationToken ct) =>
-        Done(await _api.UnfollowUserAsync(id, ct), returnUrl);
-
-    [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> FollowCompany(long id, string? returnUrl, CancellationToken ct) =>
-        Done(await _api.FollowCompanyAsync(id, ct), returnUrl);
-
-    [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> UnfollowCompany(long id, string? returnUrl, CancellationToken ct) =>
-        Done(await _api.UnfollowCompanyAsync(id, ct), returnUrl);
-
-    private IActionResult Done(ApiCallResult<bool> result, string? returnUrl)
+    public async Task<IActionResult> FollowUser(string id, string? returnUrl, CancellationToken ct)
     {
+        var result = await _api.FollowUserAsync(id, ct);
         if (!result.Success) TempData[FlashKeys.Error] = result.ErrorMessage;
-        return !string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl)
-            ? Redirect(returnUrl)
-            : RedirectToAction(nameof(Index));
+        return LocalReturn(returnUrl, nameof(Index));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> UnfollowUser(string id, string? returnUrl, CancellationToken ct)
+    {
+        var result = await _api.UnfollowUserAsync(id, ct);
+        if (!result.Success) TempData[FlashKeys.Error] = result.ErrorMessage;
+        return LocalReturn(returnUrl, nameof(Index));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> FollowCompany(long id, string? returnUrl, CancellationToken ct)
+    {
+        var result = await _api.FollowCompanyAsync(id, ct);
+        if (!result.Success) TempData[FlashKeys.Error] = result.ErrorMessage;
+        return LocalReturn(returnUrl, nameof(Index));
+    }
+
+    [HttpPost, ValidateAntiForgeryToken]
+    public async Task<IActionResult> UnfollowCompany(long id, string? returnUrl, CancellationToken ct)
+    {
+        var result = await _api.UnfollowCompanyAsync(id, ct);
+        if (!result.Success) TempData[FlashKeys.Error] = result.ErrorMessage;
+        return LocalReturn(returnUrl, nameof(Index));
     }
 }

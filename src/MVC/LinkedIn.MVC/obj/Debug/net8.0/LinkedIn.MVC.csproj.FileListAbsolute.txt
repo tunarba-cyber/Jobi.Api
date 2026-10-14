@@ -32,3 +32,11 @@ C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\obj\Debug\net8.0\LinkedIn
 C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\obj\Debug\net8.0\LinkedIn.MVC.genruntimeconfig.cache
 C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\obj\Debug\net8.0\ref\LinkedIn.MVC.dll
 C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\obj\Debug\net8.0\LinkedIn.EBB780B2.Up2Date
+C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\bin\Debug\net8.0\LinkedIn.MVC.runtimeconfig.dev.json
+C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\obj\Debug\net8.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.lib.module.js
+C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\obj\Debug\net8.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.BrowserTools.js
+C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\obj\Debug\net8.0\dotnet-watch\Microsoft.NET.Sdk.BlazorWeb.DotNetWatch.BrowserTools.Config.js
+C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\obj\Debug\net8.0\dotnet-watch\browser-tools-key.public.json
+C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\obj\Debug\net8.0\dotnet-watch\browser-tools-key.private.json
+C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\obj\Debug\net8.0\jsmodules\jsmodules.build.manifest.json
+C:\Users\Pc\source\repos\LinkedIn\src\MVC\LinkedIn.MVC\obj\Debug\net8.0\scopedcss\scopedcss.cache

@@ -8,6 +8,7 @@ using LinkedIn.Modules.Users.Features.PromoteToAdmin;
 using LinkedIn.Modules.Users.Features.RefreshToken;
 using LinkedIn.Modules.Users.Features.Register;
 using LinkedIn.Modules.Users.Features.ResetPassword;
+using LinkedIn.Shared.Abstractions.Security;
 using LinkedIn.Shared.Infrastructure.Http;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -25,43 +26,45 @@ internal static class AuthEndpoints
     {
         var group = endpoints
             .MapGroup("/api/auth")
-            .WithTags("Auth")
-            ;
+            .WithTags("Auth");
 
         group.MapPost("/register", Register)
             .WithName("Register")
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status409Conflict)
-            .RequireRateLimiting("auth");
+            .RequireRateLimiting(RateLimitPolicies.Auth);
 
         group.MapPost("/confirm-email", ConfirmEmail)
             .WithName("ConfirmEmail")
             .Produces(StatusCodes.Status204NoContent)
-            .ProducesProblem(StatusCodes.Status401Unauthorized);
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .RequireRateLimiting(RateLimitPolicies.Auth);
 
         group.MapPost("/login", Login)
             .WithName("Login")
             .Produces<AuthResultDto>()
             .ProducesProblem(StatusCodes.Status401Unauthorized)
-            .RequireRateLimiting("auth");
+            .RequireRateLimiting(RateLimitPolicies.Auth);
 
         group.MapPost("/refresh", Refresh)
             .WithName("RefreshToken")
             .Produces<AuthResultDto>()
-            .ProducesProblem(StatusCodes.Status401Unauthorized);
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .RequireRateLimiting(RateLimitPolicies.Auth);
 
         group.MapPost("/forgot-password", ForgotPassword)
             .WithName("ForgotPassword")
             .WithSummary("Always returns 204, whether or not the email exists - prevents account enumeration.")
             .Produces(StatusCodes.Status204NoContent)
-            .RequireRateLimiting("auth");
+            .RequireRateLimiting(RateLimitPolicies.Auth);
 
         group.MapPost("/reset-password", ResetPassword)
             .WithName("ResetPassword")
             .Produces(StatusCodes.Status204NoContent)
             .ProducesValidationProblem()
-            .ProducesProblem(StatusCodes.Status401Unauthorized);
+            .ProducesProblem(StatusCodes.Status401Unauthorized)
+            .RequireRateLimiting(RateLimitPolicies.Auth);
 
         group.MapPost("/logout", Logout)
             .WithName("Logout")
@@ -75,11 +78,10 @@ internal static class AuthEndpoints
             .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status401Unauthorized)
             .RequireAuthorization();
-        group.MapPost("/promote-to-admin", async (PromoteToAdminCommand command, ISender sender, CancellationToken ct) =>
-        (await sender.Send(command, ct)).ToHttpResult())
-    .WithName("PromoteToAdmin")
-    .RequireAuthorization("RequireAdmin");
 
+        group.MapPost("/promote-to-admin", PromoteToAdmin)
+            .WithName("PromoteToAdmin")
+            .RequireAuthorization(AuthPolicies.Admin);
     }
 
     private static async Task<IResult> Register(RegisterCommand command, ISender sender, CancellationToken ct) =>
@@ -101,6 +103,9 @@ internal static class AuthEndpoints
         (await sender.Send(command, ct)).ToHttpResult();
 
     private static async Task<IResult> Logout(LogoutCommand command, ISender sender, CancellationToken ct) =>
+        (await sender.Send(command, ct)).ToHttpResult();
+
+    private static async Task<IResult> PromoteToAdmin(PromoteToAdminCommand command, ISender sender, CancellationToken ct) =>
         (await sender.Send(command, ct)).ToHttpResult();
 
     private static async Task<IResult> LogoutAll(ClaimsPrincipal user, ISender sender, CancellationToken ct)

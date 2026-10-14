@@ -60,14 +60,19 @@
         searchBox.addEventListener('input', function() {
             clearTimeout(timer);
             const q = this.value.trim();
-            if (q.length < 2) { results.innerHTML = ''; return; }
+            if (q.length < 2) { results.replaceChildren(); return; }
 
             timer = setTimeout(async () => {
                 const res = await fetch('/Messages/SearchUsers?q=' + encodeURIComponent(q));
                 const users = await res.json();
-                results.innerHTML = users.map(u =>
-                    `<button type="button" class="list-group-item list-group-item-action" onclick="startChat('${u.id}')">${u.firstName} ${u.lastName}</button>`
-                ).join('');
+                results.replaceChildren(...users.map(u => {
+                    const b = document.createElement('button');
+                    b.type = 'button';
+                    b.className = 'list-group-item list-group-item-action';
+                    b.textContent = u.firstName + ' ' + u.lastName;
+                    b.addEventListener('click', () => startChat(u.id));
+                    return b;
+                }));
             }, 300);
         });
 

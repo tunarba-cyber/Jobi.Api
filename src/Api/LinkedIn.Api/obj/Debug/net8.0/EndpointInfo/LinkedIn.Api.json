@@ -4464,10 +4464,10 @@
     },
     "securitySchemes": {
       "Bearer": {
-        "type": "apiKey",
-        "description": "Enter: Bearer {your JWT}",
-        "name": "Authorization",
-        "in": "header"
+        "type": "http",
+        "description": "Paste the JWT only. Swagger adds the 'Bearer ' prefix.",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   },

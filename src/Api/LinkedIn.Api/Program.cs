@@ -2,13 +2,16 @@ using LinkedIn.Api.Extensions;
 using LinkedIn.Api.Features.Contact;
 using LinkedIn.Api.Middleware;
 using LinkedIn.Modules.Users.Infrastructure.Tokens;
+using LinkedIn.Shared.Abstractions.Security;
 using LinkedIn.Shared.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +37,14 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.AddLinkedInCors(builder.Configuration);
 
+// Real client IP comes from the MVC server via X-Forwarded-For. Only loopback is
+// trusted by default; in production add the MVC server's address to KnownProxies.
+builder.Services.Configure<ForwardedHeadersOptions>(o =>
+{
+    o.ForwardedHeaders = ForwardedHeaders.XForwardedFor;
+    // o.KnownProxies.Add(System.Net.IPAddress.Parse("10.0.0.5"));
+});
+
 // ---------------------------------------------------------------------------
 // Authentication / Authorization
 // ---------------------------------------------------------------------------
@@ -42,12 +53,12 @@ builder.Services.AddLinkedInCors(builder.Configuration);
 // configuration for this one setup step.
 var jwtSection = builder.Configuration.GetSection(JwtOptions.SectionName);
 var jwtSigningKey = jwtSection["SigningKey"];
-if (string.IsNullOrWhiteSpace(jwtSigningKey))
+if (string.IsNullOrWhiteSpace(jwtSigningKey) || jwtSigningKey.Length < 32)
 {
     throw new InvalidOperationException(
-        "Jwt:SigningKey is not configured. Set it via user-secrets or an environment " +
-        "variable - never commit a real signing key to appsettings.json. " +
-        "Example: dotnet user-secrets set \"Jwt:SigningKey\" \"a-long-random-string\"");
+        "Jwt:SigningKey must be at least 32 characters. Set it via user-secrets or an " +
+        "environment variable - never commit a real signing key to appsettings.json. " +
+        "Example: dotnet user-secrets set \"Jwt:SigningKey\" \"a-long-random-string-of-32+-chars\"");
 }
 
 builder.Services
@@ -87,22 +98,28 @@ builder.Services
     });
 
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("RequireEmployer", policy => policy.RequireRole("Employer"))
-    .AddPolicy("RequireCandidate", policy => policy.RequireRole("Candidate"))
-    .AddPolicy("RequireAdmin", policy => policy.RequireRole("Admin"));
+    .AddPolicy(AuthPolicies.Employer, p => p.RequireRole(AppRoles.Employer))
+    .AddPolicy(AuthPolicies.Candidate, p => p.RequireRole(AppRoles.Candidate))
+    .AddPolicy(AuthPolicies.Admin, p => p.RequireRole(AppRoles.Admin));
 
-// Applied selectively (login/register/forgot-password only, via
-// .RequireRateLimiting("auth") in AuthEndpoints) rather than globally - these
-// three are the ones actually worth protecting from brute-force/spam.
+// Per-client (IP) limits, applied selectively via .RequireRateLimiting(...) on
+// the auth endpoints and /api/contact.
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-    options.AddFixedWindowLimiter("auth", limiter =>
-    {
-        limiter.PermitLimit = 5;
-        limiter.Window = TimeSpan.FromMinutes(1);
-        limiter.QueueLimit = 0; // reject immediately over the limit, don't queue
-    });
+
+    static RateLimitPartition<string> PerIp(HttpContext ctx, int permits, TimeSpan window) =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            ctx.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = permits,
+                Window = window,
+                QueueLimit = 0 // reject immediately over the limit, don't queue
+            });
+
+    options.AddPolicy(RateLimitPolicies.Auth, ctx => PerIp(ctx, 10, TimeSpan.FromMinutes(1)));
+    options.AddPolicy(RateLimitPolicies.Contact, ctx => PerIp(ctx, 3, TimeSpan.FromMinutes(10)));
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -118,12 +135,10 @@ builder.Services.AddSwaggerGen(options =>
     // Lets Swagger UI send "Authorization: Bearer <token>" on Try It Out calls.
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
         BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Enter: Bearer {your JWT}"
+        Description = "Paste the JWT only. Swagger adds the 'Bearer ' prefix."
     });
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -139,7 +154,6 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddHealthChecks();
 
-
 // ---------------------------------------------------------------------------
 // Modules - discovered by convention, registered in one pass
 // ---------------------------------------------------------------------------
@@ -151,7 +165,18 @@ var app = builder.Build();
 // ---------------------------------------------------------------------------
 // Pipeline (order matters)
 // ---------------------------------------------------------------------------
-app.UseExceptionHandler();      // must be first so it wraps everything below
+app.UseForwardedHeaders();      // first: everything below sees the real client IP
+app.UseExceptionHandler();      // wraps everything below
+
+app.Use(async (ctx, next) =>
+{
+    var h = ctx.Response.Headers;
+    h["X-Content-Type-Options"] = "nosniff";
+    h["X-Frame-Options"] = "DENY";
+    h["Referrer-Policy"] = "strict-origin-when-cross-origin";
+    h["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()";
+    await next();
+});
 
 if (app.Environment.IsDevelopment())
 {

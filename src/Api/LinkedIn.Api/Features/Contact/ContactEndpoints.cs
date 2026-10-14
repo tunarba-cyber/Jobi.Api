@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using System.Net;
 using System.Net.Mail;
+using LinkedIn.Shared.Abstractions.Security;
 
 namespace LinkedIn.Api.Features.Contact;
 
@@ -18,7 +19,8 @@ internal static class ContactEndpoints
         endpoints.MapPost("/api/contact", SendContactMessage)
             .WithTags("Contact")
             .WithName("SendContactMessage")
-            .ProducesProblem(StatusCodes.Status400BadRequest);
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .RequireRateLimiting(RateLimitPolicies.Contact);
     }
 
     private static async Task<IResult> SendContactMessage(

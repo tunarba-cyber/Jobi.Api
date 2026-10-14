@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LinkedIn.MVC.Controllers;
 
 [Authorize(Roles = "Admin")]
-public class AdminController : Controller
+public class AdminController : AppController
 {
     private readonly IJobiApiClient _api;
     public AdminController(IJobiApiClient api) => _api = api;
@@ -74,7 +74,7 @@ public class AdminController : Controller
     {
         var result = await _api.DeleteBlogAsync(id, ct);
         if (!result.Success)
-            TempData["Error"] = result.ErrorMessage;
+            TempData[FlashKeys.Error] = result.ErrorMessage;
         return RedirectToAction(nameof(Blogs));
     }
 
@@ -89,7 +89,7 @@ public class AdminController : Controller
     {
         var result = await _api.CreateBlogCategoryAsync(name, ct);
         if (!result.Success)
-            TempData["Error"] = result.ErrorMessage;
+            TempData[FlashKeys.Error] = result.ErrorMessage;
         return RedirectToAction(nameof(Categories));
     }
 
@@ -105,7 +105,7 @@ public class AdminController : Controller
     {
         var result = await _api.CreateCategoryAsync(request, ct);
         if (!result.Success)
-            TempData["Error"] = result.ErrorMessage;
+            TempData[FlashKeys.Error] = result.ErrorMessage;
         return RedirectToAction(nameof(JobCategories));
     }
 
@@ -120,7 +120,7 @@ public class AdminController : Controller
     public async Task<IActionResult> EditJobCategory(long id, UpdateCategoryRequest request, CancellationToken ct)
     {
         var result = await _api.UpdateCategoryAsync(id, request, ct);
-        if (!result.Success) TempData["Error"] = result.ErrorMessage;
+        if (!result.Success) TempData[FlashKeys.Error] = result.ErrorMessage;
         return RedirectToAction(nameof(JobCategories));
     }
 
@@ -129,15 +129,19 @@ public class AdminController : Controller
     {
         var result = await _api.DeleteCategoryAsync(id, ct);
         if (!result.Success)
-            TempData["Error"] = result.ErrorMessage;
+            TempData[FlashKeys.Error] = result.ErrorMessage;
         return RedirectToAction(nameof(JobCategories));
     }
+
+    // -------------------------------------------------------------------
+    // Companies
+    // -------------------------------------------------------------------
     public async Task<IActionResult> Companies(string? search, int page = 1, CancellationToken ct = default) =>
-    View(await _api.GetAdminCompaniesAsync(search, page < 1 ? 1 : page, ct));
+        View(await _api.GetAdminCompaniesAsync(search, page < 1 ? 1 : page, ct));
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteCompany(long id, CancellationToken ct) =>
-        Done(await _api.AdminDeleteCompanyAsync(id, ct), "Company removed and its jobs closed.", nameof(Companies));
+        FlashAndRedirect(await _api.AdminDeleteCompanyAsync(id, ct), "Company removed and its jobs closed.", nameof(Companies));
 
     // -------------------------------------------------------------------
     // Jobs
@@ -149,7 +153,7 @@ public class AdminController : Controller
     public async Task<IActionResult> SetJobStatus(long id, JobStatus status, CancellationToken ct)
     {
         var result = await _api.SetJobStatusAsync(id, status, ct);
-        if (!result.Success) TempData["Error"] = result.ErrorMessage;
+        if (!result.Success) TempData[FlashKeys.Error] = result.ErrorMessage;
         return RedirectToAction(nameof(Jobs));
     }
 
@@ -157,7 +161,7 @@ public class AdminController : Controller
     public async Task<IActionResult> AdminDeleteJob(long id, CancellationToken ct)
     {
         var result = await _api.AdminDeleteJobAsync(id, ct);
-        if (!result.Success) TempData["Error"] = result.ErrorMessage;
+        if (!result.Success) TempData[FlashKeys.Error] = result.ErrorMessage;
         return RedirectToAction(nameof(Jobs));
     }
 
@@ -169,15 +173,15 @@ public class AdminController : Controller
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> SuspendUser(string id, CancellationToken ct) =>
-        Done(await _api.SuspendUserAsync(id, ct), "User suspended.", nameof(Users));
+        FlashAndRedirect(await _api.SuspendUserAsync(id, ct), "User suspended.", nameof(Users));
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> ReinstateUser(string id, CancellationToken ct) =>
-        Done(await _api.ReinstateUserAsync(id, ct), "User reinstated.", nameof(Users));
+        FlashAndRedirect(await _api.ReinstateUserAsync(id, ct), "User reinstated.", nameof(Users));
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> ChangeUserRole(string id, UserRole role, CancellationToken ct) =>
-        Done(await _api.ChangeUserRoleAsync(id, role, ct), $"Role changed to {role}.", nameof(Users));
+        FlashAndRedirect(await _api.ChangeUserRoleAsync(id, role, ct), $"Role changed to {role}.", nameof(Users));
 
     // -------------------------------------------------------------------
     // Contact Messages
@@ -187,16 +191,9 @@ public class AdminController : Controller
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> MarkContactRead(long id, CancellationToken ct) =>
-        Done(await _api.MarkContactReadAsync(id, ct), "Marked as read.", nameof(ContactMessages));
+        FlashAndRedirect(await _api.MarkContactReadAsync(id, ct), "Marked as read.", nameof(ContactMessages));
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteContactMessage(long id, CancellationToken ct) =>
-        Done(await _api.DeleteContactMessageAsync(id, ct), "Message deleted.", nameof(ContactMessages));
-
-    private IActionResult Done(ApiCallResult<bool> result, string successMessage, string action)
-    {
-        if (result.Success) TempData[FlashKeys.Success] = successMessage;
-        else TempData[FlashKeys.Error] = result.ErrorMessage;
-        return RedirectToAction(action);
-    }
+        FlashAndRedirect(await _api.DeleteContactMessageAsync(id, ct), "Message deleted.", nameof(ContactMessages));
 }

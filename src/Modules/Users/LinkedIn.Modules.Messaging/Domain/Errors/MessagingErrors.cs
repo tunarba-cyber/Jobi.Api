@@ -12,4 +12,10 @@ public static class MessagingErrors
 
     public static Error InvalidContent =>
         Error.Validation("Message.Invalid", "Message content must be between 1 and 4000 characters.");
+
+    public static Error CannotMessageSelf =>
+        Error.Validation("Message.Self", "You can't message yourself.");
+
+    public static Error RecipientNotFound =>
+        Error.NotFound("Message.RecipientNotFound", "That user doesn't exist.");
 }

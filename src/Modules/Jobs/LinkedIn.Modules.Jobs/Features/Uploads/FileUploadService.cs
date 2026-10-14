@@ -25,6 +25,14 @@ internal static class FileUploadService
         if (!allowedExtensions.Contains(extension))
             return Result.Fail("Upload.InvalidType", $"Allowed types: {string.Join(", ", allowedExtensions)}.");
 
+        var head = new byte[12];
+        await using (var probe = file.OpenReadStream())
+        {
+            var read = await probe.ReadAsync(head, ct);
+            if (!HasValidSignature(extension, head.AsSpan(0, read)))
+                return Result.Fail("Upload.InvalidContent", "The file content doesn't match its extension.");
+        }
+
         // wwwroot/uploads/{subfolder}/{userId}-{guid}.ext - userId prefix makes
         // it easy to spot whose file is whose on disk during development.
         var uploadsFolder = Path.Combine(env.WebRootPath ?? env.ContentRootPath, "uploads", subfolder);
@@ -40,6 +48,17 @@ internal static class FileUploadService
 
         return Result.Ok($"/uploads/{subfolder}/{fileName}");
     }
+
+    private static bool HasValidSignature(string ext, ReadOnlySpan<byte> h) => ext.ToLowerInvariant() switch
+    {
+        ".pdf" => h.StartsWith("%PDF"u8),
+        ".png" => h.StartsWith<byte>(new byte[] { 0x89, 0x50, 0x4E, 0x47 }),
+        ".jpg" or ".jpeg" => h.StartsWith<byte>(new byte[] { 0xFF, 0xD8, 0xFF }),
+        ".webp" => h.Length >= 12 && h[..4].SequenceEqual("RIFF"u8) && h[8..12].SequenceEqual("WEBP"u8),
+        ".docx" => h.StartsWith<byte>(new byte[] { 0x50, 0x4B, 0x03, 0x04 }),
+        ".doc" => h.StartsWith<byte>(new byte[] { 0xD0, 0xCF, 0x11, 0xE0 }),
+        _ => false
+    };
 
     // Tiny local Result type - kept private to this file so it doesn't collide
     // with your existing Shared.Abstractions.Primitives.Result, which carries

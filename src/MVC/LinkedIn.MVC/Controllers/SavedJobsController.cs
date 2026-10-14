@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LinkedIn.MVC.Controllers;
 
 [Authorize(Roles = "Candidate")]
-public class SavedJobsController : Controller
+public class SavedJobsController : AppController
 {
     private readonly IJobiApiClient _api;
 
@@ -21,7 +21,7 @@ public class SavedJobsController : Controller
     {
         var result = await _api.SaveJobAsync(jobId, ct);
         if (!result.Success) TempData[FlashKeys.Error] = result.ErrorMessage;
-        return BackTo(returnUrl);
+        return LocalReturn(returnUrl, nameof(Index));
     }
 
     [HttpPost, ValidateAntiForgeryToken]
@@ -29,12 +29,6 @@ public class SavedJobsController : Controller
     {
         var result = await _api.UnsaveJobAsync(jobId, ct);
         if (!result.Success) TempData[FlashKeys.Error] = result.ErrorMessage;
-        return BackTo(returnUrl);
+        return LocalReturn(returnUrl, nameof(Index));
     }
-
-    // Only ever redirect to a local URL - returnUrl comes from a form field.
-    private IActionResult BackTo(string? returnUrl) =>
-        !string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl)
-            ? Redirect(returnUrl)
-            : RedirectToAction(nameof(Index));
 }

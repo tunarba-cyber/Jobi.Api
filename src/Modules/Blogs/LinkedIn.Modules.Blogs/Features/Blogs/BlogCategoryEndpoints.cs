@@ -1,6 +1,7 @@
 using LinkedIn.Modules.Blogs.Domain.Entities;
 using LinkedIn.Modules.Blogs.Infrastructure;
 using LinkedIn.Modules.Blogs.Infrastructure.Persistence;
+using LinkedIn.Shared.Abstractions.Security;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -38,7 +39,7 @@ public static class BlogCategoryEndpoints
 
             return Results.Created($"/api/blog-categories/{category.Id}", new { category.Id, category.Name, category.Slug });
         })
-        .RequireAuthorization("RequireAdmin");   // instead of .RequireAuthorization()
+        .RequireAuthorization(AuthPolicies.Admin);
 
         return app;
     }

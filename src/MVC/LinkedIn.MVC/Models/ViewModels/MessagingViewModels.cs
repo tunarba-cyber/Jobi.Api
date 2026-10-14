@@ -14,4 +14,6 @@ public sealed class ConversationViewModel
     public long ConversationId { get; init; }
     public string OtherUserId { get; init; } = string.Empty;
     public IReadOnlyList<MessageDto> Messages { get; init; } = Array.Empty<MessageDto>();
+    public string ApiBaseUrl { get; init; } = string.Empty;
+    public string AccessToken { get; init; } = string.Empty;
 }

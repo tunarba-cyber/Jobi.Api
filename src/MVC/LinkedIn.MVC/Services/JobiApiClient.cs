@@ -28,12 +28,7 @@ public sealed class JobiApiClient : IJobiApiClient
         _logger = logger;
     }
 
-    public JobiApiClient WithBearer(string accessToken)
-    {
-        _http.DefaultRequestHeaders.Authorization =
-            new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
-        return this;
-    }
+    
 
     // -----------------------------------------------------------------------
     // Home
