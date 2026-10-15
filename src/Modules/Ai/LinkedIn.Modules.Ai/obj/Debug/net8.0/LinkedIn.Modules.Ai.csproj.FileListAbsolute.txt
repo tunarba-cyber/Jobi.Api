@@ -1,0 +1,17 @@
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\bin\Debug\net8.0\LinkedIn.Modules.Ai.deps.json
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\bin\Debug\net8.0\LinkedIn.Modules.Ai.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\bin\Debug\net8.0\LinkedIn.Modules.Ai.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\bin\Debug\net8.0\LinkedIn.Shared.Abstractions.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\bin\Debug\net8.0\LinkedIn.Shared.Abstractions.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\bin\Debug\net8.0\LinkedIn.Shared.Abstractions.xml
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\obj\Debug\net8.0\LinkedIn.Modules.Ai.csproj.AssemblyReference.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\obj\Debug\net8.0\LinkedIn.Modules.Ai.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\obj\Debug\net8.0\LinkedIn.Modules.Ai.AssemblyInfoInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\obj\Debug\net8.0\LinkedIn.Modules.Ai.AssemblyInfo.cs
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\obj\Debug\net8.0\LinkedIn.Modules.Ai.csproj.CoreCompileInputs.cache
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\obj\Debug\net8.0\LinkedIn.Modules.Ai.sourcelink.json
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\obj\Debug\net8.0\LinkedIn.D72F7D9A.Up2Date
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\obj\Debug\net8.0\LinkedIn.Modules.Ai.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\obj\Debug\net8.0\refint\LinkedIn.Modules.Ai.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\obj\Debug\net8.0\LinkedIn.Modules.Ai.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Modules\Ai\LinkedIn.Modules.Ai\obj\Debug\net8.0\ref\LinkedIn.Modules.Ai.dll

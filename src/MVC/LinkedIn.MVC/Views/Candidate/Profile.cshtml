@@ -76,7 +76,15 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="form-label fw-500">Bio</label>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label fw-500 mb-0">Bio</label>
+                            <button type="button" class="btn btn-sm btn-outline-primary"
+                                    data-ai-url="@Url.Action("ImproveBio", "Ai")"
+                                    data-ai-target="[name=Bio]"
+                                    data-ai-fields='@System.Text.Json.JsonSerializer.Serialize(new { bio = "[name=Bio]" })'>
+                                ✨ Improve with AI
+                            </button>
+                        </div>
                         <textarea name="Bio" class="form-control" rows="6" maxlength="2000">@Model.Bio</textarea>
                     </div>
 
@@ -102,3 +110,7 @@
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <partial name="_AiAssist" />
+}

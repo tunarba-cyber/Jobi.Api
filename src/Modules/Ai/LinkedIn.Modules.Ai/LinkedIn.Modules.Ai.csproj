@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<RootNamespace>LinkedIn.Modules.Ai</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- Gives HttpClientFactory, options, routing and Results.* - no extra packages needed. -->
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Shared\LinkedIn.Shared.Abstractions\LinkedIn.Shared.Abstractions.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="LinkedIn.Shared.Abstractions.Security" />
+	</ItemGroup>
+
+</Project>

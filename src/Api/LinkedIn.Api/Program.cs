@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.RateLimiting;
 
@@ -102,8 +103,8 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy(AuthPolicies.Candidate, p => p.RequireRole(AppRoles.Candidate))
     .AddPolicy(AuthPolicies.Admin, p => p.RequireRole(AppRoles.Admin));
 
-// Per-client (IP) limits, applied selectively via .RequireRateLimiting(...) on
-// the auth endpoints and /api/contact.
+// Per-client (IP) limits for auth and contact; per-user limit for AI. Applied
+// selectively via .RequireRateLimiting(...).
 builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
@@ -120,6 +121,21 @@ builder.Services.AddRateLimiter(options =>
 
     options.AddPolicy(RateLimitPolicies.Auth, ctx => PerIp(ctx, 10, TimeSpan.FromMinutes(1)));
     options.AddPolicy(RateLimitPolicies.Contact, ctx => PerIp(ctx, 3, TimeSpan.FromMinutes(10)));
+
+    // Per authenticated user (falls back to IP). Needs UseRateLimiter() to run
+    // AFTER UseAuthentication(), otherwise ctx.User is empty here.
+    options.AddPolicy(RateLimitPolicies.Ai, ctx =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            ctx.User.FindFirstValue(ClaimTypes.NameIdentifier)
+                ?? ctx.User.FindFirstValue("sub")
+                ?? ctx.Connection.RemoteIpAddress?.ToString()
+                ?? "unknown",
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -195,9 +211,9 @@ app.UseStaticFiles();
 
 app.UseSerilogRequestLogging();
 app.UseCors(CorsExtensions.FrontendPolicy);
-app.UseRateLimiter();
 
 app.UseAuthentication();
+app.UseRateLimiter();           // after authentication so the AI policy can see the user
 app.UseAuthorization();
 
 app.MapHealthChecks("/health");

@@ -246,6 +246,7 @@ public sealed class JobiApiClient : IJobiApiClient
             : ApiCallResult<bool>.Fail(await ReadErrorAsync(response, ct));
     }
 
+
     public async Task<IReadOnlyList<SavedJobDto>> GetSavedJobsAsync(CancellationToken ct = default) =>
         await GetOrDefaultAsync<IReadOnlyList<SavedJobDto>>("api/saved-jobs", Array.Empty<SavedJobDto>(), ct);
 
@@ -359,6 +360,14 @@ public sealed class JobiApiClient : IJobiApiClient
             return ApiCallResult<T>.Fail("Can't reach the server. Please try again.");
         }
     }
+    public Task<ApiCallResult<AiTextDto>> GenerateJobDescriptionAsync(AiJobDescriptionRequest request, CancellationToken ct = default) =>
+    SendJsonAsync<AiTextDto>(HttpMethod.Post, "api/ai/job-description", request, ct);
+
+    public Task<ApiCallResult<AiTextDto>> GenerateCoverLetterAsync(AiCoverLetterRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<AiTextDto>(HttpMethod.Post, "api/ai/cover-letter", request, ct);
+
+    public Task<ApiCallResult<AiTextDto>> ImproveBioAsync(AiImproveBioRequest request, CancellationToken ct = default) =>
+        SendJsonAsync<AiTextDto>(HttpMethod.Post, "api/ai/improve-bio", request, ct);
 
     private sealed record UploadResultDto(string? Url);
 
@@ -551,6 +560,7 @@ public sealed class JobiApiClient : IJobiApiClient
     {
         if (response.StatusCode == HttpStatusCode.Unauthorized) return "Please log in to continue.";
         if (response.StatusCode == HttpStatusCode.Forbidden) return "Your account type can't do this.";
+        if (response.StatusCode == (HttpStatusCode)429) return "Too many requests. Please wait a minute and try again.";
 
         try
         {

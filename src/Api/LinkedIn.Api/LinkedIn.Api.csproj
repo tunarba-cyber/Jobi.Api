@@ -31,6 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\Modules\Ai\LinkedIn.Modules.Ai\LinkedIn.Modules.Ai.csproj" />
 	  <ProjectReference Include="..\..\Modules\Blogs\LinkedIn.Modules.Blogs\LinkedIn.Modules.Blogs.csproj" />
 	  <ProjectReference Include="..\..\Modules\Jobs\LinkedIn.Modules.Jobs\LinkedIn.Modules.Jobs.csproj" />
 	  <ProjectReference Include="..\..\Modules\Users\LinkedIn.Modules.Messaging\LinkedIn.Modules.Messaging.csproj" />

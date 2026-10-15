@@ -265,6 +265,81 @@
     ]
   },
   {
+    "ContainingType": "LinkedIn.Modules.Ai.Features.AiEndpoints",
+    "Method": "CoverLetter",
+    "RelativePath": "api/ai/cover-letter",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "r",
+        "Type": "LinkedIn.Modules.Ai.Features.CoverLetterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "AI"
+    ]
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Ai.Features.AiEndpoints",
+    "Method": "ImproveBio",
+    "RelativePath": "api/ai/improve-bio",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "r",
+        "Type": "LinkedIn.Modules.Ai.Features.ImproveBioRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "AI"
+    ]
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Ai.Features.AiEndpoints",
+    "Method": "JobDescription",
+    "RelativePath": "api/ai/job-description",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "r",
+        "Type": "LinkedIn.Modules.Ai.Features.JobDescriptionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "AI"
+    ]
+  },
+  {
     "ContainingType": "LinkedIn.Modules.Jobs.Features.Applications.ApplicationEndpoints",
     "Method": "Apply",
     "RelativePath": "api/applications/",

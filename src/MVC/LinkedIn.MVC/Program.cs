@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews(o =>
 
 builder.Services.AddAntiforgery(o =>
 {
+    o.HeaderName = "RequestVerificationToken";
     o.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
         ? CookieSecurePolicy.SameAsRequest
         : CookieSecurePolicy.Always;

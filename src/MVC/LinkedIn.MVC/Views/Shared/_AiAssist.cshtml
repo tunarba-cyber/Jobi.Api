@@ -1,0 +1,34 @@
+﻿<div id="aiToken" hidden>@Html.AntiForgeryToken()</div>
+<script>
+    document.addEventListener('click', async function(e) {
+        const btn = e.target.closest('[data-ai-url]');
+        if (!btn) return;
+
+        const target = document.querySelector(btn.dataset.aiTarget);
+        const body = {};
+        for (const [key, selector] of Object.entries(JSON.parse(btn.dataset.aiFields || '{}')))
+            body[key] = document.querySelector(selector)?.value ?? '';
+        Object.assign(body, JSON.parse(btn.dataset.aiValues || '{}'));
+
+        const token = document.querySelector('#aiToken input[name="__RequestVerificationToken"]').value;
+        const label = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'Writing...';
+
+        try {
+            const res = await fetch(btn.dataset.aiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'RequestVerificationToken': token },
+                body: JSON.stringify(body)
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(data.error || 'The AI request failed.');
+            target.value = data.text;          // fills the box; nothing is submitted until the user reviews and saves
+        } catch (err) {
+            alert(err.message);
+        } finally {
+            btn.disabled = false;
+            btn.textContent = label;
+        }
+    });
+</script>

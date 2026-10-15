@@ -18,4 +18,5 @@ public static class RateLimitPolicies
 {
     public const string Auth = "auth";
     public const string Contact = "contact";
+    public const string Ai = "ai";
 }

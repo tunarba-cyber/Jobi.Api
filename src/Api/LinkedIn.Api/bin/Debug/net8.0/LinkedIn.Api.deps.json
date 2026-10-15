@@ -10,6 +10,7 @@
         "dependencies": {
           "FluentValidation": "11.11.0",
           "FluentValidation.DependencyInjectionExtensions": "11.11.0",
+          "LinkedIn.Modules.Ai": "1.0.0",
           "LinkedIn.Modules.Blogs": "1.0.0",
           "LinkedIn.Modules.Jobs": "1.0.0",
           "LinkedIn.Modules.Messaging": "1.0.0",
@@ -1201,6 +1202,17 @@
           }
         }
       },
+      "LinkedIn.Modules.Ai/1.0.0": {
+        "dependencies": {
+          "LinkedIn.Shared.Abstractions": "1.0.0"
+        },
+        "runtime": {
+          "LinkedIn.Modules.Ai.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "LinkedIn.Modules.Blogs/1.0.0": {
         "dependencies": {
           "FluentValidation": "11.11.0",
@@ -1282,9 +1294,8 @@
           "System.IdentityModel.Tokens.Jwt": "8.0.1"
         },
         "runtime": {
-          "LinkedIn.Modules.USers.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+          "LinkedIn.Modules.Users.dll": {
+            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -1839,6 +1850,11 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
+    },
+    "LinkedIn.Modules.Ai/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "LinkedIn.Modules.Blogs/1.0.0": {
       "type": "project",

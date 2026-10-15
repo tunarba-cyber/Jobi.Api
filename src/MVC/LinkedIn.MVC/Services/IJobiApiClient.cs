@@ -124,6 +124,9 @@ public interface IJobiApiClient
     Task<ApiCallResult<bool>> UnfollowUserAsync(string id, CancellationToken ct = default);
     Task<ApiCallResult<bool>> FollowCompanyAsync(long id, CancellationToken ct = default);
     Task<ApiCallResult<bool>> UnfollowCompanyAsync(long id, CancellationToken ct = default);
+    Task<ApiCallResult<AiTextDto>> GenerateJobDescriptionAsync(AiJobDescriptionRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<AiTextDto>> GenerateCoverLetterAsync(AiCoverLetterRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<AiTextDto>> ImproveBioAsync(AiImproveBioRequest request, CancellationToken ct = default);
 }
 
 /// <summary>
