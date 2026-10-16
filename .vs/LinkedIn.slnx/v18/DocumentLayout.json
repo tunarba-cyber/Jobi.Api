@@ -592,8 +592,7 @@
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Candidate\\Details.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-15T12:55:39.762Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:55:39.762Z"
             },
             {
               "$type": "Document",
@@ -618,8 +617,7 @@
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_AiAssist.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-15T12:51:48.48Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:51:48.48Z"
             },
             {
               "$type": "Document",
@@ -631,8 +629,7 @@
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Controllers\\AiController.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAAABwAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-15T12:51:11.977Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:51:11.977Z"
             },
             {
               "$type": "Document",
@@ -644,8 +641,7 @@
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Models\\Api\\AiDtos.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-15T12:48:30.591Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:48:30.591Z"
             },
             {
               "$type": "Document",
@@ -657,8 +653,7 @@
               "RelativeToolTip": "src\\Modules\\Ai\\LinkedIn.Modules.Ai\\AiModule.cs",
               "ViewState": "AgIAAAEAAAAAAAAAAAAAABkAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-15T12:46:27.555Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:46:27.555Z"
             },
             {
               "$type": "Document",
@@ -670,8 +665,7 @@
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Services\\IJobiApiClient.cs",
               "ViewState": "AgIAAHQAAAAAAAAAAAAswIAAAABwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-06T11:37:50.11Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-06T11:37:50.11Z"
             },
             {
               "$type": "Document",
@@ -683,8 +677,7 @@
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Candidate\\Profile.cshtml",
               "ViewState": "AgIAAFUAAAAAAAAAAAAAAHQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-09T16:34:11.906Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-09T16:34:11.906Z"
             },
             {
               "$type": "Document",
@@ -696,8 +689,7 @@
               "RelativeToolTip": "src\\Modules\\Ai\\LinkedIn.Modules.Ai\\Features\\AiEndpoints.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAUwBMAAABmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-15T12:40:51.191Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:40:51.191Z"
             },
             {
               "$type": "Document",
@@ -709,8 +701,7 @@
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Employer\\JobForm.cshtml",
               "ViewState": "AgIAAGQAAAAAAAAAAAAAAIMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-09T16:33:45.722Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-09T16:33:45.722Z"
             },
             {
               "$type": "Document",
@@ -722,8 +713,7 @@
               "RelativeToolTip": "src\\Modules\\Ai\\LinkedIn.Modules.Ai\\Features\\AiPrompts.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAACEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-15T12:40:19.386Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:40:19.386Z"
             },
             {
               "$type": "Document",
@@ -735,8 +725,7 @@
               "RelativeToolTip": "src\\Modules\\Ai\\LinkedIn.Modules.Ai\\Infrastructure\\DailyQuota.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-15T12:39:31.377Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:39:31.377Z"
             },
             {
               "$type": "Document",
@@ -748,8 +737,7 @@
               "RelativeToolTip": "src\\Modules\\Ai\\LinkedIn.Modules.Ai\\Infrastructure\\IAiClient.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-15T12:37:43.218Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:37:43.218Z"
             },
             {
               "$type": "Document",
@@ -761,8 +749,7 @@
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Services\\JobiApiClient.cs",
               "ViewState": "AgIAACACAAAAAAAAAAASwDECAABnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-05T14:08:15.024Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-05T14:08:15.024Z"
             },
             {
               "$type": "Document",
@@ -774,8 +761,7 @@
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-09T16:23:31.74Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-09T16:23:31.74Z"
             },
             {
               "$type": "Document",
@@ -787,8 +773,7 @@
               "RelativeToolTip": "src\\Modules\\Ai\\LinkedIn.Modules.Ai\\Infrastructure\\GeminiAiClient.cs",
               "ViewState": "AgIAAEAAAAAAAAAAAAAAAF8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-15T12:38:43.021Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:38:43.021Z"
             },
             {
               "$type": "Document",
@@ -800,8 +785,7 @@
               "RelativeToolTip": "src\\Modules\\Ai\\LinkedIn.Modules.Ai\\Domain\\AiErrors.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-15T12:36:57.948Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:36:57.948Z"
             },
             {
               "$type": "Document",
@@ -813,8 +797,7 @@
               "RelativeToolTip": "src\\Modules\\Ai\\LinkedIn.Modules.Ai\\AiOptions.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-15T12:35:50.302Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:35:50.302Z"
             },
             {
               "$type": "Document",
@@ -826,8 +809,7 @@
               "RelativeToolTip": "src\\Shared\\LinkedIn.Shared.Abstractions\\Security\\AppSecurity.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAIA8wBAAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-14T14:09:00.941Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-14T14:09:00.941Z"
             },
             {
               "$type": "Document",
@@ -839,34 +821,31 @@
               "RelativeToolTip": "src\\Api\\LinkedIn.Api\\Program.cs",
               "ViewState": "AgIAAMMAAAAAAAAAAAAAAOIAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-14T13:10:05.183Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-14T13:10:05.183Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 22,
-              "Title": "LinkedIn.Modules.Blogs",
+              "Title": "LinkedIn.Modules.Blogs.csproj",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\LinkedIn.Modules.Blogs.csproj",
               "RelativeDocumentMoniker": "src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\LinkedIn.Modules.Blogs.csproj",
               "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\LinkedIn.Modules.Blogs.csproj",
               "RelativeToolTip": "src\\Modules\\Blogs\\LinkedIn.Modules.Blogs\\LinkedIn.Modules.Blogs.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-10-15T12:23:21.422Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:23:21.422Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 21,
-              "Title": "LinkedIn.Modules.Ai",
+              "Title": "LinkedIn.Modules.Ai.csproj",
               "DocumentMoniker": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Ai\\LinkedIn.Modules.Ai\\LinkedIn.Modules.Ai.csproj",
               "RelativeDocumentMoniker": "src\\Modules\\Ai\\LinkedIn.Modules.Ai\\LinkedIn.Modules.Ai.csproj",
               "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\Modules\\Ai\\LinkedIn.Modules.Ai\\LinkedIn.Modules.Ai.csproj",
               "RelativeToolTip": "src\\Modules\\Ai\\LinkedIn.Modules.Ai\\LinkedIn.Modules.Ai.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-10-15T12:22:07.561Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-15T12:22:07.561Z"
             },
             {
               "$type": "Document",
@@ -926,8 +905,7 @@
               "RelativeToolTip": "src\\Api\\LinkedIn.Api\\appsettings.json",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAACQAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-10-14T14:27:22.041Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-14T14:27:22.041Z"
             },
             {
               "$type": "Document",
@@ -963,8 +941,7 @@
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Admin\\Users.cshtml",
               "ViewState": "AgIAACEAAAAAAAAAAAAowHUAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-09T13:43:17.221Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-09T13:43:17.221Z"
             },
             {
               "$type": "Document",
@@ -1288,8 +1265,7 @@
               "RelativeToolTip": "src\\Shared\\LinkedIn.Shared.Abstractions\\LinkedIn.Shared.Abstractions.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-10-14T14:13:51.136Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-14T14:13:51.136Z"
             },
             {
               "$type": "Document",
@@ -1781,8 +1757,7 @@
               "RelativeToolTip": "tests\\LinkedIn.Tests\\LinkedIn.Tests.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-10-11T12:10:51.993Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-11T12:10:51.993Z"
             },
             {
               "$type": "Document",
@@ -1794,8 +1769,7 @@
               "RelativeToolTip": "src\\Modules\\Jobs\\LinkedIn.Modules.Jobs\\LinkedIn.Modules.Jobs.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-10-11T12:12:10.749Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-11T12:12:10.749Z"
             },
             {
               "$type": "Document",
