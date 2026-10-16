@@ -1,5 +1,7 @@
 using LinkedIn.Modules.Blogs.Infrastructure.Persistence;
 using LinkedIn.Modules.Jobs.Infrastructure.Persistence;
+using LinkedIn.Modules.Messaging.Infrastructure.Persistence;
+using LinkedIn.Modules.Notifications.Infrastructure;
 using LinkedIn.Modules.Users.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,5 +26,7 @@ public static class MigrationExtensions
 
         var blogsDb = scope.ServiceProvider.GetRequiredService<BlogsDbContext>();
         await blogsDb.Database.MigrateAsync();
+        await scope.ServiceProvider.GetRequiredService<NotificationsDbContext>().Database.MigrateAsync();
+        await scope.ServiceProvider.GetRequiredService<MessagingDbContext>().Database.MigrateAsync();
     }
 }

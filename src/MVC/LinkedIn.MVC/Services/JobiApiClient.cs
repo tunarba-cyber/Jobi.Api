@@ -600,6 +600,20 @@ public sealed class JobiApiClient : IJobiApiClient
 
         return result.Success ? ApiCallResult<bool>.Ok(true) : ApiCallResult<bool>.Fail(result.ErrorMessage!);
     }
+    public async Task<PagedResult<NotificationDto>> GetNotificationsAsync(int page = 1, CancellationToken ct = default)
+    {
+        var url = BuildUrl("api/notifications", new() { ["page"] = page.ToString() });
+        return await GetOrDefaultAsync(url, PagedResult<NotificationDto>.Empty(page, 20), ct);
+    }
+
+    public async Task<int> GetUnreadNotificationCountAsync(CancellationToken ct = default) =>
+        (await GetOrDefaultAsync("api/notifications/unread-count", new UnreadCountDto(0), ct)).Count;
+
+    public Task<ApiCallResult<bool>> MarkNotificationReadAsync(long id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Put, $"api/notifications/{id}/read", null, ct);
+
+    public Task<ApiCallResult<bool>> MarkAllNotificationsReadAsync(CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Put, "api/notifications/read-all", null, ct);
 
     private sealed record ProblemDetailsResponse(string? Title, string? Detail, Dictionary<string, string[]>? Errors);
 

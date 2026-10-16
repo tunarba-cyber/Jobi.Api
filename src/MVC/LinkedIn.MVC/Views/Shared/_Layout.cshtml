@@ -98,6 +98,11 @@
                                         <li class="ms-3"><a asp-controller="Messages" asp-action="Index" class="fw-500">Messages</a></li>
                                     }
 
+                                    <li class="ms-3">
+                                        <a asp-controller="Notifications" asp-action="Index" class="fw-500">
+                                            <i class="bi bi-bell"></i> <span id="notifBadge" class="badge bg-danger" style="display:none;"></span>
+                                        </a>
+                                    </li>
                                     <li class="ms-3 fw-500">@User.Identity.Name</li>
                                     <li class="ms-3">
                                         <form asp-controller="Account" asp-action="Logout" method="post" class="mt-10">
@@ -469,12 +474,35 @@
     @if (TempData.Peek("LoginError") is not null)
     {
         <script>
-                window.addEventListener('DOMContentLoaded', function() {
-                    new bootstrap.Modal(document.getElementById('loginModal')).show();
-                });
+            window.addEventListener('DOMContentLoaded', function() {
+                new bootstrap.Modal(document.getElementById('loginModal')).show();
+            });
         </script>
     }
     <partial name="_ValidationScriptsPartial" />
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <script>
+            (function() {
+                const badge = document.getElementById('notifBadge');
+                if (!badge) return;
+                async function refresh() {
+                    if (document.hidden) return;
+                    try {
+                        const r = await fetch('@Url.Action("Count", "Notifications")', { headers: { 'Accept': 'application/json' } });
+                        if (!r.ok) return;
+                        const { count } = await r.json();
+                        badge.textContent = count > 99 ? '99+' : count;
+                        badge.style.display = count > 0 ? 'inline-block' : 'none';
+                    } catch { }
+                }
+                refresh();
+                setInterval(refresh, 45000);
+            })();
+        </script>
+    }
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

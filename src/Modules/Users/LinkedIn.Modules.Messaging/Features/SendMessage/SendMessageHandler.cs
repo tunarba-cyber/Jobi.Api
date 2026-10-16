@@ -3,7 +3,7 @@ using LinkedIn.Modules.Messaging.Domain.Errors;
 using LinkedIn.Modules.Messaging.Features.Dtos;
 using LinkedIn.Modules.Messaging.Infrastructure.Persistence;
 using LinkedIn.Modules.Messaging.Infrastructure.Realtime;
-using LinkedIn.Shared.Abstractions.Contracts;
+using A=LinkedIn.Shared.Abstractions.Contracts;
 using LinkedIn.Shared.Abstractions.Primitives;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -14,13 +14,15 @@ internal sealed class SendMessageHandler : IRequestHandler<SendMessageCommand, R
 {
     private readonly MessagingDbContext _db;
     private readonly IMessageNotifier _notifier;
-    private readonly IUserDirectory _users;
+    private readonly A.IUserDirectory _users;
+    private readonly A.INotificationPublisher _notify;
 
-    public SendMessageHandler(MessagingDbContext db, IMessageNotifier notifier, IUserDirectory users)
+    public SendMessageHandler(MessagingDbContext db, IMessageNotifier notifier, A.IUserDirectory users, A.INotificationPublisher notify)
     {
         _db = db;
         _notifier = notifier;
         _users = users;
+        _notify = notify;
     }
 
     public async Task<Result<MessageDto>> Handle(SendMessageCommand request, CancellationToken ct)
@@ -59,6 +61,12 @@ internal sealed class SendMessageHandler : IRequestHandler<SendMessageCommand, R
 
         var dto = new MessageDto(message.Id, message.SenderId, message.Content, message.IsRead, message.SentAtUtc);
         await _notifier.NotifyNewMessageAsync(request.RecipientUserId, dto, ct);
+
+        var sender = (await _users.GetSummariesAsync(new[] { request.RequestingUserId }, ct)).GetValueOrDefault(request.RequestingUserId);
+        var preview = message.Content.Length > 80 ? message.Content[..80] + "…" : message.Content;
+        await _notify.PublishAsync(request.RecipientUserId, A.NotificationTypes.Message, "New message",
+            $"{sender?.FirstName} {sender?.LastName}: {preview}", $"/Messages/Thread/{conversation.Id}",
+            groupKey: $"msg-{conversation.Id}", ct: ct);
 
         return Result.Success(dto);
     }

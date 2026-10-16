@@ -4,6 +4,10 @@
         <name>LinkedIn.Shared.Abstractions</name>
     </assembly>
     <members>
+        <member name="M:LinkedIn.Shared.Abstractions.Contracts.INotificationPublisher.PublishAsync(System.String,System.String,System.String,System.String,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>Never throws: a failed notification must not break the action that triggered it.
+            If groupKey matches an unread notification for that user, it is updated instead of duplicated.</summary>
+        </member>
         <member name="T:LinkedIn.Shared.Abstractions.Contracts.IUserDirectory">
             <summary>
             Public contract the Users module exposes to other modules. Messaging never

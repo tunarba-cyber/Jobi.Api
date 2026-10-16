@@ -92,7 +92,8 @@ internal static class FollowEndpoints
             .OrderByDescending(f => f.CreatedAtUtc).Select(f => f.FollowedUserId), me, db, dir, ct);
     }
 
-    private static async Task<IResult> FollowUser(string id, ClaimsPrincipal user, JobsDbContext db, IUserDirectory dir, CancellationToken ct)
+    private static async Task<IResult> FollowUser(string id, ClaimsPrincipal user, JobsDbContext db, IUserDirectory dir,
+        INotificationPublisher notify, CancellationToken ct)
     {
         var me = Uid(user);
         if (id == me) return Bad("You can't follow yourself.");
@@ -101,7 +102,11 @@ internal static class FollowEndpoints
 
         db.UserFollows.Add(new UserFollow { FollowerUserId = me, FollowedUserId = id });
         try { await db.SaveChangesAsync(ct); }
-        catch (DbUpdateException) { /* double-click race: the unique index already has it */ }
+        catch (DbUpdateException) { return Results.NoContent(); }   // double-click race: already followed
+
+        var who = (await dir.GetSummariesAsync(new[] { me }, ct)).GetValueOrDefault(me);
+        await notify.PublishAsync(id, NotificationTypes.Follow, "New follower",
+            $"{who?.FirstName} {who?.LastName} started following you.", "/Follow", ct: ct);
         return Results.NoContent();
     }
 
@@ -146,7 +151,8 @@ internal static class FollowEndpoints
             .ToListAsync(ct));
     }
 
-    private static async Task<IResult> FollowCompany(long id, ClaimsPrincipal user, JobsDbContext db, CancellationToken ct)
+    private static async Task<IResult> FollowCompany(long id, ClaimsPrincipal user, JobsDbContext db, IUserDirectory dir,
+        INotificationPublisher notify, CancellationToken ct)
     {
         var me = Uid(user);
         var company = await db.Companies.AsNoTracking().FirstOrDefaultAsync(c => c.Id == id, ct);
@@ -156,7 +162,11 @@ internal static class FollowEndpoints
 
         db.CompanyFollows.Add(new CompanyFollow { FollowerUserId = me, CompanyId = id });
         try { await db.SaveChangesAsync(ct); }
-        catch (DbUpdateException) { }
+        catch (DbUpdateException) { return Results.NoContent(); }
+
+        var who = (await dir.GetSummariesAsync(new[] { me }, ct)).GetValueOrDefault(me);
+        await notify.PublishAsync(company.OwnerUserId, NotificationTypes.Follow, "New company follower",
+            $"{who?.FirstName} {who?.LastName} started following {company.Name}.", "/Follow", ct: ct);
         return Results.NoContent();
     }
 

@@ -3,6 +3,7 @@ using LinkedIn.Modules.Jobs.Domain.Enums;
 using LinkedIn.Modules.Jobs.Domain.Errors;
 using LinkedIn.Modules.Jobs.Features.Applications.Dtos;
 using LinkedIn.Modules.Jobs.Infrastructure.Persistence;
+using A=LinkedIn.Shared.Abstractions.Contracts;
 using LinkedIn.Shared.Abstractions.Primitives;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +13,13 @@ namespace LinkedIn.Modules.Jobs.Features.Applications.ApplyToJob;
 internal sealed class ApplyToJobHandler : IRequestHandler<ApplyToJobCommand, Result<ApplicationDto>>
 {
     private readonly JobsDbContext _db;
+    private readonly A.INotificationPublisher _notify;
 
-    public ApplyToJobHandler(JobsDbContext db) => _db = db;
+    public ApplyToJobHandler(JobsDbContext db, A.INotificationPublisher notify)
+    {
+        _db = db;
+        _notify = notify;
+    }
 
     public async Task<Result<ApplicationDto>> Handle(ApplyToJobCommand request, CancellationToken cancellationToken)
     {
@@ -41,6 +47,14 @@ internal sealed class ApplyToJobHandler : IRequestHandler<ApplyToJobCommand, Res
 
         _db.Applications.Add(application);
         await _db.SaveChangesAsync(cancellationToken);
+
+        var ownerId = await _db.Companies
+            .Where(c => c.Id == job.CompanyId)
+            .Select(c => c.OwnerUserId)
+            .FirstOrDefaultAsync(cancellationToken);
+        if (ownerId is not null)
+            await _notify.PublishAsync(ownerId, A.NotificationTypes.NewApplication, "New application",
+                $"{request.CandidateName} applied to {job.Title}.", $"/Employer/Applicants?jobId={job.Id}", ct: cancellationToken);
 
         var dto = await _db.Applications
             .AsNoTracking()

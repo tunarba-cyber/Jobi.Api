@@ -127,6 +127,10 @@ public interface IJobiApiClient
     Task<ApiCallResult<AiTextDto>> GenerateJobDescriptionAsync(AiJobDescriptionRequest request, CancellationToken ct = default);
     Task<ApiCallResult<AiTextDto>> GenerateCoverLetterAsync(AiCoverLetterRequest request, CancellationToken ct = default);
     Task<ApiCallResult<AiTextDto>> ImproveBioAsync(AiImproveBioRequest request, CancellationToken ct = default);
+    Task<PagedResult<NotificationDto>> GetNotificationsAsync(int page = 1, CancellationToken ct = default);
+    Task<int> GetUnreadNotificationCountAsync(CancellationToken ct = default);
+    Task<ApiCallResult<bool>> MarkNotificationReadAsync(long id, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> MarkAllNotificationsReadAsync(CancellationToken ct = default);
 }
 
 /// <summary>

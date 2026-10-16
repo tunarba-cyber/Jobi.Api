@@ -14,6 +14,7 @@
           "LinkedIn.Modules.Blogs": "1.0.0",
           "LinkedIn.Modules.Jobs": "1.0.0",
           "LinkedIn.Modules.Messaging": "1.0.0",
+          "LinkedIn.Modules.Notifications": "1.0.0",
           "LinkedIn.Modules.USers": "1.0.0",
           "LinkedIn.Shared.Abstractions": "1.0.0",
           "LinkedIn.Shared.Infrastructure": "1.0.0",
@@ -1281,6 +1282,18 @@
           }
         }
       },
+      "LinkedIn.Modules.Notifications/1.0.0": {
+        "dependencies": {
+          "LinkedIn.Shared.Abstractions": "1.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.11"
+        },
+        "runtime": {
+          "LinkedIn.Modules.Notifications.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "LinkedIn.Modules.USers/1.0.0": {
         "dependencies": {
           "FluentValidation": "11.11.0",
@@ -1877,6 +1890,11 @@
       "sha512": ""
     },
     "LinkedIn.Modules.Messaging/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LinkedIn.Modules.Notifications/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

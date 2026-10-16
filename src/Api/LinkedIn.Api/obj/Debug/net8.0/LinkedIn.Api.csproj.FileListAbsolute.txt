@@ -199,3 +199,5 @@ C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\jsmodule
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\obj\Debug\net8.0\scopedcss\scopedcss.cache
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Ai.dll
 C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Ai.pdb
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Notifications.dll
+C:\Users\Pc\source\repos\LinkedIn\src\Api\LinkedIn.Api\bin\Debug\net8.0\LinkedIn.Modules.Notifications.pdb

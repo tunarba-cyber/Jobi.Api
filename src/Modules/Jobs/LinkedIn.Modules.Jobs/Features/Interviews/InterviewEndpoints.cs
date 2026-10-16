@@ -3,6 +3,7 @@ using System.Security.Claims;
 using LinkedIn.Modules.Jobs.Domain.Entities;
 using LinkedIn.Modules.Jobs.Domain.Enums;
 using LinkedIn.Modules.Jobs.Infrastructure.Persistence;
+using LinkedIn.Shared.Abstractions.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -50,7 +51,8 @@ internal static class InterviewEndpoints
             .OrderByDescending(i => i.ScheduledAtUtc).Select(ToDto).ToListAsync(ct));
     }
 
-    private static async Task<IResult> Schedule(ScheduleInterviewRequest r, ClaimsPrincipal user, JobsDbContext db, CancellationToken ct)
+    private static async Task<IResult> Schedule(ScheduleInterviewRequest r, ClaimsPrincipal user, JobsDbContext db,
+        INotificationPublisher notify, CancellationToken ct)
     {
         if (r.ScheduledAtUtc <= DateTimeOffset.UtcNow.AddMinutes(5)
             || r.DurationMinutes is < 15 or > 480
@@ -82,11 +84,15 @@ internal static class InterviewEndpoints
         if (app.Status is ApplicationStatus.Applied or ApplicationStatus.Reviewed) app.Status = ApplicationStatus.Shortlisted;
         await db.SaveChangesAsync(ct);
 
+        await notify.PublishAsync(app.CandidateUserId, NotificationTypes.Interview, "Interview invitation",
+            $"You've been invited to interview for {app.Job!.Title}. Open Interviews to confirm.", "/Interviews/My", ct: ct);
+
         var dto = await db.Interviews.AsNoTracking().Where(i => i.Id == interview.Id).Select(ToDto).FirstAsync(ct);
         return Results.Created($"/api/interviews/{interview.Id}", dto);
     }
 
-    private static async Task<IResult> Cancel(long id, ClaimsPrincipal user, JobsDbContext db, CancellationToken ct)
+    private static async Task<IResult> Cancel(long id, ClaimsPrincipal user, JobsDbContext db,
+        INotificationPublisher notify, CancellationToken ct)
     {
         var i = await db.Interviews.Include(x => x.Application).ThenInclude(a => a!.Job).ThenInclude(j => j!.Company)
             .FirstOrDefaultAsync(x => x.Id == id, ct);
@@ -96,12 +102,18 @@ internal static class InterviewEndpoints
 
         i.Status = InterviewStatus.Cancelled;
         await db.SaveChangesAsync(ct);
+
+        await notify.PublishAsync(i.Application!.CandidateUserId, NotificationTypes.Interview, "Interview cancelled",
+            $"Your interview for {i.Application.Job!.Title} was cancelled.", "/Interviews/My", ct: ct);
         return Results.NoContent();
     }
 
-    private static async Task<IResult> Respond(long id, RespondInterviewRequest r, ClaimsPrincipal user, JobsDbContext db, CancellationToken ct)
+    private static async Task<IResult> Respond(long id, RespondInterviewRequest r, ClaimsPrincipal user, JobsDbContext db,
+        INotificationPublisher notify, CancellationToken ct)
     {
-        var i = await db.Interviews.Include(x => x.Application).FirstOrDefaultAsync(x => x.Id == id, ct);
+        var i = await db.Interviews
+            .Include(x => x.Application).ThenInclude(a => a!.Job).ThenInclude(j => j!.Company)
+            .FirstOrDefaultAsync(x => x.Id == id, ct);
         if (i is null) return Problem("Interview.NotFound", "Interview not found.", 404);
         if (i.Application?.CandidateUserId != Uid(user)) return Results.Forbid();
         if (i.Status is not (InterviewStatus.Scheduled or InterviewStatus.Confirmed) || i.ScheduledAtUtc <= DateTimeOffset.UtcNow)
@@ -109,6 +121,12 @@ internal static class InterviewEndpoints
 
         i.Status = r.Accept ? InterviewStatus.Confirmed : InterviewStatus.Declined;
         await db.SaveChangesAsync(ct);
+
+        var ownerId = i.Application!.Job!.Company!.OwnerUserId;
+        await notify.PublishAsync(ownerId, NotificationTypes.Interview,
+            r.Accept ? "Interview confirmed" : "Interview declined",
+            $"{i.Application.CandidateName} {(r.Accept ? "confirmed" : "declined")} the interview for {i.Application.Job.Title}.",
+            "/Interviews/Manage", ct: ct);
         return Results.NoContent();
     }
 }
