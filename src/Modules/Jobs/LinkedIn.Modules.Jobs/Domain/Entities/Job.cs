@@ -41,4 +41,5 @@ public sealed class Job : BaseEntity
 
     /// <summary>Surfaces the job in index.html's featured-jobs carousel.</summary>
     public bool IsFeatured { get; set; }
+    public int ViewCount { get; set; }
 }

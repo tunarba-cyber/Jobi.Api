@@ -131,6 +131,7 @@ public interface IJobiApiClient
     Task<int> GetUnreadNotificationCountAsync(CancellationToken ct = default);
     Task<ApiCallResult<bool>> MarkNotificationReadAsync(long id, CancellationToken ct = default);
     Task<ApiCallResult<bool>> MarkAllNotificationsReadAsync(CancellationToken ct = default);
+    Task<EmployerAnalyticsDto?> GetEmployerAnalyticsAsync(CancellationToken ct = default);
 }
 
 /// <summary>

@@ -19,6 +19,7 @@ public sealed class JobsDbContext : DbContext
     public DbSet<Interview> Interviews => Set<Interview>();
     public DbSet<UserFollow> UserFollows => Set<UserFollow>();
     public DbSet<CompanyFollow> CompanyFollows => Set<CompanyFollow>();
+    public DbSet<JobAlertMatch> JobAlertMatches => Set<JobAlertMatch>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

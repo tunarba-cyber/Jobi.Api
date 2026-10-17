@@ -91,6 +91,9 @@
             yet, so this is currently just persisted preferences, not an active alert.
             </summary>
         </member>
+        <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.JobAlertMatch">
+            <summary>Remembers that an alert already notified about a job, so it never notifies twice.</summary>
+        </member>
         <member name="T:LinkedIn.Modules.Jobs.Domain.Entities.SavedCandidate">
             <summary>An employer's bookmarked candidate - powers employer-dashboard-saved-candidate.html.</summary>
         </member>
@@ -241,6 +244,12 @@
             <summary>
             Backs the whole homepage in one call instead of the frontend firing three or
             four separate requests (categories, jobs, counters) on page load.
+            </summary>
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Features.JobAlerts.JobAlertMatcher">
+            <summary>
+            Every few minutes, finds recently active jobs that match candidates' saved alerts and notifies them.
+            Idempotent: JobAlertMatches records each (alert, job) pair, so restarts and re-runs never double-notify.
             </summary>
         </member>
         <member name="T:LinkedIn.Modules.Jobs.Features.Jobs.CreateJob.CreateJobCommand">
@@ -441,6 +450,18 @@
             <inheritdoc />
         </member>
         <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddFollows.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddJobViewsAndAlertMatches">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddJobViewsAndAlertMatches.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddJobViewsAndAlertMatches.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations.AddJobViewsAndAlertMatches.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
         <member name="T:LinkedIn.Modules.Jobs.JobsModule">

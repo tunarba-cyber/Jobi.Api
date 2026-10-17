@@ -14,6 +14,9 @@
             touches UsersDbContext or the AppUser entity - it only talks to this.
             </summary>
         </member>
+        <member name="T:LinkedIn.Shared.Abstractions.Contracts.IUserMailer">
+            <summary>Sends an email to a user by id. Implemented by the Users module, which owns addresses.</summary>
+        </member>
         <member name="T:LinkedIn.Shared.Abstractions.Entities.BaseEntity">
             <summary>
             Shared base for all entities across all modules. Pronia duplicated this per

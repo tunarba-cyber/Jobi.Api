@@ -1,0 +1,67 @@
+﻿@using LinkedIn.MVC.Models.Api
+@model EmployerAnalyticsDto
+@{
+    ViewData["Title"] = "Analytics";
+    var max = Math.Max(1, Model.ApplicationsLast30Days.Max(d => d.Count));
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Analytics</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row text-center mb-40">
+            <div class="col-6 col-md-3 mb-3"><div class="border rounded p-20"><div class="fs-3 fw-500">@Model.TotalViews</div><div class="text-muted">Job views</div></div></div>
+            <div class="col-6 col-md-3 mb-3"><div class="border rounded p-20"><div class="fs-3 fw-500">@Model.TotalApplications</div><div class="text-muted">Applications</div></div></div>
+            <div class="col-6 col-md-3 mb-3"><div class="border rounded p-20"><div class="fs-3 fw-500">@Model.ConversionPercent%</div><div class="text-muted">Apply rate</div></div></div>
+            <div class="col-6 col-md-3 mb-3"><div class="border rounded p-20"><div class="fs-3 fw-500">@Model.Hired</div><div class="text-muted">Hired</div></div></div>
+        </div>
+
+        <h5 class="mb-15">Applications, last 30 days</h5>
+        <div class="d-flex align-items-end border-bottom mb-5" style="height:140px; gap:3px;">
+            @foreach (var d in Model.ApplicationsLast30Days)
+            {
+                <div title="@d.Day.ToString("dd MMM"): @d.Count" style="flex:1; background:#244034; height:@(d.Count * 100 / max)%; min-height:2px;"></div>
+            }
+        </div>
+        <div class="d-flex justify-content-between text-muted small mb-50">
+            <span>@Model.ApplicationsLast30Days.First().Day.ToString("dd MMM")</span>
+            <span>@Model.ApplicationsLast30Days.Last().Day.ToString("dd MMM")</span>
+        </div>
+
+        <h5 class="mb-15">By job</h5>
+        @if (Model.Jobs.Count == 0)
+        {
+            <p class="text-muted">Post a job to see its numbers here.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead><tr><th>Job</th><th>Status</th><th class="text-end">Views</th><th class="text-end">Applications</th><th class="text-end">Shortlisted</th><th class="text-end">Hired</th></tr></thead>
+                    <tbody>
+                        @foreach (var j in Model.Jobs)
+                        {
+                            <tr>
+                                <td class="fw-500"><a asp-action="Applicants" asp-route-jobId="@j.JobId">@j.Title</a></td>
+                                <td><span class="badge @(j.Status switch { JobStatus.Active => "bg-success", JobStatus.Closed => "bg-secondary", _ => "bg-warning text-dark" })">@j.Status</span></td>
+                                <td class="text-end">@j.Views</td>
+                                <td class="text-end">@j.Applications</td>
+                                <td class="text-end">@j.Shortlisted</td>
+                                <td class="text-end">@j.Hired</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        <p class="text-muted small mt-20">Views count page loads of a job, excluding your own.</p>
+    </div>
+</section>

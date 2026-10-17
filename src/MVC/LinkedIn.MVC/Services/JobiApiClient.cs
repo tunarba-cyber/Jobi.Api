@@ -605,6 +605,8 @@ public sealed class JobiApiClient : IJobiApiClient
         var url = BuildUrl("api/notifications", new() { ["page"] = page.ToString() });
         return await GetOrDefaultAsync(url, PagedResult<NotificationDto>.Empty(page, 20), ct);
     }
+    public Task<EmployerAnalyticsDto?> GetEmployerAnalyticsAsync(CancellationToken ct = default) =>
+    GetOrNullAsync<EmployerAnalyticsDto>("api/analytics/employer", ct);
 
     public async Task<int> GetUnreadNotificationCountAsync(CancellationToken ct = default) =>
         (await GetOrDefaultAsync("api/notifications/unread-count", new UnreadCountDto(0), ct)).Count;

@@ -174,6 +174,11 @@ public class EmployerController : Controller
         TempData[FlashKeys.Success] = "Job updated.";
         return RedirectToAction(nameof(Index));
     }
+    public async Task<IActionResult> Analytics(CancellationToken ct)
+    {
+        var data = await _api.GetEmployerAnalyticsAsync(ct);
+        return data is null ? RedirectToAction(nameof(Index)) : View(data);
+    }
 
     // ---- Publish / close / delete -----------------------------------------
     [HttpPost, ValidateAntiForgeryToken]

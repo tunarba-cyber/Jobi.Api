@@ -27,6 +27,8 @@ public sealed class NotificationsModule : IModule
         }));
 
         services.AddScoped<INotificationPublisher, NotificationPublisher>();
+        services.AddSingleton<EmailQueue>();
+        services.AddHostedService<EmailDispatchService>();
     }
 
     public void MapEndpoints(IEndpointRouteBuilder endpoints) => endpoints.MapNotificationEndpoints();

@@ -121,11 +121,24 @@ internal static class JobEndpoints
     }
 
     private static async Task<IResult> GetJobBySlug(
-        string slug,
-        ISender sender,
-        CancellationToken cancellationToken)
+        string slug, ISender sender, ClaimsPrincipal user, JobsDbContext db, CancellationToken cancellationToken)
     {
         var result = await sender.Send(new GetJobBySlugQuery(slug), cancellationToken);
+
+        if (result.IsSuccess)
+        {
+            var viewer = user.FindFirstValue(ClaimTypes.NameIdentifier);
+            var jobId = result.Value.Id;
+            var companyId = result.Value.CompanyId;
+
+            var isOwner = viewer is not null &&
+                await db.Companies.AnyAsync(c => c.Id == companyId && c.OwnerUserId == viewer, cancellationToken);
+
+            if (!isOwner)
+                await db.Jobs.Where(j => j.Id == jobId)
+                    .ExecuteUpdateAsync(s => s.SetProperty(j => j.ViewCount, j => j.ViewCount + 1), cancellationToken);
+        }
+
         return result.ToHttpResult();
     }
     private static async Task<IResult> GetMyJobs(

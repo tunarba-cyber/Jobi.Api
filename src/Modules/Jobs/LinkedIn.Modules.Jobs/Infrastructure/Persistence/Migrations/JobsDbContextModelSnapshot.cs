@@ -534,6 +534,9 @@ namespace LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations
                     b.Property<int>("VacancyCount")
                         .HasColumnType("int");
 
+                    b.Property<int>("ViewCount")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Slug")
@@ -602,6 +605,33 @@ namespace LinkedIn.Modules.Jobs.Infrastructure.Persistence.Migrations
                     b.HasIndex("CandidateUserId");
 
                     b.ToTable("JobAlerts", "jobs");
+                });
+
+            modelBuilder.Entity("LinkedIn.Modules.Jobs.Domain.Entities.JobAlertMatch", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AlertId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<long>("JobId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobId");
+
+                    b.HasIndex("AlertId", "JobId")
+                        .IsUnique();
+
+                    b.ToTable("JobAlertMatches", "jobs");
                 });
 
             modelBuilder.Entity("LinkedIn.Modules.Jobs.Domain.Entities.SavedCandidate", b =>

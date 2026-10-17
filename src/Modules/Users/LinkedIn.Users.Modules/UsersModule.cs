@@ -71,6 +71,7 @@ public sealed class UsersModule : IModule
 
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IUserDirectory, UserDirectory>();
+        services.AddScoped<IUserMailer, UserMailer>();
 
         // No code change needed to go live with real email - set Smtp:Host in
         // config (appsettings/user-secrets/environment) and this automatically

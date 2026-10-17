@@ -1,3 +1,4 @@
+using LinkedIn.Modules.Jobs.Features.Analytics;
 using LinkedIn.Modules.Jobs.Features.Applications;
 using LinkedIn.Modules.Jobs.Features.Candidates;
 using LinkedIn.Modules.Jobs.Features.Categories;
@@ -51,6 +52,9 @@ public sealed class JobsModule : IModule
                 sp.GetRequiredService<SoftDeleteInterceptor>());
         });
 
+        // Background worker: matches new jobs against saved alerts and sends notifications.
+        services.AddHostedService<JobAlertMatcher>();
+
         // NOTE: MediatR and FluentValidation are registered ONCE by the host across
         // all module assemblies. Registering them per module (as Pronia did) would
         // duplicate the pipeline behaviors and run validation multiple times.
@@ -71,5 +75,6 @@ public sealed class JobsModule : IModule
         endpoints.MapCompanyAdminEndpoints();
         endpoints.MapInterviewEndpoints();
         endpoints.MapFollowEndpoints();
+        endpoints.MapAnalyticsEndpoints();
     }
 }
