@@ -6,10 +6,22 @@ using LinkedIn.Modules.Jobs.Features.Categories.CreateCategory;
 using LinkedIn.Modules.Jobs.Infrastructure.Persistence;
 using LinkedIn.Shared.Abstractions.Primitives;
 using Microsoft.EntityFrameworkCore;
+using A = LinkedIn.Shared.Abstractions.Contracts;
 using Xunit;
 
 namespace LinkedIn.Tests;
 
+internal sealed class FakeNotifier : A.INotificationPublisher
+{
+    public List<(string UserId, string Type)> Sent { get; } = new();
+
+    public Task PublishAsync(string userId, string type, string title, string? body, string? link,
+        string? groupKey = null, CancellationToken ct = default)
+    {
+        Sent.Add((userId, type));
+        return Task.CompletedTask;
+    }
+}
 public class JobsTests
 {
     // InMemory does not enforce unique indexes or SQL filters, so those DB-level
@@ -21,6 +33,9 @@ public class JobsTests
     [InlineData("UI/UX Design", "ui-ux-design")]
     [InlineData("  Marketing  ", "marketing")]
     [InlineData("Şəkər Çay", "seker-cay")]
+    [InlineData("İstanbul Ğ Ö Ü", "istanbul-g-o-u")]
+    [InlineData("Café  Menu!!", "cafe-menu")]
+
     public void SlugGenerator_produces_url_safe_slugs(string input, string expected) =>
         Assert.Equal(expected, SlugGenerator.Generate(input));
 
@@ -75,15 +90,29 @@ public class JobsTests
         new(jobId, user, "Cand", "c@x.test", null, null);
 
     [Fact]
-    public async Task Apply_succeeds_for_active_job()
+    public async Task Apply_succeeds_and_notifies_the_company_owner()
     {
         await using var db = NewDb();
         var jobId = await SeedJobAsync(db, JobStatus.Active);
+        var notifier = new FakeNotifier();
 
-        var result = await new ApplyToJobHandler(db).Handle(Apply(jobId), default);
+        var result = await new ApplyToJobHandler(db, notifier).Handle(Apply(jobId), default);
 
         Assert.True(result.IsSuccess);
         Assert.Equal(1, await db.Applications.CountAsync());
+        Assert.Contains(("owner", A.NotificationTypes.NewApplication), notifier.Sent);
+    }
+
+    [Fact]
+    public async Task Apply_rejection_does_not_notify()
+    {
+        await using var db = NewDb();
+        var jobId = await SeedJobAsync(db, JobStatus.Closed);
+        var notifier = new FakeNotifier();
+
+        await new ApplyToJobHandler(db, notifier).Handle(Apply(jobId), default);
+
+        Assert.Empty(notifier.Sent);
     }
 
     [Fact]
@@ -92,7 +121,8 @@ public class JobsTests
         await using var db = NewDb();
         var jobId = await SeedJobAsync(db, JobStatus.Closed);
 
-        var result = await new ApplyToJobHandler(db).Handle(Apply(jobId), default);
+        var handler = new ApplyToJobHandler(db, new FakeNotifier());
+        var result = await handler.Handle(Apply(jobId), default);
 
         Assert.True(result.IsFailure);
         Assert.Equal("Application.JobNotOpen", result.Error.Code);
@@ -103,7 +133,7 @@ public class JobsTests
     {
         await using var db = NewDb();
         var jobId = await SeedJobAsync(db, JobStatus.Active);
-        var handler = new ApplyToJobHandler(db);
+        var handler = new ApplyToJobHandler(db, new FakeNotifier());
 
         await handler.Handle(Apply(jobId), default);
         var again = await handler.Handle(Apply(jobId), default);
@@ -116,7 +146,8 @@ public class JobsTests
     public async Task Apply_rejects_unknown_job()
     {
         await using var db = NewDb();
-        var result = await new ApplyToJobHandler(db).Handle(Apply(999), default);
+        var handler = new ApplyToJobHandler(db, new FakeNotifier());
+        var result = await handler.Handle(Apply(999), default);
         Assert.True(result.IsFailure);
         Assert.Equal(ErrorType.NotFound, result.Error.Type);
     }
