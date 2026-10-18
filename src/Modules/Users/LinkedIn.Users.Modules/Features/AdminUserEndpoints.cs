@@ -24,6 +24,7 @@ internal static class AdminUserEndpoints
         group.MapPut("/{id}/suspend", Suspend);
         group.MapPut("/{id}/reinstate", Reinstate);
         group.MapPut("/{id}/role", ChangeRole);
+        group.MapPut("/{id}/confirm-email", ConfirmEmail);
     }
 
     private static async Task<IResult> GetUsers(UsersDbContext db, CancellationToken ct,
@@ -40,6 +41,18 @@ internal static class AdminUserEndpoints
                 u.LockoutEnd != null && u.LockoutEnd > now, u.EmailConfirmed, u.CreatedAtUtc));
 
         return Results.Ok(await query.ToPagedResultAsync(Math.Max(page, 1), Math.Clamp(pageSize, 1, 50), ct));
+    }
+    private static async Task<IResult> ConfirmEmail(string id, UserManager<AppUser> um)
+    {
+        var user = await um.FindByIdAsync(id);
+        if (user is null) return Results.NotFound();
+        if (user.EmailConfirmed) return Results.NoContent();
+
+        user.EmailConfirmed = true;
+        var result = await um.UpdateAsync(user);
+        return result.Succeeded
+            ? Results.NoContent()
+            : Bad(string.Join(" ", result.Errors.Select(e => e.Description)));
     }
 
     private static async Task<IResult> Suspend(string id, ClaimsPrincipal caller, UserManager<AppUser> um, UsersDbContext db, CancellationToken ct)

@@ -69,12 +69,10 @@
                                     }
                                     else if (!u.EmailConfirmed)
                                     {
-
                                         <span class="badge bg-warning text-dark">Unconfirmed</span>
                                     }
                                     else
                                     {
-
                                         <span class="badge bg-success">Active</span>
                                     }
                                 </td>
@@ -82,6 +80,14 @@
                                 <td class="text-end text-nowrap">
                                     @if (!isMe)
                                     {
+                                        @if (!u.EmailConfirmed)
+                                        {
+                                            <form asp-action="ConfirmUserEmail" method="post" class="d-inline">
+                                                <input type="hidden" name="id" value="@u.Id" />
+                                                <button type="submit" class="btn btn-sm btn-outline-primary">Confirm email</button>
+                                            </form>
+                                        }
+
                                         @if (u.IsSuspended)
                                         {
                                             <form asp-action="ReinstateUser" method="post" class="d-inline">

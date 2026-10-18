@@ -587,6 +587,8 @@ public sealed class JobiApiClient : IJobiApiClient
         }
         catch { return "Something went wrong. Please try again."; }
     }
+    public Task<ApiCallResult<bool>> ConfirmUserEmailAsync(string id, CancellationToken ct = default) =>
+    SendNoContentAsync(HttpMethod.Put, $"api/admin/users/{Uri.EscapeDataString(id)}/confirm-email", null, ct);
 
     public async Task<ApiCallResult<bool>> ConfirmEmailAsync(ConfirmEmailRequest request, CancellationToken ct = default)
     {

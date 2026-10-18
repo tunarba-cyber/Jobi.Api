@@ -68,6 +68,9 @@ public class AdminController : AppController
         }
         return RedirectToAction(nameof(Blogs));
     }
+    [HttpPost]
+    public async Task<IActionResult> ConfirmUserEmail(string id, CancellationToken ct) =>
+    FlashAndRedirect(await _api.ConfirmUserEmailAsync(id, ct), "Email confirmed.", nameof(Users));
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteBlog(Guid id, CancellationToken ct)
