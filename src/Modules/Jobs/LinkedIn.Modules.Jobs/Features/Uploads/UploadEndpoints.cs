@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using LinkedIn.Shared.Abstractions.Security;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -38,6 +39,13 @@ internal static class UploadEndpoints
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .RequireAuthorization("RequireEmployer")
             .DisableAntiforgery();
+
+        group.MapPost("/blog-image", UploadBlogImage)
+            .WithName("UploadBlogImage")
+            .Accepts<IFormFile>("multipart/form-data")
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .RequireAuthorization(AuthPolicies.Admin)
+            .DisableAntiforgery();
     }
 
     private static async Task<IResult> UploadResume(IFormFile? file, ClaimsPrincipal user, IWebHostEnvironment env, CancellationToken ct) =>
@@ -48,6 +56,9 @@ internal static class UploadEndpoints
 
     private static async Task<IResult> UploadLogo(IFormFile? file, ClaimsPrincipal user, IWebHostEnvironment env, CancellationToken ct) =>
         await HandleUpload(file, user, "logos", ImageExtensions, ImageMaxBytes, env, ct);
+
+    private static async Task<IResult> UploadBlogImage(IFormFile? file, ClaimsPrincipal user, IWebHostEnvironment env, CancellationToken ct) =>
+        await HandleUpload(file, user, "blogs", ImageExtensions, ImageMaxBytes, env, ct);
 
     private static async Task<IResult> HandleUpload(
         IFormFile? file, ClaimsPrincipal user, string subfolder,

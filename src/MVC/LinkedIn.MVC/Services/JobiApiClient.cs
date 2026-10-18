@@ -195,6 +195,20 @@ public sealed class JobiApiClient : IJobiApiClient
             return ApiCallResult<bool>.Fail("Can't reach the server. Please try again.");
         }
     }
+    public async Task<ApiCallResult<string>> UploadBlogImageAsync(Stream file, string fileName, string contentType, CancellationToken ct = default)
+    {
+        using var content = new MultipartFormDataContent();
+        var fileContent = new StreamContent(file);
+        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
+        content.Add(fileContent, "file", fileName);
+
+        using var response = await _http.PostAsync("api/uploads/blog-image", content, ct);
+        if (!response.IsSuccessStatusCode)
+            return ApiCallResult<string>.Fail(await ReadErrorAsync(response, ct));
+
+        var body = await response.Content.ReadFromJsonAsync<UploadResultDto>(JsonOptions, ct);
+        return body?.Url is { } url ? ApiCallResult<string>.Ok(url) : ApiCallResult<string>.Fail("Upload succeeded but no file URL was returned.");
+    }
 
     // -----------------------------------------------------------------------
     // Candidate actions

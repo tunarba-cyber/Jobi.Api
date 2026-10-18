@@ -342,6 +342,18 @@
         }
       }
     },
+    "/api/analytics/employer": {
+      "get": {
+        "tags": [
+          "Analytics"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/applications": {
       "post": {
         "tags": [
@@ -3242,6 +3254,46 @@
           "Uploads"
         ],
         "operationId": "UploadCompanyLogo",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/uploads/blog-image": {
+      "post": {
+        "tags": [
+          "Uploads"
+        ],
+        "operationId": "UploadBlogImage",
         "requestBody": {
           "content": {
             "multipart/form-data": {

@@ -132,6 +132,7 @@ public interface IJobiApiClient
     Task<ApiCallResult<bool>> MarkNotificationReadAsync(long id, CancellationToken ct = default);
     Task<ApiCallResult<bool>> MarkAllNotificationsReadAsync(CancellationToken ct = default);
     Task<EmployerAnalyticsDto?> GetEmployerAnalyticsAsync(CancellationToken ct = default);
+    Task<ApiCallResult<string>> UploadBlogImageAsync(Stream file, string fileName, string contentType, CancellationToken ct = default);
 }
 
 /// <summary>

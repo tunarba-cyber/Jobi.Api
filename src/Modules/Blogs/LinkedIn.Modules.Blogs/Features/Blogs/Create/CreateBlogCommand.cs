@@ -45,8 +45,13 @@ internal sealed class CreateBlogCommandHandler : IRequestHandler<CreateBlogComma
         if (!categoryExists)
             throw new InvalidOperationException($"Category '{request.CategoryId}' was not found.");
 
+        // IgnoreQueryFilters: soft-deleted blogs still occupy their slug in the
+        // unique index, so the check must see them too.
         var baseSlug = SlugGenerator.Generate(request.Title);
-        var slug = SlugGenerator.EnsureUnique(baseSlug, candidate => _db.Blogs.Any(b => b.Slug == candidate));
+        var slug = baseSlug;
+        var suffix = 2;
+        while (await _db.Blogs.IgnoreQueryFilters().AnyAsync(b => b.Slug == slug, ct))
+            slug = $"{baseSlug}-{suffix++}";
 
         var blog = Blog.Create(
             request.Title,
@@ -65,6 +70,3 @@ internal sealed class CreateBlogCommandHandler : IRequestHandler<CreateBlogComma
         return blog.Id;
     }
 }
-
-
-

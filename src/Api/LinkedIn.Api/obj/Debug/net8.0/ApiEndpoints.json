@@ -159,7 +159,7 @@
       },
       {
         "Name": "role",
-        "Type": "System.Nullable\u00601[[LinkedIn.Modules.Users.Domain.Enums.UserRole, LinkedIn.Modules.Users, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Nullable\u00601[[LinkedIn.Modules.Users.Domain.Enums.UserRole, LinkedIn.Modules.USers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": false
       },
       {
@@ -337,6 +337,25 @@
     ],
     "Tags": [
       "AI"
+    ]
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Analytics.AnalyticsEndpoints",
+    "Method": "ForEmployer",
+    "RelativePath": "api/analytics/employer",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "Analytics"
     ]
   },
   {
@@ -2971,6 +2990,34 @@
       "SavedJobs"
     ],
     "EndpointName": "UnsaveJob"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Jobs.Features.Uploads.UploadEndpoints",
+    "Method": "UploadBlogImage",
+    "RelativePath": "api/uploads/blog-image",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/problem\u002Bjson"
+        ],
+        "StatusCode": 400
+      }
+    ],
+    "Tags": [
+      "Uploads"
+    ],
+    "EndpointName": "UploadBlogImage"
   },
   {
     "ContainingType": "LinkedIn.Modules.Jobs.Features.Uploads.UploadEndpoints",

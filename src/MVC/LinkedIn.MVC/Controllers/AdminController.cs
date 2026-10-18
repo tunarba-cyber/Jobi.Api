@@ -49,7 +49,7 @@ public class AdminController : AppController
         if (image is { Length: > 0 })
         {
             await using var stream = image.OpenReadStream();
-            var upload = await _api.UploadPhotoAsync(stream, image.FileName, image.ContentType, ct);
+            var upload = await _api.UploadBlogImageAsync(stream, image.FileName, image.ContentType, ct);
             if (!upload.Success)
             {
                 ModelState.AddModelError(string.Empty, upload.ErrorMessage!);
