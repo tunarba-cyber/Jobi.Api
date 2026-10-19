@@ -86,9 +86,9 @@ internal static class AuthEndpoints
             .WithName("PromoteToAdmin")
             .RequireAuthorization(AuthPolicies.Admin);
         group.MapPost("/resend-confirmation", ResendConfirmation)
-    .WithName("ResendConfirmation")
-    .Produces(StatusCodes.Status204NoContent)
-    .RequireRateLimiting(RateLimitPolicies.Auth);
+            .WithName("ResendConfirmation")
+            .Produces(StatusCodes.Status204NoContent)
+            .RequireRateLimiting(RateLimitPolicies.Auth);
     }
 
     private static async Task<IResult> Register(RegisterCommand command, ISender sender, CancellationToken ct) =>

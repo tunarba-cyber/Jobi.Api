@@ -838,6 +838,32 @@
   },
   {
     "ContainingType": "LinkedIn.Modules.Users.Features.AuthEndpoints",
+    "Method": "ResendConfirmation",
+    "RelativePath": "api/auth/resend-confirmation",
+    "HttpMethod": "POST",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "LinkedIn.Modules.Users.Features.AuthEndpoints\u002BResendConfirmationRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      }
+    ],
+    "Tags": [
+      "Auth"
+    ],
+    "EndpointName": "ResendConfirmation"
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Users.Features.AuthEndpoints",
     "Method": "ResetPassword",
     "RelativePath": "api/auth/reset-password",
     "HttpMethod": "POST",
