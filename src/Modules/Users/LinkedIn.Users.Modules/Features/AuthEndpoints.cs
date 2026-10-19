@@ -1,3 +1,4 @@
+using LinkedIn.Modules.Users.Domain.Entities;
 using LinkedIn.Modules.Users.Features.ConfirmEmail;
 using LinkedIn.Modules.Users.Features.Dtos;
 using LinkedIn.Modules.Users.Features.ForgotPassword;
@@ -8,12 +9,14 @@ using LinkedIn.Modules.Users.Features.PromoteToAdmin;
 using LinkedIn.Modules.Users.Features.RefreshToken;
 using LinkedIn.Modules.Users.Features.Register;
 using LinkedIn.Modules.Users.Features.ResetPassword;
+using LinkedIn.Modules.Users.Infrastructure;
 using LinkedIn.Shared.Abstractions.Security;
 using LinkedIn.Shared.Infrastructure.Http;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Routing;
 using System.Security.Claims;
@@ -82,6 +85,10 @@ internal static class AuthEndpoints
         group.MapPost("/promote-to-admin", PromoteToAdmin)
             .WithName("PromoteToAdmin")
             .RequireAuthorization(AuthPolicies.Admin);
+        group.MapPost("/resend-confirmation", ResendConfirmation)
+    .WithName("ResendConfirmation")
+    .Produces(StatusCodes.Status204NoContent)
+    .RequireRateLimiting(RateLimitPolicies.Auth);
     }
 
     private static async Task<IResult> Register(RegisterCommand command, ISender sender, CancellationToken ct) =>
@@ -112,6 +119,18 @@ internal static class AuthEndpoints
     {
         var userId = user.FindFirstValue(ClaimTypes.NameIdentifier)!; // guaranteed present - endpoint requires auth
         return (await sender.Send(new LogoutAllCommand(userId), ct)).ToHttpResult();
+    }
+    private sealed record ResendConfirmationRequest(string Email);
+
+    private static async Task<IResult> ResendConfirmation(
+        ResendConfirmationRequest request, UserManager<AppUser> users, ConfirmationEmailService confirmation, CancellationToken ct)
+    {
+        if (!string.IsNullOrWhiteSpace(request.Email) && request.Email.Length <= 256)
+        {
+            var user = await users.FindByEmailAsync(request.Email.Trim());
+            if (user is { EmailConfirmed: false }) await confirmation.SendAsync(user, ct);
+        }
+        return Results.NoContent();   // same answer whether or not the account exists
     }
 
     // A tiny wrapper so the request body's field is named "refreshToken" rather

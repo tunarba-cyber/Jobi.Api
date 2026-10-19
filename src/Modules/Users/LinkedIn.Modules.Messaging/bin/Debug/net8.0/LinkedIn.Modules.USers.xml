@@ -81,6 +81,15 @@
             recently-revoked tokens.
             </summary>
         </member>
+        <member name="T:LinkedIn.Modules.Users.Infrastructure.ConfirmationEmailService">
+            <summary>
+            Confirmation links are an HMAC of the user id and email, so they never expire, can be reused,
+            and resending always produces the same working link.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Modules.Users.Infrastructure.ConfirmationEmailService.SendAsync(LinkedIn.Modules.Users.Domain.Entities.AppUser,System.Threading.CancellationToken)">
+            <summary>Never throws. Returns false if the email couldn't be sent.</summary>
+        </member>
         <member name="T:LinkedIn.Modules.Users.Infrastructure.Email.DevEmailSender">
             <summary>
             Local-development stand-in for a real mail provider. Writes each email as an

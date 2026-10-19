@@ -134,6 +134,9 @@ public interface IJobiApiClient
     Task<EmployerAnalyticsDto?> GetEmployerAnalyticsAsync(CancellationToken ct = default);
     Task<ApiCallResult<string>> UploadBlogImageAsync(Stream file, string fileName, string contentType, CancellationToken ct = default);
     Task<ApiCallResult<bool>> ConfirmUserEmailAsync(string id, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> ForgotPasswordAsync(string email, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> ResetPasswordAsync(string email, string token, string newPassword, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> ResendConfirmationAsync(string email, CancellationToken ct = default);
 }
 
 /// <summary>

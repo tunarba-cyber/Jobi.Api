@@ -16,6 +16,8 @@
     <div class="container text-center">
         <h3>Check your email to confirm your account</h3>
         <p class="text-md mt-20">We've sent a confirmation link to the email address you registered with. Once confirmed, you can log in.</p>
+        <p class="text-md mt-20">Didn't get it? Check spam, or send it again:</p>
+        @await Html.PartialAsync("_ResendConfirmationForm", "")
         <a asp-controller="Home" asp-action="Index" class="btn-one mt-30">Back to Home</a>
     </div>
 </section>

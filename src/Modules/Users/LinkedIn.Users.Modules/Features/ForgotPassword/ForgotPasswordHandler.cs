@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text;
 using LinkedIn.Modules.Users.Domain.Entities;
 using LinkedIn.Modules.Users.Infrastructure.Email;
@@ -5,6 +6,8 @@ using LinkedIn.Shared.Abstractions.Primitives;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace LinkedIn.Modules.Users.Features.ForgotPassword;
 
@@ -12,34 +15,46 @@ internal sealed class ForgotPasswordHandler : IRequestHandler<ForgotPasswordComm
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly IEmailSender _emailSender;
+    private readonly IConfiguration _config;
+    private readonly ILogger<ForgotPasswordHandler> _logger;
 
-    public ForgotPasswordHandler(UserManager<AppUser> userManager, IEmailSender emailSender)
-    {
-        _userManager = userManager;
-        _emailSender = emailSender;
-    }
+    public ForgotPasswordHandler(UserManager<AppUser> userManager, IEmailSender emailSender, IConfiguration config, ILogger<ForgotPasswordHandler> logger)
+    { _userManager = userManager; _emailSender = emailSender; _config = config; _logger = logger; }
 
-    public async Task<Result> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(ForgotPasswordCommand request, CancellationToken ct)
     {
+        // Always "success" so the caller can't tell whether an account exists.
         var user = await _userManager.FindByEmailAsync(request.Email);
+        if (user is null) return Result.Success();
 
-        // No user found, or found but email never confirmed: still return
-        // Success with no email sent. The caller cannot distinguish "sent" from
-        // "no such account" - that is the entire point of this check.
-        if (user is null || !await _userManager.IsEmailConfirmedAsync(user))
+        var baseUrl = _config["Frontend:BaseUrl"]?.TrimEnd('/');
+        if (string.IsNullOrWhiteSpace(baseUrl))
+        {
+            _logger.LogWarning("Frontend:BaseUrl is not configured; reset email not sent.");
             return Result.Success();
+        }
 
-        var rawToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-        var encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(rawToken));
+        var raw = await _userManager.GeneratePasswordResetTokenAsync(user);
+        var token = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(raw));
+        var link = $"{baseUrl}/Account/ResetPassword?email={Uri.EscapeDataString(user.Email!)}&token={Uri.EscapeDataString(token)}";
 
-        var body = $$"""
-    <p>Reset your password by calling <code>POST /api/auth/reset-password</code> with:</p>
-    <pre>{ "email": "{{user.Email}}", "token": "{{encodedToken}}", "newPassword": "..." }</pre>
-    <p>If you didn't request this, you can ignore this email.</p>
-    """;
+        var html = $"<p>We received a request to reset your password.</p>" +
+                   $"<p><a href=\"{WebWebEncode(link)}\">Choose a new password</a></p>" +
+                   "<p>If you didn't ask for this, you can ignore this email.</p>";
 
-        await _emailSender.SendAsync(user.Email!, "Reset your password", body, cancellationToken);
+        try
+        {
+            using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+            cts.CancelAfter(TimeSpan.FromSeconds(8));
+            await _emailSender.SendAsync(user.Email!, "Reset your password", html, cts.Token);
+        }
+        catch (Exception ex) when (!ct.IsCancellationRequested)
+        {
+            _logger.LogWarning(ex, "Password reset email to {Email} could not be sent.", user.Email);
+        }
 
         return Result.Success();
     }
+
+    private static string WebWebEncode(string s) => WebUtility.HtmlEncode(s);
 }

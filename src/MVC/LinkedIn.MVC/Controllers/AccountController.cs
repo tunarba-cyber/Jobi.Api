@@ -1,10 +1,11 @@
-﻿using System.Security.Claims;
+﻿using LinkedIn.MVC.Models;
 using LinkedIn.MVC.Models.Api;
 using LinkedIn.MVC.Models.ViewModels;
 using LinkedIn.MVC.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LinkedIn.MVC.Controllers;
 
@@ -104,5 +105,50 @@ public class AccountController : Controller
 
         var result = await _api.ConfirmEmailAsync(new ConfirmEmailRequest(userId, token), ct);
         return View(new ConfirmEmailResultViewModel(result.Success, result.ErrorMessage));
+    }
+    [HttpGet]
+    public IActionResult ForgotPassword() => View(new ForgotPasswordViewModel());
+
+    [HttpPost]
+    public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model, CancellationToken ct)
+    {
+        if (!ModelState.IsValid) return View(model);
+
+        await _api.ForgotPasswordAsync(model.Email.Trim(), ct);
+        TempData[FlashKeys.Success] = "If an account exists for that email, a reset link is on its way.";
+        return RedirectToAction(nameof(ForgotPassword));
+    }
+
+    [HttpGet]
+    public IActionResult ResetPassword(string? email, string? token) =>
+        string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(token)
+            ? RedirectToAction(nameof(ForgotPassword))
+            : View(new ResetPasswordViewModel { Email = email, Token = token });
+
+    [HttpPost]
+    public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model, CancellationToken ct)
+    {
+        if (!ModelState.IsValid) return View(model);
+
+        var result = await _api.ResetPasswordAsync(model.Email, model.Token, model.NewPassword, ct);
+        if (!result.Success)
+        {
+            ModelState.AddModelError(string.Empty, result.ErrorMessage!);
+            return View(model);
+        }
+
+        TempData[FlashKeys.Success] = "Your password was changed. You can log in now.";
+        return RedirectToAction("Index", "Home");
+    }
+
+    [HttpGet]
+    public IActionResult ResendConfirmation(string? email) => View("ResendConfirmation", email ?? string.Empty);
+
+    [HttpPost]
+    public async Task<IActionResult> ResendConfirmation(string email, CancellationToken ct)
+    {
+        if (!string.IsNullOrWhiteSpace(email)) await _api.ResendConfirmationAsync(email.Trim(), ct);
+        TempData[FlashKeys.Success] = "If that account exists and isn't confirmed yet, a new link is on its way.";
+        return RedirectToAction(nameof(ResendConfirmation), new { email });
     }
 }

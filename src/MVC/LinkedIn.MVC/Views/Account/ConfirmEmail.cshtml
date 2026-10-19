@@ -24,7 +24,9 @@
         else
         {
             <h3>We couldn't confirm your email</h3>
-            <p class="text-md mt-20">@(Model.ErrorMessage ?? "This confirmation link may have expired or already been used.")</p>
+            <p class="text-md mt-20">@(Model.ErrorMessage ?? "This link may be invalid.")</p>
+            <p class="text-md">Enter your email and we'll send a new link:</p>
+            @await Html.PartialAsync("_ResendConfirmationForm", "")
             <a asp-controller="Home" asp-action="Index" class="btn-one mt-30">Back to Home</a>
         }
     </div>

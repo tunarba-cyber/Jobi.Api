@@ -186,6 +186,31 @@
   },
   {
     "ContainingType": "LinkedIn.Modules.Users.Features.AdminUserEndpoints",
+    "Method": "ConfirmEmail",
+    "RelativePath": "api/admin/users/{id}/confirm-email",
+    "HttpMethod": "PUT",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ],
+    "Tags": [
+      "AdminUsers"
+    ]
+  },
+  {
+    "ContainingType": "LinkedIn.Modules.Users.Features.AdminUserEndpoints",
     "Method": "Reinstate",
     "RelativePath": "api/admin/users/{id}/reinstate",
     "HttpMethod": "PUT",

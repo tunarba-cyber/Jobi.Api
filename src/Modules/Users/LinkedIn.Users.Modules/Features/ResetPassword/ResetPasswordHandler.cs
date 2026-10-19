@@ -46,6 +46,14 @@ internal sealed class ResetPasswordHandler : IRequestHandler<ResetPasswordComman
             return Result.Failure(UserErrors.PasswordResetFailed(details));
         }
 
+        // Receiving the reset email proves the person owns the inbox,
+        // so this also unblocks accounts that never confirmed.
+        if (!user.EmailConfirmed)
+        {
+            user.EmailConfirmed = true;
+            await _userManager.UpdateAsync(user);
+        }
+
         // Password just changed - force every existing session to re-login
         // rather than leaving old refresh tokens usable.
         var activeTokens = await _db.RefreshTokens

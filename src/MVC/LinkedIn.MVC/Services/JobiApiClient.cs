@@ -621,6 +621,14 @@ public sealed class JobiApiClient : IJobiApiClient
         var url = BuildUrl("api/notifications", new() { ["page"] = page.ToString() });
         return await GetOrDefaultAsync(url, PagedResult<NotificationDto>.Empty(page, 20), ct);
     }
+    public Task<ApiCallResult<bool>> ForgotPasswordAsync(string email, CancellationToken ct = default) =>
+    SendNoContentAsync(HttpMethod.Post, "api/auth/forgot-password", new { email }, ct);
+
+    public Task<ApiCallResult<bool>> ResetPasswordAsync(string email, string token, string newPassword, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Post, "api/auth/reset-password", new { email, token, newPassword }, ct);
+
+    public Task<ApiCallResult<bool>> ResendConfirmationAsync(string email, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Post, "api/auth/resend-confirmation", new { email }, ct);
     public Task<EmployerAnalyticsDto?> GetEmployerAnalyticsAsync(CancellationToken ct = default) =>
     GetOrNullAsync<EmployerAnalyticsDto>("api/analytics/employer", ct);
 

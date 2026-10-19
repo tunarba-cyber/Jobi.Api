@@ -1,0 +1,5 @@
+﻿@model string
+<form asp-controller="Account" asp-action="ResendConfirmation" method="post" class="d-flex gap-2 justify-content-center flex-wrap mt-20">
+    <input type="email" name="email" value="@Model" class="form-control" style="max-width:320px;" placeholder="Your email" required />
+    <button type="submit" class="btn-one">Send confirmation again</button>
+</form>

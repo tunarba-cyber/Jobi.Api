@@ -1,4 +1,5 @@
 wwwroot\uploads\blogs\bb6f68cc-6a5b-467e-81ed-b1158392b169-7bbf8db3-1a92-4e5f-b5fa-a905475e49b7.jpg
+wwwroot\uploads\blogs\bb6f68cc-6a5b-467e-81ed-b1158392b169-cd93c687-8c96-47fe-91ad-598abe4defd3.jpg
 wwwroot\uploads\logos\f5dfbe7f-77e7-4636-b82d-75e5351a5fbe-03b89c4f-ea44-49d2-9a33-7f0621552885.jpg
 wwwroot\uploads\photos\2cad6c79-05f2-4466-aef8-e5be13133c44-415703dd-64bf-44e5-ae21-6961f36376b8.jpg
 wwwroot\uploads\photos\2cad6c79-05f2-4466-aef8-e5be13133c44-51139bd2-88da-4a07-9d5e-bfcb9af02217.jpg

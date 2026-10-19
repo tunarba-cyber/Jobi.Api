@@ -396,7 +396,10 @@
                                 <input type="hidden" name="ReturnUrl" value="@(Context.Request.Path + Context.Request.QueryString)" />
                                 @if (TempData["LoginError"] is string loginError)
                                 {
-                                    <div class="alert alert-danger">@loginError</div>
+                                    <div class="alert alert-danger">
+                                        @loginError
+                                        <div class="mt-5"><a asp-controller="Account" asp-action="ResendConfirmation">Resend confirmation email</a></div>
+                                    </div>
                                 }
                                 <div class="row">
                                     <div class="col-12">
@@ -418,7 +421,7 @@
                                                 <input type="checkbox" id="remember" name="RememberMe" value="true">
                                                 <label for="remember">Keep me logged in</label>
                                             </div>
-                                            <a href="#">Forget Password?</a>
+                                            <a asp-controller="Account" asp-action="ForgotPassword">Forgot password?</a>
                                         </div>
                                     </div>
                                     <div class="col-12">
