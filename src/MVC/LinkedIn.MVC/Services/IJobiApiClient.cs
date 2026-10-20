@@ -137,6 +137,20 @@ public interface IJobiApiClient
     Task<ApiCallResult<bool>> ForgotPasswordAsync(string email, CancellationToken ct = default);
     Task<ApiCallResult<bool>> ResetPasswordAsync(string email, string token, string newPassword, CancellationToken ct = default);
     Task<ApiCallResult<bool>> ResendConfirmationAsync(string email, CancellationToken ct = default);
+    Task<PagedResult<CompanyListItemDto>> GetCompaniesAsync(string? search, int page = 1, CancellationToken ct = default);
+    Task<CompanyProfileDto?> GetCompanyProfileAsync(string slug, CancellationToken ct = default);
+    Task<IReadOnlyList<SuggestionDto>> GetUserSuggestionsAsync(int take = 6, CancellationToken ct = default);
+    Task<IReadOnlyList<CompanySuggestionDto>> GetCompanySuggestionsAsync(int take = 6, CancellationToken ct = default);
+    Task<PagedResult<PostDto>> GetPostsAsync(string scope, string? authorId, int page = 1, CancellationToken ct = default);
+    Task<PostDto?> GetPostAsync(long id, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> CreatePostAsync(CreatePostRequest request, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> DeletePostAsync(long id, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> LikePostAsync(long id, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> UnlikePostAsync(long id, CancellationToken ct = default);
+    Task<IReadOnlyList<CommentDto>> GetCommentsAsync(long postId, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> AddCommentAsync(long postId, string text, CancellationToken ct = default);
+    Task<ApiCallResult<bool>> DeleteCommentAsync(long commentId, CancellationToken ct = default);
+    Task<ApiCallResult<string>> UploadPostImageAsync(Stream file, string fileName, string contentType, CancellationToken ct = default);
 }
 
 /// <summary>

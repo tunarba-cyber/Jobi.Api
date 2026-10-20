@@ -20,6 +20,9 @@ public sealed class JobsDbContext : DbContext
     public DbSet<UserFollow> UserFollows => Set<UserFollow>();
     public DbSet<CompanyFollow> CompanyFollows => Set<CompanyFollow>();
     public DbSet<JobAlertMatch> JobAlertMatches => Set<JobAlertMatch>();
+    public DbSet<Post> Posts => Set<Post>();
+    public DbSet<PostLike> PostLikes => Set<PostLike>();
+    public DbSet<PostComment> PostComments => Set<PostComment>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

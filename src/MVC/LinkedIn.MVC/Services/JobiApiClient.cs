@@ -631,6 +631,63 @@ public sealed class JobiApiClient : IJobiApiClient
         SendNoContentAsync(HttpMethod.Post, "api/auth/resend-confirmation", new { email }, ct);
     public Task<EmployerAnalyticsDto?> GetEmployerAnalyticsAsync(CancellationToken ct = default) =>
     GetOrNullAsync<EmployerAnalyticsDto>("api/analytics/employer", ct);
+    public async Task<PagedResult<CompanyListItemDto>> GetCompaniesAsync(string? search, int page = 1, CancellationToken ct = default)
+    {
+        var url = BuildUrl("api/companies", new() { ["q"] = NullIfBlank(search), ["page"] = page.ToString() });
+        return await GetOrDefaultAsync(url, PagedResult<CompanyListItemDto>.Empty(page, 12), ct);
+    }
+
+    public Task<CompanyProfileDto?> GetCompanyProfileAsync(string slug, CancellationToken ct = default) =>
+        GetOrNullAsync<CompanyProfileDto>($"api/companies/{Uri.EscapeDataString(slug)}/profile", ct);
+
+    public async Task<IReadOnlyList<SuggestionDto>> GetUserSuggestionsAsync(int take = 6, CancellationToken ct = default) =>
+        await GetOrDefaultAsync<IReadOnlyList<SuggestionDto>>($"api/follows/suggestions/users?take={take}", Array.Empty<SuggestionDto>(), ct);
+
+    public async Task<IReadOnlyList<CompanySuggestionDto>> GetCompanySuggestionsAsync(int take = 6, CancellationToken ct = default) =>
+        await GetOrDefaultAsync<IReadOnlyList<CompanySuggestionDto>>($"api/follows/suggestions/companies?take={take}", Array.Empty<CompanySuggestionDto>(), ct);
+
+    public async Task<PagedResult<PostDto>> GetPostsAsync(string scope, string? authorId, int page = 1, CancellationToken ct = default)
+    {
+        var url = BuildUrl("api/posts", new() { ["scope"] = scope, ["authorId"] = NullIfBlank(authorId), ["page"] = page.ToString() });
+        return await GetOrDefaultAsync(url, PagedResult<PostDto>.Empty(page, 10), ct);
+    }
+
+    public Task<PostDto?> GetPostAsync(long id, CancellationToken ct = default) => GetOrNullAsync<PostDto>($"api/posts/{id}", ct);
+
+    public Task<ApiCallResult<bool>> CreatePostAsync(CreatePostRequest request, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Post, "api/posts", request, ct);
+
+    public Task<ApiCallResult<bool>> DeletePostAsync(long id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Delete, $"api/posts/{id}", null, ct);
+
+    public Task<ApiCallResult<bool>> LikePostAsync(long id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Post, $"api/posts/{id}/like", null, ct);
+
+    public Task<ApiCallResult<bool>> UnlikePostAsync(long id, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Delete, $"api/posts/{id}/like", null, ct);
+
+    public async Task<IReadOnlyList<CommentDto>> GetCommentsAsync(long postId, CancellationToken ct = default) =>
+        await GetOrDefaultAsync<IReadOnlyList<CommentDto>>($"api/posts/{postId}/comments", Array.Empty<CommentDto>(), ct);
+
+    public Task<ApiCallResult<bool>> AddCommentAsync(long postId, string text, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Post, $"api/posts/{postId}/comments", new { text }, ct);
+
+    public Task<ApiCallResult<bool>> DeleteCommentAsync(long commentId, CancellationToken ct = default) =>
+        SendNoContentAsync(HttpMethod.Delete, $"api/posts/comments/{commentId}", null, ct);
+
+    public async Task<ApiCallResult<string>> UploadPostImageAsync(Stream file, string fileName, string contentType, CancellationToken ct = default)
+    {
+        using var content = new MultipartFormDataContent();
+        var fileContent = new StreamContent(file);
+        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(contentType);
+        content.Add(fileContent, "file", fileName);
+
+        using var response = await _http.PostAsync("api/uploads/post-image", content, ct);
+        if (!response.IsSuccessStatusCode) return ApiCallResult<string>.Fail(await ReadErrorAsync(response, ct));
+
+        var body = await response.Content.ReadFromJsonAsync<UploadResultDto>(JsonOptions, ct);
+        return body?.Url is { } url ? ApiCallResult<string>.Ok(url) : ApiCallResult<string>.Fail("Upload succeeded but no file URL was returned.");
+    }
 
     public async Task<int> GetUnreadNotificationCountAsync(CancellationToken ct = default) =>
         (await GetOrDefaultAsync("api/notifications/unread-count", new UnreadCountDto(0), ct)).Count;

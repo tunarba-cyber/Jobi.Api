@@ -1,13 +1,19 @@
-﻿@model LinkedIn.MVC.Models.ViewModels.CompanyDetailsViewModel
+﻿@using LinkedIn.MVC.Models.ViewModels
+@using Microsoft.Extensions.Options
+@model CompanyDetailsViewModel
+@inject IOptions<LinkedIn.MVC.Services.JobiApiOptions> ApiOptions
 @{
     ViewData["Title"] = Model.Company.Name;
+    var c = Model.Company;
+    var apiBase = ApiOptions.Value.BaseUrl.TrimEnd('/');
+    var loggedIn = User.Identity?.IsAuthenticated == true;
 }
 
 <div class="inner-banner-one position-relative">
     <div class="container">
         <div class="row">
             <div class="col-xl-6 m-auto text-center">
-                <div class="title-two"><h2 class="text-white">@Model.Company.Name</h2></div>
+                <div class="title-two"><h2 class="text-white">@c.Name</h2></div>
             </div>
         </div>
     </div>
@@ -16,44 +22,74 @@
 <section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 m-auto text-center">
-                @if (!string.IsNullOrWhiteSpace(Model.Company.WebsiteUrl))
-                {
-                    <a href="@Model.Company.WebsiteUrl" target="_blank" rel="noopener" class="d-block mb-20">@Model.Company.WebsiteUrl</a>
-                }
-                @if (!string.IsNullOrWhiteSpace(Model.Company.Description))
-                {
-                    <p style="white-space:pre-wrap;">@Model.Company.Description</p>
-                }
-            </div>
-        </div>
-
-        @if (Model.Jobs.Items.Count > 0)
-        {
-            <div class="row mt-50">
-                <div class="col-lg-8 m-auto">
-                    <h4 class="mb-30">Open positions at @Model.Company.Name</h4>
-                    @foreach (var job in Model.Jobs.Items)
+            <div class="col-lg-4 mb-40">
+                <div class="border rounded p-30 text-center">
+                    @if (!string.IsNullOrWhiteSpace(c.LogoUrl))
                     {
-                        <div class="job-list-one style-two position-relative border-style mb-15">
-                            <div class="row justify-content-between align-items-center">
-                                <div class="col-md-8">
-                                    <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-500">@job.Title</a>
-                                    <div class="job-location">@job.Location . @job.JobType</div>
-                                </div>
-                                <div class="col-md-4 text-md-end">
-                                    <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="apply-btn text-center tran3s">VIEW</a>
-                                </div>
-                            </div>
+                        <img src="@(apiBase + c.LogoUrl)" alt="@c.Name" class="mb-15" style="max-width:140px;max-height:140px;object-fit:contain;" />
+                    }
+                    else
+                    {
+                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-15 fs-1 fw-500" style="width:110px;height:110px;">
+                            @c.Name[0].ToString().ToUpperInvariant()
                         </div>
                     }
+                    <h4>@c.Name</h4>
+                    @if (!string.IsNullOrWhiteSpace(c.WebsiteUrl))
+                    {
+                        <a href="@c.WebsiteUrl" target="_blank" rel="noopener" class="d-block mb-15">@c.WebsiteUrl</a>
+                    }
+                    <div class="row text-center my-20">
+                        <div class="col-6"><div class="fw-500 fs-4">@c.Followers</div><div class="text-muted small">Followers</div></div>
+                        <div class="col-6"><div class="fw-500 fs-4">@c.OpenJobs</div><div class="text-muted small">Open jobs</div></div>
+                    </div>
+
+                    @if (c.IsOwner)
+                    {
+                        <a asp-controller="Employer" asp-action="CompanyProfile" class="btn-one w-100">Edit your company</a>
+                    }
+                    else if (loggedIn && !User.IsInRole("Admin"))
+                    {
+                        @await Html.PartialAsync("_FollowButton", new FollowButtonViewModel("Company", c.Id.ToString(), c.IsFollowing))
+                    }
+                    else if (!loggedIn)
+                    {
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn btn-outline-primary w-100">Log in to follow</a>
+                    }
+                    <div class="text-muted small mt-15">On Jobi since @c.CreatedAtUtc.ToString("MMM yyyy")</div>
                 </div>
             </div>
-        }
 
-        <div class="row mt-40">
-            <div class="col-lg-8 m-auto text-center">
-                <a asp-controller="Job" asp-action="JobList" class="btn-one">See all open positions</a>
+            <div class="col-lg-8">
+                @if (!string.IsNullOrWhiteSpace(c.Description))
+                {
+                    <h4 class="mb-15">About</h4>
+                    <p style="white-space:pre-wrap;">@c.Description</p>
+                }
+
+                <h4 class="mt-40 mb-20">Open positions</h4>
+                @if (Model.Jobs.Items.Count == 0)
+                {
+                    <p class="text-muted">No open positions right now.</p>
+                }
+                @foreach (var job in Model.Jobs.Items)
+                {
+                    <div class="job-list-one style-two position-relative border-style mb-15">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-md-8">
+                                <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-500">@job.Title</a>
+                                <div class="job-location">@job.Location . @job.JobType</div>
+                            </div>
+                            <div class="col-md-4 text-md-end">
+                                <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="apply-btn text-center tran3s">VIEW</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (c.OpenJobs > Model.Jobs.Items.Count)
+                {
+                    <a asp-controller="Job" asp-action="JobList" asp-route-search="@c.Name" class="btn-one mt-10">See all @c.OpenJobs positions</a>
+                }
             </div>
         </div>
     </div>

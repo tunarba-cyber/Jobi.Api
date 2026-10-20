@@ -8,6 +8,7 @@ public static class NotificationTypes
     public const string Message = "Message";
     public const string Follow = "Follow";
     public const string JobMatch = "JobMatch";
+    public const string Social = "Social";
 }
 
 public interface INotificationPublisher

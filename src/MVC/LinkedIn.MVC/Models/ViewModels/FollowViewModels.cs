@@ -14,12 +14,14 @@ public sealed class ExploreUsersViewModel
 {
     public required PagedResult<FollowUserDto> Users { get; init; }
     public string? Search { get; init; }
+    public IReadOnlyList<SuggestionDto> Suggestions { get; init; } = Array.Empty<SuggestionDto>();
 }
 
 public sealed class ExploreCompaniesViewModel
 {
     public required PagedResult<FollowCompanyDto> Companies { get; init; }
     public string? Search { get; init; }
+    public IReadOnlyList<CompanySuggestionDto> Suggestions { get; init; } = Array.Empty<CompanySuggestionDto>();
 }
 
 /// <summary>Kind is "User" or "Company" and picks the FollowUser/UnfollowUser/FollowCompany/... action.</summary>

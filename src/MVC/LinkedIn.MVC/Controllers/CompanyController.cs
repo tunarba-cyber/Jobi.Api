@@ -10,16 +10,14 @@ public class CompanyController : Controller
 
     public CompanyController(IJobiApiClient api) => _api = api;
 
-    // No GET /api/companies list endpoint exists on the backend yet - this page
-    // points people at Job List, which is a real way to discover companies,
-    // rather than a directory the API can't back.
-    public IActionResult Index() => View();
+    public async Task<IActionResult> Index(string? q, int page = 1, CancellationToken ct = default) =>
+        View(new CompaniesListViewModel { Companies = await _api.GetCompaniesAsync(q, page < 1 ? 1 : page, ct), Search = q });
 
     public async Task<IActionResult> Details(string slug, CancellationToken ct)
     {
         if (string.IsNullOrWhiteSpace(slug)) return RedirectToAction(nameof(Index));
 
-        var company = await _api.GetCompanyBySlugAsync(slug, ct);
+        var company = await _api.GetCompanyProfileAsync(slug, ct);
         if (company is null) return NotFound();
 
         var jobs = await _api.GetJobsAsync(new JobSearchRequest { CompanySlug = slug, PageSize = 6 }, ct);

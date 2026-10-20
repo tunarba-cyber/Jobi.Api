@@ -75,6 +75,7 @@
                                         <li class="ms-3"><a asp-controller="Admin" asp-action="Users" class="fw-500">Users</a></li>
                                         <li class="ms-3"><a asp-controller="Admin" asp-action="ContactMessages" class="fw-500">Inbox</a></li>
                                         <li class="ms-3"><a asp-controller="Admin" asp-action="Companies" class="fw-500">Companies</a></li>
+                                        <li class="ms-3"><a asp-controller="Posts" asp-action="Index" class="fw-500">Posts</a></li>
                                     }
                                     else if (User.IsInRole("Employer"))
                                     {
@@ -237,6 +238,7 @@
                                                     <div class="menu-column">
                                                         <h6 class="mega-menu-title">Company</h6>
                                                         <ul class="style-none mega-dropdown-list">
+                                                            <li><a asp-controller="Company" asp-action="Index" class="dropdown-item"><span>Companies</span></a></li>
                                                             <li><a asp-controller="Employer" asp-action="Index" class="dropdown-item"><span>Employer Dashboard</span></a></li>
                                                         </ul>
                                                     </div>
@@ -257,6 +259,7 @@
                                                         <div class="menu-column">
                                                             <h6 class="mega-menu-title">Community</h6>
                                                             <ul class="style-none mega-dropdown-list">
+                                                                <li><a asp-controller="Posts" asp-action="Index" class="dropdown-item"><span>Community Feed</span></a></li>
                                                                 <li><a asp-controller="Follow" asp-action="Users" class="dropdown-item"><span>Explore Users</span></a></li>
                                                                 <li><a asp-controller="Follow" asp-action="Companies" class="dropdown-item"><span>Explore Companies</span></a></li>
                                                                 <li><a asp-controller="Follow" asp-action="Index" class="dropdown-item"><span>My Network</span></a></li>

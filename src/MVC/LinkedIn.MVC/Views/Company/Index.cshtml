@@ -1,5 +1,12 @@
-﻿@{
+﻿@using LinkedIn.MVC.Models.ViewModels
+@using Microsoft.Extensions.Options
+@model CompaniesListViewModel
+@inject IOptions<LinkedIn.MVC.Services.JobiApiOptions> ApiOptions
+@{
     ViewData["Title"] = "Companies";
+    var apiBase = ApiOptions.Value.BaseUrl.TrimEnd('/');
+    var list = Model.Companies;
+    var canFollow = User.Identity?.IsAuthenticated == true && !User.IsInRole("Admin");
 }
 
 <div class="inner-banner-one position-relative">
@@ -7,14 +14,65 @@
         <div class="row">
             <div class="col-xl-6 m-auto text-center">
                 <div class="title-two"><h2 class="text-white">Companies</h2></div>
+                <p class="text-lg text-white mt-15">See who's hiring and follow the ones you like</p>
             </div>
         </div>
     </div>
 </div>
 
 <section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
-    <div class="container text-center">
-        <h4>Browse open positions to discover the companies hiring right now.</h4>
-        <a asp-controller="Job" asp-action="JobList" class="btn-one mt-30">Browse jobs</a>
+    <div class="container">
+        <form asp-action="Index" method="get" class="d-flex gap-2 mb-40" style="max-width:520px;">
+            <input name="q" value="@Model.Search" class="form-control" placeholder="Search companies" />
+            <button type="submit" class="btn-one">Search</button>
+        </form>
+
+        @if (list.Items.Count == 0)
+        {
+            <p class="text-center text-muted">No companies found.</p>
+        }
+        else
+        {
+            <div class="row">
+                @foreach (var c in list.Items)
+                {
+                    var desc = string.IsNullOrWhiteSpace(c.Description) ? "" : (c.Description.Length > 110 ? c.Description[..110] + "…" : c.Description);
+                    <div class="col-md-6 col-lg-4 mb-30">
+                        <div class="border rounded p-30 h-100 text-center d-flex flex-column">
+                            @if (!string.IsNullOrWhiteSpace(c.LogoUrl))
+                            {
+                                <img src="@(apiBase + c.LogoUrl)" alt="@c.Name" class="mx-auto mb-15" style="width:80px;height:80px;object-fit:contain;" />
+                            }
+                            else
+                            {
+                                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-15 fs-3 fw-500" style="width:80px;height:80px;">
+                                    @c.Name[0].ToString().ToUpperInvariant()
+                                </div>
+                            }
+                            <a asp-action="Details" asp-route-slug="@c.Slug" class="fw-500 text-dark fs-5">@c.Name</a>
+                            <div class="text-muted small my-2">@c.OpenJobs open position@(c.OpenJobs == 1 ? "" : "s") · @c.Followers follower@(c.Followers == 1 ? "" : "s")</div>
+                            <p class="text-muted small flex-grow-1">@desc</p>
+                            <div>
+                                <a asp-action="Details" asp-route-slug="@c.Slug" class="btn btn-sm btn-outline-secondary me-1">View</a>
+                                @if (canFollow)
+                                {
+                                    @await Html.PartialAsync("_FollowButton", new FollowButtonViewModel("Company", c.Id.ToString(), c.IsFollowing))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (list.TotalPages > 1)
+            {
+                <ul class="pagination-one d-flex justify-content-center style-none mt-30">
+                    @for (var p = 1; p <= list.TotalPages; p++)
+                    {
+                        <li class="@(p == list.Page ? "active" : "")"><a asp-action="Index" asp-route-page="@p" asp-route-q="@Model.Search">@p</a></li>
+                    }
+                </ul>
+            }
+        }
     </div>
 </section>

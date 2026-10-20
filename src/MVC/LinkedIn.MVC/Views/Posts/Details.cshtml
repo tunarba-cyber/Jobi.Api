@@ -1,0 +1,51 @@
+﻿@using LinkedIn.MVC.Models
+@using LinkedIn.MVC.Models.ViewModels
+@model PostDetailsViewModel
+@{
+    ViewData["Title"] = "Post"; var canComment = User.IsInRole("Candidate") || User.IsInRole("Employer");
+}
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 m-auto">
+                <a asp-action="Index" class="btn btn-outline-secondary mb-20">&larr; Back to feed</a>
+
+                @await Html.PartialAsync("_PostCard", Model.Post)
+
+                <h5 class="mb-15">Comments (@Model.Comments.Count)</h5>
+                @if (Model.Comments.Count == 0)
+                {
+                    <p class="text-muted">No comments yet.</p>
+                }
+                @foreach (var c in Model.Comments)
+                {
+                    <div class="border-bottom py-3 d-flex justify-content-between">
+                        <div>
+                            <span class="fw-500">@c.UserName</span>
+                            <span class="text-muted small ms-2">@TimeDisplay.Local(c.CreatedAtUtc)</span>
+                            <div style="white-space:pre-wrap;">@c.Text</div>
+                        </div>
+                        @if (c.CanDelete)
+                        {
+                            <form asp-action="DeleteComment" method="post" class="m-0">
+                                <input type="hidden" name="commentId" value="@c.Id" />
+                                <input type="hidden" name="postId" value="@Model.Post.Id" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        }
+                    </div>
+                }
+
+                @if (canComment)
+                {
+                    <form asp-action="Comment" method="post" class="mt-20 d-flex gap-2" data-validate>
+                        <input type="hidden" name="id" value="@Model.Post.Id" />
+                        <input name="text" class="form-control" maxlength="500" placeholder="Write a comment..." required />
+                        <button type="submit" class="btn-one">Send</button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</section>

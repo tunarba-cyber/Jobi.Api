@@ -78,8 +78,9 @@ public sealed class CandidatesListViewModel
 
 public sealed class CompanyDetailsViewModel
 {
-    public required CompanyDto Company { get; init; }
+    public required CompanyProfileDto Company { get; init; }
     public required PagedResult<JobDto> Jobs { get; init; }
+    
 }
 public sealed class JobAlertsViewModel
 {

@@ -1,0 +1,63 @@
+﻿@using LinkedIn.MVC.Models
+@using LinkedIn.MVC.Models.Api
+@using Microsoft.Extensions.Options
+@model PostDto
+@inject IOptions<LinkedIn.MVC.Services.JobiApiOptions> ApiOptions
+@{
+    var apiBase = ApiOptions.Value.BaseUrl.TrimEnd('/');
+    var back = Context.Request.Path + Context.Request.QueryString;
+    var canLike = User.IsInRole("Candidate") || User.IsInRole("Employer");
+}
+
+<article class="border rounded mb-30 bg-white">
+    <div class="d-flex align-items-center justify-content-between p-20">
+        <div class="d-flex align-items-center">
+            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center fw-500 me-3" style="width:44px;height:44px;">
+                @(Model.AuthorName.Length > 0 ? Model.AuthorName[0].ToString().ToUpperInvariant() : "?")
+            </div>
+            <div>
+                <a asp-controller="Posts" asp-action="Index" asp-route-authorId="@Model.AuthorId" class="fw-500 text-dark">@Model.AuthorName</a>
+                <div class="text-muted small">@Model.AuthorRole · @TimeDisplay.Local(Model.CreatedAtUtc)</div>
+            </div>
+        </div>
+        @if (Model.CanDelete)
+        {
+            <form asp-controller="Posts" asp-action="Delete" method="post" class="m-0" onsubmit="return confirm('Delete this post?');">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="hidden" name="returnUrl" value="@back" />
+                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+            </form>
+        }
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+    {
+        <img src="@(apiBase + Model.ImageUrl)" alt="Post photo" class="w-100" style="max-height:560px;object-fit:cover;" loading="lazy" />
+    }
+
+    <div class="p-20">
+        <div class="d-flex align-items-center gap-3 mb-10">
+            @if (canLike || Model.LikedByMe)
+            {
+                <form asp-controller="Posts" asp-action="@(Model.LikedByMe ? "Unlike" : "Like")" method="post" class="m-0">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <input type="hidden" name="returnUrl" value="@back" />
+                    <button type="submit" class="btn btn-sm @(Model.LikedByMe ? "btn-danger" : "btn-outline-danger")">
+                        <i class="bi @(Model.LikedByMe ? "bi-heart-fill" : "bi-heart")"></i> @Model.Likes
+                    </button>
+                </form>
+            }
+            else
+            {
+                <span class="text-muted"><i class="bi bi-heart"></i> @Model.Likes</span>
+            }
+            <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" class="text-muted">
+                <i class="bi bi-chat"></i> @Model.Comments
+            </a>
+        </div>
+        @if (!string.IsNullOrWhiteSpace(Model.Caption))
+        {
+            <div style="white-space:pre-wrap;">@Model.Caption</div>
+        }
+    </div>
+</article>

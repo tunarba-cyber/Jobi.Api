@@ -23,6 +23,26 @@
             </form>
             <a asp-action="Index" class="btn btn-outline-secondary mt-2 mt-md-0">My network</a>
         </div>
+        @if (Model.Suggestions.Count > 0)
+        {
+            <div class="border rounded p-20 mb-30">
+                <h6 class="mb-15">Suggested companies</h6>
+                <div class="row">
+                    @foreach (var s in Model.Suggestions)
+                    {
+                        <div class="col-md-6 col-lg-4 mb-10">
+                            <div class="d-flex justify-content-between align-items-center border rounded p-3">
+                                <div style="min-width:0;">
+                                    <a asp-controller="Company" asp-action="Details" asp-route-slug="@s.Slug" class="fw-500 text-dark d-block text-truncate">@s.Name</a>
+                                    <div class="text-muted small text-truncate">@s.Reason</div>
+                                </div>
+                                @await Html.PartialAsync("_FollowButton", new FollowButtonViewModel("Company", s.CompanyId.ToString(), false))
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
 
         @if (list.Items.Count == 0)
         {

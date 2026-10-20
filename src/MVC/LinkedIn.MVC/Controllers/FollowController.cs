@@ -30,11 +30,27 @@ public class FollowController : AppController
         });
     }
 
-    public async Task<IActionResult> Users(string? q, int page = 1, CancellationToken ct = default) =>
-        View(new ExploreUsersViewModel { Users = await _api.ExploreUsersAsync(q, page < 1 ? 1 : page, ct), Search = q });
+    public async Task<IActionResult> Users(string? q, int page = 1, CancellationToken ct = default)
+    {
+        page = page < 1 ? 1 : page;
+        var users = _api.ExploreUsersAsync(q, page, ct);
+        var suggestions = string.IsNullOrWhiteSpace(q) && page == 1
+            ? _api.GetUserSuggestionsAsync(6, ct)
+            : Task.FromResult<IReadOnlyList<SuggestionDto>>(Array.Empty<SuggestionDto>());
+        await Task.WhenAll(users, suggestions);
+        return View(new ExploreUsersViewModel { Users = await users, Search = q, Suggestions = await suggestions });
+    }
 
-    public async Task<IActionResult> Companies(string? q, int page = 1, CancellationToken ct = default) =>
-        View(new ExploreCompaniesViewModel { Companies = await _api.ExploreCompaniesAsync(q, page < 1 ? 1 : page, ct), Search = q });
+    public async Task<IActionResult> Companies(string? q, int page = 1, CancellationToken ct = default)
+    {
+        page = page < 1 ? 1 : page;
+        var companies = _api.ExploreCompaniesAsync(q, page, ct);
+        var suggestions = string.IsNullOrWhiteSpace(q) && page == 1
+            ? _api.GetCompanySuggestionsAsync(6, ct)
+            : Task.FromResult<IReadOnlyList<CompanySuggestionDto>>(Array.Empty<CompanySuggestionDto>());
+        await Task.WhenAll(companies, suggestions);
+        return View(new ExploreCompaniesViewModel { Companies = await companies, Search = q, Suggestions = await suggestions });
+    }
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> FollowUser(string id, string? returnUrl, CancellationToken ct)

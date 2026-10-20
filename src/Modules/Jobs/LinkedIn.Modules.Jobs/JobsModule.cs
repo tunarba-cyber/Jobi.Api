@@ -8,6 +8,7 @@ using LinkedIn.Modules.Jobs.Features.Home;
 using LinkedIn.Modules.Jobs.Features.Interviews;
 using LinkedIn.Modules.Jobs.Features.JobAlerts;
 using LinkedIn.Modules.Jobs.Features.Jobs;
+using LinkedIn.Modules.Jobs.Features.Posts;
 using LinkedIn.Modules.Jobs.Features.SavedCandidates;
 using LinkedIn.Modules.Jobs.Features.SavedJobs;
 using LinkedIn.Modules.Jobs.Features.Uploads;
@@ -76,5 +77,8 @@ public sealed class JobsModule : IModule
         endpoints.MapInterviewEndpoints();
         endpoints.MapFollowEndpoints();
         endpoints.MapAnalyticsEndpoints();
+        endpoints.MapPostEndpoints();
+        endpoints.MapSuggestionEndpoints();
+        endpoints.MapCompanyDirectoryEndpoints();
     }
 }

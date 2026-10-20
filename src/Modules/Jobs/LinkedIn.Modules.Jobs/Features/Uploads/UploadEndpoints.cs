@@ -46,7 +46,14 @@ internal static class UploadEndpoints
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .RequireAuthorization(AuthPolicies.Admin)
             .DisableAntiforgery();
+        group.MapPost("/post-image", UploadPostImage)
+            .Accepts<IFormFile>("multipart/form-data")
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .RequireAuthorization(p => p.RequireRole(AppRoles.Candidate, AppRoles.Employer))
+            .DisableAntiforgery();
     }
+    private static async Task<IResult> UploadPostImage(IFormFile? file, ClaimsPrincipal user, IWebHostEnvironment env, CancellationToken ct) =>
+    await HandleUpload(file, user, "posts", ImageExtensions, ImageMaxBytes, env, ct);
 
     private static async Task<IResult> UploadResume(IFormFile? file, ClaimsPrincipal user, IWebHostEnvironment env, CancellationToken ct) =>
         await HandleUpload(file, user, "resumes", DocumentExtensions, ResumeMaxBytes, env, ct);
