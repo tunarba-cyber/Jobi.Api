@@ -1,0 +1,104 @@
+﻿@using LinkedIn.MVC.Models.ViewModels
+@model AdminAnalyticsViewModel
+@{
+    ViewData["Title"] = "Analytics";
+    Func<int, int, int> pct = (n, total) => total <= 0 ? 0 : (int)Math.Round(n * 100.0 / total);
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Analytics</h2></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+
+        <div class="row g-3 mb-50">
+            <div class="col-6 col-lg">
+                <a asp-action="Users" class="d-block border rounded-3 p-4 h-100 text-decoration-none">
+                    <div class="text-muted small">Users</div>
+                    <div class="fs-2 fw-500 text-dark">@Model.TotalUsers.ToString("N0")</div>
+                </a>
+            </div>
+            <div class="col-6 col-lg">
+                <a asp-action="Companies" class="d-block border rounded-3 p-4 h-100 text-decoration-none">
+                    <div class="text-muted small">Companies</div>
+                    <div class="fs-2 fw-500 text-dark">@Model.TotalCompanies.ToString("N0")</div>
+                </a>
+            </div>
+            <div class="col-6 col-lg">
+                <a asp-action="Jobs" class="d-block border rounded-3 p-4 h-100 text-decoration-none">
+                    <div class="text-muted small">Jobs</div>
+                    <div class="fs-2 fw-500 text-dark">@Model.TotalJobs.ToString("N0")</div>
+                </a>
+            </div>
+            <div class="col-6 col-lg">
+                <a asp-action="JobCategories" class="d-block border rounded-3 p-4 h-100 text-decoration-none">
+                    <div class="text-muted small">Job categories</div>
+                    <div class="fs-2 fw-500 text-dark">@Model.TotalCategories.ToString("N0")</div>
+                </a>
+            </div>
+            <div class="col-12 col-lg">
+                <a asp-action="ContactMessages" asp-route-unreadOnly="true" class="d-block border rounded-3 p-4 h-100 text-decoration-none">
+                    <div class="text-muted small">Unread messages</div>
+                    <div class="fs-2 fw-500 text-dark">
+                        @Model.UnreadMessages.ToString("N0")
+                        <span class="fs-6 text-muted">of @Model.TotalMessages.ToString("N0")</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="border rounded-3 p-4 h-100">
+                    <h5 class="mb-30">Users by role</h5>
+                    @if (Model.UsersByRole.Count == 0)
+                    {
+                        <p class="text-muted mb-0">No data.</p>
+                    }
+                    @foreach (var row in Model.UsersByRole)
+                    {
+                        <div class="mb-20">
+                            <div class="d-flex justify-content-between mb-1">
+                                <a asp-action="Users" asp-route-role="@row.Filter" class="fw-500">@row.Label</a>
+                                <span>@row.Count.ToString("N0") <span class="text-muted">(@pct(row.Count, Model.TotalUsers)%)</span></span>
+                            </div>
+                            <div class="progress" style="height:8px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width:@(pct(row.Count, Model.TotalUsers))%"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="border rounded-3 p-4 h-100">
+                    <h5 class="mb-30">Jobs by status</h5>
+                    @if (Model.JobsByStatus.Count == 0)
+                    {
+                        <p class="text-muted mb-0">No data.</p>
+                    }
+                    @foreach (var row in Model.JobsByStatus)
+                    {
+                        var barClass = row.Filter switch { "Active" => "bg-success", "Closed" => "bg-secondary", _ => "bg-warning" };
+                        <div class="mb-20">
+                            <div class="d-flex justify-content-between mb-1">
+                                <a asp-action="Jobs" asp-route-status="@row.Filter" class="fw-500">@row.Label</a>
+                                <span>@row.Count.ToString("N0") <span class="text-muted">(@pct(row.Count, Model.TotalJobs)%)</span></span>
+                            </div>
+                            <div class="progress" style="height:8px;">
+                                <div class="progress-bar @barClass" role="progressbar" style="width:@(pct(row.Count, Model.TotalJobs))%"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

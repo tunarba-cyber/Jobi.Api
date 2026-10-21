@@ -67,32 +67,47 @@
                                 {
                                     if (User.IsInRole("Admin"))
                                     {
-                                        <li class="d-none d-md-block"><a asp-controller="Admin" asp-action="Index" class="job-post-btn tran3s">Admin Dashboard</a></li>
-                                        <li class="ms-3"><a asp-controller="Admin" asp-action="Blogs" class="fw-500">Manage Blogs</a></li>
-                                        <li class="ms-3"><a asp-controller="Admin" asp-action="Categories" class="fw-500">Blog Categories</a></li>
-                                        <li class="ms-3"><a asp-controller="Admin" asp-action="JobCategories" class="fw-500">Job Categories</a></li>
-                                        <li class="ms-3"><a asp-controller="Admin" asp-action="Jobs" class="fw-500">Moderate Jobs</a></li>
-                                        <li class="ms-3"><a asp-controller="Admin" asp-action="Users" class="fw-500">Users</a></li>
-                                        <li class="ms-3"><a asp-controller="Admin" asp-action="ContactMessages" class="fw-500">Inbox</a></li>
-                                        <li class="ms-3"><a asp-controller="Admin" asp-action="Companies" class="fw-500">Companies</a></li>
-                                        <li class="ms-3"><a asp-controller="Posts" asp-action="Index" class="fw-500">Posts</a></li>
+                                        <li class="ms-3 dropdown">
+                                            <a class="fw-500 dropdown-toggle text-nowrap" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Manage</a>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a asp-controller="Admin" asp-action="Analytics" class="dropdown-item"><span>Analytics</span></a></li>
+                                                <li><a asp-controller="Admin" asp-action="Blogs" class="dropdown-item"><span>Manage Blogs</span></a></li>
+                                                <li><a asp-controller="Admin" asp-action="Categories" class="dropdown-item"><span>Blog Categories</span></a></li>
+                                                <li><a asp-controller="Admin" asp-action="JobCategories" class="dropdown-item"><span>Job Categories</span></a></li>
+                                                <li><a asp-controller="Admin" asp-action="Jobs" class="dropdown-item"><span>Moderate Jobs</span></a></li>
+                                                <li><a asp-controller="Admin" asp-action="Users" class="dropdown-item"><span>Users</span></a></li>
+                                                <li><a asp-controller="Admin" asp-action="ContactMessages" class="dropdown-item"><span>Inbox</span></a></li>
+                                                <li><a asp-controller="Admin" asp-action="Companies" class="dropdown-item"><span>Companies</span></a></li>
+                                                <li><a asp-controller="Posts" asp-action="Index" class="dropdown-item"><span>Posts</span></a></li>
+                                            </ul>
+                                        </li>
                                     }
                                     else if (User.IsInRole("Employer"))
                                     {
                                         <li class="d-none d-md-block"><a asp-controller="Employer" asp-action="PostJob" class="job-post-btn tran3s">Post Job</a></li>
-                                        <li class="ms-3"><a asp-controller="Employer" asp-action="Index" class="fw-500">My Jobs</a></li>
-                                        <li class="ms-3"><a asp-controller="Employer" asp-action="CompanyProfile" class="fw-500">Edit Company</a></li>
-                                        <li class="ms-3"><a asp-controller="SavedCandidates" asp-action="Index" class="fw-500">Saved</a></li>
-                                        <li class="ms-3"><a asp-controller="Interviews" asp-action="Manage" class="fw-500">Interviews</a></li>
-                                        <li class="ms-3"><a asp-controller="Employer" asp-action="Analytics" class="fw-500">Analytics</a></li>
+                                        <li class="ms-3 dropdown">
+                                            <a class="fw-500 dropdown-toggle text-nowrap" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Employer</a>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a asp-controller="Employer" asp-action="Index" class="dropdown-item"><span>My Jobs</span></a></li>
+                                                <li><a asp-controller="Employer" asp-action="CompanyProfile" class="dropdown-item"><span>Edit Company</span></a></li>
+                                                <li><a asp-controller="SavedCandidates" asp-action="Index" class="dropdown-item"><span>Saved Candidates</span></a></li>
+                                                <li><a asp-controller="Interviews" asp-action="Manage" class="dropdown-item"><span>Interviews</span></a></li>
+                                                <li><a asp-controller="Employer" asp-action="Analytics" class="dropdown-item"><span>Analytics</span></a></li>
+                                            </ul>
+                                        </li>
                                     }
                                     else if (User.IsInRole("Candidate"))
                                     {
-                                        <li class="ms-3"><a asp-controller="Candidate" asp-action="Profile" class="fw-500">My Profile</a></li>
-                                        <li class="ms-3"><a asp-controller="Application" asp-action="My" class="fw-500">My Applications</a></li>
-                                        <li class="ms-3"><a asp-controller="SavedJobs" asp-action="Index" class="fw-500">Saved Jobs</a></li>
-                                        <li class="ms-3"><a asp-controller="JobAlerts" asp-action="Index" class="fw-500">Job Alerts</a></li>
-                                        <li class="ms-3"><a asp-controller="Interviews" asp-action="My" class="fw-500">Interviews</a></li>
+                                        <li class="ms-3 dropdown">
+                                            <a class="fw-500 dropdown-toggle text-nowrap" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">My Account</a>
+                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                <li><a asp-controller="Candidate" asp-action="Profile" class="dropdown-item"><span>My Profile</span></a></li>
+                                                <li><a asp-controller="Application" asp-action="My" class="dropdown-item"><span>My Applications</span></a></li>
+                                                <li><a asp-controller="SavedJobs" asp-action="Index" class="dropdown-item"><span>Saved Jobs</span></a></li>
+                                                <li><a asp-controller="JobAlerts" asp-action="Index" class="dropdown-item"><span>Job Alerts</span></a></li>
+                                                <li><a asp-controller="Interviews" asp-action="My" class="dropdown-item"><span>Interviews</span></a></li>
+                                            </ul>
+                                        </li>
                                     }
 
                                     @if (!User.IsInRole("Admin"))
@@ -194,22 +209,20 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item dropdown dashboard-menu">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                            Dashboard
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a asp-controller="Candidate" asp-action="Profile" class="dropdown-item"><span>Candidate Dashboard</span></a></li>
-                                            <li><a asp-controller="Employer" asp-action="Index" class="dropdown-item"><span>Employer Dashboard</span></a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                            Home
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a asp-controller="Home" asp-action="Index" class="dropdown-item"><span>Home</span></a></li>
-                                        </ul>
+                                    @if (User.Identity?.IsAuthenticated != true)
+                                    {
+                                        <li class="nav-item dropdown dashboard-menu">
+                                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                                                Dashboard
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a asp-controller="Candidate" asp-action="Profile" class="dropdown-item"><span>Candidate Dashboard</span></a></li>
+                                                <li><a asp-controller="Employer" asp-action="Index" class="dropdown-item"><span>Employer Dashboard</span></a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Home" asp-action="Index" role="button">Home</a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
@@ -239,7 +252,6 @@
                                                         <h6 class="mega-menu-title">Company</h6>
                                                         <ul class="style-none mega-dropdown-list">
                                                             <li><a asp-controller="Company" asp-action="Index" class="dropdown-item"><span>Companies</span></a></li>
-                                                            <li><a asp-controller="Employer" asp-action="Index" class="dropdown-item"><span>Employer Dashboard</span></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>

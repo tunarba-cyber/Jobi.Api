@@ -3,6 +3,7 @@ using LinkedIn.MVC.Models.Api;
 using LinkedIn.MVC.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using LinkedIn.MVC.Models.ViewModels;
 
 namespace LinkedIn.MVC.Controllers;
 
@@ -67,6 +68,39 @@ public class AdminController : AppController
             return View(request);
         }
         return RedirectToAction(nameof(Blogs));
+    }
+    public async Task<IActionResult> Analytics(CancellationToken ct)
+    {
+        var usersTotal = _api.GetAdminUsersAsync(null, null, 1, ct);
+        var usersByRole = Enum.GetValues<UserRole>()
+            .Select(r => (Role: r, Task: _api.GetAdminUsersAsync(null, r, 1, ct))).ToArray();
+
+        var jobsTotal = _api.GetAdminJobsAsync(null, null, 1, ct);
+        var jobsByStatus = Enum.GetValues<JobStatus>()
+            .Select(s => (Status: s, Task: _api.GetAdminJobsAsync(s, null, 1, ct))).ToArray();
+
+        var companies = _api.GetAdminCompaniesAsync(null, 1, ct);
+        var messages = _api.GetContactMessagesAsync(false, 1, ct);
+        var unread = _api.GetContactMessagesAsync(true, 1, ct);
+        var categories = _api.GetCategoriesAsync(includeInactive: true, pageSize: 1, ct: ct);
+
+        await Task.WhenAll(new Task[] { usersTotal, jobsTotal, companies, messages, unread, categories }
+            .Concat(usersByRole.Select(x => (Task)x.Task))
+            .Concat(jobsByStatus.Select(x => (Task)x.Task)));
+
+        return View(new AdminAnalyticsViewModel
+        {
+            TotalUsers = (await usersTotal).TotalCount,
+            TotalCompanies = (await companies).TotalCount,
+            TotalJobs = (await jobsTotal).TotalCount,
+            TotalCategories = (await categories).TotalCount,
+            TotalMessages = (await messages).TotalCount,
+            UnreadMessages = (await unread).TotalCount,
+            UsersByRole = usersByRole
+                .Select(x => new AnalyticsCount(x.Role.ToString(), x.Task.Result.TotalCount, x.Role.ToString())).ToList(),
+            JobsByStatus = jobsByStatus
+                .Select(x => new AnalyticsCount(x.Status.ToString(), x.Task.Result.TotalCount, x.Status.ToString())).ToList()
+        });
     }
     [HttpPost]
     public async Task<IActionResult> ConfirmUserEmail(string id, CancellationToken ct) =>
