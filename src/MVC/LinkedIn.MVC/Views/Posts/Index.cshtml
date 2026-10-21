@@ -1,0 +1,84 @@
+﻿@using LinkedIn.MVC.Models.ViewModels
+@model PostsFeedViewModel
+@{
+    ViewData["Title"] = "Feed";
+    var posts = Model.Posts;
+    var canPost = User.IsInRole("Candidate") || User.IsInRole("Employer");
+}
+
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Community Feed</h2></div>
+                <p class="text-lg text-white mt-15">Share achievements and see what others are up to</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                @if (canPost)
+                {
+                    <form asp-action="Create" method="post" enctype="multipart/form-data" class="border rounded p-20 mb-30" data-validate>
+                        <textarea name="Caption" class="form-control mb-10" rows="3" maxlength="2000" placeholder="Share an achievement, a milestone, a new skill..."></textarea>
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <input type="file" name="Image" accept=".jpg,.jpeg,.png,.webp" class="form-control" style="max-width:300px;" />
+                            <button type="submit" class="btn-one">Post</button>
+                        </div>
+                        <div class="form-text">Photos up to 2 MB. Posts are visible to every member.</div>
+                    </form>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(Model.AuthorId))
+                {
+                    <div class="d-flex justify-content-between align-items-center mb-20">
+                        <h5 class="mb-0">Posts by this member</h5>
+                        <a asp-action="Index" class="btn btn-sm btn-outline-secondary">&larr; Back to feed</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="mb-20">
+                        <a asp-action="Index" asp-route-scope="all" class="btn btn-sm @(Model.Scope == "all" ? "btn-secondary" : "btn-outline-secondary")">Everyone</a>
+                        <a asp-action="Index" asp-route-scope="following" class="btn btn-sm @(Model.Scope == "following" ? "btn-secondary" : "btn-outline-secondary")">Following</a>
+                    </div>
+                }
+
+                @if (posts.Items.Count == 0)
+                {
+                    <p class="text-center text-muted py-60">
+                        @(Model.Scope == "following" && string.IsNullOrWhiteSpace(Model.AuthorId) ? "Nothing here yet. Follow people to see their posts." : "No posts yet.")
+                    </p>
+                }
+                @foreach (var post in posts.Items)
+                {
+                    @await Html.PartialAsync("_PostCard", post)
+                }
+
+                @if (posts.TotalPages > 1)
+                {
+                    <ul class="pagination-one d-flex justify-content-center style-none mt-30">
+                        @for (var p = 1; p <= posts.TotalPages; p++)
+                        {
+                            <li class="@(p == posts.Page ? "active" : "")">
+                                <a asp-action="Index" asp-route-page="@p" asp-route-scope="@Model.Scope" asp-route-authorId="@Model.AuthorId">@p</a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+
+            <div class="col-lg-4">
+                @await Html.PartialAsync("_SuggestedUsers", Model.Suggestions)
+                @if (!User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Follow" asp-action="Users" class="btn btn-outline-secondary w-100">Explore more people</a>
+                }
+            </div>
+        </div>
+    </div>
+</section>

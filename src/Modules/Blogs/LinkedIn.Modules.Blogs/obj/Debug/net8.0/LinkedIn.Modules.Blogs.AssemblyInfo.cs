@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LinkedIn.Modules.Blogs")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7478e688df6cc8c916431020126e0e11038d6bc8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+02aeacc02721eb53b59273919b1f4215d85adcc1")]
 [assembly: System.Reflection.AssemblyProductAttribute("LinkedIn.Modules.Blogs")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LinkedIn.Modules.Blogs")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
