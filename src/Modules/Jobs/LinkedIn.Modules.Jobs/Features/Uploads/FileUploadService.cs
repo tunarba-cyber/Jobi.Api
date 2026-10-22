@@ -41,9 +41,15 @@ internal static class FileUploadService
         var fileName = $"{userId}-{Guid.NewGuid()}{extension}";
         var fullPath = Path.Combine(uploadsFolder, fileName);
 
-        await using (var stream = File.Create(fullPath))
+        try
         {
+            await using var stream = File.Create(fullPath);
             await file.CopyToAsync(stream, ct);
+        }
+        catch
+        {
+            try { File.Delete(fullPath); } catch { /* best effort */ }
+            throw;
         }
 
         return Result.Ok($"/uploads/{subfolder}/{fileName}");

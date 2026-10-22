@@ -16,17 +16,25 @@ public static class MigrationExtensions
     /// </summary>
     public static async Task ApplyMigrationsAsync(this WebApplication app)
     {
-        using var scope = app.Services.CreateScope();
+        try
+        {
+            using var scope = app.Services.CreateScope();
 
-        var jobsDb = scope.ServiceProvider.GetRequiredService<JobsDbContext>();
-        await jobsDb.Database.MigrateAsync();
+            var jobsDb = scope.ServiceProvider.GetRequiredService<JobsDbContext>();
+            await jobsDb.Database.MigrateAsync();
 
-        var usersDb = scope.ServiceProvider.GetRequiredService<UsersDbContext>();
-        await usersDb.Database.MigrateAsync();
+            var usersDb = scope.ServiceProvider.GetRequiredService<UsersDbContext>();
+            await usersDb.Database.MigrateAsync();
 
-        var blogsDb = scope.ServiceProvider.GetRequiredService<BlogsDbContext>();
-        await blogsDb.Database.MigrateAsync();
-        await scope.ServiceProvider.GetRequiredService<NotificationsDbContext>().Database.MigrateAsync();
-        await scope.ServiceProvider.GetRequiredService<MessagingDbContext>().Database.MigrateAsync();
+            var blogsDb = scope.ServiceProvider.GetRequiredService<BlogsDbContext>();
+            await blogsDb.Database.MigrateAsync();
+            await scope.ServiceProvider.GetRequiredService<NotificationsDbContext>().Database.MigrateAsync();
+            await scope.ServiceProvider.GetRequiredService<MessagingDbContext>().Database.MigrateAsync();
+        }
+        catch (Exception ex)
+        {
+            app.Logger.LogCritical(ex, "Database migration failed. Check the connection string and that SQL Server is running.");
+            throw;   // starting on a half-migrated database is worse than not starting
+        }
     }
 }

@@ -19,6 +19,7 @@ builder.Services.AddAntiforgery(o =>
 builder.Services.Configure<JobiApiOptions>(builder.Configuration.GetSection(JobiApiOptions.SectionName));
 
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<ApiResilienceHandler>();
 builder.Services.AddTransient<AuthTokenHandler>();
 builder.Services.AddTransient<ForwardClientIpHandler>();
 
@@ -54,6 +55,7 @@ builder.Services.AddHttpClient<IJobiApiClient, JobiApiClient>((sp, http) =>
     http.BaseAddress = new Uri(options.BaseUrl.TrimEnd('/') + "/");
     http.Timeout = TimeSpan.FromSeconds(options.TimeoutSeconds);
 })
+.AddHttpMessageHandler<ApiResilienceHandler>()  // outermost: turns an unreachable API into a normal 503, including failures from the handlers below
 .AddHttpMessageHandler<AuthTokenHandler>()      // attaches JWT + auto-refresh to every call
 .AddHttpMessageHandler<ForwardClientIpHandler>();
 

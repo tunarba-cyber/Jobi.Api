@@ -43,7 +43,7 @@ internal sealed class CreateBlogCommandHandler : IRequestHandler<CreateBlogComma
     {
         var categoryExists = await _db.Categories.AnyAsync(c => c.Id == request.CategoryId, ct);
         if (!categoryExists)
-            throw new InvalidOperationException($"Category '{request.CategoryId}' was not found.");
+            throw new KeyNotFoundException($"Category '{request.CategoryId}' was not found.");
 
         // IgnoreQueryFilters: soft-deleted blogs still occupy their slug in the
         // unique index, so the check must see them too.

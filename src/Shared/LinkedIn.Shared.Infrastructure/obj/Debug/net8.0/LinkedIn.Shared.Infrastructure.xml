@@ -20,6 +20,9 @@
              validator is not the same as invoking it.
              </summary>
         </member>
+        <member name="M:LinkedIn.Shared.Infrastructure.Http.ExceptionMapper.Map(System.Exception)">
+            <summary>Exceptions that are a normal outcome in practice. Null means "unexpected": answer with a generic 500.</summary>
+        </member>
         <member name="T:LinkedIn.Shared.Infrastructure.Http.ResultExtensions">
             <summary>
             One place that decides how a domain Result becomes an HTTP response.

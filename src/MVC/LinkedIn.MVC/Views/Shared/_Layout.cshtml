@@ -153,60 +153,7 @@
                                     <li class="nav-item dropdown category-btn mega-dropdown-sm">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false"><i class="bi bi-grid-fill"></i> Category</a>
                                         <ul class="dropdown-menu category-dropdown">
-                                            <li class="row gx-0">
-                                                <div class="col-lg-6">
-                                                    <a asp-controller="Job" asp-action="JobList" class="item d-flex align-items-center">
-                                                        <div class="icon d-flex align-items-center justify-content-center rounded-circle tran3s"><img src="~/images/lazy.svg" data-src="~/images/icon/icon_63.svg" alt="" class="lazy-img"></div>
-                                                        <div class="ps-3 flex-fill">
-                                                            <div class="fw-500 text-dark">UI/UX Design</div>
-                                                            <div class="job-count">12k+ Jobs</div>
-                                                        </div>
-                                                    </a>
-                                                    <a asp-controller="Job" asp-action="JobList" class="item d-flex align-items-center">
-                                                        <div class="icon d-flex align-items-center justify-content-center rounded-circle tran3s"><img src="~/images/lazy.svg" data-src="~/images/icon/icon_64.svg" alt="" class="lazy-img"></div>
-                                                        <div class="ps-3 flex-fill">
-                                                            <div class="fw-500 text-dark">Development</div>
-                                                            <div class="job-count">7k+ Jobs</div>
-                                                        </div>
-                                                    </a>
-                                                    <a asp-controller="Job" asp-action="JobList" class="item d-flex align-items-center">
-                                                        <div class="icon d-flex align-items-center justify-content-center rounded-circle tran3s"><img src="~/images/lazy.svg" data-src="~/images/icon/icon_65.svg" alt="" class="lazy-img"></div>
-                                                        <div class="ps-3 flex-fill">
-                                                            <div class="fw-500 text-dark">Telemarketing</div>
-                                                            <div class="job-count">310+ Jobs</div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <a asp-controller="Job" asp-action="JobGrid" class="item d-flex align-items-center">
-                                                        <div class="icon d-flex align-items-center justify-content-center rounded-circle tran3s"><img src="~/images/lazy.svg" data-src="~/images/icon/icon_68.svg" alt="" class="lazy-img"></div>
-                                                        <div class="ps-3 flex-fill">
-                                                            <div class="fw-500 text-dark">Marketing</div>
-                                                            <div class="job-count">420+ Jobs</div>
-                                                        </div>
-                                                    </a>
-                                                    <a asp-controller="Job" asp-action="JobGrid" class="item d-flex align-items-center">
-                                                        <div class="icon d-flex align-items-center justify-content-center rounded-circle tran3s"><img src="~/images/lazy.svg" data-src="~/images/icon/icon_66.svg" alt="" class="lazy-img"></div>
-                                                        <div class="ps-3 flex-fill">
-                                                            <div class="fw-500 text-dark">Editing</div>
-                                                            <div class="job-count">3k+ Jobs</div>
-                                                        </div>
-                                                    </a>
-                                                    <a asp-controller="Job" asp-action="JobGrid" class="item d-flex align-items-center">
-                                                        <div class="icon d-flex align-items-center justify-content-center rounded-circle tran3s"><img src="~/images/lazy.svg" data-src="~/images/icon/icon_67.svg" alt="" class="lazy-img"></div>
-                                                        <div class="ps-3 flex-fill">
-                                                            <div class="fw-500 text-dark">Finance Accounting</div>
-                                                            <div class="job-count">150+ Jobs</div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <a asp-controller="Job" asp-action="JobList" class="explore-all-btn d-flex align-items-center justify-content-between tran3s">
-                                                    <span class="fw-500">Explore all fields</span>
-                                                    <span class="icon"><i class="bi bi-chevron-right"></i></span>
-                                                </a>
-                                            </li>
+                                            @await Component.InvokeAsync("CategoryMenu")
                                         </ul>
                                     </li>
                                     @if (User.Identity?.IsAuthenticated != true)
@@ -339,7 +286,6 @@
                                 <li><a asp-controller="Job" asp-action="JobList">Browse Jobs</a></li>
                                 <li><a asp-controller="Company" asp-action="Index">Companies</a></li>
                                 <li><a asp-controller="Candidate" asp-action="Index">Candidates</a></li>
-                                <li><a href="#">Pricing</a></li>
                             </ul>
                         </div>
                         <div class="col-lg-2 col-md-3 col-sm-4 mb-20">
@@ -354,20 +300,16 @@
                         <div class="col-lg-2 col-md-3 col-sm-4 mb-20">
                             <h5 class="footer-title">Support</h5>
                             <ul class="footer-nav-link style-none">
-                                <li><a asp-controller="Home" asp-action="ContactUs">Terms of use</a></li>
-                                <li><a asp-controller="Home" asp-action="ContactUs">Terms & conditions</a></li>
-                                <li><a asp-controller="Home" asp-action="ContactUs">Privacy</a></li>
-                                <li><a asp-controller="Home" asp-action="ContactUs">Cookie policy</a></li>
+                                <li><a asp-controller="Home" asp-action="Legal">Terms of use</a></li>
+                                <li><a asp-controller="Home" asp-action="Legal">Terms & conditions</a></li>
+                                <li><a asp-controller="Home" asp-action="Legal">Privacy</a></li>
+                                <li><a asp-controller="Home" asp-action="Legal">Cookie policy</a></li>
                             </ul>
                         </div>
                         <div class="col-lg-4 mb-20 footer-newsletter">
-                            <h5 class="footer-title">Newsletter</h5>
-                            <p>Join & get important new regularly</p>
-                            <form action="#" class="d-flex">
-                                <input type="email" placeholder="Enter your email*">
-                                <button>Send</button>
-                            </form>
-                            <p class="note">We only send interesting and relevant emails.</p>
+                            <h5 class="footer-title">Get in touch</h5>
+                            <p>Questions, feedback or a partnership idea? We'd love to hear it.</p>
+                            <a asp-controller="Home" asp-action="ContactUs" class="btn-one">Contact us</a>
                         </div>
                     </div>
                 </div>
@@ -379,13 +321,12 @@
                             <ul class="style-none d-flex order-lg-last justify-content-center justify-content-lg-end social-icon">
                                 <li><a href="#"><i class="bi bi-whatsapp"></i></a></li>
                                 <li><a href="#"><i class="bi bi-dribbble"></i></a></li>
-                                <li><a href="#"><i class="bi bi-google"></i></a></li>
                                 <li><a href="#"><i class="bi bi-instagram"></i></a></li>
                             </ul>
                         </div>
                         <div class="col-lg-4 order-lg-1 mb-15">
                             <ul class="d-flex style-none bottom-nav justify-content-center justify-content-lg-start">
-                                <li><a asp-controller="Home" asp-action="ContactUs">Privacy & Terms.</a></li>
+                                <li><a asp-controller="Home" asp-action="Legal">Privacy & Terms.</a></li>
                                 <li><a asp-controller="Home" asp-action="ContactUs"> Contact Us</a></li>
                             </ul>
                         </div>
@@ -444,25 +385,6 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="d-flex align-items-center mt-30 mb-10">
-                                <div class="line"></div>
-                                <span class="pe-3 ps-3">OR</span>
-                                <div class="line"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <a href="#" class="social-use-btn d-flex align-items-center justify-content-center tran3s w-100 mt-10">
-                                        <img src="~/images/icon/google.png" alt="">
-                                        <span class="ps-2">Login with Google</span>
-                                    </a>
-                                </div>
-                                <div class="col-md-6">
-                                    <a href="#" class="social-use-btn d-flex align-items-center justify-content-center tran3s w-100 mt-10">
-                                        <img src="~/images/icon/facebook.png" alt="">
-                                        <span class="ps-2">Login with Facebook</span>
-                                    </a>
-                                </div>
-                            </div>
                             <p class="text-center mt-10">Don't have an account? <a asp-controller="Account" asp-action="SignUp" class="fw-500">Sign up</a></p>
                         </div>
                     </div>

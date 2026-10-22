@@ -36,6 +36,10 @@ builder.Services.AddScoped<SoftDeleteInterceptor>();
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
+// Safety net: a crashing background service is logged and stopped, but cannot take the API down.
+builder.Services.Configure<HostOptions>(o =>
+    o.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore);
+
 builder.Services.AddLinkedInCors(builder.Configuration);
 
 // Real client IP comes from the MVC server via X-Forwarded-For. Only loopback is

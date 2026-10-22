@@ -1,0 +1,35 @@
+﻿@using LinkedIn.MVC.Models.Api
+@model IReadOnlyList<CategoryDto>
+
+@if (Model.Count > 0)
+{
+    <li class="row gx-0">
+        @foreach (var column in Model.Chunk(Math.Max(1, (Model.Count + 1) / 2)))
+        {
+            <div class="col-lg-6">
+                @foreach (var c in column)
+                {
+                    var icon = string.IsNullOrWhiteSpace(c.IconUrl)
+                        ? Url.Content("~/images/icon/icon_63.svg")
+                        : c.IconUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? c.IconUrl : Url.Content("~/" + c.IconUrl.TrimStart('/'));
+
+                    <a asp-controller="Job" asp-action="JobList" asp-route-categorySlug="@c.Slug" class="item d-flex align-items-center">
+                        <div class="icon d-flex align-items-center justify-content-center rounded-circle tran3s">
+                            <img src="@icon" alt="" style="width:24px;height:24px;">
+                        </div>
+                        <div class="ps-3 flex-fill">
+                            <div class="fw-500 text-dark">@c.Name</div>
+                            <div class="job-count">@c.JobCount job@(c.JobCount == 1 ? "" : "s")</div>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+    </li>
+}
+<li>
+    <a asp-controller="Job" asp-action="JobList" class="explore-all-btn d-flex align-items-center justify-content-between tran3s">
+        <span class="fw-500">Explore all fields</span>
+        <span class="icon"><i class="bi bi-chevron-right"></i></span>
+    </a>
+</li>
