@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="~/css/bootstrap.min.css" media="all">
     <link rel="stylesheet" href="~/css/style.css" media="all">
     <link rel="stylesheet" href="~/css/responsive.css" media="all">
+    <link rel="stylesheet" href="~/css/jobi-theme.css" asp-append-version="true" media="all">
 
     <!-- Legacy Browser Polyfills -->
     <script src="~/vendor/html5shiv.js"></script>
@@ -156,18 +157,6 @@
                                             @await Component.InvokeAsync("CategoryMenu")
                                         </ul>
                                     </li>
-                                    @if (User.Identity?.IsAuthenticated != true)
-                                    {
-                                        <li class="nav-item dropdown dashboard-menu">
-                                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                                Dashboard
-                                            </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a asp-controller="Candidate" asp-action="Profile" class="dropdown-item"><span>Candidate Dashboard</span></a></li>
-                                                <li><a asp-controller="Employer" asp-action="Index" class="dropdown-item"><span>Employer Dashboard</span></a></li>
-                                            </ul>
-                                        </li>
-                                    }
                                     <li class="nav-item">
                                         <a class="nav-link" asp-controller="Home" asp-action="Index" role="button">Home</a>
                                     </li>

@@ -7,4 +7,5 @@ wwwroot\uploads\photos\d1885283-c8a3-4690-88c8-c92fc70e5666-9f7cf10a-22ff-46a1-a
 wwwroot\uploads\posts\2cad6c79-05f2-4466-aef8-e5be13133c44-815e901f-b00d-4bc9-8e96-6e539cc957f4.jpg
 wwwroot\uploads\resumes\2cad6c79-05f2-4466-aef8-e5be13133c44-04bd776b-a655-48bd-a3e8-f4efc07e19ef.docx
 wwwroot\uploads\resumes\2cad6c79-05f2-4466-aef8-e5be13133c44-20412fde-fd9a-409e-a766-6c5b47faf9b2.docx
+wwwroot\uploads\resumes\2cad6c79-05f2-4466-aef8-e5be13133c44-3cb50422-a225-45d1-b9a6-dfb68f753a48.docx
 wwwroot\uploads\resumes\2cad6c79-05f2-4466-aef8-e5be13133c44-d2bdc3b0-5fd0-40be-a496-4374c98c0e96.pdf

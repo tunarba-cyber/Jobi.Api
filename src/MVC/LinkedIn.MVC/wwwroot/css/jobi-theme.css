@@ -1,0 +1,344 @@
+﻿/* Jobi theme overrides. Loaded after the template CSS, so it wins. Tune the colours here only. */
+:root {
+    --jb-primary: #244034;
+    --jb-primary-dark: #17291f;
+    --jb-accent: #D2F34C;
+    --jb-soft: #F1F6F3;
+    --jb-border: #E2E9E5;
+    --jb-muted: #6B7D75;
+    --jb-radius: 12px;
+}
+
+/* ---------- Buttons: every Bootstrap button takes the template look ---------- */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: .5rem 1.1rem;
+    transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s;
+}
+
+.btn-sm {
+    padding: .32rem .8rem;
+    font-size: .85rem;
+    border-radius: 7px;
+}
+
+.btn.btn-outline-secondary,
+.btn.btn-outline-primary {
+    color: var(--jb-primary);
+    border: 1px solid var(--jb-primary);
+    background: transparent;
+}
+
+    .btn.btn-outline-secondary:hover, .btn.btn-outline-primary:hover,
+    .btn.btn-outline-secondary:focus, .btn.btn-outline-primary:focus {
+        background: var(--jb-primary);
+        border-color: var(--jb-primary);
+        color: #fff;
+    }
+
+.btn.btn-secondary,
+.btn.btn-primary {
+    background: var(--jb-primary);
+    border: 1px solid var(--jb-primary);
+    color: #fff;
+}
+
+    .btn.btn-secondary:hover, .btn.btn-primary:hover {
+        background: var(--jb-primary-dark);
+        border-color: var(--jb-primary-dark);
+        color: #fff;
+    }
+
+.btn.btn-outline-success {
+    color: var(--jb-primary);
+    border: 1px solid var(--jb-primary);
+    background: transparent;
+}
+
+    .btn.btn-outline-success:hover {
+        background: var(--jb-accent);
+        border-color: var(--jb-accent);
+        color: var(--jb-primary);
+    }
+
+.btn.btn-outline-danger {
+    color: #C0392B;
+    border: 1px solid #E8B4AE;
+    background: transparent;
+}
+
+    .btn.btn-outline-danger:hover {
+        background: #C0392B;
+        border-color: #C0392B;
+        color: #fff;
+    }
+
+.btn.btn-danger {
+    background: #C0392B;
+    border-color: #C0392B;
+    color: #fff;
+}
+
+.btn:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 .22rem rgba(36, 64, 52, .18);
+}
+
+.btn:disabled, .btn.disabled {
+    opacity: .55;
+}
+
+/* ---------- Badges (status pills) ---------- */
+.badge {
+    font-weight: 500;
+    padding: .42em .8em;
+    border-radius: 999px;
+    letter-spacing: .01em;
+}
+
+    .badge.bg-success {
+        background: #E3F0E9 !important;
+        color: var(--jb-primary) !important;
+    }
+
+    .badge.bg-warning {
+        background: #F4F9D3 !important;
+        color: #5A6A10 !important;
+    }
+
+    .badge.bg-secondary {
+        background: #ECEFED !important;
+        color: #55645D !important;
+    }
+
+    .badge.bg-info {
+        background: #DDEFF1 !important;
+        color: #1B5961 !important;
+    }
+
+    .badge.bg-danger {
+        background: #FBE6E3 !important;
+        color: #A32A1E !important;
+    }
+
+    .badge.bg-primary {
+        background: var(--jb-primary) !important;
+        color: #fff !important;
+    }
+
+/* ---------- Cards: the bordered boxes used on feeds, companies, candidates, follows ---------- */
+.border.rounded {
+    border: 1px solid var(--jb-border) !important;
+    border-radius: var(--jb-radius) !important;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(36, 64, 52, .04);
+    transition: box-shadow .2s, transform .2s;
+}
+
+a.border.rounded:hover, article.border.rounded:hover, .col-md-6 > .border.rounded:hover {
+    box-shadow: 0 8px 24px rgba(36, 64, 52, .09);
+}
+
+.bg-light {
+    background: var(--jb-soft) !important;
+}
+
+/* ---------- Forms ---------- */
+.form-control, .form-select {
+    border: 1px solid var(--jb-border);
+    border-radius: 9px;
+    padding: .62rem .9rem;
+    color: var(--jb-primary);
+}
+
+    .form-control::placeholder {
+        color: #9AA9A2;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--jb-primary);
+        box-shadow: 0 0 0 .2rem rgba(36, 64, 52, .12);
+        outline: 0;
+    }
+
+.form-label {
+    color: var(--jb-primary);
+}
+
+.form-text {
+    color: var(--jb-muted);
+}
+
+.form-check-input:checked {
+    background-color: var(--jb-primary);
+    border-color: var(--jb-primary);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 .2rem rgba(36, 64, 52, .15);
+    border-color: var(--jb-primary);
+}
+
+input[type="file"].form-control {
+    padding: .45rem .7rem;
+}
+
+/* ---------- Tables ---------- */
+.table {
+    color: var(--jb-primary);
+    --bs-table-hover-bg: var(--jb-soft);
+}
+
+    .table > :not(caption) > * > * {
+        padding: .95rem .85rem;
+        border-bottom-color: var(--jb-border);
+    }
+
+    .table thead th {
+        background: var(--jb-soft);
+        color: var(--jb-muted);
+        font-size: .76rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        border-bottom: 1px solid var(--jb-border);
+        white-space: nowrap;
+    }
+
+        .table thead th:first-child {
+            border-top-left-radius: 10px;
+        }
+
+        .table thead th:last-child {
+            border-top-right-radius: 10px;
+        }
+
+    .table tbody tr:hover {
+        background: var(--jb-soft);
+    }
+
+    .table a:not(.btn) {
+        color: var(--jb-primary);
+        text-decoration: underline;
+        text-decoration-color: rgba(36,64,52,.25);
+    }
+
+        .table a:not(.btn):hover {
+            text-decoration-color: var(--jb-primary);
+        }
+
+.table-responsive {
+    border: 1px solid var(--jb-border);
+    border-radius: var(--jb-radius);
+    background: #fff;
+}
+
+/* ---------- Alerts and the flash toast ---------- */
+.alert {
+    border: 0;
+    border-radius: 10px;
+    padding: .85rem 1.1rem;
+}
+
+.alert-success {
+    background: #E6F2EB;
+    color: #1D4A37;
+}
+
+.alert-danger {
+    background: #FCEAE8;
+    color: #8F2A20;
+}
+
+.alert-info {
+    background: #E6F1F3;
+    color: #1B5961;
+}
+
+.alert-warning {
+    background: #F7FAD9;
+    color: #5A6A10;
+}
+
+.alert .btn-close {
+    opacity: .5;
+}
+
+/* ---------- Tabs, list groups ---------- */
+.nav-tabs {
+    border-bottom: 1px solid var(--jb-border);
+}
+
+    .nav-tabs .nav-link {
+        color: var(--jb-muted);
+        border: 0;
+        border-bottom: 2px solid transparent;
+        padding: .7rem 1.1rem;
+        font-weight: 500;
+    }
+
+        .nav-tabs .nav-link:hover {
+            color: var(--jb-primary);
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--jb-primary);
+            background: transparent;
+            border-bottom-color: var(--jb-primary);
+        }
+
+.list-group-item {
+    border-color: var(--jb-border);
+    color: var(--jb-primary);
+}
+
+.list-group-item-action:hover {
+    background: var(--jb-soft);
+    color: var(--jb-primary);
+}
+
+/* ---------- Details/summary used in the inbox ---------- */
+details > summary {
+    cursor: pointer;
+    color: var(--jb-primary);
+    font-weight: 500;
+}
+
+/* ---------- Header utilities: keep the language/notification items aligned ---------- */
+.right-widget .form-select-sm {
+    padding: .25rem .6rem;
+    border-radius: 8px;
+}
+
+#notifBadge {
+    font-size: .65rem;
+    border-radius: 999px;
+}
+
+/* ---------- Chat bubbles area and small touches ---------- */
+#messageBox {
+    background: var(--jb-soft);
+    border-radius: var(--jb-radius);
+}
+
+::selection {
+    background: var(--jb-accent);
+    color: var(--jb-primary);
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 575.98px) {
+    .btn {
+        padding: .5rem .9rem;
+    }
+
+    .table > :not(caption) > * > * {
+        padding: .7rem .6rem;
+    }
+
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

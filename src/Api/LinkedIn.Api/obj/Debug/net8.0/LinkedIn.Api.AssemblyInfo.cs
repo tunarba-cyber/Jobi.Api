@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LinkedIn.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+32d314bfd365fe6b9e12520f2f1d86372db05d29")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a38440994475628f56d821181526eafece7c4eb1")]
 [assembly: System.Reflection.AssemblyProductAttribute("LinkedIn.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LinkedIn.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
