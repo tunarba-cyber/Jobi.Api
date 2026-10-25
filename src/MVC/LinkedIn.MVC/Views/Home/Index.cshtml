@@ -1,4 +1,6 @@
-﻿@model LinkedIn.MVC.Models.ViewModels.HomeIndexViewModel
+﻿@using Microsoft.Extensions.Options
+@inject IOptions<LinkedIn.MVC.Services.JobiApiOptions> ApiOptions
+@model LinkedIn.MVC.Models.ViewModels.HomeIndexViewModel
 @{
     ViewData["Title"] = "Home";
     var summary = Model.Summary;
@@ -279,20 +281,23 @@
                 {
                     @foreach (var post in Model.LatestBlogs)
                     {
+                        var apiBase = ApiOptions.Value.BaseUrl.TrimEnd('/');
+                        var img = string.IsNullOrWhiteSpace(post.ImageUrl)
+                            ? Url.Content("~/images/blog/blog_img_01.jpg")
+                            : post.ImageUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase) ? post.ImageUrl : apiBase + post.ImageUrl;
+
                         <div class="col-lg-4 col-md-6">
-                            <article class="blog-meta-one mt-35 wow fadeInUp">
+                            <article class="blog-meta-one mt-35">
                                 <figure class="post-img m0">
                                     <a asp-controller="Blog" asp-action="Details" asp-route-id="@post.Id" class="w-100 d-block">
-                                        <img src="~/images/lazy.svg"
-                                             data-src="@(string.IsNullOrWhiteSpace(post.ImageUrl) ? "/images/blog/blog_img_01.jpg" : post.ImageUrl)"
-                                             alt="@post.Title" class="lazy-img w-100 tran4s">
+                                        <img src="@img" alt="@post.Title" class="w-100" style="height:240px;object-fit:cover;">
                                     </a>
                                 </figure>
                                 <div class="post-data mt-30 lg-mt-20">
-                                    <a asp-controller="Blog" asp-action="Details" asp-route-id="@post.Id" class="mt-10 mb-10">
+                                    <div class="author">@post.CreatedAtUtc.ToString("dd MMM, yyyy")</div>
+                                    <a asp-controller="Blog" asp-action="Details" asp-route-id="@post.Id" class="mt-10 mb-10 d-block">
                                         <h4 class="tran3s blog-title">@post.Title</h4>
                                     </a>
-                                    <div class="author">@post.CreatedAtUtc.ToString("dd MMM, yyyy")</div>
                                 </div>
                             </article>
                         </div>
