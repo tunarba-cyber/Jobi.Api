@@ -17,16 +17,18 @@
     <div class="container">
         @if (Model.Items.Count == 0)
         {
-            <div class="text-center">
-                <h4>You haven't saved any jobs yet.</h4>
-                <a asp-controller="Job" asp-action="JobList" class="btn-one mt-30">Browse jobs</a>
+            <div class="jb-empty">
+                <div class="jb-empty-icon"><i class="bi bi-bookmark-heart"></i></div>
+                <h4>You haven't saved any jobs yet</h4>
+                <p>Tap the bookmark on any job to keep it here for later.</p>
+                <a asp-controller="Job" asp-action="JobList" class="btn-one mt-30 d-inline-block">Browse jobs</a>
             </div>
         }
         else
         {
             @foreach (var item in Model.Items)
             {
-                <div class="job-list-one style-two position-relative border-style mb-20">
+                <div class="job-list-one style-two position-relative border-style mb-20 jb-card jb-hover jb-rise" style="padding:24px 28px;">
                     <div class="row justify-content-between align-items-center">
                         <div class="col-md-7">
                             <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@item.JobSlug" class="title fw-500 tran3s">@item.JobTitle</a>

@@ -17,16 +17,20 @@
 <section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
     <div class="container">
         <div class="d-flex justify-content-between flex-wrap mb-30">
-            <form asp-action="Users" method="get" class="d-flex gap-2">
+            <form asp-action="Users" method="get" class="d-flex gap-2 jb-filter">
                 <input name="q" value="@Model.Search" class="form-control" placeholder="Search by name" />
-                <button type="submit" class="btn-one">Search</button>
+                <button type="submit" class="btn-one"><i class="bi bi-search"></i> Search</button>
             </form>
-            <a asp-action="Index" class="btn btn-outline-secondary mt-2 mt-md-0">My network</a>
+            <a asp-action="Index" class="btn btn-outline-secondary mt-2 mt-md-0"><i class="bi bi-diagram-3"></i> My network</a>
         </div>
         @await Html.PartialAsync("_SuggestedUsers", Model.Suggestions)
         @if (users.Items.Count == 0)
         {
-            <p class="text-center text-muted">No users found.</p>
+            <div class="jb-empty">
+                <div class="jb-empty-icon"><i class="bi bi-person-x"></i></div>
+                <h4>No users found</h4>
+                <p>Try a different name.</p>
+            </div>
         }
         else
         {
@@ -34,10 +38,13 @@
                 @foreach (var u in users.Items)
                 {
                     <div class="col-md-6 col-lg-4 mb-30">
-                        <div class="border rounded p-30 text-center">
-                            <div class="fw-500 text-dark">@u.Name</div>
-                            <div class="text-muted small mb-10">@u.Role · @u.FollowerCount follower@(u.FollowerCount == 1 ? "" : "s")</div>
-                            @await Html.PartialAsync("_FollowButton", new FollowButtonViewModel("User", u.UserId, u.IsFollowing))
+                        <div class="jb-card jb-hover jb-person jb-rise">
+                            <div class="jb-avatar lg mb-15">@(u.Name.Length > 0 ? u.Name[0].ToString().ToUpperInvariant() : "?")</div>
+                            <div class="jb-name">@u.Name</div>
+                            <div class="jb-meta mb-10"><span class="jb-chip">@u.Role</span> · @u.FollowerCount follower@(u.FollowerCount == 1 ? "" : "s")</div>
+                            <div class="jb-actions">
+                                @await Html.PartialAsync("_FollowButton", new FollowButtonViewModel("User", u.UserId, u.IsFollowing))
+                            </div>
                         </div>
                     </div>
                 }

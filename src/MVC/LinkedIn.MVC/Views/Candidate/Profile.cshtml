@@ -23,18 +23,16 @@
             <div class="col-lg-8 m-auto">
                 <div asp-validation-summary="All" class="alert alert-danger"></div>
 
-                <form method="post" enctype="multipart/form-data" data-validate>
+                <form method="post" enctype="multipart/form-data" data-validate class="jb-form-card">
                     <div class="row align-items-center mb-4">
                         <div class="col-auto">
                             @if (!string.IsNullOrWhiteSpace(Model.CurrentPhotoUrl))
                             {
-                                <img src="@(apiBaseUrl + Model.CurrentPhotoUrl)" alt="Profile photo" class="rounded-circle" style="width:80px; height:80px; object-fit:cover;" />
+                                <img src="@(apiBaseUrl + Model.CurrentPhotoUrl)" alt="Profile photo" class="rounded-circle" style="width:80px; height:80px; object-fit:cover; border:3px solid var(--jb-accent);" />
                             }
                             else
                             {
-                                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width:80px; height:80px;">
-                                    <i class="bi bi-person fs-2"></i>
-                                </div>
+                                <div class="jb-avatar xl" style="width:80px;height:80px;"><i class="bi bi-person"></i></div>
                             }
                         </div>
                         <div class="col">

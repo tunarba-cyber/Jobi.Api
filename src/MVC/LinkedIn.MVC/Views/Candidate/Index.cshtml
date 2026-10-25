@@ -22,7 +22,7 @@
 
 <section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
     <div class="container">
-        <form asp-controller="Candidate" asp-action="Index" method="get" class="row g-3 mb-40">
+        <form asp-controller="Candidate" asp-action="Index" method="get" class="row g-3 mb-40 jb-filter mx-0">
             <div class="col-md-4">
                 <input type="text" name="search" value="@f.Search" class="form-control" placeholder="Name or headline">
             </div>
@@ -39,15 +39,17 @@
                 </select>
             </div>
             <div class="col-md-1">
-                <button type="submit" class="btn-one w-100">Go</button>
+                <button type="submit" class="btn-one w-100" aria-label="Search"><i class="bi bi-search"></i></button>
             </div>
         </form>
 
         @if (Model.IsEmpty)
         {
-            <div class="text-center pt-60 pb-60">
-                <h4 class="fw-500">No candidates match your search.</h4>
-                <a asp-action="Index" class="btn-ten fw-500 text-white tran3s mt-20">Clear filters</a>
+            <div class="jb-empty">
+                <div class="jb-empty-icon"><i class="bi bi-people"></i></div>
+                <h4>No candidates match your search</h4>
+                <p>Try a different name, location or experience level.</p>
+                <a asp-action="Index" class="btn btn-outline-secondary mt-20">Clear filters</a>
             </div>
         }
         else
@@ -56,25 +58,23 @@
                 @foreach (var candidate in Model.Candidates.Items)
                 {
                     <div class="col-md-6 col-lg-4 mb-30">
-                        <div class="card-style-three text-center p-30 border rounded">
+                        <div class="jb-card jb-hover jb-person jb-rise">
                             @if (!string.IsNullOrWhiteSpace(candidate.PhotoUrl))
                             {
-                                <img src="@(apiBaseUrl + candidate.PhotoUrl)" alt="@candidate.FullName" class="rounded-circle mb-15" style="width:90px; height:90px; object-fit:cover;">
+                                <img src="@(apiBaseUrl + candidate.PhotoUrl)" alt="@candidate.FullName" class="rounded-circle mb-15" style="width:90px; height:90px; object-fit:cover; border:3px solid var(--jb-accent);">
                             }
                             else
                             {
-                                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-15" style="width:90px; height:90px;">
-                                    <i class="bi bi-person fs-2"></i>
-                                </div>
+                                <div class="jb-avatar xl mb-15"><i class="bi bi-person"></i></div>
                             }
-                            <a asp-action="Details" asp-route-slug="@candidate.Slug" class="name text-md fw-500 text-dark d-block">@candidate.FullName</a>
-                            <div class="post">@candidate.Headline</div>
+                            <a asp-action="Details" asp-route-slug="@candidate.Slug" class="jb-name">@candidate.FullName</a>
+                            <div class="jb-meta">@candidate.Headline</div>
                             @if (!string.IsNullOrWhiteSpace(candidate.Location))
                             {
-                                <div class="text-muted small mt-5">@candidate.Location</div>
+                                <div class="jb-meta mt-5"><i class="bi bi-geo-alt"></i> @candidate.Location</div>
                             }
-                            <a asp-action="Details" asp-route-slug="@candidate.Slug" class="btn btn-sm btn-outline-secondary mt-15">View profile</a>
-                            <div class="mt-10">
+                            <div class="jb-actions">
+                                <a asp-action="Details" asp-route-slug="@candidate.Slug" class="btn btn-sm btn-outline-secondary">View profile</a>
                                 <partial name="_SaveCandidateButton" model="new SaveCandidateButtonViewModel(candidate.Id, Model.SavedCandidateIds.Contains(candidate.Id))" />
                             </div>
                         </div>

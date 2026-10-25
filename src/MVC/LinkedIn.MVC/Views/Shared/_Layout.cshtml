@@ -117,14 +117,20 @@
                                     }
 
                                     <li class="ms-3">
-                                        <a asp-controller="Notifications" asp-action="Index" class="fw-500">
-                                            <i class="bi bi-bell"></i> <span id="notifBadge" class="badge bg-danger" style="display:none;"></span>
+                                        <a asp-controller="Notifications" asp-action="Index" class="jb-notif-link" aria-label="Notifications" title="Notifications">
+                                            <i class="bi bi-bell"></i><span id="notifBadge" class="badge bg-danger" style="display:none;"></span>
                                         </a>
                                     </li>
-                                    <li class="ms-3 fw-500">@User.Identity.Name</li>
+                                    var uName = User.Identity?.Name ?? "";
+                                    <li class="ms-3 d-none d-sm-block">
+                                        <span class="jb-user-chip" title="@uName">
+                                            <span class="jb-avatar">@(uName.Length > 0 ? uName[0].ToString().ToUpperInvariant() : "?")</span>
+                                            <span class="jb-name">@uName</span>
+                                        </span>
+                                    </li>
                                     <li class="ms-3">
-                                        <form asp-controller="Account" asp-action="Logout" method="post" class="mt-10">
-                                            <button type="submit" class="login-btn-one" style="background:none;border:none;">Logout</button>
+                                        <form asp-controller="Account" asp-action="Logout" method="post" class="m-0">
+                                            <button type="submit" class="jb-logout"><i class="bi bi-box-arrow-right"></i> Logout</button>
                                         </form>
                                     </li>
                                 }
@@ -235,18 +241,18 @@
         </header> <!-- /.theme-main-menu -->
         @if (TempData[LinkedIn.MVC.Models.FlashKeys.Success] is string flashSuccess)
         {
-            <div class="position-fixed start-50 translate-middle-x" style="top:100px; z-index:2000; min-width:320px;">
-                <div class="alert alert-success alert-dismissible fade show shadow" role="alert">
-                    @flashSuccess
+            <div class="jb-flash">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle-fill"></i> <span>@flashSuccess</span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
         }
         @if (TempData[LinkedIn.MVC.Models.FlashKeys.Error] is string flashError)
         {
-            <div class="position-fixed start-50 translate-middle-x" style="top:100px; z-index:2000; min-width:320px;">
-                <div class="alert alert-danger alert-dismissible fade show shadow" role="alert">
-                    @flashError
+            <div class="jb-flash">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill"></i> <span>@flashError</span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             </div>
@@ -320,7 +326,7 @@
                             </ul>
                         </div>
                         <div class="col-lg-4 order-lg-2">
-                            <p class="text-center mb-15">Copyright &copy; 2023 jobi inc.</p>
+                            <p class="text-center mb-15">Copyright &copy; @DateTime.Now.Year jobi inc.</p>
                         </div>
                     </div>
                 </div>

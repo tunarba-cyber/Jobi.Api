@@ -934,7 +934,7 @@
               "RelativeDocumentMoniker": "src\\MVC\\LinkedIn.MVC\\Views\\Home\\Index.cshtml",
               "ToolTip": "C:\\Users\\Pc\\source\\repos\\LinkedIn\\src\\MVC\\LinkedIn.MVC\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAEAAABBAAAAAAAAAA==",
+              "ViewState": "AgIAACwBAAAAAAAAAAAAACgAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-10-25T14:40:30.375Z",
               "EditorCaption": ""
@@ -1021,8 +1021,7 @@
               "RelativeToolTip": "src\\MVC\\LinkedIn.MVC\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAIoAAAAAAAAAAAAWwJ4AAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-05T14:15:48.202Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-05T14:15:48.202Z"
             },
             {
               "$type": "Document",

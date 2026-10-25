@@ -19,9 +19,11 @@
     <div class="container">
         @if (apps.Items.Count == 0)
         {
-            <div class="text-center">
-                <h4>You haven't applied to any jobs yet.</h4>
-                <a asp-controller="Job" asp-action="JobList" class="btn-one mt-30">Browse jobs</a>
+            <div class="jb-empty">
+                <div class="jb-empty-icon"><i class="bi bi-send"></i></div>
+                <h4>You haven't applied to any jobs yet</h4>
+                <p>Find a role that fits and your applications will be tracked here.</p>
+                <a asp-controller="Job" asp-action="JobList" class="btn-one mt-30 d-inline-block">Browse jobs</a>
             </div>
         }
         else
@@ -37,8 +39,8 @@
                             <tr>
                                 <td class="fw-500">@app.JobTitle</td>
                                 <td>@app.CompanyName</td>
-                                <td>@app.AppliedAtUtc.ToString("dd MMM yyyy")</td>
-                                <td>@app.Status</td>
+                                <td class="text-muted">@app.AppliedAtUtc.ToString("dd MMM yyyy")</td>
+                                <td><span class="jb-status is-@(app.Status.ToString().ToLowerInvariant())">@app.Status</span></td>
                                 <td class="text-end">
                                     @if (app.Status is ApplicationStatus.Applied or ApplicationStatus.Reviewed or ApplicationStatus.Shortlisted)
                                     {

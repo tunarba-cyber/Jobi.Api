@@ -16,9 +16,10 @@
 <section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
     <div class="container">
 
-        <div class="mb-30">
+        <div class="mb-30 jb-search">
+            <i class="bi bi-search"></i>
             <input id="userSearch" class="form-control" placeholder="Search by name to start a conversation..." autocomplete="off" />
-            <div id="userResults" class="list-group mt-5"></div>
+            <div id="userResults" class="list-group mt-2 position-absolute w-100" style="z-index:20;"></div>
         </div>
 
         <form id="startForm" asp-action="Send" method="post" style="display:none;">
@@ -28,23 +29,26 @@
 
         @if (Model.Items.Count == 0)
         {
-            <p class="text-center">No conversations yet.</p>
+            <div class="jb-empty">
+                <div class="jb-empty-icon"><i class="bi bi-chat-dots"></i></div>
+                <h4>No conversations yet</h4>
+                <p>Search for someone above to start your first conversation.</p>
+            </div>
         }
         else
         {
             @foreach (var c in Model.Items)
             {
-                <a asp-action="Thread" asp-route-id="@c.Id" class="d-block job-list-one style-two position-relative border-style mb-15 p-20">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <div class="fw-500">@c.OtherUserName</div>
-                            <div class="text-muted small">@c.LastMessage</div>
-                        </div>
-                        @if (c.UnreadCount > 0)
-                        {
-                            <span class="badge bg-primary">@c.UnreadCount</span>
-                        }
-                    </div>
+                <a asp-action="Thread" asp-route-id="@c.Id" class="jb-conv @(c.UnreadCount > 0 ? "has-unread" : "")">
+                    <span class="jb-avatar">@(c.OtherUserName.Length > 0 ? c.OtherUserName[0].ToString().ToUpperInvariant() : "?")</span>
+                    <span class="jb-conv-main">
+                        <span class="jb-conv-name d-block">@c.OtherUserName</span>
+                        <span class="jb-conv-last d-block">@c.LastMessage</span>
+                    </span>
+                    @if (c.UnreadCount > 0)
+                    {
+                        <span class="badge bg-primary">@c.UnreadCount</span>
+                    }
                 </a>
             }
         }

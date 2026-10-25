@@ -15,36 +15,35 @@
 
 <section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
     <div class="container">
-        <a asp-action="Index" class="btn-ten fw-500 text-white tran3s mb-30 d-inline-block">&larr; Back to Messages</a>
+        <a asp-action="Index" class="btn btn-outline-secondary mb-30 d-inline-block"><i class="bi bi-arrow-left"></i> Back to Messages</a>
 
-        <div class="job-list-one style-two position-relative border-style p-30 mb-20" style="max-height:420px; overflow-y:auto;" id="messageBox">
+        <div class="d-flex align-items-center gap-3 mb-20">
+            <span class="jb-avatar lg" style="width:52px;height:52px;font-size:1.2rem;">@(Model.OtherUserName.Length > 0 ? Model.OtherUserName[0].ToString().ToUpperInvariant() : "?")</span>
+            <div class="fw-600 fs-5" style="color:var(--jb-primary);">@Model.OtherUserName</div>
+        </div>
+
+        <div class="jb-chat" id="messageBox">
             @foreach (var m in Model.Messages)
             {
-                <div class="mb-15">
-                    <span class="fw-500">@(m.SenderId == Model.OtherUserId ? Model.OtherUserName : "You")</span>
-                    <span class="text-muted small ms-2">@m.SentAtUtc.ToString("dd MMM, HH:mm")</span>
+                <div class="jb-msg @(m.SenderId == Model.OtherUserId ? "" : "me")">
+                    <span class="jb-msg-meta">@(m.SenderId == Model.OtherUserId ? Model.OtherUserName : "You") · @m.SentAtUtc.ToString("dd MMM, HH:mm")</span>
                     <div>@m.Content</div>
                 </div>
             }
         </div>
 
-        <form asp-action="Send" method="post" class="job-search-one position-relative">
+        <form asp-action="Send" method="post" class="jb-composer">
             <input type="hidden" name="recipientUserId" value="@Model.OtherUserId" />
-            <div class="row">
-                <div class="col-md-10">
-                    <div class="input-box">
-                        <input name="content" class="form-control" maxlength="4000" placeholder="Type a message..." required />
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="fw-500 text-uppercase h-100 tran3s search-btn w-100">Send</button>
-                </div>
-            </div>
+            <input name="content" class="form-control" maxlength="4000" placeholder="Type a message..." required autocomplete="off" />
+            <button type="submit" class="btn-one"><i class="bi bi-send-fill"></i> Send</button>
         </form>
     </div>
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/@@microsoft/signalr@8.0.0/dist/browser/signalr.min.js"></script>
+<script>
+    (function() { const b = document.getElementById('messageBox'); if (b) b.scrollTop = b.scrollHeight; })();
+</script>
 <script>
     (async function() {
         const otherUserId = @Json.Serialize(Model.OtherUserId);
@@ -60,9 +59,9 @@
         connection.on("ReceiveMessage", function(msg) {
             const box = document.getElementById('messageBox');
             const row = document.createElement('div');
-            row.className = 'mb-15';
+            row.className = 'jb-msg' + (msg.senderId === otherUserId ? '' : ' me');
             const who = document.createElement('span');
-            who.className = 'fw-500';
+            who.className = 'jb-msg-meta';
             who.textContent = msg.senderId === otherUserId ? otherUserName : 'You';
             const body = document.createElement('div');
             body.textContent = msg.content;

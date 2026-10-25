@@ -23,7 +23,7 @@
             <div class="col-lg-8">
                 @if (canPost)
                 {
-                    <form asp-action="Create" method="post" enctype="multipart/form-data" class="border rounded p-20 mb-30" data-validate>
+                    <form asp-action="Create" method="post" enctype="multipart/form-data" class="jb-card jb-composer-card p-20 mb-30" data-validate>
                         <textarea name="Caption" class="form-control mb-10" rows="3" maxlength="2000" placeholder="Share an achievement, a milestone, a new skill..."></textarea>
                         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                             <input type="file" name="Image" accept=".jpg,.jpeg,.png,.webp" class="form-control" style="max-width:300px;" />
@@ -37,22 +37,26 @@
                 {
                     <div class="d-flex justify-content-between align-items-center mb-20">
                         <h5 class="mb-0">Posts by this member</h5>
-                        <a asp-action="Index" class="btn btn-sm btn-outline-secondary">&larr; Back to feed</a>
+                        <a asp-action="Index" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back to feed</a>
                     </div>
                 }
                 else
                 {
                     <div class="mb-20">
-                        <a asp-action="Index" asp-route-scope="all" class="btn btn-sm @(Model.Scope == "all" ? "btn-secondary" : "btn-outline-secondary")">Everyone</a>
-                        <a asp-action="Index" asp-route-scope="following" class="btn btn-sm @(Model.Scope == "following" ? "btn-secondary" : "btn-outline-secondary")">Following</a>
+                        <div class="jb-pills">
+                            <a asp-action="Index" asp-route-scope="all" class="@(Model.Scope == "all" ? "active" : "")">Everyone</a>
+                            <a asp-action="Index" asp-route-scope="following" class="@(Model.Scope == "following" ? "active" : "")">Following</a>
+                        </div>
                     </div>
                 }
 
                 @if (posts.Items.Count == 0)
                 {
-                    <p class="text-center text-muted py-60">
-                        @(Model.Scope == "following" && string.IsNullOrWhiteSpace(Model.AuthorId) ? "Nothing here yet. Follow people to see their posts." : "No posts yet.")
-                    </p>
+                    <div class="jb-empty">
+                        <div class="jb-empty-icon"><i class="bi bi-chat-square-text"></i></div>
+                        <h4>@(Model.Scope == "following" && string.IsNullOrWhiteSpace(Model.AuthorId) ? "Your following feed is empty" : "No posts yet")</h4>
+                        <p>@(Model.Scope == "following" && string.IsNullOrWhiteSpace(Model.AuthorId) ? "Nothing here yet. Follow people to see their posts." : "Be the first to share something with the community.")</p>
+                    </div>
                 }
                 @foreach (var post in posts.Items)
                 {
@@ -76,7 +80,7 @@
                 @await Html.PartialAsync("_SuggestedUsers", Model.Suggestions)
                 @if (!User.IsInRole("Admin"))
                 {
-                    <a asp-controller="Follow" asp-action="Users" class="btn btn-outline-secondary w-100">Explore more people</a>
+                    <a asp-controller="Follow" asp-action="Users" class="btn btn-outline-secondary w-100"><i class="bi bi-compass"></i> Explore more people</a>
                 }
             </div>
         </div>

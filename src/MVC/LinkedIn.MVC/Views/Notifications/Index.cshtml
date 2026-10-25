@@ -19,13 +19,17 @@
     <div class="container">
         @if (Model.Items.Count == 0)
         {
-            <p class="text-center text-muted">You're all caught up.</p>
+            <div class="jb-empty">
+                <div class="jb-empty-icon"><i class="bi bi-bell-slash"></i></div>
+                <h4>You're all caught up</h4>
+                <p>New activity on your jobs, applications and messages will show up here.</p>
+            </div>
         }
         else
         {
             <div class="text-end mb-20">
                 <form asp-action="MarkAllRead" method="post" class="d-inline">
-                    <button type="submit" class="btn btn-sm btn-outline-secondary">Mark all as read</button>
+                    <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="bi bi-check2-all"></i> Mark all as read</button>
                 </form>
             </div>
 
@@ -34,15 +38,24 @@
                 <form asp-action="Open" method="post" class="m-0">
                     <input type="hidden" name="id" value="@n.Id" />
                     <input type="hidden" name="link" value="@n.Link" />
-                    <button type="submit" class="d-block w-100 text-start border rounded p-20 mb-10 bg-@(n.IsRead ? "white" : "light")" style="cursor:pointer;">
-                        <div class="d-flex justify-content-between">
-                            <span class="@(n.IsRead ? "" : "fw-500")">@n.Title</span>
-                            <span class="text-muted small">@TimeDisplay.Local(n.CreatedAtUtc)</span>
-                        </div>
-                        @if (!string.IsNullOrWhiteSpace(n.Body))
-                        {
-                            <div class="text-muted small mt-5">@n.Body</div>
-                        }
+                    <button type="submit" class="jb-notif @(n.IsRead ? "" : "is-unread")">
+                        <span class="jb-notif-icon"><i class="bi @(n.IsRead ? "bi-bell" : "bi-bell-fill")"></i></span>
+                        <span class="flex-fill">
+                            <span class="d-flex justify-content-between gap-3">
+                                <span class="jb-notif-title @(n.IsRead ? "" : "fw-500")">
+                                    @if (!n.IsRead)
+                                    {
+                                        <span class="jb-dot"></span>
+                                    }
+                                    @n.Title
+                                </span>
+                                <span class="jb-notif-time">@TimeDisplay.Local(n.CreatedAtUtc)</span>
+                            </span>
+                            @if (!string.IsNullOrWhiteSpace(n.Body))
+                            {
+                                <span class="jb-notif-body d-block">@n.Body</span>
+                            }
+                        </span>
                     </button>
                 </form>
             }
