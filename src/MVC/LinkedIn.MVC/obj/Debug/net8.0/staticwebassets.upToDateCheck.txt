@@ -1,4 +1,5 @@
 wwwroot\css\bootstrap.min.css
+wwwroot\css\jobi-theme.css
 wwwroot\css\responsive.css
 wwwroot\css\site.css
 wwwroot\css\style.css
@@ -387,4 +388,3 @@ wwwroot\vendor\slick\slick.min.js
 wwwroot\vendor\validator.js
 wwwroot\vendor\wow\animate.css
 wwwroot\vendor\wow\wow.min.js
-wwwroot\css\jobi-theme.css

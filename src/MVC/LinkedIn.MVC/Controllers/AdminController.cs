@@ -80,8 +80,8 @@ public class AdminController : AppController
             .Select(s => (Status: s, Task: _api.GetAdminJobsAsync(s, null, 1, ct))).ToArray();
 
         var companies = _api.GetAdminCompaniesAsync(null, 1, ct);
-        var messages = _api.GetContactMessagesAsync(false, 1, ct);
-        var unread = _api.GetContactMessagesAsync(true, 1, ct);
+        var messages = _api.GetContactMessagesAsync(false, null, 1, ct);
+        var unread = _api.GetContactMessagesAsync(true, null, 1, ct);
         var categories = _api.GetCategoriesAsync(includeInactive: true, pageSize: 1, ct: ct);
 
         await Task.WhenAll(new Task[] { usersTotal, jobsTotal, companies, messages, unread, categories }
@@ -223,8 +223,8 @@ public class AdminController : AppController
     // -------------------------------------------------------------------
     // Contact Messages
     // -------------------------------------------------------------------
-    public async Task<IActionResult> ContactMessages(bool unreadOnly, int page = 1, CancellationToken ct = default) =>
-        View(await _api.GetContactMessagesAsync(unreadOnly, page < 1 ? 1 : page, ct));
+    public async Task<IActionResult> ContactMessages(bool unreadOnly, string? topic, int page = 1, CancellationToken ct = default) =>
+    View(await _api.GetContactMessagesAsync(unreadOnly, topic, page < 1 ? 1 : page, ct));
 
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> MarkContactRead(long id, CancellationToken ct) =>

@@ -1,3 +1,3 @@
 namespace LinkedIn.MVC.Models.Api;
 
-public sealed record ContactRequest(string Name, string Email, string? Subject, string Message);
+public sealed record ContactRequest(string Name, string Email, string? Subject, string Message, string? Topic, string? Reference);

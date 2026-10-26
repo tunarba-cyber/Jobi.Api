@@ -23,30 +23,30 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 mb-40">
-                <div class="border rounded p-30 text-center">
+                <div class="jb-card p-30 text-center" style="position:sticky; top:100px;">
                     @if (!string.IsNullOrWhiteSpace(c.LogoUrl))
                     {
-                        <img src="@(apiBase + c.LogoUrl)" alt="@c.Name" class="mb-15" style="max-width:140px;max-height:140px;object-fit:contain;" />
+                        <span class="jb-logo-box mb-15" style="width:110px;height:110px;"><img src="@(apiBase + c.LogoUrl)" alt="@c.Name" /></span>
                     }
                     else
                     {
-                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center mx-auto mb-15 fs-1 fw-500" style="width:110px;height:110px;">
+                        <div class="jb-avatar xl mb-15" style="width:110px;height:110px;font-size:2.6rem;border-radius:20px;">
                             @c.Name[0].ToString().ToUpperInvariant()
                         </div>
                     }
-                    <h4>@c.Name</h4>
+                    <h4 class="fw-700" style="color:var(--jb-primary);">@c.Name</h4>
                     @if (!string.IsNullOrWhiteSpace(c.WebsiteUrl))
                     {
-                        <a href="@c.WebsiteUrl" target="_blank" rel="noopener" class="d-block mb-15">@c.WebsiteUrl</a>
+                        <a href="@c.WebsiteUrl" target="_blank" rel="noopener" class="d-block mb-15 text-truncate"><i class="bi bi-link-45deg"></i> @c.WebsiteUrl</a>
                     }
-                    <div class="row text-center my-20">
-                        <div class="col-6"><div class="fw-500 fs-4">@c.Followers</div><div class="text-muted small">Followers</div></div>
-                        <div class="col-6"><div class="fw-500 fs-4">@c.OpenJobs</div><div class="text-muted small">Open jobs</div></div>
+                    <div class="row g-2 my-20">
+                        <div class="col-6"><div class="p-3 rounded-3" style="background:var(--jb-soft);"><div class="fw-700 fs-4" style="color:var(--jb-primary);">@c.Followers</div><div class="text-muted small">Followers</div></div></div>
+                        <div class="col-6"><div class="p-3 rounded-3" style="background:var(--jb-soft);"><div class="fw-700 fs-4" style="color:var(--jb-primary);">@c.OpenJobs</div><div class="text-muted small">Open jobs</div></div></div>
                     </div>
 
                     @if (c.IsOwner)
                     {
-                        <a asp-controller="Employer" asp-action="CompanyProfile" class="btn-one w-100">Edit your company</a>
+                        <a asp-controller="Employer" asp-action="CompanyProfile" class="btn-one w-100 text-center">Edit your company</a>
                     }
                     else if (loggedIn && !User.IsInRole("Admin"))
                     {
@@ -56,29 +56,51 @@
                     {
                         <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn btn-outline-primary w-100">Log in to follow</a>
                     }
-                    <div class="text-muted small mt-15">On Jobi since @c.CreatedAtUtc.ToString("MMM yyyy")</div>
+
+                    @if (loggedIn && !c.IsOwner)
+                    {
+                        <div class="mt-10">
+                            <a asp-controller="Home" asp-action="ContactUs" asp-route-topic="ReportCompany"
+                               asp-route-reference="@Url.Action("Details", "Company", new { slug = c.Slug })" class="text-muted small"><i class="bi bi-flag"></i> Report this company</a>
+                        </div>
+                    }
+                    <div class="text-muted small mt-15"><i class="bi bi-calendar3"></i> On Jobi since @c.CreatedAtUtc.ToString("MMM yyyy")</div>
                 </div>
             </div>
 
             <div class="col-lg-8">
                 @if (!string.IsNullOrWhiteSpace(c.Description))
                 {
-                    <h4 class="mb-15">About</h4>
-                    <p style="white-space:pre-wrap;">@c.Description</p>
+                    <div class="jb-card p-30 mb-40">
+                        <h4 class="mb-15 fw-700" style="color:var(--jb-primary);">About</h4>
+                        <p class="mb-0" style="white-space:pre-wrap;">@c.Description</p>
+                    </div>
                 }
 
-                <h4 class="mt-40 mb-20">Open positions</h4>
+                <div class="jb-section-head">
+                    <div>
+                        <h4>Open positions</h4>
+                        <p class="jb-sub">@c.OpenJobs role@(c.OpenJobs == 1 ? "" : "s") currently hiring</p>
+                    </div>
+                </div>
                 @if (Model.Jobs.Items.Count == 0)
                 {
-                    <p class="text-muted">No open positions right now.</p>
+                    <div class="jb-empty">
+                        <div class="jb-empty-icon"><i class="bi bi-briefcase"></i></div>
+                        <h4>No open positions right now</h4>
+                        <p>Follow this company to hear about new roles.</p>
+                    </div>
                 }
                 @foreach (var job in Model.Jobs.Items)
                 {
-                    <div class="job-list-one style-two position-relative border-style mb-15">
-                        <div class="row justify-content-between align-items-center">
+                    <div class="jb-row jb-rise">
+                        <div class="row justify-content-between align-items-center g-3">
                             <div class="col-md-8">
-                                <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-500">@job.Title</a>
-                                <div class="job-location">@job.Location . @job.JobType</div>
+                                <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="title fw-600 d-block" style="color:var(--jb-primary);">@job.Title</a>
+                                <div class="mt-5 d-flex flex-wrap gap-2">
+                                    <span class="jb-chip"><i class="bi bi-geo-alt"></i> @job.Location</span>
+                                    <span class="jb-chip"><i class="bi bi-briefcase"></i> @job.JobType</span>
+                                </div>
                             </div>
                             <div class="col-md-4 text-md-end">
                                 <a asp-controller="Job" asp-action="JobDetails" asp-route-slug="@job.Slug" class="apply-btn text-center tran3s">VIEW</a>
@@ -88,7 +110,7 @@
                 }
                 @if (c.OpenJobs > Model.Jobs.Items.Count)
                 {
-                    <a asp-controller="Job" asp-action="JobList" asp-route-search="@c.Name" class="btn-one mt-10">See all @c.OpenJobs positions</a>
+                    <a asp-controller="Job" asp-action="JobList" asp-route-search="@c.Name" class="btn-one mt-10 d-inline-block">See all @c.OpenJobs positions</a>
                 }
             </div>
         </div>

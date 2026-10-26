@@ -1,103 +1,120 @@
-﻿@model LinkedIn.MVC.Models.ViewModels.ContactViewModel
+﻿@using LinkedIn.MVC.Models
+@model LinkedIn.MVC.Models.ViewModels.ContactViewModel
 @{
-	ViewData["Title"] = "Contact Us";
+    ViewData["Title"] = "Contact Us";
 }
-<!--
-		=============================================
-			Inner Banner
-		==============================================
-		-->
-<div class="inner-banner-one position-relative pb-0">
-	<div class="map-banner">
-		<div class="gmap_canvas h-100 w-100">
-			<iframe class="gmap_iframe h-100 w-100" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=dhaka collage&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
-		</div>
-	</div>
-	<img src="~/images/lazy.svg" data-src="~/images/shape/shape_02.svg" alt="" class="lazy-img shapes shape_01">
-</div> <!-- /.inner-banner-one -->
-<!--
-		=============================================
-			Contact Us
-		==============================================
-		-->
-<section class="contact-us-section pt-100 lg-pt-80">
-	<div class="container">
-		<div class="border-bottom pb-150 lg-pb-80">
-			<div class="title-one text-center mb-70 lg-mb-40">
-				<h2>Get in touch</h2>
-			</div>
-			<div class="row">
-				<div class="col-xl-10 m-auto">
-					<div class="row">
-						<div class="col-md-4">
-							<div class="address-block-one text-center mb-40 wow fadeInUp">
-								<div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img src="~/images/icon/icon_57.svg" alt=""></div>
-								<h5 class="title">Our Address</h5>
-								<p>1012 Pebda Parkway, Mirpur 2 <br>Dhaka, Bangladesh</p>
-							</div> <!-- /.address-block-one -->
-						</div>
-						<div class="col-md-4">
-							<div class="address-block-one text-center mb-40 wow fadeInUp">
-								<div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img src="~/images/icon/icon_58.svg" alt=""></div>
-								<h5 class="title">Contact Info</h5>
-								<p>Open a chat or give us call at <br><a href="tel:310.841.5500" class="call">310.841.5500</a></p>
-							</div> <!-- /.address-block-one -->
-						</div>
-						<div class="col-md-4">
-							<div class="address-block-one text-center mb-40 wow fadeInUp">
-								<div class="icon rounded-circle d-flex align-items-center justify-content-center m-auto"><img src="~/images/icon/icon_59.svg" alt=""></div>
-								<h5 class="title">Live Support</h5>
-								<p>live chat service <br><a href="#" class="webaddress">www.jobilivechat.com</a></p>
-							</div> <!-- /.address-block-one -->
-						</div>
-					</div>
-				</div>
-			</div>
 
-			<div class="row">
-				<div class="col-xl-9 m-auto">
-					<div class="form-style-one mt-85 lg-mt-50 wow fadeInUp">
-						<form asp-action="ContactUs" method="post" id="contactForm" data-validate>
-							<div asp-validation-summary="All" class="alert alert-danger"></div>
-							@if (TempData[LinkedIn.MVC.Models.FlashKeys.Success] is string success)
-							{
-								<div class="alert alert-success">@success</div>
-							}
-							<div class="row controls">
-								<div class="col-sm-6">
-									<div class="input-group-meta form-group mb-30">
-										<label asp-for="Name">Name*</label>
-										<input asp-for="Name" placeholder="Your Name*" maxlength="100">
-										<span asp-validation-for="Name" class="text-danger"></span>
-									</div>
-								</div>
-								<div class="col-sm-6">
-									<div class="input-group-meta form-group mb-30">
-										<label asp-for="Email">Email*</label>
-										<input asp-for="Email" type="email" placeholder="Email Address*" maxlength="255">
-										<span asp-validation-for="Email" class="text-danger"></span>
-									</div>
-								</div>
-								<div class="col-12">
-									<div class="input-group-meta form-group mb-35">
-										<label asp-for="Subject">Subject (optional)</label>
-										<input asp-for="Subject" placeholder="Write about the subject here.." maxlength="200">
-										<span asp-validation-for="Subject" class="text-danger"></span>
-									</div>
-								</div>
-								<div class="col-12">
-									<div class="input-group-meta form-group mb-35">
-										<textarea asp-for="Message" placeholder="Your message*" maxlength="4000"></textarea>
-										<span asp-validation-for="Message" class="text-danger"></span>
-									</div>
-								</div>
-								<div class="col-12"><button class="btn-eleven fw-500 tran3s d-block">Send Message</button></div>
-							</div>
-						</form>
-					</div> <!-- /.form-style-one -->
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="inner-banner-one position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 m-auto text-center">
+                <div class="title-two"><h2 class="text-white">Contact Us</h2></div>
+                <p class="text-lg text-white mt-20">Questions, feedback or something to report? We'd love to hear from you.</p>
+            </div>
+        </div>
+    </div>
+    <img src="~/images/lazy.svg" data-src="~/images/shape/shape_02.svg" alt="" class="lazy-img shapes shape_01">
+</div>
+
+<section class="contact-us-section pt-100 lg-pt-80 pb-150 lg-pb-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-10 m-auto">
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="jb-card jb-hover jb-rise p-30 text-center h-100">
+                            <div class="jb-avatar soft lg mb-3 mx-auto"><img src="~/images/icon/icon_57.svg" alt="" style="width:34px;height:34px;object-fit:contain;"></div>
+                            <h5 class="fw-700" style="color:var(--jb-primary);">Our Address</h5>
+                            <p class="text-muted mb-0">1012 Pebda Parkway, Mirpur 2 <br>Dhaka, Bangladesh</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="jb-card jb-hover jb-rise p-30 text-center h-100">
+                            <div class="jb-avatar soft lg mb-3 mx-auto"><img src="~/images/icon/icon_58.svg" alt="" style="width:34px;height:34px;object-fit:contain;"></div>
+                            <h5 class="fw-700" style="color:var(--jb-primary);">Contact Info</h5>
+                            <p class="text-muted mb-0">Open a chat or give us call at <br><a href="tel:310.841.5500" class="call fw-500">310.841.5500</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="jb-card jb-hover jb-rise p-30 text-center h-100">
+                            <div class="jb-avatar soft lg mb-3 mx-auto"><img src="~/images/icon/icon_59.svg" alt="" style="width:34px;height:34px;object-fit:contain;"></div>
+                            <h5 class="fw-700" style="color:var(--jb-primary);">Live Support</h5>
+                            <p class="text-muted mb-0">live chat service <br><a href="#" class="webaddress fw-500">www.jobilivechat.com</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-70 lg-mt-50">
+            <div class="col-xl-9 m-auto">
+                <div class="title-one text-center mb-40">
+                    <h2>Get in touch</h2>
+                </div>
+                <div class="jb-form-card form-style-one">
+                    <form asp-action="ContactUs" method="post" id="contactForm" data-validate>
+                        <div asp-validation-summary="All" class="alert alert-danger"></div>
+                        @if (TempData[LinkedIn.MVC.Models.FlashKeys.Success] is string success)
+                        {
+                            <div class="alert alert-success">@success</div>
+                        }
+                        <div class="row controls">
+                            <div class="col-12">
+                                <div class="input-group-meta form-group mb-30">
+                                    <label>What is this about?*</label>
+                                    <select asp-for="Topic" class="form-select" required>
+                                        @foreach (var t in ContactTopics.All)
+                                        {
+                                            <option value="@t.Code">@t.Label</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            @if (!string.IsNullOrWhiteSpace(Model.Reference))
+                            {
+                                <div class="col-12">
+                                    <div class="mb-30 text-muted jb-chip" style="white-space:normal;">
+                                        <i class="bi bi-link-45deg"></i> About this page: <a href="@Model.Reference" target="_blank" rel="noopener">@Model.Reference</a>
+                                        <input type="hidden" asp-for="Reference" />
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-sm-6">
+                                <div class="input-group-meta form-group mb-30">
+                                    <label asp-for="Name">Name*</label>
+                                    <input asp-for="Name" placeholder="Your Name*" maxlength="100">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group-meta form-group mb-30">
+                                    <label asp-for="Email">Email*</label>
+                                    <input asp-for="Email" type="email" placeholder="Email Address*" maxlength="255">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group-meta form-group mb-35">
+                                    <label asp-for="Subject">Subject (optional)</label>
+                                    <input asp-for="Subject" placeholder="Write about the subject here.." maxlength="200">
+                                    <span asp-validation-for="Subject" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group-meta form-group mb-35">
+                                    <textarea asp-for="Message" placeholder="Your message*" maxlength="4000"></textarea>
+                                    <span asp-validation-for="Message" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12"><button class="btn-one w-100 text-center"><i class="bi bi-send"></i> Send Message</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="jb-card overflow-hidden mt-70 lg-mt-50" style="height:360px;">
+            <iframe class="w-100 h-100 border-0" loading="lazy" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=dhaka collage&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+        </div>
+    </div>
 </section>
-<!-- ./contact-us-section -->

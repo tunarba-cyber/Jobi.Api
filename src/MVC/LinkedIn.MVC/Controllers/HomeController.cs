@@ -36,15 +36,26 @@ public class HomeController : Controller
     public IActionResult AboutUs() => View();
 
     [HttpGet]
-    public IActionResult ContactUs() => View(new ContactViewModel());
+    public IActionResult ContactUs(string? topic, string? reference)
+    {
+        var model = new ContactViewModel
+        {
+            Topic = ContactTopics.All.Any(t => t.Code == topic) ? topic! : "General",
+            Reference = Url.IsLocalUrl(reference) ? reference : null,
+            Name = User.Identity?.IsAuthenticated == true ? User.Identity.Name ?? "" : "",
+            Email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? ""
+        };
+        return View(model);
+    }
 
-    [HttpPost, ValidateAntiForgeryToken]
+    [HttpPost]
     public async Task<IActionResult> ContactUs(ContactViewModel model, CancellationToken ct)
     {
         if (!ModelState.IsValid) return View(model);
 
+        var reference = Url.IsLocalUrl(model.Reference) ? model.Reference : null;
         var result = await _api.SendContactMessageAsync(new ContactRequest(
-            model.Name.Trim(), model.Email.Trim(), model.Subject?.Trim(), model.Message.Trim()), ct);
+            model.Name.Trim(), model.Email.Trim(), model.Subject?.Trim(), model.Message.Trim(), model.Topic, reference), ct);
 
         if (!result.Success)
         {
@@ -52,7 +63,9 @@ public class HomeController : Controller
             return View(model);
         }
 
-        TempData[FlashKeys.Success] = "Your message has been sent. We'll get back to you soon.";
+        TempData[FlashKeys.Success] = model.Topic.StartsWith("Report")
+            ? "Thank you. Your report was sent to our team."
+            : "Your message has been sent. We'll get back to you soon.";
         return RedirectToAction(nameof(ContactUs));
     }
 

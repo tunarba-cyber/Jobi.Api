@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LinkedIn.Modules.Messaging.Features;
 
-public sealed record ContactMessageDto(long Id, string Name, string Email, string? Subject, string Body, bool IsRead, DateTimeOffset CreatedAtUtc);
+public sealed record ContactMessageDto(long Id, string Name, string Email, string? Subject, string Body,
+    bool IsRead, DateTimeOffset CreatedAtUtc, string Topic, string? Reference);
 
 internal static class AdminContactEndpoints
 {
@@ -19,16 +20,18 @@ internal static class AdminContactEndpoints
         group.MapDelete("/{id:long}", Delete);
     }
 
-    private static async Task<IResult> GetAll(MessagingDbContext db, CancellationToken ct, bool unreadOnly = false, int page = 1, int pageSize = 15)
+    private static async Task<IResult> GetAll(MessagingDbContext db, CancellationToken ct, bool unreadOnly = false, int page = 1, int pageSize = 15, string? topic = null)
     {
         page = Math.Max(page, 1);
         pageSize = Math.Clamp(pageSize, 1, 50);
 
-        var query = db.ContactMessages.AsNoTracking().Where(m => !unreadOnly || !m.IsRead);
+        var query = db.ContactMessages.AsNoTracking()
+            .Where(m => !unreadOnly || !m.IsRead)
+            .Where(m => topic == null || (topic == "Reports" ? m.Topic.StartsWith("Report") : m.Topic == topic));
         var total = await query.CountAsync(ct);
         var items = await query.OrderByDescending(m => m.CreatedAtUtc)
             .Skip((page - 1) * pageSize).Take(pageSize)
-            .Select(m => new ContactMessageDto(m.Id, m.Name, m.Email, m.Subject, m.Body, m.IsRead, m.CreatedAtUtc))
+            .Select(m => new ContactMessageDto(m.Id, m.Name, m.Email, m.Subject, m.Body, m.IsRead, m.CreatedAtUtc, m.Topic, m.Reference))
             .ToListAsync(ct);
 
         return Results.Ok(new PagedResult<ContactMessageDto>(items, page, pageSize, total));

@@ -117,11 +117,12 @@ public sealed class JobiApiClient : IJobiApiClient
     public Task<ApiCallResult<bool>> ChangeUserRoleAsync(string id, UserRole role, CancellationToken ct = default) =>
         SendNoContentAsync(HttpMethod.Put, $"api/admin/users/{Uri.EscapeDataString(id)}/role", new { role = (int)role }, ct);
 
-    public async Task<PagedResult<ContactMessageDto>> GetContactMessagesAsync(bool unreadOnly, int page = 1, CancellationToken ct = default)
+    public async Task<PagedResult<ContactMessageDto>> GetContactMessagesAsync(bool unreadOnly, string? topic, int page = 1, CancellationToken ct = default)
     {
         var url = BuildUrl("api/admin/contact-messages", new()
         {
             ["unreadOnly"] = unreadOnly ? "true" : null,
+            ["topic"] = NullIfBlank(topic),
             ["page"] = page.ToString()
         });
         return await GetOrDefaultAsync(url, PagedResult<ContactMessageDto>.Empty(page, 15), ct);
@@ -765,6 +766,7 @@ public sealed class JobiApiClient : IJobiApiClient
 
     public Task<ApiCallResult<bool>> UnfollowCompanyAsync(long id, CancellationToken ct = default) =>
         SendNoContentAsync(HttpMethod.Delete, $"api/follows/companies/{id}", null, ct);
+
 
     // -----------------------------------------------------------------------
     // Plumbing

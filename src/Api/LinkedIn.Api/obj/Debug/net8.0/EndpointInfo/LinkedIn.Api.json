@@ -99,6 +99,13 @@
               "format": "int32",
               "default": 15
             }
+          },
+          {
+            "name": "topic",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -4158,6 +4165,14 @@
             "nullable": true
           },
           "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "topic": {
+            "type": "string",
+            "nullable": true
+          },
+          "reference": {
             "type": "string",
             "nullable": true
           }

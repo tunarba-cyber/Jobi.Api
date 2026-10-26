@@ -23,57 +23,70 @@
         <div class="row">
             <div class="col-xxl-9 col-xl-8">
                 <div class="details-post-data me-xxl-5 pe-xxl-4">
-                    <div class="post-date">@Model.Job.PostedAgo by <a href="#" class="fw-500 text-dark">@Model.Job.CompanyName</a></div>
+                    <div class="post-date">
+                        @Model.Job.PostedAgo by
+                        <a asp-controller="Company" asp-action="Details" asp-route-slug="@Model.Job.CompanySlug" class="fw-500 text-dark">@Model.Job.CompanyName</a>
+                    </div>
                     <h3 class="post-title">@Model.Job.Title</h3>
-                    <ul class="share-buttons d-flex flex-wrap style-none">
-                        <li><a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-facebook"></i><span>Facebook</span></a></li>
-                        <li><a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-twitter"></i><span>Twitter</span></a></li>
-                        <li><a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-link-45deg"></i><span>Copy</span></a></li>
-                    </ul>
 
-                    <div class="post-block border-style mt-50 lg-mt-30">
-                        <div class="d-flex align-items-center">
-                            <div class="block-numb text-center fw-500 text-white rounded-circle me-2">1</div>
-                            <h4 class="block-title">Job Description</h4>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <span class="jb-chip"><i class="bi bi-briefcase"></i> @Model.Job.JobType</span>
+                        <span class="jb-chip"><i class="bi bi-geo-alt"></i> @Model.Job.Location</span>
+                        <span class="jb-chip"><i class="bi bi-bar-chart"></i> @Model.Job.ExperienceLevel</span>
+                        <span class="jb-chip"><i class="bi bi-cash-stack"></i> @Model.Job.SalaryRange</span>
+                    </div>
+
+                    <div class="jb-card p-30 mt-40 lg-mt-30">
+                        <div class="d-flex align-items-center gap-3 mb-20">
+                            <span class="jb-stat-icon" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;background:var(--jb-accent-soft);color:var(--jb-primary);"><i class="bi bi-card-text"></i></span>
+                            <h4 class="m-0 fw-700" style="color:var(--jb-primary);">Job Description</h4>
                         </div>
-                        <p>@Model.Job.Description</p>
+                        <p class="mb-0" style="white-space:pre-wrap;">@Model.Job.Description</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-xxl-3 col-xl-4">
-                <div class="job-company-info ms-xl-5 ms-xxl-0 lg-mt-50">
-                    <img src="~/images/lazy.svg" data-src="~/images/logo/media_37.png" alt="" class="lazy-img m-auto logo">
-                    <div class="text-md text-dark text-center mt-15 mb-20">@Model.Job.CompanyName</div>
-                    <a asp-controller="Company" asp-action="Details" asp-route-slug="@Model.Job.CompanySlug" class="website-btn tran3s">View company</a>
-
-                    <div class="border-top mt-40 pt-40">
-                        <ul class="job-meta-data row style-none">
-                            <li class="col-xl-7 col-md-4 col-sm-6"><span>Salary</span><div>@Model.Job.SalaryRange</div></li>
-                            <li class="col-xl-5 col-md-4 col-sm-6"><span>Expertise</span><div>@Model.Job.ExperienceLevel</div></li>
-                            <li class="col-xl-7 col-md-4 col-sm-6"><span>Location</span><div>@Model.Job.Location</div></li>
-                            <li class="col-xl-5 col-md-4 col-sm-6"><span>Job Type</span><div>@Model.Job.JobType</div></li>
-                            <li class="col-xl-7 col-md-4 col-sm-6"><span>Posted</span><div>@Model.Job.PostedAgo</div></li>
-                            <li class="col-xl-5 col-md-4 col-sm-6"><span>Vacancies</span><div>@Model.Job.VacancyCount</div></li>
-                        </ul>
-
-                        @if (User.Identity?.IsAuthenticated != true)
-                        {
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn-one w-100 mt-25">Apply Now</a>
-                        }
-                        else if (User.IsInRole("Candidate"))
-                        {
-                            <button type="button" class="btn-one w-100 mt-25" data-bs-toggle="modal" data-bs-target="#applyModal">Apply Now</button>
-                            <div class="mt-15 text-center">
-                                <partial name="_SaveJobButton" model="new LinkedIn.MVC.Models.ViewModels.SaveJobButtonViewModel(Model.Job.Id, Model.SavedJobIds.Contains(Model.Job.Id))" />
-                                <span class="ms-1">@(Model.SavedJobIds.Contains(Model.Job.Id) ? "Saved" : "Save for later")</span>
-                            </div>
-                        }
-                        else
-                        {
-                            <p class="text-center mt-25">Employer accounts can't apply to jobs.</p>
-                        }
+                <div class="jb-card p-30 ms-xl-5 ms-xxl-0 lg-mt-50" style="position:sticky; top:100px;">
+                    <div class="text-center">
+                        <div class="jb-avatar xl mb-15" style="border-radius:20px;">@(string.IsNullOrEmpty(Model.Job.CompanyName) ? "?" : Model.Job.CompanyName[0].ToString().ToUpperInvariant())</div>
+                        <div class="fw-600 fs-5 mb-15" style="color:var(--jb-primary);">@Model.Job.CompanyName</div>
+                        <a asp-controller="Company" asp-action="Details" asp-route-slug="@Model.Job.CompanySlug" class="btn btn-outline-secondary btn-sm w-100">View company</a>
                     </div>
+
+                    <ul class="style-none mt-30 mb-0">
+                        <li class="d-flex justify-content-between gap-3 py-2 border-bottom"><span class="text-muted">Salary</span><span class="fw-500 text-end">@Model.Job.SalaryRange</span></li>
+                        <li class="d-flex justify-content-between gap-3 py-2 border-bottom"><span class="text-muted">Expertise</span><span class="fw-500 text-end">@Model.Job.ExperienceLevel</span></li>
+                        <li class="d-flex justify-content-between gap-3 py-2 border-bottom"><span class="text-muted">Location</span><span class="fw-500 text-end">@Model.Job.Location</span></li>
+                        <li class="d-flex justify-content-between gap-3 py-2 border-bottom"><span class="text-muted">Job Type</span><span class="fw-500 text-end">@Model.Job.JobType</span></li>
+                        <li class="d-flex justify-content-between gap-3 py-2 border-bottom"><span class="text-muted">Posted</span><span class="fw-500 text-end">@Model.Job.PostedAgo</span></li>
+                        <li class="d-flex justify-content-between gap-3 py-2"><span class="text-muted">Vacancies</span><span class="fw-500 text-end">@Model.Job.VacancyCount</span></li>
+                    </ul>
+
+                    @if (User.Identity?.IsAuthenticated != true)
+                    {
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="btn-one w-100 mt-25 text-center">Apply Now</a>
+                    }
+                    else if (User.IsInRole("Candidate"))
+                    {
+                        <button type="button" class="btn-one w-100 mt-25" data-bs-toggle="modal" data-bs-target="#applyModal">Apply Now</button>
+                        <div class="mt-15 text-center">
+                            <partial name="_SaveJobButton" model="new LinkedIn.MVC.Models.ViewModels.SaveJobButtonViewModel(Model.Job.Id, Model.SavedJobIds.Contains(Model.Job.Id))" />
+                            <span class="ms-1">@(Model.SavedJobIds.Contains(Model.Job.Id) ? "Saved" : "Save for later")</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-center text-muted mt-25 mb-0"><i class="bi bi-info-circle"></i> Employer accounts can't apply to jobs.</p>
+                    }
+
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="text-center mt-15">
+                            <a asp-controller="Home" asp-action="ContactUs" asp-route-topic="ReportJob"
+                               asp-route-reference="@Url.Action("JobDetails", "Job", new { slug = Model.Job.Slug })" class="text-muted small"><i class="bi bi-flag"></i> Report this job</a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
@@ -123,9 +136,9 @@
 {
     <div class="modal fade" id="applyModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content p-3">
+            <div class="modal-content p-3" style="border-radius:16px; border:0; box-shadow:var(--jb-shadow-lg);">
                 <div class="modal-header border-0">
-                    <h4 class="modal-title">Apply for @Model.Job.Title</h4>
+                    <h4 class="modal-title fw-700" style="color:var(--jb-primary);">Apply for @Model.Job.Title</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form asp-controller="Application" asp-action="Apply" method="post" enctype="multipart/form-data">
@@ -150,7 +163,7 @@
                         </div>
                     </div>
                     <div class="modal-footer border-0">
-                        <button type="submit" class="btn-one">Submit application</button>
+                        <button type="submit" class="btn-one w-100">Submit application</button>
                     </div>
                 </form>
             </div>

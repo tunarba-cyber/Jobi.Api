@@ -15,5 +15,7 @@ internal sealed class ContactMessageConfiguration : IEntityTypeConfiguration<Con
         builder.Property(m => m.Subject).HasMaxLength(200);
         builder.Property(m => m.Body).HasMaxLength(4000).IsRequired();
         builder.HasIndex(m => new { m.IsRead, m.CreatedAtUtc });
+        builder.Property(m => m.Topic).HasMaxLength(40).IsRequired().HasDefaultValue("General");
+        builder.Property(m => m.Reference).HasMaxLength(300);
     }
 }

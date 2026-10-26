@@ -45,7 +45,7 @@ public interface IJobiApiClient
     Task<ApiCallResult<bool>> SuspendUserAsync(string id, CancellationToken ct = default);
     Task<ApiCallResult<bool>> ReinstateUserAsync(string id, CancellationToken ct = default);
     Task<ApiCallResult<bool>> ChangeUserRoleAsync(string id, UserRole role, CancellationToken ct = default);
-    Task<PagedResult<ContactMessageDto>> GetContactMessagesAsync(bool unreadOnly, int page = 1, CancellationToken ct = default);
+    Task<PagedResult<ContactMessageDto>> GetContactMessagesAsync(bool unreadOnly, string? topic, int page = 1, CancellationToken ct = default);
     Task<ApiCallResult<bool>> MarkContactReadAsync(long id, CancellationToken ct = default);
     Task<ApiCallResult<bool>> DeleteContactMessageAsync(long id, CancellationToken ct = default);
 
@@ -151,6 +151,7 @@ public interface IJobiApiClient
     Task<ApiCallResult<bool>> AddCommentAsync(long postId, string text, CancellationToken ct = default);
     Task<ApiCallResult<bool>> DeleteCommentAsync(long commentId, CancellationToken ct = default);
     Task<ApiCallResult<string>> UploadPostImageAsync(Stream file, string fileName, string contentType, CancellationToken ct = default);
+
 }
 
 /// <summary>

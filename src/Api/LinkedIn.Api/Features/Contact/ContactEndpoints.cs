@@ -10,10 +10,13 @@ using LinkedIn.Shared.Abstractions.Security;
 
 namespace LinkedIn.Api.Features.Contact;
 
-public sealed record ContactRequest(string Name, string Email, string? Subject, string Message);
+public sealed record ContactRequest(string Name, string Email, string? Subject, string Message, string? Topic = null, string? Reference = null);
 
 internal static class ContactEndpoints
 {
+    private static readonly HashSet<string> Topics = new()
+    { "General", "Account", "Bug", "ReportUser", "ReportJob", "ReportPost", "ReportCompany", "Other" };
+
     public static void MapContactEndpoints(this IEndpointRouteBuilder endpoints)
     {
         endpoints.MapPost("/api/contact", SendContactMessage)
@@ -39,12 +42,21 @@ internal static class ContactEndpoints
                 statusCode: StatusCodes.Status400BadRequest);
         }
 
+        var topic = string.IsNullOrWhiteSpace(request.Topic) ? "General" : request.Topic.Trim();
+        if (!Topics.Contains(topic) || request.Reference?.Length > 300)
+            return Results.Problem(title: "Contact.InvalidRequest", detail: "Choose a valid topic.", statusCode: StatusCodes.Status400BadRequest);
+
+        // Only a path on this site is kept, never an outside address.
+        var reference = request.Reference is { } r && r.StartsWith('/') && !r.StartsWith("//") ? r.Trim() : null;
+
         db.ContactMessages.Add(new ContactMessage
         {
             Name = request.Name.Trim(),
             Email = request.Email.Trim(),
             Subject = request.Subject?.Trim(),
             Body = request.Message.Trim(),
+            Topic = topic,
+            Reference = reference,
             CreatedAtUtc = DateTimeOffset.UtcNow
         });
         await db.SaveChangesAsync(ct);
@@ -55,9 +67,9 @@ internal static class ContactEndpoints
             var safeName = WebUtility.HtmlEncode(request.Name.Trim());
             var safeEmail = WebUtility.HtmlEncode(request.Email.Trim());
             var safeMessage = WebUtility.HtmlEncode(request.Message.Trim()).Replace("\n", "<br>");
-            var subject = string.IsNullOrWhiteSpace(request.Subject)
-                ? $"New contact form message from {request.Name.Trim()}"
-                : $"[Contact] {request.Subject.Trim()}";
+            var subject = $"[{topic}] " + (string.IsNullOrWhiteSpace(request.Subject)
+                ? $"Message from {request.Name.Trim()}"
+                : request.Subject.Trim());
 
             try
             {

@@ -26,46 +26,63 @@
 <section class="pt-100 lg-pt-80 pb-150 lg-pb-80">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8 mb-40">
                 @if (!string.IsNullOrWhiteSpace(Model.Bio))
                 {
-                    <h4>About</h4>
-                    <p style="white-space:pre-wrap;">@Model.Bio</p>
+                    <div class="jb-card p-30 mb-30">
+                        <h4 class="mb-15 fw-700" style="color:var(--jb-primary);">About</h4>
+                        <p class="mb-0" style="white-space:pre-wrap;">@Model.Bio</p>
+                    </div>
                 }
                 @if (!string.IsNullOrWhiteSpace(Model.Skills))
                 {
-                    <h4 class="mt-30">Skills</h4>
-                    <div class="job-tags d-flex flex-wrap pt-10">
-                        @foreach (var skill in Model.Skills.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
-                        {
-                            <a href="#" class="pe-none">@skill</a>
-                        }
+                    <div class="jb-card p-30">
+                        <h4 class="mb-15 fw-700" style="color:var(--jb-primary);">Skills</h4>
+                        <div class="d-flex flex-wrap gap-2">
+                            @foreach (var skill in Model.Skills.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                <span class="jb-chip" style="font-size:.88rem; padding:.4em .9em;">@skill</span>
+                            }
+                        </div>
                     </div>
                 }
             </div>
+
             <div class="col-lg-4">
-                <div class="job-company-info">
+                <div class="jb-card p-30 text-center" style="position:sticky; top:100px;">
                     @if (!string.IsNullOrWhiteSpace(Model.PhotoUrl))
                     {
-                        <img src="@(apiBaseUrl + Model.PhotoUrl)" alt="@Model.FullName" class="lazy-img m-auto logo rounded-circle" style="width:100px; height:100px; object-fit:cover;">
+                        <img src="@(apiBaseUrl + Model.PhotoUrl)" alt="@Model.FullName" class="rounded-circle mb-15" style="width:100px; height:100px; object-fit:cover; border:3px solid var(--jb-accent);">
                     }
-                    <div class="text-md text-dark text-center mt-15 mb-20">@Model.FullName</div>
+                    else
+                    {
+                        <div class="jb-avatar xl mb-15" style="width:100px;height:100px;">@(string.IsNullOrEmpty(Model.FullName) ? "?" : Model.FullName[0].ToString().ToUpperInvariant())</div>
+                    }
+                    <div class="fw-700 fs-5" style="color:var(--jb-primary);">@Model.FullName</div>
+                    <div class="mt-10">
+                        <span class="jb-status @(Model.IsAvailableForWork ? "is-active" : "is-closed")">@(Model.IsAvailableForWork ? "Available for work" : "Not currently available")</span>
+                    </div>
 
-                    <ul class="job-meta-data row style-none">
-                        <li class="col-12 mb-10"><span>Experience</span><div>@Model.ExperienceLevel.ToLabel()</div></li>
+                    <ul class="style-none text-start mt-30 mb-0">
+                        <li class="d-flex justify-content-between gap-3 py-2 border-bottom"><span class="text-muted">Experience</span><span class="fw-500 text-end">@Model.ExperienceLevel.ToLabel()</span></li>
                         @if (!string.IsNullOrWhiteSpace(Model.Location))
                         {
-                            <li class="col-12 mb-10"><span>Location</span><div>@Model.Location</div></li>
+                            <li class="d-flex justify-content-between gap-3 py-2"><span class="text-muted">Location</span><span class="fw-500 text-end">@Model.Location</span></li>
                         }
-                        <li class="col-12"><span>Status</span><div>@(Model.IsAvailableForWork ? "Available for work" : "Not currently available")</div></li>
-                        <li class="col-12 mt-15">
-                            <partial name="_SaveCandidateButton" model="new SaveCandidateButtonViewModel(Model.Id, isSavedByMe)" />
-                        </li>
                     </ul>
 
                     @if (!string.IsNullOrWhiteSpace(Model.ResumeUrl))
                     {
-                        <a href="@(apiBaseUrl + Model.ResumeUrl)" target="_blank" rel="noopener" class="btn-one w-100 mt-25">Download CV</a>
+                        <a href="@(apiBaseUrl + Model.ResumeUrl)" target="_blank" rel="noopener" class="btn-one w-100 mt-25 text-center"><i class="bi bi-download"></i> Download CV</a>
+                    }
+
+                    <div class="mt-15">
+                        <partial name="_SaveCandidateButton" model="new SaveCandidateButtonViewModel(Model.Id, isSavedByMe)" />
+                    </div>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-controller="Home" asp-action="ContactUs" asp-route-topic="ReportUser"
+                           asp-route-reference="@Url.Action("Details", "Candidate", new { slug = Model.Slug })" class="text-muted small d-block mt-15"><i class="bi bi-flag"></i> Report this profile</a>
                     }
                 </div>
             </div>

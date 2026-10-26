@@ -54,6 +54,11 @@
             <a asp-controller="Posts" asp-action="Details" asp-route-id="@Model.Id" class="jb-count">
                 <i class="bi bi-chat"></i> @Model.Comments
             </a>
+            @if (User.Identity?.IsAuthenticated == true && !Model.CanDelete)
+            {
+                <a asp-controller="Home" asp-action="ContactUs" asp-route-topic="ReportPost"
+                   asp-route-reference="@Url.Action("Details", "Posts", new { id = Model.Id })" class="text-muted small ms-auto">Report</a>
+            }
         </div>
         @if (!string.IsNullOrWhiteSpace(Model.Caption))
         {

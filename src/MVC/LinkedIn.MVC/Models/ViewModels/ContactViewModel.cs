@@ -18,5 +18,9 @@ public sealed class ContactViewModel
 
     [Required(ErrorMessage = "Message is required.")]
     [MaxLength(4000, ErrorMessage = "Message must be 4000 characters or fewer.")]
+    public string Topic { get; set; } = "General";
+
+    [MaxLength(300)]
+    public string? Reference { get; set; }
     public string Message { get; set; } = string.Empty;
 }
